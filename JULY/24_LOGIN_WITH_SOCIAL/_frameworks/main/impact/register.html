@@ -1,0 +1,174 @@
+{header}
+<script type="text/javascript" src="{url_tmpl_main}js/join.js{cache_version_param}"></script>
+<script>
+var joinLangParts = {
+    incorrect_date : '{j_incorrect_date}',
+	incorrect_email : '{j_incorrect_email}',
+    incorrect_city : '{j_we_need_a_city}',
+    next : '{j_next}',
+    done : '{j_done}',
+    incorrect_password_contain : '{j_invalid_password_contain}',
+    incorrect_password_length : '{max_min_length_password}',
+    incorrect_name : '{j_invalid_username}',
+    incorrect_name_length : '{max_min_length_username}',
+    choose_a_city : '{j_choose_a_city}',
+    choose_a_state : '{j_choose_a_state}'
+};
+usersAge={users_age};
+passwordLengthMin='{password_length_min}'*1;
+passwordLengthMax='{password_length_max}'*1;
+nameLengthMin='{username_length_min}'*1;
+nameLengthMax='{username_length}'*1;
+</script>
+<style>
+    select{ opacity: 0; height: 34px; width: 50px; }
+    .header{ min-height: 110vh; }
+    .header .cover{ min-height: 110vh; }
+    .wrap_header_cont{ height: 100vh; }
+    .wrap_header_cont .bl{ padding: 174px 0 0; }
+</style>
+        <div id="step-1" class="hide1">
+		<div class="slogan">{l_almost_there_just_a_little_more_to_go}</div>
+        <div class="bl_form_registration bl_form_registration_step_1">
+				<!-- begin_social_login -->
+                <div class="part br" >
+                    <p>{l_social_btn_info}</p>
+                    <ul class="bl_social_buttons bl_social_buttons_register">
+                    <!-- begin_social_login_item -->
+                        <li class="login_{social_login_item_type}"><a href="{social_login_item_url}">&nbsp;</a></li>
+                    <!-- end_social_login_item -->
+                    </ul>
+                    <div class="line_or">
+                        <div class="line_top"></div>
+                        <div class="or">{l_or}</div>
+                        <div class="line_bottom"></div>
+                    </div>
+                </div>
+				<!-- end_social_login -->
+
+                <div id="bl_frm_register" class="part">
+
+                    <div class="bl">
+                        <label>{l_i_am}</label>
+                        <div class="bl_select">
+                            <select id="bl_join_done_orientation" name="orientation" class="i_am">
+                            {orientation_options}
+                            </select>
+                            <div id="orientation_error" class="error to_hide">{l_orientation_is_required}</div>
+                        </div>
+                    </div>
+
+                    <div class="bl">
+                        <label>{l_name}</label>
+                        <div class="bl_inp_pos">
+                            <input id="join_name" class="inp name placeholder" name="join_name" maxlength="100" type="text" placeholder="{a_this_will_be_public}" value="{join_handle}"/>
+                            <div id="join_name_error" class="error to_hide">&nbsp;</div>
+                        </div>
+                    </div>
+
+                    <div class="bl">
+                        <label>{l_date_birth}</label>
+						<form name="frm_date" action="" autocomplete="off">
+                            <div class="inp_birth dd">
+                                <select name="day" id="day" class="birthday">
+                                {day_options}
+                                </select>
+                            <!--<div id="day_check" class="icon_check to_hide"></div>-->
+                            </div>
+                            <div class="inp_birth mm">
+                                <select name="month" id="month" class="birthday">
+                                {month_options}
+                                </select>
+                            </div>
+                            <div class="inp_birth yy">
+                                <select name="year" id="year" class="birthday">
+    							{year_options}
+                                </select>
+                            </div>
+                        </form>
+						<div id="birth_error" class="error to_hide">&nbsp;</div>
+						<div class="cl"></div>
+                    </div>
+
+                    <div class="bl">
+                        <label>{l_phone_number}</label>
+                        <div class="bl_inp_pos">
+                            <input id="join_phone_number" class="inp phone placeholder" name="_phone" type="number" placeholder="{l_phone_number}" value="{join_phone}"/>
+                            <input type="hidden" name="join_phone" id="full_phone_number"/>
+                            <div id="phone_error" class="error to_hide">&nbsp;</div>
+                        </div>
+                    </div>
+
+                    <div class="bl">
+                        <label>{l_email}</label>
+                        <div class="bl_inp_pos">
+                        	<input id="email" name="email" class="inp email placeholder" type="text" placeholder="{a_placeholder_email}" value="{email}"/>
+                            <div id="email_check" class="icon_check to_hide"></div>
+                            <div id="email_error" class="error to_hide">&nbsp;</div>
+                        </div>
+                    </div>
+
+                    <div class="bl">
+                        <label>{l_password}</label>
+                        <div class="bl_inp_pos">
+                            <input id="password" class="inp psw placeholder" name="join_password" type="password" placeholder="{a_password}" value=""/>
+                            <div id="password_check" class="icon_check to_hide"></div>
+                            <div id="password_error" class="error to_hide">&nbsp;</div>
+                        </div>
+                    </div>
+    
+                    <div class="bl signup_as">
+                        <label>{l_signup_as}</label>
+                        <div class="bl_select">
+                            <select id="bl_join_signup_as" name="signup_as" class="i_am">
+                                <option value="self">Self</option>
+                                <option value="guardian">Guardian</option>
+                                <option value="sibling">Sibling</option>
+                                <option value="friend">Friend</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <span class="sign custom_checkbox">
+                        <input id="agree" name="privacy_policy" value="1" type="checkbox"/>
+                        <label for="agree"><span></span>{l_i_agree_to_the}</label>
+                        <a href="" onclick="infoOpen('terms'); return false;">{l_terms}</a>
+                        <label for="agree">{l_and}</label>
+                        <a href="" onclick="infoOpen('priv'); return false;">{l_privacy_policy}</a>
+                        <span class="cl"></span>
+                    </span>
+
+                    <button id="frm_register_submit" class="btn pink disabled" disabled>{l_next}</button>
+
+                    <span id="agree_error" class="error to_hide">{l_you_need_to_agree_to_the_terms}</span>
+
+                </div>
+            <div class="cl"></div>
+        </div>
+        </div>
+        <div id="step-2" class="hide step-2">
+            <div class="slogan">{l_the_last_step_donrsquot_stop_now}</div>
+            <div class="bl_form_registration">
+                <div class="part center">
+                    <div class="bl">
+                        <label>{l_username}</label>
+                        <div class="bl_inp_pos">
+                            <input id="name" class="inp username placeholder" name="join_handle" maxlength="{username_length}" type="text" placeholder="{a_this_will_be_public}" value="{join_handle}"/>
+                            <div id="name_check" class="icon_check to_hide"></div>
+                            <div id="name_error" class="error to_hide">&nbsp;</div>
+                        </div>
+                    </div>
+                    <!-- <div class="bl">
+                        <label>{l_password}</label>
+                        <div class="bl_inp_pos">
+                            <input id="password" class="inp psw placeholder" name="join_password" type="password" placeholder="{a_password}" value=""/>
+                            <div id="password_check" class="icon_check to_hide"></div>
+                            <div id="password_error" class="error to_hide">&nbsp;</div>
+                        </div>
+                    </div> -->
+                    <button id="frm_register_submit_2" class="btn pink" disabled>{l_done}</button>
+                </div>
+            <div class="cl"></div>
+            </div>
+        </div>
+{footer}
