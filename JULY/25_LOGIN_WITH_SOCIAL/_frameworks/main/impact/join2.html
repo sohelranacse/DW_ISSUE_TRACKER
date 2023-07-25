@@ -1,0 +1,202 @@
+{header}
+<script type="text/javascript" src="{url_tmpl_main}js/join.js{cache_version_param}"></script>
+<script>
+    var joinLangParts = {
+        incorrect_captcha : '{j_incorrect_captcha}',
+        done : '{j_done}',
+        errorFileSizeLimit : '{max_photo_file_size_limit}',
+        acceptFileTypes : '{j_accept_file_types}',
+        errorFileUploadFailed : '{j_photo_file_upload_failed}',
+        noConfirmationAccount : '{j_no_confirmation_account}',
+        existsEmail : '{j_exists_email}',
+        unlike : '{j_unlike}',
+		like : '{j_like}',
+        slogan_1 : '{slogan_1}',
+        slogan_2 : '{slogan_2}',
+        slogan_3 : '{j_kickstart_your_profile_by_adding_some_basics}',
+    };
+    var isJoinWithPhotoOnly='{join_with_photo_only}'*1,
+        fileSizeLimit='{photo_file_size_limit}'*1,
+        numberPhotoLikes='{number_photo_likes}'*1,
+        maxUsersPagesJoin='{usersinfo_pages_per_join}'*1;
+    var captcha='',isRecaptcha=false;
+    <!-- begin_re_captcha_js -->
+    isRecaptcha=true;
+    var onloadCallback = function() {
+        recaptchaWd = grecaptcha.render('recaptcha', {
+            'sitekey' : '{re_captcha_sitekey}',
+            'callback' : verifyCallback,
+            'theme' : '{re_captcha_theme}'
+        });
+    };
+    <!-- end_re_captcha_js -->
+</script>
+<!-- header -->
+<div class="header">
+    <!-- begin_show_join_step -->
+    <div id="join_step" class="step">
+        <ul>
+            <li class="selected"></li>
+            <li style="display:none;"></li>
+            <li style="display:none;"></li>
+        </ul>
+        <script>setStepJoin();</script>
+    </div>
+    <!-- end_show_join_step -->
+    <div class="slogan"><span id="join_slogan"></span></div>
+    <script>setSlogan();</script>
+    <div class="logo">
+        <a href="{url_main}{url_page_index}"><img src="{header_url_logo}" style="max-height:45px;  max-width:238px;<!-- begin_logo_params -->height:{logo_height}px;<!-- end_logo_params -->" alt="" /></a>
+    </div>
+</div>
+<!-- /header -->
+<!-- content -->
+<div class="content">
+    <!-- cont_vc -->
+    <div class="cont_vc">
+<!-- begin_question -->
+<div id="full_step_1" class="bl_card_question" style="display:none;">
+    <div class="card_question_cont">
+        <div id="card_question_no" class="card_question no hide answer">
+            <div class="question_vh">
+                <img src="{url_tmpl_main}images/icon_card_answer_no.png" width="224" height="224" alt="" />
+                <span>{l_no}</span>
+            </div>
+        </div>
+        <div id="card_question_yes" class="card_question yes hide answer">
+            <div class="question_vh">
+                <img src="{url_tmpl_main}images/icon_card_answer_yes.png" width="224" height="224" alt="" />
+                <span>{l_yes}</span>
+            </div>
+        </div>
+        <!-- begin_question_item -->
+        <div data-field="{question_item_name}" class="card_question <!-- begin_question_item_first -->first<!-- end_question_item_first -->">
+            <div class="count">{question_item_number}</div>
+            <div class="question_txt">{question_item_question}</div>
+        </div>
+        <!-- end_question_item -->
+        <div class="card_decor_left1"></div>
+        <div class="card_decor_left2"></div>
+        <div class="card_decor_right1"></div>
+    </div>
+    <div class="card_question_btn">
+        <button data-action="0" class="btn large pink fl_left btn_question">{l_no}</button>
+        <button data-action="1" class="btn large turquoise fl_right btn_question">{l_yes}</button>
+        <div class="cl"></div>
+    </div>
+</div>
+<script>$(function(){$jq('#full_step_1').delay(150).fadeIn(500);})</script>
+
+<div id="full_step_2" class="bl_card_question" style="display:none">
+    <div class="bl_card_type">
+        <div id="list_photos_card" class="list_photos_card" >
+            <div class="cl"></div>
+        </div>
+    </div>
+</div>
+<!-- end_question -->
+<div id="full_step_3" class="bl_card_profile" <!-- begin_final_step_hide -->style="display:none"<!-- end_final_step_hide -->>
+    <div class="card_profile">
+        <div class="part_photo">
+            <div class="upload_file">
+                <form id="photo_upload" data-id="" method="post" enctype="multipart/form-data" action="{url_page}">
+                    <div class="upload">
+                        <img id="photo_img" class="pic" src="" />
+                        <div id="photo_loader" class="bl photo_loader to_hide">
+                            <div class="css_loader photo_upload_loader">
+                                <div class="spinner spinnerw center">
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                    <div class="spinner-blade"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bl photo_add">{l_add_a_photo}</div>
+                        <input id="photo_upload_file" name="photo_upload_file" class="file" accept="image/jpeg,image/png,image/gif" onChange="changeUploadPhoto($(this));" type="file" accept=""/>
+                    </div>
+                    <div class="upload_pic">
+                        <input id="photo_upload_file_bind" name="photo_upload_file_bind" accept="image/jpeg,image/png,image/gif" class="file" onChange="changeUploadPhoto($(this));" type="file" accept=""/>
+                    </div>
+                    <input id="photo_upload_reset" style="display:none;" type="reset" value=""/>
+                    <input id="photo_upload_submit" style="display:none;" type="submit"/>
+                </form>
+            </div>
+            <div id="photo_upload_error" class="error" title=""></div>
+            <div class="name">{user_name}</div>
+            <!-- <div class="name_info">{user_age}, {user_city}</div> -->            
+            <div class="name_info">{user_phone}</div>
+        </div>
+
+        <div id="frm_card_join" class="card_profile_info card_join">
+            <!-- begin_basic -->
+            <div class="bl bl_basic">
+            <div class="title">{field}</div>
+            <div id="{name}_error" class="error to_hide">{l_required_field}</div>
+            <!-- begin_textarea -->
+            <textarea id="{name}" class="placeholder_always fl_basic" name="{name}" placeholder="{value}" maxlength="{maxlen}"></textarea>
+            <!-- end_textarea -->
+            <!-- begin_text -->
+            <input id="{name}" class="placeholder_always fl_basic basic_field" name="{name}" type="text" placeholder="{value}" maxlength="{maxlen}" value=""/>
+            <!-- end_text -->
+            </div>
+            <!-- end_basic -->
+            <!-- begin_default_captcha -->
+            <div class="bl">
+                <div title="{a_refresh}" class="capcha capcha_img" onclick="refreshCaptcha();">
+					<img id="img_join_captcha" src="{url_main}_server/securimage/securimage_show_custom.php?sid={sid}" alt="" />
+				</div>
+				<div class="bl_inp_pos">
+                    <input id="captcha" name="captcha" class="inp capcha placeholder" type="text" placeholder="{a_enter_the_symbols_you_see}" value="" />
+                    <div id="captcha_error" class="error to_hide">{l_incorrect_captcha}</div>
+                </div>
+                <div class="cl"></div>
+            </div>
+			<!-- end_default_captcha -->
+			<!-- begin_re_captcha -->
+			<div class="bl">
+				<div class="recaptcha_bl">
+                    <div id="recaptcha" class="recaptcha"></div>
+                    <div id="captcha_error" class="error to_hide">{l_incorrect_captcha}</div>
+                </div>
+				<div class="cl"></div>
+            </div>
+			<!-- end_re_captcha -->
+            <button id="join_done" class="btn turquoise small btn_join_submit">{l_done}</button>
+        </div>
+    </div>
+</div>
+<div id="step_loader" class="css_loader full_step_2_loader">
+    <div class="spinner spinnerw center">
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+    </div>
+</div>
+<!-- begin_re_captcha_script -->
+<script src="//www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl={re_captcha_lang}" async defer></script>
+<!-- end_re_captcha_script -->
+    	</div>
+        <!-- /cont_vc -->
+    </div>
+    <!-- /content -->
+</div>
+<!-- /main -->
+{footer}
