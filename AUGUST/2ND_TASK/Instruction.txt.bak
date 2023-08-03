@@ -1,0 +1,8 @@
+1. Add Language
+
+	group_admin = Group Admin
+	
+2. user table - Edit structure
+	'user','group_admin','demo_admin'
+	
+3.
