@@ -63,7 +63,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title">{l_title_current}</h4>
+					<h4 class="card-title">{l_title_current} - {groupAdmin_name}</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -73,7 +73,6 @@
 				</div>
 				<div class="card-content collapse show">
 					<div class="card-body">
-						
 						<!-- begin_main_pages -->
 						<div class="total_pages">
 							<p class="num_total">{num_total} {l_count_users}</p>
@@ -154,7 +153,16 @@
 										<!-- begin_params_asc_password -->&uarr;<a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_asc_password -->
 										<!-- begin_params_desc_password -->&darr;<a href="{url_page}?{params_current}">{l_password}</a><!-- end_params_desc_password -->
 									</th>
-									<th>{l_under_user}</th>
+									<th>
+										<!-- begin_params_none_type --><a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_none_type -->
+										<!-- begin_params_asc_type -->&uarr;<a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_asc_type -->
+										<!-- begin_params_desc_type -->&darr;<a href="{url_page}?{params_current}">{l_type}</a><!-- end_params_desc_type -->
+									</th>
+									<th>
+										<!-- begin_params_none_gold_days --><a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_none_gold_days -->
+										<!-- begin_params_asc_gold_days -->&uarr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_asc_gold_days -->
+										<!-- begin_params_desc_gold_days -->&darr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_desc_gold_days -->
+									</th>
 									<th>
 										<!-- begin_params_none_mail --><a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_none_mail -->
 										<!-- begin_params_asc_mail -->&uarr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_asc_mail -->
@@ -190,13 +198,18 @@
 									<td>
 										<a href="{url_main}administration/users_edit.php?id={user_id}">{l_edit}</a>
 										|
+										<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete('{user_id}')}); return false;">{l_delete}</a>
+										<!-- begin_blog -->
+										|
+										<a href="{url_main}administration/blogs_blogger_posts.php?id={user_id}">{l_blog}</a>
+										<!-- end_blog -->
+										|
 										<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban('{user_id}')}); return false;">{ban_action}</a>
 									</td>
 									<td><a class="blank" target="_blank" href="../{url_profile}">{name}</a></td>
 									<td>{password}</td>
-
-									<td><a href="{url_main}administration/users_under_admin.php?id={user_id}" target="_blank">{underUser}</a></td>
-
+									<td class="a_c">{type}</td>
+									<td>{gold_days}</td>
 									<td>{mail}</td>
 									<td>{orientation}</td>
 									<td class="a_c">{age}</td>

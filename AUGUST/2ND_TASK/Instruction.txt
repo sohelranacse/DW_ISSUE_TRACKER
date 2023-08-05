@@ -7,4 +7,7 @@
 	
 	- Change data for testing
 	
-3.
+	- Create column -
+	ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL' AFTER `role`;
+	
+3.$this->m_sql_where = "role ='group_admin' " . $where;

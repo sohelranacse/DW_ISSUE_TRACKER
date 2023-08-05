@@ -1,12 +1,28 @@
 <?php
+/* (C) Websplosion LLC, 2001-2021
+
+IMPORTANT: This is a commercial software product
+and any kind of using it must agree to the Websplosion's license agreement.
+It can be found at http://www.chameleonsocial.com/license.doc
+
+This notice may not be removed from the source code. */
 
 include("../_include/core/administration_start.php");
 
-class GroupAdmin extends CHtmlList
+$cmd = get_param('cmd', '');
+if($cmd != 'location') {
+	$g_user = User::getInfoFull(get_param('id', ''));
+	if(!$g_user) {
+		redirect('group_admin.php');
+	}
+}
+
+class CUserAdmin extends CHtmlList
 {
 	function action()
 	{
 		global $g, $p;
+		global $g_user;
 
 		$del = get_param('delete');
         $banned = intval(get_param('ban'));
@@ -45,6 +61,7 @@ class GroupAdmin extends CHtmlList
 	function init()
 	{
 		global $g;
+		global $g_user;
 
         $this->m_on_page = 20;
 		$this->m_on_bar = 10;
@@ -53,7 +70,6 @@ class GroupAdmin extends CHtmlList
 		$this->m_sql = "
 			SELECT u.user_id, u.mail, u.type, u.orientation, u.password, u.gold_days, u.name, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
 			) AS age, u.last_visit,
-			(SELECT COUNT(*) FROM user WHERE under_admin = u.user_id) AS underUser,
 			u.is_photo,
 			u.city_id, u.state_id, u.country_id, u.last_ip, u.register, u.ban_global
 			FROM user AS u
@@ -63,7 +79,6 @@ class GroupAdmin extends CHtmlList
 		$this->m_field['user_id'] = array("user_id", null);
 		$this->m_field['name'] = array("name", null);
 		$this->m_field['age'] = array("age", null);
-		$this->m_field['underUser'] = array("underUser", null);
 		$this->m_field['last_visit'] = array("last_visit", null);
 		$this->m_field['city_title'] = array("city", null);
 		$this->m_field['state_title'] = array("state", null);
@@ -137,6 +152,20 @@ class GroupAdmin extends CHtmlList
             $where .= " AND register <=" . to_sql($r_to);
         }
 
+		/*$r_from = get_param("r_from", "0000-00-00");
+		$r_to = get_param("r_to", "0000-00-00");
+		if ($r_from != "0000-00-00" or $r_to != "0000-00-00")
+		{
+			#$from = explode("-", $r_from);
+			#$to = explode("-", $r_to);
+			#$r_from = mktime(0, 0, 0, $from[1], $from[2], $from[0] == "0000" ? "2000" : $from[0]);
+			#$r_to = mktime(0, 0, 0, $to[1], $to[2], $to[0] == "0000" ? "2000" : $to[0]);
+			#if ($r_from < $r_to)
+			{
+				$where .= " AND register>" . to_sql($r_from) . " AND register<" . to_sql($r_to) . "";
+			}
+		}*/
+
 		$user['p_age_from'] = (int) get_param("p_age_from", 0);
 		$user['p_age_to'] = (int) get_param("p_age_to", 0);
         if ($user['p_age_to'] == $g['options']['users_age_max']) $user['p_age_to'] = 10000;
@@ -200,13 +229,14 @@ class GroupAdmin extends CHtmlList
             $where .= ' AND use_as_online = ' . to_sql($useAsOnline);
         }
 
-		$this->m_sql_where = "role ='group_admin' " . $where;
+		$this->m_sql_where = " under_admin = ".to_sql($g_user['user_id'])." " . $where;
 		$this->m_sql_order = "user_id";
 		$this->m_sql_from_add = "";
-		// dd($this->m_sql_where);
 	}
 	function parseBlock(&$html)
 	{
+		global $g_user;
+		$html->setvar('groupAdmin_name', $g_user['name']);
 		parent::parseBlock($html);
 	}
     function onPostParse(&$html)
@@ -228,17 +258,29 @@ class GroupAdmin extends CHtmlList
 		$this->m_field['country_title'][1] = DB::result("SELECT country_title FROM geo_country WHERE country_id=" . $row['country_id'] . "", 0, 2);
 		if ($this->m_field['country_title'][1] == "") $this->m_field['country_title'][1] = "blank";
 
+                if (Common::getOption('set', 'template_options') != 'urban')
+                {
+                    $html->setvar('user_id',  $row['user_id']);
+                    $html->parse('blog',false);
+                    if ($row['type'] == 'membership')
+                    {
+                        $this->m_field['type'][1] = l('platinum');
+                    } else {
+                        $this->m_field['type'][1] = l($row['type']);
+                    }
+                } else {
+                    if ($row['type'] != 'none')
+                    {
+                        if ($row['gold_days'] > 0){
+                            $this->m_field['type'][1] = l('Super Powers!');
+                        } else {
+                            $this->m_field['type'][1] = l('none');
+                        }
+                    } else {
+                        $this->m_field['type'][1] = l($row['type']);
+                    }
+                }
 
-        if ($row['type'] != 'none')
-        {
-            if ($row['gold_days'] > 0){
-                $this->m_field['type'][1] = l('Super Powers!');
-            } else {
-                $this->m_field['type'][1] = l('none');
-            }
-        } else {
-            $this->m_field['type'][1] = l($row['type']);
-        }
 		if($row['ban_global']){
 			$this->m_field['ban_action'][1] = l('unban');
 		} else {
@@ -251,6 +293,10 @@ class GroupAdmin extends CHtmlList
 			$this->m_field['orientation'][1] = l("Invalid orientation");
 		}
         $this->m_field['password'][1] = hard_trim($row['password'], 7);
+		if (IS_DEMO) {
+			$this->m_field['mail'][1] = 'disabled@ondemoadmin.cp';
+			$this->m_field['password'][1] = 'not shown in the demo';
+		}
 
         if ($i % 2 == 0) {
             $html->setvar("class", 'color');
@@ -265,7 +311,7 @@ class GroupAdmin extends CHtmlList
 	}
 }
 
-$page = new GroupAdmin("main", $g['tmpl']['dir_tmpl_administration'] . "group_admin.html");
+$page = new CUserAdmin("main", $g['tmpl']['dir_tmpl_administration'] . "users_under_admin.html");
 $header = new CAdminHeader("header", $g['tmpl']['dir_tmpl_administration'] . "_header.html");
 $page->add($header);
 $footer = new CAdminFooter("footer", $g['tmpl']['dir_tmpl_administration'] . "_footer.html");

@@ -2946,3 +2946,10 @@ $l['users_edit.php']['user_video'] = "Videos";
 // created by sohel
 $l['group_admin.php']['title_current'] = "Group Admin";
 $l['group_admin.php']['add_group_admin'] = "Add Group Admin";
+$l['group_admin.php']['mail'] = "Mail";
+$l['group_admin.php']['under_user'] = "Under Admin";
+
+$l['users_edit.php']['assign_group_admin'] = "Assign Group Admin";
+
+$l['users_under_admin.php']['title_current'] = "Users Under Admin";
+$l['users_under_admin.php']['mail'] = "Mail";

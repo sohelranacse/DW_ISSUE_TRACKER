@@ -1,0 +1,857 @@
+{header}
+
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.location.js{cache_version_param}"></script>
+
+<div class="content-header row">
+	<div class="content-header-left col-md-4 col-12 mb-2">
+		<h3 class="content-header-title">{l_title_current}</h3>
+	</div>
+	<div class="content-header-right col-md-8 col-12">
+		<div class="breadcrumbs-top float-md-right">
+			<div class="breadcrumb-wrapper mr-1">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{url_main}administration/users_results.php">{l_mmenu_users}</a>
+					</li>
+					<li class="breadcrumb-item active">
+						{l_title_current}
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+{menu_page}
+
+<div class="content-body">
+
+	<div class="alert alert-success border-0 alert-dismissible mb-2-1" role="alert">{l_changes_save}</div>
+	<div class="alert alert-danger alert-dismissible mb-2-1" role="alert">{l_changes_delete}</div>
+	<div class="alert alert-danger alert-dismissible mb-2-1" role="alert">{message}</div>
+
+	<form id="frm_users_edit" method="POST" action="{url_main}administration/users_edit.php?cmd=update&id={user_id}" name="EditProfileBasicForm">
+	<div id="user-profile">
+		<div class="row profile-bl">
+			<div class="profile-bl-before"></div>
+			<div class="col-sm-12"><!-- col-xl-8 -->
+				<div class="media d-flex m-1 ">
+					<div class="align-left p-1">
+						<a target="_blank" href="../{url_profile}" class="profile-image rounded-circle">
+                            <img src="{url_files}{user_photo}">
+						</a>
+					</div>
+					<div class="media-body text-left mt-1">
+						<h3 class="font-large-1 white">
+							{user_name}
+                            <span class="font-medium-1 white"></span>
+						</h3>
+						<p class="white">
+                            <i class="ft-map-pin white"></i> {city_title}, {state_title}, {country_title}
+						</p>
+                        <p class="white text-bold-300 d-none d-sm-block profile-about">{header_profile_about}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xl-4 col-lg-5 col-md-12">
+				<div class="card">
+					<div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+                            <h4 class="card-title"><i class="fa fa-id-card-o"></i> {l_basic_information}</h4>
+                            <hr>
+                        </div>
+					</div>
+					<div class="card-content">
+                        <div class="card-body pt-0 pb-1">
+							<fieldset class="form-group bl_label custom-switch mb-2">
+								<input id="use_as_online" class="custom-control-input i_checkbox" type="checkbox" name="use_as_online" value="1" {use_as_online}>
+								<label class="custom-control-label" for="use_as_online">{l_use_as_online}</label>
+							</fieldset>
+
+							<fieldset class="form-group bl_label custom-switch mb-2">
+								<input id="user_role" class="custom-control-input i_checkbox" type="checkbox" name="user_role" value="1" {user_role}>
+								<label class="custom-control-label" for="user_role">{l_assign_group_admin}</label>
+							</fieldset>
+
+							<fieldset class="form-group">
+								<label>{l_username}:</label>
+								<input type="text" maxlength="{username_length}" name="username" value="{user_name}" class="form-control">
+							</fieldset>
+
+							<fieldset class="form-group">
+								<label>{l_password}:</label>
+								<input type="text" name="password" value="{password}" class="form-control">
+							</fieldset>
+
+							<!-- begin_const -->
+							<fieldset class="form-group">
+								<label>{field}:</label>
+								<select class="form-control" name="{name}">
+								{options}
+								</select>
+							</fieldset>
+							<!-- end_const -->
+
+							<fieldset class="form-group">
+								<label>{l_email_address}:</label>
+								<input type="text" name="email" value="{mail}" class="form-control">
+							</fieldset>
+
+							<!-- begin_field_birthday_bl -->
+							<fieldset class="form-group">
+								<label>{l_date_of_birth}:</label>
+								<select name="day" class="form-control">
+								{day_options}
+								</select>
+
+								<select name="month" class="form-control mt-1" onChange="updateDay('month','EditProfileBasicForm','year','month','day')">
+								{month_options}
+								</select>
+
+								<select name="year" class="form-control mt-1" onChange="updateDay('year','EditProfileBasicForm','year','month','day')">
+								{year_options}
+								</select>
+							</fieldset>
+							<!-- end_field_birthday_bl -->
+
+
+							<fieldset class="form-group">
+								<label>{l_location}:</label>
+								<select class="form-control" name="country"  id="country">
+								{country_options}
+								</select>
+
+								<select class="form-control mt-1" name="state" id="state">
+								<option value="0">- {l_state_province} -</option>
+								{state_options}
+								</select>
+
+								<select class="form-control mt-1" name="city" id="city">
+								<option value="0">- {l_city} -</option>
+								{city_options}
+								</select>
+							</fieldset>
+
+							<fieldset class="form-group mt-2">
+								<button class="btn btn-primary btn_submit w-100" type="submit">{l_update_profile}</button>
+							</fieldset>
+                        </div>
+					</div>
+            </div>
+
+			<!-- begin_profile_status -->
+			<div class="card">
+				<div class="card-header pb-0">
+					<div class="card-title-wrap bar-primary">
+                        <h4 class="card-title"><i class="fa fa-heartbeat" aria-hidden="true"></i> {l_profile_status}</h4>
+                        <hr>
+                    </div>
+				</div>
+				<div class="card-content">
+					<div class="card-body pt-0 pb-1">
+						<fieldset class="form-group">
+							<input class="form-control" type="text" name="profile_status" value="{profile_status}" maxlength="{profile_status_max_length}">
+						</fieldset>
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit w-100" type="submit">{l_update_profile}</button>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+			<!-- end_profile_status -->
+
+			<div class="card">
+				<div class="card-header">
+                    <h4 class="card-title"><i class="fa fa-diamond" aria-hidden="true"></i> {l_paid_settings}</h4>
+                    <hr>
+				</div>
+				<div class="card-content collapse show">
+					<div class="card-body pb-1 mt-n2">
+                        <!-- begin_type_plan -->
+						<fieldset class="form-group">
+							<label>{l_type}:</label>
+							<select name="type" class="form-control">
+							{type_options}
+							</select>
+						</fieldset>
+						<!-- end_type_plan -->
+
+						<!-- begin_user_gold_days -->
+						<fieldset class="form-group">
+							<label>{l_gold_days_left}:</label>
+							<input class="form-control" type="text" maxlength="{paid_days_length}" name="gold_days" value="{gold_days}">
+						</fieldset>
+						<!-- end_user_gold_days -->
+
+						<!-- begin_user_credits -->
+						<fieldset class="form-group">
+							<label>{l_credits_left}:</label>
+							<input class="form-control" type="text" name="credits" value="{credits}">
+						</fieldset>
+						<!-- end_user_credits -->
+
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit w-100" type="submit">{l_update_profile}</button>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-header pb-0">
+					<div class="card-title-wrap bar-primary">
+                        <h4 class="card-title"><i class="fa fa-link" aria-hidden="true"></i> {l_assign_user}</h4>
+                        <hr>
+                    </div>
+				</div>
+				<div class="card-content">
+					<div class="card-body pt-0 pb-1">
+						<fieldset class="form-group bl_label custom-switch">
+							<input class="custom-control-input i_checkbox" id="user_admin"  type="checkbox" name="user_admin" value="1" {checked_user_admin}>
+							<label class="custom-control-label" for="user_admin">{l_assign_user_as_sender_of_welcoming_message}</label>
+						</fieldset>
+
+						<!-- begin_moderator -->
+						<fieldset class="form-group bl_label custom-switch">
+							<input class="custom-control-input i_checkbox" id="moderator_profiles"  type="checkbox" name="moderator_profiles" value="1" {moderator_profiles}>
+							<label class="custom-control-label" for="moderator_profiles">{l_moderator_profiles}</label>
+						</fieldset>
+						<fieldset class="form-group bl_label custom-switch">
+							<input class="custom-control-input i_checkbox" id="moderator_photo"  type="checkbox" name="moderator_photo" value="1" {moderator_photo}>
+							<label class="custom-control-label" for="moderator_photo">{l_moderator_photo}</label>
+						</fieldset>
+						<fieldset class="form-group bl_label custom-switch">
+							<input class="custom-control-input i_checkbox" id="moderator_vids_video"  type="checkbox" name="moderator_vids_video" value="1" {moderator_vids_video}>
+							<label class="custom-control-label" for="moderator_vids_video">{l_moderator_video}</label>
+						</fieldset>
+						<fieldset class="form-group bl_label custom-switch">
+							<input class="custom-control-input i_checkbox" id="moderator_texts"  type="checkbox" name="moderator_texts" value="1" {moderator_texts}>
+							<label class="custom-control-label" for="moderator_texts">{l_moderator_text}</label>
+						</fieldset>
+						<!-- end_moderator -->
+
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit w-100" type="submit">{l_update_profile}</button>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-header pb-0">
+					<div class="card-title-wrap bar-primary">
+						<h4 class="card-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {l_other_data}</h4>
+                        <hr>
+                    </div>
+				</div>
+				<div class="card-content">
+					<div class="card-body pt-0 pb-1">
+						<ul class="lmenu_page">
+							<!-- begin_menu_editblog -->
+							<li>
+								<a href="{url_main}administration/blogs_blogger_posts.php?id={user_id}">{l_editblog}</a>
+								<span class="marker">•</span>
+							</li>
+							<!-- end_menu_editblog -->
+							<!-- begin_menu_im -->
+							<li>
+								<a href="{url_main}administration/look_message_im.php?user_id={user_id}">{l_user_im}</a>
+								<span class="marker">•</span>
+							</li>
+							<!-- end_menu_im -->
+							<!-- begin_menu_chat -->
+							<li>
+								<a href="{url_main}administration/look_message_chat.php?user_id={user_id}">{l_user_chat}</a>
+								<span class="marker">•</span>
+							</li>
+							<!-- end_menu_chat -->
+							<!-- begin_menu_mail -->
+							<li>
+								<a href="{url_main}administration/look_message_mail.php?user_id={user_id}">{l_user_mails}</a>
+								<span class="marker">•</span>
+							</li>
+							<!-- end_menu_mail -->
+							<!-- begin_menu_add_spotlight -->
+							<li>
+								<a href="{url_main}administration/users_edit.php?id={user_id}&cmd=add_spotlight"  onclick="confirmCustom('{j_are_you_sure}',function(){redirectUrl('{url_main}administration/users_edit.php?id={user_id}&cmd=add_spotlight')}); return false;">{l_add_to_the_spotlight}</a>
+								<span class="marker">•</span>
+							</li>
+							<!-- end_menu_add_spotlight -->
+							<!-- begin_menu_remove_spotlight -->
+							<li>
+								<a href="{url_main}administration/users_edit.php?id={user_id}&cmd=remove_spotlight" onclick="confirmCustom('{j_are_you_sure}',function(){redirectUrl('{url_main}administration/users_edit.php?id={user_id}&cmd=remove_spotlight')}); return false;">{l_remove_from_the_spotlight}</a>
+								<span class="marker">•</span>
+							</li>
+							<!-- end_menu_remove_spotlight -->
+
+							<!-- begin_menu_user_video -->
+							<li>
+								<a href="{url_main}administration/vids_user_videos.php?id={user_id}">{l_user_video}</a>
+								<span class="marker">•</span>
+							</li>
+							<!-- end_menu_user_video -->
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- Right column -->
+		<div class="col-xl-8 col-lg-7 col-md-12">
+			<!-- begin_personal_enabled -->
+				<!-- begin_personal_text_and_looking -->
+				<div class="card">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-info-circle" aria-hidden="true"></i> {l_profile_info}</h4>
+							<hr>
+						</div>
+					</div>
+					<div class="card-body pt-0">
+						<!-- begin_personal_fields_text -->
+						<!-- begin_fields_text -->
+						<!-- begin_text -->
+						<fieldset class="form-group">
+							<label>{field}:</label>
+							<input class="form-control inp_prepare" type="text" name="{name}" id="{name}" value="{value_input}" maxlength="{maxlen}">
+						</fieldset>
+						<!-- end_text -->
+
+						<!-- begin_textarea -->
+						<fieldset class="form-group">
+							<label>{field}:</label>
+							<textarea class="form-control inp_prepare h_120" name="{name}" id="{name}">{value_input}</textarea>
+						</fieldset>
+						<!-- end_textarea -->
+						<!-- end_fields_text -->
+						<fieldset class="form-group mt-2 mb-3">
+							<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+						</fieldset>
+						<!-- end_personal_fields_text -->
+
+						<!-- begin_edit_looking -->
+						<h4>{l_i_am_here_to}</h4>
+						<hr>
+						<!-- begin_i_am_here_to -->
+						<fieldset class="form-group skin skin-flat form-group-border">
+						<!-- begin_i_am_here_to_item -->
+						<div class="bl_label">
+							<input id="rb_{id}" class="form-check-inline form-check" name="{name}" value="{id}" type="radio" {checked}>
+							<label for="rb_{id}">{title}</label>
+						</div>
+						<!-- end_i_am_here_to_item -->
+						</fieldset>
+						<!-- end_i_am_here_to -->
+
+						<!-- begin_p_orientations -->
+						<fieldset class="form-group skin skin-flat  form-group-border <!-- begin_p_orientations_hide -->display:none;<!-- end_p_orientations_hide -->">
+						<!-- begin_p_orientation -->
+						<div class="bl_label">
+							<input class="form-check-input" id="rb_looking_{id}" name="{name}[]" value="{id}" type="checkbox" {checked} >
+							<label for="rb_looking_{id}">{title}</label>
+						</div>
+						<!-- end_p_orientation -->
+						</fieldset>
+						<!-- end_p_orientations -->
+						<!-- begin_age_range_urban -->
+						<fieldset class="form-group">
+							<span class="label_frm">{l_age_range}:</span>
+							<select class="form-control w-20 in_bl" name="p_age_from">{p_age_from_options}</select>
+							<span class="label_frm">{l_to}:</span>
+							<select class="form-control w-20 in_bl" name="p_age_to">{p_age_to_options}</select>
+						</fieldset>
+						<!-- end_age_range_urban -->
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+						</fieldset>
+						<!-- end_edit_looking -->
+					</div>
+				</div>
+				<!-- end_personal_text_and_looking -->
+
+				<!-- begin_personal_fields_1 -->
+				<div class="card">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {l_personal_details}</h4>
+							<hr>
+						</div>
+					</div>
+					<div class="card-body pt-0">
+
+						<!-- begin_personal_fields_item_1 -->
+						<!-- begin_int_1 -->
+						<fieldset class="form-group">
+							<label>{field}:</label>
+							<select class="form-control" name="{name}" {disabled}>
+							<option selected value="0">{l_please_choose}</option>
+							{options}
+							</select>
+						</fieldset>
+						<!-- end_int_1 -->
+						<!-- begin_personal_text_1 -->
+						<fieldset class="form-group">
+							<label>{field}:</label>
+							<input  class="form-control inp_prepare" type="text" name="{name}" id="{name}" value="{value_input}" maxlength="{maxlen}">
+						</fieldset>
+						<!-- end_personal_text_1 -->
+
+						<!-- begin_checkbox_1 -->
+						<fieldset class="form-group">
+							<label>{field_name}</label>
+							<select id="chk_{name}" data-checkbox="{name}" name="{name}[]" class="form-control select_multiple" multiple>
+								{options}
+							</select>
+						</fieldset>
+						<!-- begin_checkbox_item_1 -->
+						<script>
+							$('#chk_{name}').find('option[value="{value_selected}"]')
+							.prop('selected', true)
+							.attr('selected', 'selected');
+						</script>
+						<!-- end_checkbox_item_1 -->
+						<!-- end_checkbox_1 -->
+						<!-- end_personal_fields_item_1 -->
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+						</fieldset>
+					</div>
+				</div>
+				<!-- end_personal_fields_1 -->
+
+				<!-- begin_personal_fields_2 -->
+				<div class="card">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-male" aria-hidden="true"></i> {field_physical_datails}</h4>
+							<hr>
+						</div>
+					</div>
+					<div class="card-body pt-0">
+						<!-- begin_int_2 -->
+						<fieldset class="form-group">
+							<label>{field}:</label>
+							<select class="form-control"  name="{name}" {disabled}>
+							<option selected value="0">{l_please_choose}</option>
+							{options}
+							</select>
+						</fieldset>
+						<!-- end_int_2 -->
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+						</fieldset>
+					</div>
+				</div>
+				<!-- end_personal_fields_2 -->
+
+				<!-- begin_personal_fields_3 -->
+				<div class="card">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-list-alt" aria-hidden="true"></i> {l_other_details}</h4>
+							<hr>
+						</div>
+					</div>
+					<div class="card-body pt-0">
+						<!-- begin_int_3 -->
+						<fieldset class="form-group">
+							<label>{field}:</label>
+							<select class="form-control" name="{name}">
+							<option selected value="0">{l_please_choose}</option>
+							{options}
+							</select>
+						</fieldset>
+						<!-- end_int_3 -->
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+						</fieldset>
+					</div>
+				</div>
+				<!-- end_personal_fields_3 -->
+				<!-- end_personal_enabled -->
+
+				<!-- begin_partner_enabled -->
+					<!-- begin_age_range -->
+					<div class="card">
+						<div class="card-header pb-0">
+							<div class="card-title-wrap bar-primary">
+								<h4 class="card-title"><i class="fa fa-users" aria-hidden="true"></i> {l_profile_partner}</h4>
+								<hr>
+							</div>
+						</div>
+						<div class="card-body pt-0  skin skin-flat">
+							<div class="row p-1 pb-2 mb-n1">
+								<label>{l_age_range}:</label>
+							</div>
+							<div class="row">
+								<div class="col-xl-4 col-lg-3 col-md-6">
+									<fieldset class="form-group">
+										<span>{l_from}:</span>
+										<select class="form-control" name="p_age_from">
+											{p_age_from_options}
+										</select>
+									</fieldset>
+								</div>
+								<div class="col-xl-4 col-lg-3 col-md-6">
+									<fieldset class="form-group">
+										<span>{l_to}:</span>
+										<select class="form-control" name="p_age_to">
+											{p_age_to_options}
+										</select>
+									</fieldset>
+								</div>
+							</div>
+							<fieldset class="form-group mb-3">
+								<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+							</fieldset>
+						</div>
+					</div>
+					<!-- end_age_range -->
+
+					<!-- begin_partner_fields_1 -->
+					<div class="card checkbox_fields_area">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-info-circle" aria-hidden="true"></i> {l_partner} {l_personal_details}</h4>
+							<hr>
+						</div>
+					</div>
+					<div class="card-body pt-0  skin skin-flat">
+						<!-- begin_fields_checks_1 -->
+						<!-- begin_p_from_to_1 -->
+						<div class="row p-1 pb-2 mb-n1">
+							<label>{field}:</label>
+						</div>
+						<div class="row">
+							<div class="col-xl-4 col-lg-3 col-md-6">
+								<fieldset class="form-group">
+									<span>{l_from}:</span>
+									<select class="form-control" name="{name_from}" onChange="if (this.options[this.selectedIndex].value == '0') { document.forms['EditProfileBasicForm'].{name_to}.disabled = true; } else { document.forms['EditProfileBasicForm'].{name_to}.disabled = false;}">
+										<option selected value="0">{l_doesnt_matter}</option>
+										{from_options}
+									</select>
+								</fieldset>
+							</div>
+							<div class="col-xl-4 col-lg-3 col-md-6">
+								<fieldset class="form-group">
+									<span>{l_to}:</span>
+									<select class="form-control" name="{name_to}">
+										<option selected value="0">{l_doesnt_matter}</option>
+										{to_options}
+									</select>
+								</fieldset>
+							</div>
+						</div>
+						<!-- end_p_from_to_1 -->
+						<!-- begin_checks_1 -->
+						<div class="row p-1 pb-1">
+							<span>{field}:</span>
+						</div>
+						<div class="row">
+							<!-- begin_check_1 -->
+							<div class="col-xl-4 col-md-6">
+								<fieldset class="form-group">
+									<input name="{name}[]" id="{name}{id}" class="form-check-input i_checkbox" {checked} type="checkbox" value="{id}">
+									<label for="{name}{id}" class="profile_label">{title}</label>
+								</fieldset>
+							</div>
+							<!-- end_check_1 -->
+							<!-- begin_check_column_1 -->
+						</div>
+						<div class="row">
+						<!-- end_check_column_1 -->
+							<div class="col-xl-4 col-md-6">
+								<fieldset class="form-group">
+									<input name="{name}[]" id="{name}[]_0" class="form-check-input i_checkbox" {nm_check} type="checkbox" value="0">
+									<label for="{name}[]_0" class="profile_label">{l_doesnt_matter}</label>
+								</fieldset>
+							</div>
+						</div>
+						<!-- end_checks_1 -->
+						<!-- end_fields_checks_1 -->
+
+						<fieldset class="form-group mt-2">
+							<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+						</fieldset>
+					</div>
+					</div>
+					<!-- end_partner_fields_1 -->
+
+					<!-- begin_partner_fields_2 -->
+					<div class="card checkbox_fields_area">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-info-circle" aria-hidden="true"></i> {l_partner} {l_physical_details}</h4>
+							<hr>
+						</div>
+					</div>
+					<div class="card-body pt-0  skin skin-flat">
+					<!-- begin_fields_checks_2 -->
+					<!-- begin_p_from_to_2 -->
+					<div class="row p-1 pb-2 mb-n1">
+						<label>{field}:</label>
+					</div>
+					<div class="row">
+						<div class="col-xl-4 col-lg-3 col-md-6">
+							<fieldset class="form-group">
+								<span>{l_from}:</span>
+								<select class="form-control" name="{name_from}" onChange="if (this.options[this.selectedIndex].value == '0') { document.forms['EditProfileBasicForm'].{name_to}.disabled = true; } else { document.forms['EditProfileBasicForm'].{name_to}.disabled = false;}">
+									<option selected value="0">{l_doesnt_matter}</option>
+                                    {from_options}
+								</select>
+							</fieldset>
+						</div>
+						<div class="col-xl-4 col-lg-3 col-md-6">
+							<fieldset class="form-group">
+								<span>{l_to}:</span>
+								<select class="form-control" name="{name_to}">
+									<option selected value="0">{l_doesnt_matter}</option>
+                                    {to_options}
+								</select>
+							</fieldset>
+						</div>
+					</div>
+					<!-- end_p_from_to_2 -->
+					<!-- begin_checks_2 -->
+					<div class="row p-1 pb-1">
+						<span>{field}:</span>
+					</div>
+					<div class="row">
+						<!-- begin_check_2 -->
+						<div class="col-xl-4 col-md-6">
+							<fieldset class="form-group">
+								<input name="{name}[]" id="{name}{id}" class="form-check-input i_checkbox" {checked} type="checkbox" value="{id}">
+								<label for="{name}{id}" class="profile_label">{title}</label>
+							</fieldset>
+						</div>
+						<!-- end_check_2 -->
+					<!-- begin_check_column_2 -->
+					</div>
+					<div class="row">
+					<!-- end_check_column_2 -->
+						<div class="col-xl-4 col-md-6">
+							<fieldset class="form-group">
+								<input name="{name}[]" id="{name}[]_0" class="form-check-input i_checkbox" {nm_check} type="checkbox" value="0">
+								<label for="{name}[]_0" class="profile_label">{l_doesnt_matter}</label>
+							</fieldset>
+						</div>
+					</div>
+					<!-- end_checks_2 -->
+            		<!-- end_fields_checks_2 -->
+					<fieldset class="form-group mt-2">
+						<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+					</fieldset>
+					</div>
+					</div>
+					<!-- end_partner_fields_2 -->
+
+					<!-- begin_partner_fields_3 -->
+					<div class="card checkbox_fields_area">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-info-circle" aria-hidden="true"></i> {l_partner} {l_other_details}</h4>
+							<hr>
+						</div>
+					</div>
+					<div class="card-body pt-0  skin skin-flat">
+					<!-- begin_fields_checks_3 -->
+					<!-- begin_p_from_to_3 -->
+					<div class="row p-1 pb-2 mb-n1">
+						<label>{field}:</label>
+					</div>
+					<div class="row">
+						<div class="col-xl-4 col-lg-3 col-md-6">
+							<fieldset class="form-group">
+								<span>{l_from}:</span>
+								<select class="form-control" name="{name_from}" onChange="if (this.options[this.selectedIndex].value == '0') { document.forms['EditProfileBasicForm'].{name_to}.disabled = true; } else { document.forms['EditProfileBasicForm'].{name_to}.disabled = false;}">
+									<option selected value="0">{l_doesnt_matter}</option>
+                                    {from_options}
+								</select>
+							</fieldset>
+						</div>
+						<div class="col-xl-4 col-lg-3 col-md-6">
+							<fieldset class="form-group">
+								<span>{l_to}:</span>
+								<select class="form-control" name="{name_to}">
+									<option selected value="0">{l_doesnt_matter}</option>
+                                    {to_options}
+								</select>
+							</fieldset>
+						</div>
+					</div>
+					<!-- end_p_from_to_3 -->
+
+					<!-- begin_checks_3 -->
+					<div class="row p-1 pb-1">
+						<span>{field}:</span>
+					</div>
+					<div class="row">
+						<!-- begin_check_3 -->
+						<div class="col-xl-4 col-md-6">
+							<fieldset class="form-group">
+								<input name="{name}[]" id="{name}{id}" class="form-check-input i_checkbox" {checked} type="checkbox" value="{id}">
+								<label for="{name}{id}" class="profile_label">{title}</label>
+							</fieldset>
+						</div>
+						<!-- end_check_3 -->
+					<!-- begin_check_column_3 -->
+					</div>
+					<div class="row">
+					<!-- end_check_column_3 -->
+						<div class="col-xl-4 col-md-6">
+							<fieldset class="form-group">
+								<input name="{name}[]" id="{name}[]_0" class="form-check-input i_checkbox" {nm_check} type="checkbox" value="0">
+								<label for="{name}[]_0" class="profile_label">{l_doesnt_matter}</label>
+							</fieldset>
+						</div>
+					</div>
+					<!-- end_checks_3 -->
+					<!-- end_fields_checks_3 -->
+
+					<fieldset class="form-group mt-2">
+						<button class="btn btn-primary btn_submit" type="submit">{l_update_profile}</button>
+					</fieldset>
+					</div>
+					</div>
+					<!-- end_partner_fields_3 -->
+			<!--end_partner_enabled-->
+
+
+			<div class="card">
+                    <div class="card-header pb-0">
+                        <div class="card-title-wrap bar-primary">
+							<h4 class="card-title"><i class="fa fa-picture-o" aria-hidden="true"></i> {l_edit_photos} ({num_photos})</h4>
+							<hr>
+						</div>
+					</div>
+				<div class="card-body pt-0">
+
+					<!-- begin_photo_edit -->
+						<!-- begin_photo-->
+						<!-- begin_photo_item-->
+						<div class="profile_photo_item">
+							<img id="photo_{photo_id}" src="{url_files}{photo}">
+							<a id="photo_rotate_{photo_id}" data-photo-id="{photo_id}" data-user-id="{user_id}" data-photo-size="s" class="icon_rotate no_gallery" title="{a_rotate}" href="" >
+								<i class="ft-rotate-cw"></i>
+							</a>
+
+							<p class="mod_bl_pending">{visible}</p>
+							<p class="mod_bl_description" title="{description}">{description}&nbsp;</p>
+							<div class="mod_bl_action">
+								<a class="mod_link_action" onclick="confirmCustom('{j_this_action}',function(){redirectUrl('{url_main}administration/users_edit.php?cmd=delete_photo&photo_id={photo_id}&id={user_id}')}); return false;">{l_delete}</a>
+								<!-- begin_photo_access -->
+								<a class="mod_link_action" onclick="redirectUrl('{url_main}administration/users_edit.php?cmd=set_photo_access&photo_id={photo_id}&id={user_id}');">{photo_access}</a>
+								<!-- end_photo_access -->
+								<!-- begin_photo_approve -->
+								<a class="mod_link_action" onclick="redirectUrl('{url_main}administration/users_edit.php?cmd=approve_photo&photo_id={photo_id}&id={user_id}'); return false;">{l_photo_approve}</a>
+								<!-- end_photo_approve -->
+							</div>
+
+							<!-- begin_photo_odd-->
+							<!-- end_photo_odd-->
+							<!-- begin_photo_even-->
+							<!-- end_photo_even-->
+						</div>
+						<!-- end_photo_item-->
+
+						<!-- begin_nophoto_item-->
+						<!-- begin_nophoto_odd-->
+						<!-- end_nophoto_odd-->
+						<!-- begin_nophoto_even-->
+						<!-- end_nophoto_even-->
+						<!-- end_nophoto_item-->
+						<!-- end_photo-->
+						<!-- end_photo_edit -->
+
+						<h2 class="mt-2">{l_add_photo}</h2>
+						<hr>
+						<!-- begin_photo_add_access -->
+						<fieldset class="form-group skin skin-flat">
+							<input form="photo_insert" type="checkbox" id="private_photo" name="private" value="1">
+							<label for="private_photo">{l_private}</label>
+						</fieldset>
+						<!-- end_photo_add_access -->
+						<fieldset class="form-group">
+							<input class="form-control" form="photo_insert" type="text" name="description" placeholder="{l_description}">
+						</fieldset>
+
+						<!--<input form="photo_insert" type="file" name="photo_file">-->
+
+						<fieldset class="form-group upload-single-file">
+							<div id="dpz-upload-single-icon" data-name="photo_file" class="dropzone dropzone-area dpz-upload-single-icon">
+								<input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file" value="">
+							</div>
+						</fieldset>
+
+						<script>
+							$(function(){
+								_dzSetReaderOnLoad('photo_file', function(){
+									$('#upload_photo_file').html('<span>{j_drop_image_publish}</span>');
+								})
+
+								_dzSetReaderDelete('photo_file', function(){
+									$('#upload_photo_file').html('<span>{j_upload}</span>');
+								})
+							})
+						</script>
+
+						<fieldset class="form-group mt-2">
+							<button id="upload_photo_file" form="photo_insert" class="btn btn-primary" type="submit">{l_upload}</button>
+						</fieldset>
+				</div>
+			</div>
+
+		</div>
+		<!-- Right column -->
+	</form>
+
+	<form id="photo_insert" method="post" action="{url_page}" enctype="multipart/form-data">
+		<input type="hidden" name="cmd" value="insert_photo">
+		<input type="hidden" name="id" value="{user_id}">
+	</form>
+
+	</div>
+	</div>
+</div>
+
+
+<script>
+    var $frmUsers=$('#frm_users_edit').submit(function(e){
+        $('.button.submit', $frmUsers).prop('disabled', true);
+
+        var $f=$frmUsers.clone().hide().appendTo('body');
+        $('input[type="text"].inp_prepare, textarea.inp_prepare', $f).each(function(){
+            this.value=emojiToHtml(this.value);
+        })
+        $f.submit();
+        return false;
+    });
+
+    $('body').on('change', '#frm_users_edit select:not(.select_multiple)', function(e){
+        var $sel=$(this), val=this.value;
+        $('option:selected', $sel).prop('selected', false).removeAttr('selected');
+        $('option[selected="selected"]', $sel).prop('selected', false).removeAttr('selected');
+        $('option[value="'+val+'"]', $sel).prop('selected', true).attr('selected', 'selected');
+    })
+
+    var $btnSubmit=$('.button.submit', $frmUsers).click(function(){
+        $(this).before(loaderBtn);
+    });
+
+	$(function(){
+		$('#country').location({first_option_state: '- {j_state_province} -', first_option_city: '- {j_city} -', location: 'users_edit.php'});
+		$('#state').location({method: 'cities', first_option_city: '- {j_city} -', location: 'users_edit.php'});
+
+		partnerCheckboxCheckUncheckAdmin();
+
+		$('.select_multiple').select2({
+			placeholder: '{j_please_choose}',
+			allowClear: true,
+			dropdownAutoWidth: true
+		})
+	})
+</script>
+
+{footer}

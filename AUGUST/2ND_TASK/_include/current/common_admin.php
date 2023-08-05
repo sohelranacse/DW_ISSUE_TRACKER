@@ -212,7 +212,7 @@ class CAdminHeader extends CHtmlBlock
 			$html->parse("logo", true);
 		}
 
-		if(get_session("admin_auth")=='Y' || get_session("replier_auth")=='Y')
+		if(get_session("admin_auth")=='Y' || get_session("replier_auth")=='Y' || get_session("groupAdmin_auth")=='Y')
 		{
             $adminLastLogin = get_session('admin_last_login');
 
@@ -489,7 +489,7 @@ class CAdminHeader extends CHtmlBlock
             $html->setvar('url_video_main_page', $codeVideo);
         }
 
-		if(get_session("admin_auth")=='Y' || get_session("replier_auth")=='Y')
+		if(get_session("admin_auth")=='Y' || get_session("replier_auth")=='Y' || get_session("groupAdmin_auth")=='Y')
 		{
 
             if(get_session("admin_auth")=='Y'){
@@ -521,7 +521,7 @@ class CAdminFooter extends CAdminHeader
 	function parseBlock(&$html)
 	{
 		/* Modern */
-		if(get_session('admin_auth') == 'Y' || get_session('replier_auth') == 'Y') {
+		if(get_session('admin_auth') == 'Y' || get_session('replier_auth') == 'Y' || get_session('groupAdmin_auth') == 'Y') {
 
 			if (Common::isMultisite()) {
                 $html->parse('support_multisate');

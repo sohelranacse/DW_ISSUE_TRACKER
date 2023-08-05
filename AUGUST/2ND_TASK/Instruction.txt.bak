@@ -5,4 +5,8 @@
 2. user table - Edit structure
 	'user','group_admin','demo_admin'
 	
+	- Change data for testing
+	
+	- Create column - ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL' AFTER `role`;
+	
 3.
