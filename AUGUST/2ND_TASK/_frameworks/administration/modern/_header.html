@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>{title} - {l_title}</title>
+
+    {header_favicon}
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
+
+	<!-- BEGIN: Vendor JS-->
+    <script src="{url_tmpl_administration}app-assets/vendors/js/vendors.min.js{cache_version_param}" type="text/javascript"></script>
+    <!-- BEGIN Vendor JS-->
+
+	<!-- BEGIN: Chameleon-->
+	<script type="text/javascript" src="{url_main}_server/lib.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery.cookie.js{cache_version_param}"></script>
+	<script src="{url_tmpl_administration}js/common.js{cache_version_param}" type="text/javascript"></script>
+	<script src="{url_tmpl_administration}js/script.js{cache_version_param}" type="text/javascript"></script>
+	<script src="{url_tmpl_administration}js/util.js{cache_version_param}" type="text/javascript"></script>
+	<script type="text/javascript" src="{url_administration}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_administration_runtime={tmpl_loaded}&set_language_administration_runtime={lang_loaded}"></script>
+    <script type="text/javascript" src="{url_administration}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_administration_runtime={tmpl_loaded}&set_language_administration_runtime={lang_loaded}&page={current_page}"></script>
+	<script type="text/javascript" src="{url_tmpl_administration}js/jquery.form.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_tmpl_administration}js/jquery-migrate-1.4.1.min.js{cache_version_param}"></script>
+	<link rel="stylesheet" href="{url_tmpl_administration}css/jquery.spectrum.css{cache_version_param}" type="text/css" />
+	<script type="text/javascript" src="{url_tmpl_administration}js/jquery.spectrum.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_tmpl_administration}js/_config.js{cache_version_param}"></script>
+	<!-- END: Chameleon-->
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/css/vendors.min.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/js/gallery/photo-swipe/photoswipe.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/js/gallery/photo-swipe/default-skin/default-skin.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/css/forms/icheck/icheck.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/css/forms/icheck/custom.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/css/file-uploaders/dropzone.min.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/css/forms/selects/select2.min.css{cache_version_param}">
+
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/css/pickers/daterange/daterangepicker.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/vendors/css/pickers/pickadate/default.date.css{cache_version_param}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/bootstrap.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/bootstrap-extended.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/colors.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/components.css{cache_version_param}">
+    <!-- END: Theme CSS-->
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/core/menu/menu-types/vertical-menu.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/core/colors/palette-gradient.css{cache_version_param}">
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/pages/gallery.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/plugins/forms/checkboxes-radios.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/css/plugins/file-uploaders/dropzone.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}app-assets/fonts/simple-line-icons/style.min.css{cache_version_param}">
+	<!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_administration}assets/css/style.css{cache_version_param}">
+    <!-- END: Custom CSS-->
+
+	<!-- BEGIN: Chameleon-->
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}css/font-awesome.min.css{cache_version_param}">
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_administration}css/style_custom.css{cache_version_param}">
+	<!-- END: Chameleon-->
+
+	<script>
+		var _appMainMenuCompact = '{main_menu_compact}'*1?true:false;
+	</script>
+	{xajax_js_OLD}
+
+</head>
+<!-- END: Head-->
+
+<!-- begin_header_admin -->
+<body class="vertical-layout vertical-menu 2-columns fixed-navbar <!-- begin_main_menu_compact -->menu-collapsed<!-- end_main_menu_compact -->  <!-- begin_content_full_width -->content_full_width<!-- end_content_full_width -->" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
+
+	<script>
+		var url_files='{url_files}';
+		var _appStartTime = new Date();
+	</script>
+
+	<!-- BEGIN: Header-->
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
+        <div class="navbar-wrapper">
+            <div class="navbar-container content">
+                <div class="collapse navbar-collapse show" id="navbar-mobile">
+                    <ul class="nav navbar-nav mr-auto float-left">
+                        <li class="nav-item mobile-menu d-md-none mr-auto">
+							<a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#">
+								<i class="ft-menu font-large-1"></i>
+							</a>
+						</li>
+                        <li class="nav-item d-none d-md-block">
+							<a class="nav-link nav-menu-main menu-toggle hidden-xs menu-main-collapse m1" href="#">
+								<i class="ft-menu"></i>
+							</a>
+						</li>
+                        <li class="nav-item d-none d-md-block">
+							<a class="nav-link nav-link-expand" href="#">
+								<i class="ficon ft-maximize"></i>
+							</a>
+						</li>
+						<li class="nav-item d-none d-lg-block"> <!-- d-md-block -->
+							<a class="nav-link" href="{url_main}" target="_blank">
+								{domain_name}
+								<!-- begin_template_active -->
+								<span class="site-version">{l_active_templates} <b>{template_active}</b>
+								<!-- begin_mode_maintenance --><span>{l_mode_maintenance}</span><!-- end_mode_maintenance -->
+								</span>
+								<!-- end_template_active -->
+							</a>
+						</li>
+                    </ul>
+
+                    <ul class="nav navbar-nav float-right">
+						<!-- begin_header_language -->
+                        <li id="header_language" class="dropdown dropdown-language nav-item">
+							<a class="dropdown-toggle nav-link language" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="la la-language"></i>
+								<span class="selected-language">{header_language_item_current}</span>
+							</a>
+                            <div class="dropdown-menu menu-language" aria-labelledby="dropdown-flag">
+                                <div class="arrow_box_right">
+									<ul id="pp_language">
+									<!-- begin_header_language_item -->
+									<li>
+									<a class="dropdown-item {header_language_item_class}" href="#" onclick="siteSetLanguage('{header_language_item_value}', 'set_language_administration'); return false;">
+										<i class="ft-check"></i>
+										<span class="{header_language_item_class}">
+											{header_language_item_title}
+										</span>
+									</a>
+									</li>
+									<!-- end_header_language_item -->
+									</ul>
+									<script>prepareLangAdmin();</script>
+								</div>
+                            </div>
+                        </li>
+						<!-- end_header_language -->
+
+						<!-- begin_auth -->
+                        <li class="dropdown dropdown-user nav-item">
+							<a class="dropdown-toggle nav-link <!--dropdown-user-link-->" href="#" data-toggle="dropdown">
+								<!--<span class="avatar avatar-online">
+									<img src="app-assets/images/portrait/small/avatar-s-19.png" alt="avatar">
+								</span>-->
+
+								<span class="last_login_bl">
+									<i class="la la-user"></i>
+									{l_hello_administator}
+									<span class="last_login">{l_last_login}: {last_login}</span>
+								</span>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+									<a class="dropdown-item" href="{url_main}administration/options.php">
+										<i class="ft-settings"></i> {l_header_settings}
+									</a>
+
+									<!-- begin_support_no_multisate -->
+									<a class="dropdown-item" target="_blank" href="http://clients.websplosion.com/index.php?_m=knowledgebase&_a=view">
+										<i class="la la-book"></i> {l_knowledgebase}
+									</a>
+									<a class="dropdown-item" target="_blank" href="http://mods.chameleonsocial.com">
+										<i class="la la-connectdevelop"></i> {l_modifications}
+									</a>
+									<!-- end_support_no_multisate -->
+
+									<!-- begin_support_multisate -->
+									<a class="dropdown-item" target="_blank" href="http://myjoomph.freshdesk.com">
+										<i class="la la-book"></i> {l_joomph_support}
+									</a>
+									<!-- end_support_multisate -->
+
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{url_main}administration/index.php?cmd=logout">
+										<i class="ft-power"></i> {l_menu_logout}
+									</a>
+                                </div>
+                            </div>
+                        </li>
+						<!-- end_auth -->
+						<!-- begin_replier_auth -->
+						<li class="dropdown dropdown-user nav-item">
+							<a class="dropdown-toggle nav-link <!--dropdown-user-link-->" href="#" data-toggle="dropdown">
+								<!--<span class="avatar avatar-online">
+									<img src="app-assets/images/portrait/small/avatar-s-19.png" alt="avatar">
+								</span>-->
+
+								<span class="last_login_bl">
+									<i class="la la-user"></i>
+									{l_hello}, {replier_name}
+									<span class="last_login">{l_last_login}: {last_login}</span>
+								</span>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+									<a class="dropdown-item" href="{url_main}administration/index.php?cmd=logout">
+										<i class="ft-power"></i> {l_menu_logout}
+									</a>
+                                </div>
+                            </div>
+                        </li>
+						<!-- end_replier_auth -->
+						<!-- begin_groupAdmin_auth -->
+						<li class="dropdown dropdown-user nav-item">
+							<a class="dropdown-toggle nav-link <!--dropdown-user-link-->" href="#" data-toggle="dropdown">
+								<!--<span class="avatar avatar-online">
+									<img src="app-assets/images/portrait/small/avatar-s-19.png" alt="avatar">
+								</span>-->
+
+								<span class="last_login_bl">
+									<i class="la la-user"></i>
+									{l_hello}, {groupAdmin_name}
+									<span class="last_login">{l_last_login}: {last_login}</span>
+								</span>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+									<a class="dropdown-item" href="{url_main}administration/index.php?cmd=logout">
+										<i class="ft-power"></i> {l_menu_logout}
+									</a>
+                                </div>
+                            </div>
+                        </li>
+						<!-- end_groupAdmin_auth -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END: Header-->
+
+
+
+	<!-- BEGIN: Main Menu-->
+	<!-- begin_auth_menu -->
+    <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="{url_tmpl_administration}app-assets/images/backgrounds/02.jpg">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row justify-content-center">
+                <li class="nav-item"> <!-- mr-auto-->
+					<a class="navbar-brand" href="{url_main}administration">
+						<img class="brand-logo" alt="{l_title}" src="{header_url_logo}">
+						<img class="brand-logo light" alt="{l_title}" src="{header_url_logo_inner}">
+                    </a>
+				</li>
+                <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
+            </ul>
+        </div>
+        <div class="navigation-background"></div>
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+				<li class="nav-item">
+					<a href="{url_main}administration/home.php">
+						<i class="ft-home"></i>
+						<span class="menu-title" data-i18n="">{l_menu_main}</span>
+					</a>
+                    <ul class="menu-content">
+						<li id="shome">
+							<a class="menu-item" href="{url_main}administration/home.php" data-toggle="dropdown">
+								{l_menu_home}
+							</a>
+						</li>
+						<li id="soptions">
+							<a class="menu-item" href="{url_main}administration/options.php" data-toggle="dropdown">
+								{l_menu_options}
+							</a>
+						</li>
+						<li id="sstats">
+							<a class="menu-item" href="{url_main}administration/stats.php" data-toggle="dropdown">
+								{l_menu_stats}
+							</a>
+						</li>
+						<!-- begin_menu_payment -->
+						<li id="spay">
+							<a class="menu-item" href="{url_main}administration/pay.php" data-toggle="dropdown">
+								{l_menu_payment}
+							</a>
+						</li>
+						<!-- end_menu_payment -->
+						<!-- begin_menu_import -->
+						<li>
+							<a class="menu-item" href="{url_main}administration/import_dolphin.php" data-toggle="dropdown">
+								{l_menu_import}
+							</a>
+						</li>
+						<!-- end_menu_import -->
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+					<a href="{url_main}administration/template.php">
+						<i class="ft-layers"></i>
+						<span class="menu-title" data-i18n="">{l_menu_templates}</span>
+					</a>
+                    <ul class="menu-content">
+                        <!-- begin_template_main -->
+						<li id="stemplate_main">
+							<a class="menu-item" href="{url_main}administration/template.php" data-toggle="dropdown">
+								{l_menu_main}
+							</a>
+						</li>
+						<!-- end_template_main -->
+						<!--begin_template_mobile -->
+						<li id="stemplate_mobile">
+							<a class="menu-item" href="{url_main}administration/template.php?part=mobile" data-toggle="dropdown">
+								{l_menu_mobile}
+							</a>
+						</li>
+						<!-- end_template_mobile -->
+						<!-- begin_template_administration-->
+						<li id="stemplate_administration">
+							<a class="menu-item" href="{url_main}administration/template.php?part=administration" data-toggle="dropdown">
+								{l_menu_admin}
+							</a>
+						</li>
+						<!-- end_template_administration -->
+						<!-- begin_template_partner -->
+						<li id="stemplate_partner">
+							<a class="menu-item" href="{url_main}administration/template.php?part=partner" data-toggle="dropdown">
+								{l_menu_partner}
+							</a>
+                        </li>
+						<!-- end_template_partner -->
+                    </ul>
+                </li>
+
+				<li class="nav-item">
+					<a href="{url_main}administration/language.php">
+						<i class="la la-language"></i>
+						<span class="menu-title" data-i18n="">{l_menu_languages}</span>
+					</a>
+                    <ul class="menu-content">
+						<li id="slanguage_main">
+							<a class="menu-item" href="{url_main}administration/language.php" data-toggle="dropdown">
+								{l_menu_main}
+							</a>
+						</li>
+						<li id="slanguage_mobile">
+							<a class="menu-item" href="{url_main}administration/language.php?part=mobile" data-toggle="dropdown">
+								{l_menu_mobile}
+							</a>
+						</li>
+						<li id="slanguage_administration">
+							<a class="menu-item" href="{url_main}administration/language.php?part=administration" data-toggle="dropdown">
+								{l_menu_admin}
+							</a>
+						</li>
+						<li id="slanguage_partner">
+							<a class="menu-item" href="{url_main}administration/language.php?part=partner" data-toggle="dropdown">
+								{l_menu_partner}
+							</a>
+						</li>
+                    </ul>
+                </li>
+
+				<li class="nav-item">
+					<a href="{url_main}administration/{main_menu_link_to_news}">
+						<i class="la la-file-text"></i>
+						<span class="menu-title" data-i18n="">{l_menu_help_and_news}</span>
+					</a>
+                    <ul class="menu-content">
+						<!-- begin_menu_secondary_help -->
+						<li id="shelp">
+							<a class="menu-item" href="{url_main}administration/help_topic.php" data-toggle="dropdown">
+								{l_menu_help}
+							</a>
+						</li>
+						<!-- end_menu_secondary_help -->
+						<!-- begin_menu_secondary_news -->
+						<li id="snews">
+							<a class="menu-item" href="{url_main}administration/news.php" data-toggle="dropdown">
+								{l_menu_news}
+							</a>
+						</li>
+						<!-- end_menu_secondary_news -->
+						<!-- begin_menu_secondary_popup_pages -->
+						<li id="spopup">
+							<a class="menu-item" href="{url_main}administration/popup_pages.php" data-toggle="dropdown">
+								{l_menu_popup_pages}
+							</a>
+						</li>
+						<!-- end_menu_secondary_popup_pages -->
+						<!-- begin_menu_secondary_pages -->
+						<li id="spages">
+							<a class="menu-item" href="{url_main}administration/pages.php" data-toggle="dropdown">
+								{l_menu_pages}
+							</a>
+						</li>
+						<!-- end_menu_secondary_pages -->
+                    </ul>
+                </li>
+
+				<li class="nav-item">
+					<a href="{url_main}administration/users_results.php">
+						<i class="icon-users"></i>
+						<span class="menu-title" data-i18n="">{l_mmenu_users}</span>
+					</a>
+                    <ul class="menu-content">
+						<li id="susers">
+							<a href="{url_main}administration/users_results.php" class="menu-item" data-toggle="dropdown">{l_menu_users}</a>
+						</li>
+						<li id="sfields">
+							<a href="{url_main}administration/users_fields.php" class="menu-item" data-toggle="dropdown">{l_menu_profile_fields}</a>
+						</li>
+						<li id="sautomail">
+							<a href="{url_main}administration/automail.php" class="menu-item" data-toggle="dropdown">{l_menu_auto_mail}</a>
+						</li>
+						<li id="smassmail">
+							<a href="{url_main}administration/massmail.php" class="menu-item" data-toggle="dropdown">{l_menu_mass_mail}</a>
+						</li>
+						<li id="smatchmail">
+							<a href="{url_main}administration/matchmail.php" class="menu-item" data-toggle="dropdown">{l_menu_match_mail}</a>
+						</li>
+						<li id="scontact">
+							<a href="{url_main}administration/contact.php" class="menu-item" data-toggle="dropdown">{l_menu_contacts}</a>
+						</li>
+						<li id="sipblock">
+							<a href="{url_main}administration/ipblock.php" class="menu-item" data-toggle="dropdown">{l_menu_block}</a>
+						</li>
+						<li id="sfakes">
+							<a href="{url_main}administration/fakes_reply_mails.php" class="menu-item" data-toggle="dropdown">{l_menu_fakes_reply}</a>
+						</li>
+						<!-- begin_menu_secondary_gifts -->
+						<li id="sgifts">
+							<a href="{url_main}administration/gifts.php">{l_menu_gifts}</a>
+						</li>
+						<!-- end_menu_secondary_gifts -->
+                    </ul>
+                </li>
+
+				<li class="nav-item">
+					<a href="{url_main}administration/partner.php">
+						<i class="fa fa-th-large" aria-hidden="true"></i>
+						<span class="menu-title" data-i18n="">{l_menu_modules}</span>
+					</a>
+                    <ul class="menu-content">
+						<li id = "spartner">
+							<a href="{url_main}administration/partner.php">{l_menu_partners}</a>
+						</li>
+						<!-- begin_menu_secondary_blogs_bloggers -->
+						<li id = "sblogs">
+							<a href="{url_main}administration/blogs_bloggers.php">{l_menu_blogs}</a>
+						</li>
+						<!-- end_menu_secondary_blogs_bloggers -->
+						<!-- begin_menu_secondary_places_results -->
+						<li id = "splaces">
+							<a href="{url_main}administration/places_results.php">{l_menu_places}</a>
+						</li>
+						<!-- end_menu_secondary_places_results -->
+						<!-- begin_menu_secondary_music_musicians -->
+						<li id = "smusic">
+							<a href="{url_main}administration/music_musicians.php">{l_menu_music}</a>
+						</li>
+						<!-- end_menu_secondary_music_musicians -->
+						<!-- begin_menu_secondary_flashchat_rooms -->
+						<li id = "sflashchat">
+							<a href="{url_main}administration/flashchat_rooms.php">{l_menu_flashchat}</a>
+						</li>
+						<!-- end_menu_secondary_flashchat_rooms -->
+						<!-- begin_menu_secondary_3dchat_rooms -->
+						<li id = "s3dchat">
+							<a href="{url_main}administration/3dchat_rooms.php">{l_menu_3dchat}</a>
+						</li>
+						<!-- end_menu_secondary_3dchat_rooms -->
+						<!-- begin_menu_secondary_vids_videos -->
+						<li id = "svids">
+							<a href="{url_main}administration/vids_videos.php">{l_menu_vids}</a>
+						</li>
+						<!-- end_menu_secondary_vids_videos -->
+						<!-- begin_menu_secondary_adv -->
+						<li id = "sadv">
+							<a href="{url_main}administration/adv.php">{l_menu_adv}</a>
+						</li>
+						<!-- end_menu_secondary_adv -->
+						<!-- begin_menu_secondary_groups_groups -->
+						<li id = "sgroups">
+							<a href="{url_main}administration/groups_groups.php">{l_menu_groups}</a>
+						</li>
+						<!-- end_menu_secondary_groups_groups -->
+						<!-- begin_menu_secondary_events_events -->
+						<li id = "sevents">
+							<a href="{url_main}administration/events_events.php">{l_menu_events}</a>
+						</li>
+						<!-- end_menu_secondary_events_events -->
+
+
+						<!-- begin_menu_secondary_forum_categories -->
+						<li id = "sforum">
+							<a href="{url_main}administration/forum_forums.php">{l_menu_forum_forums}</a>
+						</li>
+						<!-- end_menu_secondary_forum_categories -->
+						<!-- begin_menu_admin_banner -->
+						<li id = "sbanner">
+							<a href="{url_main}administration/banner.php">{l_menu_banners}</a>
+						</li>
+						<!-- end_menu_admin_banner -->
+
+						<li id = "sseo">
+							<a href="{url_main}administration/seo.php">{l_menu_seo}</a>
+						</li>
+
+						<!-- begin_menu_secondary_groups_social -->
+						<li>
+							<a class="menu-item" href="{url_main}administration/groups_social.php">{l_menu_groups_social}</a>
+                            <ul class="menu-content">
+								<li id = "sgroupssocial">
+									<a href="{url_main}administration/groups_social.php">{l_menu_groups_social_short}</a>
+								</li>
+								<!-- begin_menu_secondary_groups_social_videos -->
+								<li id = "sgroupssocialvideos">
+									<a href="{url_main}administration/groups_social_vids_videos.php">{l_menu_groups_social_videos_short}</a>
+								</li>
+								<!-- end_menu_secondary_groups_social_videos -->
+
+								<!-- begin_menu_secondary_groups_social_music -->
+								<li id = "sgroupssocialmusic">
+									<a href="{url_main}administration/groups_social_music_songs.php">{l_menu_groups_social_music_short}</a>
+								</li>
+								<!-- end_menu_secondary_groups_social_music -->
+
+                            </ul>
+                        </li>
+						<!-- end_menu_secondary_groups_social -->
+
+
+						<!-- begin_menu_secondary_cityrooms -->
+						<li id = "scityrooms">
+							<a href="{url_main}administration/city_options.php">{l_menu_3dcity}</a>
+						</li>
+						<!-- end_menu_secondary_cityrooms -->
+						<!-- begin_menu_secondary_games -->
+						<li id = "sgames">
+							<a href="{url_main}administration/games.php">{l_menu_games}</a>
+						</li>
+						<!-- end_menu_secondary_games -->
+
+						<!-- begin_menu_secondary_albums -->
+						<li id = "salb">
+							<a href="{url_main}administration/alb_albums.php">{l_menu_albums}</a>
+						</li>
+						<!-- end_menu_secondary_albums -->
+                    </ul>
+                </li>
+            </ul>
+			<script type="text/javascript">
+
+				$('#{smenu}').addClass('active');
+				$('#{smenu}').closest('.nav-item').addClass('open');
+
+			</script>
+        </div>
+    </div>
+	<!-- end_auth_menu -->
+    <!-- END: Main Menu-->
+	<!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-wrapper">
+			<div class="content-wrapper-before"></div>
+<!-- end_header_admin -->

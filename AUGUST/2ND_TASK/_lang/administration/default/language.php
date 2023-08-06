@@ -2950,6 +2950,10 @@ $l['group_admin.php']['mail'] = "Mail";
 $l['group_admin.php']['under_user'] = "Under Admin";
 
 $l['users_edit.php']['assign_group_admin'] = "Assign Group Admin";
+$l['users_edit.php']['under_group_admin'] = "Under Group Admin";
 
-$l['users_under_admin.php']['title_current'] = "Users Under Admin";
+$l['users_under_admin.php']['title_current'] = "Under Admin";
 $l['users_under_admin.php']['mail'] = "Mail";
+
+$l['group_admin_panel.php']['title_current'] = "User List";
+$l['group_admin_panel.php']['mail'] = "Mail";

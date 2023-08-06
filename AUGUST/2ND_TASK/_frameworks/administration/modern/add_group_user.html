@@ -32,28 +32,6 @@
 
 	<form id="frm_users_edit" method="POST" action="{url_main}administration/users_edit.php?cmd=update&id={user_id}" name="EditProfileBasicForm">
 	<div id="user-profile">
-		<div class="row profile-bl">
-			<div class="profile-bl-before"></div>
-			<div class="col-sm-12"><!-- col-xl-8 -->
-				<div class="media d-flex m-1 ">
-					<div class="align-left p-1">
-						<a target="_blank" href="../{url_profile}" class="profile-image rounded-circle">
-                            <img src="{url_files}{user_photo}">
-						</a>
-					</div>
-					<div class="media-body text-left mt-1">
-						<h3 class="font-large-1 white">
-							{user_name}
-                            <span class="font-medium-1 white"></span>
-						</h3>
-						<p class="white">
-                            <i class="ft-map-pin white"></i> {city_title}, {state_title}, {country_title}
-						</p>
-                        <p class="white text-bold-300 d-none d-sm-block profile-about">{header_profile_about}</p>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-xl-4 col-lg-5 col-md-12">
 				<div class="card">
@@ -152,163 +130,6 @@
                         </div>
 					</div>
             </div>
-
-			<!-- begin_profile_status -->
-			<div class="card">
-				<div class="card-header pb-0">
-					<div class="card-title-wrap bar-primary">
-                        <h4 class="card-title"><i class="fa fa-heartbeat" aria-hidden="true"></i> {l_profile_status}</h4>
-                        <hr>
-                    </div>
-				</div>
-				<div class="card-content">
-					<div class="card-body pt-0 pb-1">
-						<fieldset class="form-group">
-							<input class="form-control" type="text" name="profile_status" value="{profile_status}" maxlength="{profile_status_max_length}">
-						</fieldset>
-						<fieldset class="form-group mt-2">
-							<button class="btn btn-primary btn_submit w-100" type="submit">{l_update_profile}</button>
-						</fieldset>
-					</div>
-				</div>
-			</div>
-			<!-- end_profile_status -->
-
-			<div class="card">
-				<div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-diamond" aria-hidden="true"></i> {l_paid_settings}</h4>
-                    <hr>
-				</div>
-				<div class="card-content collapse show">
-					<div class="card-body pb-1 mt-n2">
-                        <!-- begin_type_plan -->
-						<fieldset class="form-group">
-							<label>{l_type}:</label>
-							<select name="type" class="form-control">
-							{type_options}
-							</select>
-						</fieldset>
-						<!-- end_type_plan -->
-
-						<!-- begin_user_gold_days -->
-						<fieldset class="form-group">
-							<label>{l_gold_days_left}:</label>
-							<input class="form-control" type="text" maxlength="{paid_days_length}" name="gold_days" value="{gold_days}">
-						</fieldset>
-						<!-- end_user_gold_days -->
-
-						<!-- begin_user_credits -->
-						<fieldset class="form-group">
-							<label>{l_credits_left}:</label>
-							<input class="form-control" type="text" name="credits" value="{credits}">
-						</fieldset>
-						<!-- end_user_credits -->
-
-						<fieldset class="form-group mt-2">
-							<button class="btn btn-primary btn_submit w-100" type="submit">{l_update_profile}</button>
-						</fieldset>
-					</div>
-				</div>
-			</div>
-
-			<div class="card">
-				<div class="card-header pb-0">
-					<div class="card-title-wrap bar-primary">
-                        <h4 class="card-title"><i class="fa fa-link" aria-hidden="true"></i> {l_assign_user}</h4>
-                        <hr>
-                    </div>
-				</div>
-				<div class="card-content">
-					<div class="card-body pt-0 pb-1">
-						<fieldset class="form-group bl_label custom-switch">
-							<input class="custom-control-input i_checkbox" id="user_admin"  type="checkbox" name="user_admin" value="1" {checked_user_admin}>
-							<label class="custom-control-label" for="user_admin">{l_assign_user_as_sender_of_welcoming_message}</label>
-						</fieldset>
-
-						<!-- begin_moderator -->
-						<fieldset class="form-group bl_label custom-switch">
-							<input class="custom-control-input i_checkbox" id="moderator_profiles"  type="checkbox" name="moderator_profiles" value="1" {moderator_profiles}>
-							<label class="custom-control-label" for="moderator_profiles">{l_moderator_profiles}</label>
-						</fieldset>
-						<fieldset class="form-group bl_label custom-switch">
-							<input class="custom-control-input i_checkbox" id="moderator_photo"  type="checkbox" name="moderator_photo" value="1" {moderator_photo}>
-							<label class="custom-control-label" for="moderator_photo">{l_moderator_photo}</label>
-						</fieldset>
-						<fieldset class="form-group bl_label custom-switch">
-							<input class="custom-control-input i_checkbox" id="moderator_vids_video"  type="checkbox" name="moderator_vids_video" value="1" {moderator_vids_video}>
-							<label class="custom-control-label" for="moderator_vids_video">{l_moderator_video}</label>
-						</fieldset>
-						<fieldset class="form-group bl_label custom-switch">
-							<input class="custom-control-input i_checkbox" id="moderator_texts"  type="checkbox" name="moderator_texts" value="1" {moderator_texts}>
-							<label class="custom-control-label" for="moderator_texts">{l_moderator_text}</label>
-						</fieldset>
-						<!-- end_moderator -->
-
-						<fieldset class="form-group mt-2">
-							<button class="btn btn-primary btn_submit w-100" type="submit">{l_update_profile}</button>
-						</fieldset>
-					</div>
-				</div>
-			</div>
-
-			<div class="card">
-				<div class="card-header pb-0">
-					<div class="card-title-wrap bar-primary">
-						<h4 class="card-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {l_other_data}</h4>
-                        <hr>
-                    </div>
-				</div>
-				<div class="card-content">
-					<div class="card-body pt-0 pb-1">
-						<ul class="lmenu_page">
-							<!-- begin_menu_editblog -->
-							<li>
-								<a href="{url_main}administration/blogs_blogger_posts.php?id={user_id}">{l_editblog}</a>
-								<span class="marker">•</span>
-							</li>
-							<!-- end_menu_editblog -->
-							<!-- begin_menu_im -->
-							<li>
-								<a href="{url_main}administration/look_message_im.php?user_id={user_id}">{l_user_im}</a>
-								<span class="marker">•</span>
-							</li>
-							<!-- end_menu_im -->
-							<!-- begin_menu_chat -->
-							<li>
-								<a href="{url_main}administration/look_message_chat.php?user_id={user_id}">{l_user_chat}</a>
-								<span class="marker">•</span>
-							</li>
-							<!-- end_menu_chat -->
-							<!-- begin_menu_mail -->
-							<li>
-								<a href="{url_main}administration/look_message_mail.php?user_id={user_id}">{l_user_mails}</a>
-								<span class="marker">•</span>
-							</li>
-							<!-- end_menu_mail -->
-							<!-- begin_menu_add_spotlight -->
-							<li>
-								<a href="{url_main}administration/users_edit.php?id={user_id}&cmd=add_spotlight"  onclick="confirmCustom('{j_are_you_sure}',function(){redirectUrl('{url_main}administration/users_edit.php?id={user_id}&cmd=add_spotlight')}); return false;">{l_add_to_the_spotlight}</a>
-								<span class="marker">•</span>
-							</li>
-							<!-- end_menu_add_spotlight -->
-							<!-- begin_menu_remove_spotlight -->
-							<li>
-								<a href="{url_main}administration/users_edit.php?id={user_id}&cmd=remove_spotlight" onclick="confirmCustom('{j_are_you_sure}',function(){redirectUrl('{url_main}administration/users_edit.php?id={user_id}&cmd=remove_spotlight')}); return false;">{l_remove_from_the_spotlight}</a>
-								<span class="marker">•</span>
-							</li>
-							<!-- end_menu_remove_spotlight -->
-
-							<!-- begin_menu_user_video -->
-							<li>
-								<a href="{url_main}administration/vids_user_videos.php?id={user_id}">{l_user_video}</a>
-								<span class="marker">•</span>
-							</li>
-							<!-- end_menu_user_video -->
-						</ul>
-					</div>
-				</div>
-			</div>
-
 		</div>
 		<!-- Right column -->
 		<div class="col-xl-8 col-lg-7 col-md-12">
@@ -865,5 +686,5 @@
 		})
 	})
 </script>
-
+<style type="text/css">footer {margin-left: 0 !important}</style>
 {footer}

@@ -9,6 +9,7 @@ This notice may not be removed from the source code. */
 
 include("../_include/core/administration_start.php");
 
+$uid = get_param('id', 'Number');
 $cmd = get_param('cmd', '');
 
 if($cmd != 'location') {
@@ -16,6 +17,14 @@ if($cmd != 'location') {
 	if(!$g_user) {
 		redirect('users_results.php');
 	}
+
+    // group admin
+    $groupAdmin_id = get_session('groupAdmin_id');
+    if($groupAdmin_id) {
+        $my_info = DB::result("SELECT COUNT(*) FROM user WHERE under_admin = $groupAdmin_id AND user_id = ".$g_user['user_id']);
+        if($my_info == 0)
+            redirect('group_admin_panel.php');
+    }
 }
 
 class CForm extends UserFields //CHtmlBlock
@@ -139,8 +148,19 @@ class CForm extends UserFields //CHtmlBlock
                 $user_role = get_param("user_role");
                 $role = $user_role ? "group_admin" : "user";
 
+                $under_admin_data = get_param("under_admin");
+
+                $under_admin = "";
+                if(!empty(get_param("under_admin"))) {
+                    if($under_admin_data == "NO")
+                        $under_admin = "under_admin = NULL, ";
+                    else
+                        $under_admin = "under_admin = ".$under_admin_data .",";
+                }
+
                 DB::execute("UPDATE user SET
                                 role = " . to_sql($role, 'Text') . ",
+                                " . $under_admin . "
                                 name = " . to_sql($name, 'Text') . ",
                                 password = " . to_sql($password, 'Text') . ",
                                 gold_days=" . to_sql($goldDays, "Number") . ",
@@ -330,9 +350,28 @@ class CForm extends UserFields //CHtmlBlock
             $html->setvar("use_as_online", $checked);
         }
 
-        if($g_user['role'] == 'group_admin') {
+        $user_id = $g_user['user_id'];
+        $is_group_admin  = ($g_user['role'] == "group_admin") ? 1 : 0;  
+
+        if($is_group_admin) { // group admin
             $html->setvar("user_role", $checked);
+
+            $have_under_user = DB::result("SELECT COUNT(user_id) FROM user WHERE under_admin=$user_id");
+            if($have_under_user)
+                $html->setvar("roleDisabled", 'disabled');
+            
+            $html->setvar("under_user", '('.$have_under_user.')');
+        } else { // general user
+            $html->setvar('group_admin_list', Common::listGroupAdmin($g_user['under_admin']));
+
+            if(get_session('admin_auth'))
+                $html->parse('group_admin_list', true);
         }
+
+        if($g_user['under_admin'] == NULL) // free user => no parent
+            $html->parse('not_group_user', true);
+
+
 
 		if (IS_DEMO)
             $html->setvar("mail", get_param("mail", 'disabled@ondemoadmin.cp'));
@@ -420,6 +459,8 @@ $page->add($header);
 $footer = new CAdminFooter("footer", $g['tmpl']['dir_tmpl_administration'] . "_footer.html");
 $page->add($footer);
 
-$page->add(new CAdminPageMenuUsers());
-
+if(get_session('admin_auth'))
+    $page->add(new CAdminPageMenuUsers());
+else
+    $page->add(new CGroupAdminPageMenuUsers());
 include("../_include/core/administration_close.php");

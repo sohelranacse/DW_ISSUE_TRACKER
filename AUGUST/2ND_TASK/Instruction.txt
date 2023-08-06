@@ -1,13 +1,9 @@
 1. Add Language
-
 	group_admin = Group Admin
+	add_group_user = Add User
 	
-2. user table - Edit structure
-	'user','group_admin','demo_admin'
+2. Create column
 	
-	- Change data for testing
-	
-	- Create column -
-	ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL' AFTER `role`;
-	
-3.$this->m_sql_where = "role ='group_admin' " . $where;
+ALTER TABLE `user` CHANGE `role` `role` ENUM('user','group_admin','demo_admin') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user';
+
+ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL' AFTER `role`;

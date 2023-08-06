@@ -495,10 +495,14 @@ class CAdminHeader extends CHtmlBlock
             if(get_session("admin_auth")=='Y'){
                 $html->parse('auth_menu', true);
                 $html->parse('menu_script_auth', true);
-            } else {
+            } elseif(get_session("replier_auth")=='Y') {
 				$html->parse('content_full_width', true);
                 $html->setvar('replier_name', get_session("replier_name"));
                 $html->parse('replier_auth', true);
+            } else {
+                $html->parse('content_full_width', true);
+                $html->setvar('groupAdmin_name', get_session("groupAdmin_name"));
+                $html->parse('groupAdmin_auth', true);
             }
 
 			/* Modern */
@@ -3617,6 +3621,12 @@ class CAdminPageMenuUsers extends CAdminPageMenu {
 		'users_video.php'		=> array('title' => 'menu_videos', 'icon' => '<i class="la la-youtube-play"></i>'),
 		'users_text.php'		=> array('title' => 'menu_texts', 'icon' => '<i class="la la-file-text-o"></i>'),
 		'users_filter.php'		=> array('title' => 'menu_filter', 'icon' => '<i class="la la-filter"></i>'),
+    );
+}
+class CGroupAdminPageMenuUsers extends CAdminPageMenu {
+    protected $items = array(
+        'group_admin_panel.php'       => array('title' => 'menu_users', 'icon' => '<i class="ft-users"></i>'),
+        'add_group_user.php'       => array('title' => 'add_group_user', 'icon' => '<i class="ft-user-plus"></i>')
     );
 }
 
