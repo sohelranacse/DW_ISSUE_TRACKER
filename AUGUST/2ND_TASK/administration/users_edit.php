@@ -30,7 +30,6 @@ if($cmd != 'location') {
 class CForm extends UserFields //CHtmlBlock
 {
 	var $message = "";
-	var $login = "";
 	function action() {
         global $g;
         global $g_user;
@@ -157,6 +156,10 @@ class CForm extends UserFields //CHtmlBlock
                     else
                         $under_admin = "under_admin = ".$under_admin_data .",";
                 }
+
+                // group admin never stay under group admin
+                if($role == "group_admin")
+                    $under_admin = "under_admin = NULL, ";
 
                 DB::execute("UPDATE user SET
                                 role = " . to_sql($role, 'Text') . ",

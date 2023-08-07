@@ -4,6 +4,6 @@
 	
 2. Create column
 	
-ALTER TABLE `user` CHANGE `role` `role` ENUM('user','group_admin','demo_admin') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user';
+ALTER TABLE `user` CHANGE `role` `role` ENUM('user','group_admin') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user';
 
 ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL' AFTER `role`;

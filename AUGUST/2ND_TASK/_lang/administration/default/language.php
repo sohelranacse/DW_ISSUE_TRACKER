@@ -2944,6 +2944,8 @@ $l['users_edit.php']['other_data'] = "Other";
 $l['users_edit.php']['user_video'] = "Videos";
 
 // created by sohel
+$l['users_results.php']['role'] = "Role";
+
 $l['group_admin.php']['title_current'] = "Group Admin";
 $l['group_admin.php']['add_group_admin'] = "Add Group Admin";
 $l['group_admin.php']['mail'] = "Mail";
@@ -2957,3 +2959,12 @@ $l['users_under_admin.php']['mail'] = "Mail";
 
 $l['group_admin_panel.php']['title_current'] = "User List";
 $l['group_admin_panel.php']['mail'] = "Mail";
+
+// $l['add_group_user.php']['mail'] = "Mail";
+$l['add_group_user.php']['title_current'] = "Add User";
+$l['add_group_user.php']['date_of_birth'] = "Date of Birth";
+$l['add_group_user.php']['user_information'] = "User Information";
+$l['add_group_user.php']['create_user'] = "Create User";
+$l['add_group_user.php']['created_success'] = "User Created Successfully!";
+
+$l['all']['localtion'] = "Location";
