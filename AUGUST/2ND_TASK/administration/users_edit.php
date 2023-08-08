@@ -47,6 +47,9 @@ class CForm extends UserFields //CHtmlBlock
             $name = trim(get_param('username'));
             $this->message .= User::validateName($name);
 
+            $phone = trim(get_param('phone'));
+            $this->message .= User::checkExistPhone($phone);
+
             $password = trim(get_param('password'));
             $mail = get_param('email', '');
 
@@ -160,12 +163,13 @@ class CForm extends UserFields //CHtmlBlock
                 // group admin never stay under group admin
                 if($role == "group_admin")
                     $under_admin = "under_admin = NULL, ";
-
+                
                 DB::execute("UPDATE user SET
                                 role = " . to_sql($role, 'Text') . ",
                                 " . $under_admin . "
                                 name = " . to_sql($name, 'Text') . ",
                                 password = " . to_sql($password, 'Text') . ",
+                                phone = " . to_sql($phone, 'Text') . ",
                                 gold_days=" . to_sql($goldDays, "Number") . ",
                                 type=" . to_sql($type, "Text") . ",
                                 mail=" . to_sql($mail, "Text") . ",
@@ -374,7 +378,7 @@ class CForm extends UserFields //CHtmlBlock
         if($g_user['under_admin'] == NULL) // free user => no parent
             $html->parse('not_group_user', true);
 
-
+        $html->setvar("phone", $g_user['phone']);
 
 		if (IS_DEMO)
             $html->setvar("mail", get_param("mail", 'disabled@ondemoadmin.cp'));

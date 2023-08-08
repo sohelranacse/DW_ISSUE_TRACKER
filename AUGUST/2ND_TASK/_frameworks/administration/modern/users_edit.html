@@ -97,6 +97,12 @@
 								<input type="text" name="password" value="{password}" class="form-control">
 							</fieldset>
 
+							<fieldset class="form-group">
+								<label class="full_phone_label">{l_phone_number}:</label>
+								<input type="tel" id="join_phone_number" class="form-control" value="{phone}" maxlength="11">
+								<input type="hidden" name="phone" value="{phone}" id="full_phone_number"/>
+							</fieldset>
+
 							<!-- begin_const -->
 							<fieldset class="form-group">
 								<label>{field}:</label>
@@ -853,6 +859,19 @@
     });
 
 	$(function(){
+		// phone number
+		var phone_number = window.intlTelInput(document.querySelector("#join_phone_number"), {
+            separateDialCode: true,
+            preferredCountries:["gb","us","sa","ae"],
+            hiddenInput: "full",
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+        })
+        document.getElementById('join_phone_number').onkeyup = function(){
+            var full_number = phone_number.getNumber(intlTelInputUtils.numberFormat.E164);
+            $("#full_phone_number").val(full_number);
+        }
+
+
 		$('#country').location({first_option_state: '- {j_state_province} -', first_option_city: '- {j_city} -', location: 'users_edit.php'});
 		$('#state').location({method: 'cities', first_option_city: '- {j_city} -', location: 'users_edit.php'});
 
@@ -865,5 +884,6 @@
 		})
 	})
 </script>
+<style type="text/css">.full_phone_label{display: block;padding-bottom: 10px}</style>
 
 {footer}

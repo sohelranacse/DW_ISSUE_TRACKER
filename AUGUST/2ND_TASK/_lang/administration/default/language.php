@@ -2968,3 +2968,4 @@ $l['add_group_user.php']['create_user'] = "Create User";
 $l['add_group_user.php']['created_success'] = "User Created Successfully!";
 
 $l['all']['localtion'] = "Location";
+$l['all']['exists_phone_number'] = "The Phone Number you entered already exists on our system.";

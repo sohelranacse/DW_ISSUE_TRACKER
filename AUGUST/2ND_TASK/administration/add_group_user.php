@@ -21,6 +21,9 @@ class CAddUser extends UserFields //CHtmlBlock
             $name = trim(get_param('username'));
             $this->message .= User::validateName($name);
 
+            $phone = trim(get_param('phone'));
+            $this->message .= User::checkExistPhone($phone);
+
             $password = trim(get_param('password'));
             $password = User::preparePasswordForDatabase($password);
 
@@ -45,7 +48,7 @@ class CAddUser extends UserFields //CHtmlBlock
                 $h = zodiac($year . '-' . $month . '-' .  $day);
                 $query = "
                     INSERT INTO user (
-                        role, under_admin, name, password, mail, country_id, state_id, city_id, country, state, city, birth, orientation, horoscope, register, last_ip, active, use_as_online
+                        role, under_admin, name, password, mail, country_id, state_id, city_id, country, state, city, birth, orientation, horoscope, register, last_ip, active, use_as_online, phone
                     )
                     VALUES (
                         ".to_sql('user', 'Text').", ".$under_admin.",
@@ -64,7 +67,8 @@ class CAddUser extends UserFields //CHtmlBlock
                         '".$register."',
                         ".to_sql(IP::getIp()).",
                         0,
-                        1
+                        1,
+                        ".to_sql($phone, "Text")."
                     )
                 ";
                 DB::execute($query);
