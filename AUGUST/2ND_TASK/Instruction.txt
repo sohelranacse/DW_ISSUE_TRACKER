@@ -7,3 +7,5 @@
 ALTER TABLE `user` CHANGE `role` `role` ENUM('user','group_admin') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user';
 
 ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL' AFTER `role`;
+
+ALTER TABLE `user` ADD `gadmin_previllage` VARCHAR(5) NOT NULL DEFAULT '0,0,0' COMMENT 'edit,delete,ban' AFTER `live_now_status`;

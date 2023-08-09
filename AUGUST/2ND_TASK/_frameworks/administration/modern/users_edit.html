@@ -73,12 +73,28 @@
 							<!-- begin_not_group_user -->
 							<fieldset class="form-group bl_label custom-switch mb-2">
 								<input id="user_role" class="custom-control-input i_checkbox" type="checkbox" name="user_role" value="1" {user_role} {roleDisabled}>
+								<input type="hidden" name="user_role_hidden" value="{role}">
 								<label class="custom-control-label" for="user_role">{l_assign_group_admin} <a href="{url_main}administration/users_under_admin.php?id={user_id}" target="_blank">{under_user}</a></label>
 							</fieldset>
+
+							<div id="groupAccess_div" {access_display}>
+								<fieldset class="form-group bl_label custom-switch mb-2 pt-1 border-top border-light">
+									<input id="editAccess" class="custom-control-input i_checkbox" type="checkbox" name="editAccess" value="1" {editCheck}>
+									<label class="custom-control-label" for="editAccess">{l_edit}</label>
+								</fieldset>
+								<fieldset class="form-group bl_label custom-switch mb-2">
+									<input id="deleteAccess" class="custom-control-input i_checkbox" type="checkbox" name="deleteAccess" value="1" {deleteCheck}>
+									<label class="custom-control-label" for="deleteAccess">{l_delete}</label>
+								</fieldset>
+								<fieldset class="form-group bl_label custom-switch mb-2 pb-1 border-bottom border-light">
+									<input id="banAccess" class="custom-control-input i_checkbox" type="checkbox" name="banAccess" value="1" {banCheck}>
+									<label class="custom-control-label" for="banAccess">{l_ban}</label>
+								</fieldset>
+							</div>
 							<!-- end_not_group_user -->
 							
 							<!-- begin_group_admin_list -->
-							<fieldset class="form-group">
+							<fieldset class="form-group" id="under_admin_div">
 								<label>{l_under_group_admin}:</label>
 								<select class="form-control" name="under_admin"  id="under_admin">
 									<option value="NO">No</option>
@@ -882,6 +898,19 @@
 			allowClear: true,
 			dropdownAutoWidth: true
 		})
+
+		// user_role, groupAccess_div
+		$("#user_role").click(function() {
+	        var checkBoxes = $("input[name=user_role]");
+	        if(checkBoxes.prop("checked")) {
+	        	$("#under_admin_div").hide()
+	        	$("#groupAccess_div").show()
+	        }
+	        else {
+	        	$("#under_admin_div").show()
+	        	$("#groupAccess_div").hide()
+	        }
+	    }); 
 	})
 </script>
 <style type="text/css">.full_phone_label{display: block;padding-bottom: 10px}</style>

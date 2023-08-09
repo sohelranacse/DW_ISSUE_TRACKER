@@ -2,6 +2,10 @@
 
 include("../_include/core/administration_start.php");
 
+$groupAdmin_id = get_session('groupAdmin_id');
+$my_info = DB::row("SELECT gadmin_previllage FROM user WHERE user_id = $groupAdmin_id");
+$gadmin_previllage = explode(",", $my_info['gadmin_previllage']);
+
 class GroupAdmin extends CHtmlList
 {
 	function action()
@@ -146,8 +150,7 @@ class GroupAdmin extends CHtmlList
 
 		if ($user['p_age_to'] != 0)
 		{
-			$where .= " AND (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
- <= " . $user['p_age_to'] . ") ";
+			$where .= " AND (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) <= " . $user['p_age_to'] . ") ";
 		}
 
 
@@ -207,6 +210,15 @@ class GroupAdmin extends CHtmlList
 	}
 	function parseBlock(&$html)
 	{
+		
+
+		// if($gadmin_previllage[0])
+		// 	$html->parse("editRestrict", true);
+		// if($gadmin_previllage[1])
+		// 	$html->parse("delRestrict", true);
+		// if($gadmin_previllage[2])
+		// 	$html->parse("banRestrict", true);
+
 		parent::parseBlock($html);
 	}
     function onPostParse(&$html)
@@ -217,7 +229,7 @@ class GroupAdmin extends CHtmlList
 	}
 	function onItem(&$html, $row, $i, $last)
 	{
-		global $g;
+		global $g, $gadmin_previllage;
 
         $html->setvar('url_profile', User::url($row['user_id']));
 
@@ -228,6 +240,9 @@ class GroupAdmin extends CHtmlList
 		$this->m_field['country_title'][1] = DB::result("SELECT country_title FROM geo_country WHERE country_id=" . $row['country_id'] . "", 0, 2);
 		if ($this->m_field['country_title'][1] == "") $this->m_field['country_title'][1] = "blank";
 
+		$html->parse("editRestrict", false);
+		$html->parse("delRestrict", false);
+		
 
         if ($row['type'] != 'none')
         {
@@ -240,8 +255,10 @@ class GroupAdmin extends CHtmlList
             $this->m_field['type'][1] = l($row['type']);
         }
 		if($row['ban_global']){
+			$html->parse("banRestrict", false);
 			$this->m_field['ban_action'][1] = l('unban');
 		} else {
+			$html->parse("banRestrict", false);
 			$this->m_field['ban_action'][1] = l('ban');
 		}
 

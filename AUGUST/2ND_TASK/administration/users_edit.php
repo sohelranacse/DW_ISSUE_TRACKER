@@ -14,7 +14,7 @@ $cmd = get_param('cmd', '');
 
 if($cmd != 'location') {
 	$g_user = User::getInfoFull(get_param('id', ''));
-	if(!$g_user) {
+	if(!isset($g_user['user_id'])) {
 		redirect('users_results.php');
 	}
 
@@ -148,7 +148,10 @@ class CForm extends UserFields //CHtmlBlock
                 Config::update('options', 'admin_user_id', $adminUserId);
 
                 $user_role = get_param("user_role");
-                $role = $user_role ? "group_admin" : "user";
+                $role_hidden = get_param("user_role_hidden");
+
+                $have_under_user = DB::result("SELECT COUNT(user_id) FROM user WHERE under_admin=".$g_user['user_id']);
+                $role = get_param("user_role") || $have_under_user ? "group_admin" : "user";
 
                 $under_admin_data = get_param("under_admin");
 
@@ -161,12 +164,23 @@ class CForm extends UserFields //CHtmlBlock
                 }
 
                 // group admin never stay under group admin
-                if($role == "group_admin")
+                if($role == "group_admin") {
                     $under_admin = "under_admin = NULL, ";
+
+                    // group admin access
+                    $editAccess = get_param("editAccess") ? get_param("editAccess") : 0;
+                    $deleteAccess = get_param("deleteAccess") ? get_param("deleteAccess") : 0;
+                    $banAccess = get_param("banAccess") ? get_param("banAccess") : 0;
+
+                    $gadmin_data = $editAccess.','.$deleteAccess.','.$banAccess;
+                    $gadmin_previllage = "gadmin_previllage = '".$gadmin_data ."',";
+                } else 
+                    $gadmin_previllage = "gadmin_previllage = '0,0,0',";
                 
                 DB::execute("UPDATE user SET
                                 role = " . to_sql($role, 'Text') . ",
                                 " . $under_admin . "
+                                " . $gadmin_previllage . "
                                 name = " . to_sql($name, 'Text') . ",
                                 password = " . to_sql($password, 'Text') . ",
                                 phone = " . to_sql($phone, 'Text') . ",
@@ -299,6 +313,14 @@ class CForm extends UserFields //CHtmlBlock
         $html->setvar("user_name", $g_user['name']);
         $html->setvar("password", $g_user['password']);
 
+        $gadmin_previllage = explode(",", $g_user['gadmin_previllage']);
+        if($gadmin_previllage[0])
+            $html->setvar("editCheck", $checked);
+        if($gadmin_previllage[1])
+            $html->setvar("deleteCheck", $checked);
+        if($gadmin_previllage[2])
+            $html->setvar("banCheck", $checked);
+
 		if ($html->varExists('user_photo')) {
 			$html->setvar('user_photo', User::getPhotoDefault($g_user['user_id'], 'm'));
 		}
@@ -352,20 +374,24 @@ class CForm extends UserFields //CHtmlBlock
             $html->setvar('profile_status_max_length', $profileStatusMaxLength);
             $html->parse('profile_status');
         }
+        
+        $html->setvar('access_display', 'style="display: none"');
 
         if($g_user['use_as_online']) {
             $html->setvar("use_as_online", $checked);
         }
 
         $user_id = $g_user['user_id'];
-        $is_group_admin  = ($g_user['role'] == "group_admin") ? 1 : 0;  
+        $html->setvar("role", $g_user['role']);
 
-        if($is_group_admin) { // group admin
+        if($g_user['role'] == "group_admin") { // group admin
             $html->setvar("user_role", $checked);
+            $html->setvar('access_display', '');
 
             $have_under_user = DB::result("SELECT COUNT(user_id) FROM user WHERE under_admin=$user_id");
-            if($have_under_user)
+            if($have_under_user) {
                 $html->setvar("roleDisabled", 'disabled');
+            }
             
             $html->setvar("under_user", '('.$have_under_user.')');
         } else { // general user
