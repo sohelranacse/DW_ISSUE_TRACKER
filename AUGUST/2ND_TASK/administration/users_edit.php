@@ -21,8 +21,14 @@ if($cmd != 'location') {
     // group admin
     $groupAdmin_id = get_session('groupAdmin_id');
     if($groupAdmin_id) {
-        $my_info = DB::result("SELECT COUNT(*) FROM user WHERE under_admin = $groupAdmin_id AND user_id = ".$g_user['user_id']);
-        if($my_info == 0)
+        // the user is my client
+        $myClient = DB::result("SELECT COUNT(*) FROM user WHERE under_admin = $groupAdmin_id AND user_id = ".$g_user['user_id']);
+
+        // I have access to edit my client
+        $my_info = DB::row("SELECT gadmin_previllage FROM user WHERE user_id = $groupAdmin_id");
+        $gadmin_previllage = explode(",", $my_info['gadmin_previllage']);
+
+        if(!$myClient || !$gadmin_previllage[0])
             redirect('group_admin_panel.php');
     }
 }
@@ -148,7 +154,6 @@ class CForm extends UserFields //CHtmlBlock
                 Config::update('options', 'admin_user_id', $adminUserId);
 
                 $user_role = get_param("user_role");
-                $role_hidden = get_param("user_role_hidden");
 
                 $have_under_user = DB::result("SELECT COUNT(user_id) FROM user WHERE under_admin=".$g_user['user_id']);
                 $role = get_param("user_role") || $have_under_user ? "group_admin" : "user";
@@ -381,6 +386,7 @@ class CForm extends UserFields //CHtmlBlock
             $html->setvar("use_as_online", $checked);
         }
 
+
         $user_id = $g_user['user_id'];
         $html->setvar("role", $g_user['role']);
 
@@ -405,6 +411,9 @@ class CForm extends UserFields //CHtmlBlock
             $html->parse('not_group_user', true);
 
         $html->setvar("phone", $g_user['phone']);
+
+        if(get_session('admin_auth'))
+            $html->parse('assign_group_admin', false);
 
 		if (IS_DEMO)
             $html->setvar("mail", get_param("mail", 'disabled@ondemoadmin.cp'));

@@ -75,7 +75,7 @@ class CAdminLogin extends CHtmlBlock
                     }
                 }
             } else { // group admin
-                $sql = 'SELECT user_id FROM user WHERE ban_global = 0 AND mail = '.to_sql($login, 'Text');
+                $sql = 'SELECT user_id FROM user WHERE ban_global = 0 AND role = '.to_sql("group_admin").' AND mail = '.to_sql($login, 'Text');
                 $groupUser=DB::row($sql);
                 if(isset($groupUser)) {
                     $user=User::getUserByLoginAndPassword($login, $pass);

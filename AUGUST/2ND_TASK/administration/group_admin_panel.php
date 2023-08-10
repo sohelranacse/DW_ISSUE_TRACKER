@@ -3,19 +3,22 @@
 include("../_include/core/administration_start.php");
 
 $groupAdmin_id = get_session('groupAdmin_id');
-$my_info = DB::row("SELECT gadmin_previllage FROM user WHERE user_id = $groupAdmin_id");
-$gadmin_previllage = explode(",", $my_info['gadmin_previllage']);
+if($groupAdmin_id) {
+	$my_info = DB::row("SELECT gadmin_previllage FROM user WHERE user_id = $groupAdmin_id");
+	$gadmin_previllage = explode(",", $my_info['gadmin_previllage']);
+} else 
+	$gadmin_previllage = explode(",", "1,1,1");
 
 class GroupAdmin extends CHtmlList
 {
 	function action()
 	{
-		global $g, $p;
+		global $g, $p, $gadmin_previllage;
 
 		$del = get_param('delete');
         $banned = intval(get_param('ban'));
         $isRedirect = false;
-		if ($del) {
+		if ($del && $gadmin_previllage[1]) {
             $user =  explode(',', $del);
             foreach ($user as $userId) {
                 if (Common::isEnabledAutoMail('admin_delete')) {
@@ -30,7 +33,7 @@ class GroupAdmin extends CHtmlList
                 delete_user($userId);
             }
 			$isRedirect = true;
-		} elseif ($banned) {
+		} elseif ($banned && $gadmin_previllage[2]) {
 			$sql='UPDATE user SET ban_global=1-ban_global WHERE user_id='. to_sql($banned, 'Number');
 			DB::execute($sql);
             $isRedirect = true;
@@ -210,15 +213,6 @@ class GroupAdmin extends CHtmlList
 	}
 	function parseBlock(&$html)
 	{
-		
-
-		// if($gadmin_previllage[0])
-		// 	$html->parse("editRestrict", true);
-		// if($gadmin_previllage[1])
-		// 	$html->parse("delRestrict", true);
-		// if($gadmin_previllage[2])
-		// 	$html->parse("banRestrict", true);
-
 		parent::parseBlock($html);
 	}
     function onPostParse(&$html)
@@ -240,9 +234,25 @@ class GroupAdmin extends CHtmlList
 		$this->m_field['country_title'][1] = DB::result("SELECT country_title FROM geo_country WHERE country_id=" . $row['country_id'] . "", 0, 2);
 		if ($this->m_field['country_title'][1] == "") $this->m_field['country_title'][1] = "blank";
 
-		$html->parse("editRestrict", false);
-		$html->parse("delRestrict", false);
+		$html->setvar("user_id", $row['user_id']);
+		if($gadmin_previllage[0])
+			$html->parse("editRestrict", false);
 		
+		if($gadmin_previllage[1])
+			$html->parse("delRestrict", false);
+
+		if($gadmin_previllage[2]) {
+			if($row['ban_global']){
+				$html->setvar("ban_action", l('unban'));
+				$this->m_field['ban_action'][1] = l('unban');
+			} else {
+				$html->setvar("ban_action", l('ban'));
+				$this->m_field['ban_action'][1] = l('ban');
+			}
+			$html->parse("banRestrict", false);
+		} else
+			$this->m_field['ban_action'][1] = '';	
+
 
         if ($row['type'] != 'none')
         {
@@ -254,13 +264,7 @@ class GroupAdmin extends CHtmlList
         } else {
             $this->m_field['type'][1] = l($row['type']);
         }
-		if($row['ban_global']){
-			$html->parse("banRestrict", false);
-			$this->m_field['ban_action'][1] = l('unban');
-		} else {
-			$html->parse("banRestrict", false);
-			$this->m_field['ban_action'][1] = l('ban');
-		}
+		
 
 		$this->m_field['orientation'][1] = DB::result("SELECT title FROM const_orientation WHERE id=" . $row['orientation'] . "", 0, 2);
 		if ($this->m_field['orientation'][1] == "")

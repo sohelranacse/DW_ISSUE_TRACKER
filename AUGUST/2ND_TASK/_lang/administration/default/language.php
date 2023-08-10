@@ -2942,6 +2942,7 @@ $l['all']['no_messages'] = "No messages";
 $l['users_edit.php']['other_data'] = "Other";
 
 $l['users_edit.php']['user_video'] = "Videos";
+$l['users_edit.php']['assign_group_admin'] = "Assign Group Admin";
 
 // created by sohel
 $l['users_results.php']['role'] = "Role";
@@ -2951,7 +2952,7 @@ $l['group_admin.php']['add_group_admin'] = "Add Group Admin";
 $l['group_admin.php']['mail'] = "Mail";
 $l['group_admin.php']['under_user'] = "Under Admin";
 
-$l['users_edit.php']['assign_group_admin'] = "Group Admin";
+$l['users_edit.php']['group_admin'] = "Group Admin";
 $l['users_edit.php']['under_group_admin'] = "Under Group Admin";
 
 $l['users_under_admin.php']['title_current'] = "Under Admin";
@@ -2959,6 +2960,8 @@ $l['users_under_admin.php']['mail'] = "Mail";
 
 $l['group_admin_panel.php']['title_current'] = "User List";
 $l['group_admin_panel.php']['mail'] = "Mail";
+$l['group_admin_panel.php']['cancel'] = "Cancel";
+$l['group_admin_panel.php']['ok'] = "OK";
 
 // $l['add_group_user.php']['mail'] = "Mail";
 $l['add_group_user.php']['title_current'] = "Add User";
@@ -2966,6 +2969,7 @@ $l['add_group_user.php']['date_of_birth'] = "Date of Birth";
 $l['add_group_user.php']['user_information'] = "User Information";
 $l['add_group_user.php']['create_user'] = "Create User";
 $l['add_group_user.php']['created_success'] = "User Created Successfully!";
+$l['add_group_user.php']['add_photo'] = "Add Photo";
 
 $l['all']['localtion'] = "Location";
 $l['all']['exists_phone_number'] = "The Phone Number you entered already exists on our system.";

@@ -40,6 +40,10 @@ class CAddUser extends UserFields //CHtmlBlock
             $this->message .= User::validatePassword($password, 4, 100);
             $this->message .= User::validate('email,birthday,country');
 
+            $fileTemp = $g['path']['dir_files'] . 'temp/admin_upload_user_profile_' . time();
+            Common::uploadDataImageFromSetData($fileTemp, 'photo_file');
+            $this->message = User::validatePhoto("photo_file");
+
             if ($this->message == '')
             {
                 $register = date("Y-m-d H:i:s");
@@ -77,6 +81,11 @@ class CAddUser extends UserFields //CHtmlBlock
                 $newUserID = $q['user_id'];
                 DB::execute("INSERT INTO userinfo (user_id) VALUES (".$newUserID.")");
                 DB::execute("INSERT INTO userpartner (user_id) VALUES (".$newUserID.")");
+
+                // upload photo
+                $g['options']['photo_approval'] = 'N';
+                $g['options']['nudity_filter_enabled'] = 'N';
+                uploadphoto($newUserID, '', 'upload', 1, '../', false, 'photo_file', get_param('private'));
 
                 $this->message = 'success';
             }
