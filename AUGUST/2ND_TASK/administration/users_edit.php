@@ -28,7 +28,7 @@ if($cmd != 'location') {
         $my_info = DB::row("SELECT gadmin_previllage FROM user WHERE user_id = $groupAdmin_id");
         $gadmin_previllage = explode(",", $my_info['gadmin_previllage']);
 
-        if(!$myClient || !$gadmin_previllage[0])
+        if(!$myClient || !$gadmin_previllage[1]) // edit access
             redirect('group_admin_panel.php');
     }
 }
@@ -173,11 +173,11 @@ class CForm extends UserFields //CHtmlBlock
                     $under_admin = "under_admin = NULL, ";
 
                     // group admin access
+                    $addAccess = get_param("addAccess") ? get_param("addAccess") : 0;
                     $editAccess = get_param("editAccess") ? get_param("editAccess") : 0;
                     $deleteAccess = get_param("deleteAccess") ? get_param("deleteAccess") : 0;
-                    $banAccess = get_param("banAccess") ? get_param("banAccess") : 0;
 
-                    $gadmin_data = $editAccess.','.$deleteAccess.','.$banAccess;
+                    $gadmin_data = $addAccess.','.$editAccess.','.$deleteAccess;
                     $gadmin_previllage = "gadmin_previllage = '".$gadmin_data ."',";
                 } else 
                     $gadmin_previllage = "gadmin_previllage = '0,0,0',";
@@ -319,12 +319,13 @@ class CForm extends UserFields //CHtmlBlock
         $html->setvar("password", $g_user['password']);
 
         $gadmin_previllage = explode(",", $g_user['gadmin_previllage']);
+
         if($gadmin_previllage[0])
-            $html->setvar("editCheck", $checked);
+            $html->setvar("addCheck", $checked);
         if($gadmin_previllage[1])
-            $html->setvar("deleteCheck", $checked);
+            $html->setvar("editCheck", $checked);
         if($gadmin_previllage[2])
-            $html->setvar("banCheck", $checked);
+            $html->setvar("deleteCheck", $checked);
 
 		if ($html->varExists('user_photo')) {
 			$html->setvar('user_photo', User::getPhotoDefault($g_user['user_id'], 'm'));

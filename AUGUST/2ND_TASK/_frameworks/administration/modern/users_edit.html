@@ -319,16 +319,16 @@
 
 							<div id="groupAccess_div" {access_display}>
 								<fieldset class="form-group bl_label custom-switch mb-2 pt-1 border-top border-light">
+									<input id="addAccess" class="custom-control-input i_checkbox" type="checkbox" name="addAccess" value="1" {addCheck}>
+									<label class="custom-control-label" for="addAccess">{l_add}</label>
+								</fieldset>
+								<fieldset class="form-group bl_label custom-switch mb-2">
 									<input id="editAccess" class="custom-control-input i_checkbox" type="checkbox" name="editAccess" value="1" {editCheck}>
 									<label class="custom-control-label" for="editAccess">{l_edit}</label>
 								</fieldset>
 								<fieldset class="form-group bl_label custom-switch mb-2">
 									<input id="deleteAccess" class="custom-control-input i_checkbox" type="checkbox" name="deleteAccess" value="1" {deleteCheck}>
 									<label class="custom-control-label" for="deleteAccess">{l_delete}</label>
-								</fieldset>
-								<fieldset class="form-group bl_label custom-switch mb-2">
-									<input id="banAccess" class="custom-control-input i_checkbox" type="checkbox" name="banAccess" value="1" {banCheck}>
-									<label class="custom-control-label" for="banAccess">{l_ban}</label>
 								</fieldset>
 							</div>
 							<!-- end_not_group_user -->

@@ -43,19 +43,14 @@
 						</div>
 						<div class="card-content">
 		                	<div class="card-body pt-0 pb-1">
+
+								<fieldset class="form-group">
+									<label>{l_name}:</label>
+									<input type="text" id="username" maxlength="{username_length}" name="username" class="form-control" required>
+								</fieldset>
 								<fieldset class="form-group">
 									<label>{l_email_address}:</label>
 									<input type="email" id="email" name="email" class="form-control" required="1">
-								</fieldset>
-
-								<fieldset class="form-group">
-									<label>{l_username}:</label>
-									<input type="text" id="username" maxlength="{username_length}" name="username" class="form-control" required>
-								</fieldset>
-
-								<fieldset class="form-group">
-									<label>{l_password}:</label>
-									<input type="password" id="password" name="password" class="form-control" maxlength="20">
 								</fieldset>
 
 								<fieldset class="form-group">
@@ -97,7 +92,7 @@
 					<div class="card">
 	                    <div class="card-header pb-0">
 	                        <div class="card-title-wrap bar-primary">
-								<h4 class="card-title"><i class="fa fa-picture-o" aria-hidden="true"></i> {l_add_photo}</h4>
+								<h4 class="card-title"><i class="fa fa-picture-o" aria-hidden="true"></i> {l_user_photo}</h4>
 								<hr>
 							</div>
 						</div>
@@ -127,16 +122,10 @@
 								<option value="0">- {l_localtion} -</option>
 								{country_options}
 								</select>
-							</fieldset>
-							<fieldset class="form-group">
-								<label>{l_state_province}:</label>
 								<select class="form-control mt-1" name="state" id="state">
 								<option value="0">- {l_state_province} -</option>
 								{state_options}
 								</select>
-							</fieldset>
-							<fieldset class="form-group">
-								<label>{l_city}:</label>
 								<select class="form-control mt-1" name="city" id="city">
 								<option value="0">- {l_city} -</option>
 								{city_options}
@@ -146,18 +135,14 @@
 						</div>
 					</div>
 
-
+					<fieldset class="form-group">
+						<input type="hidden" name="cmd" value="insert">
+						<input type="hidden" name="cmd_ajax" value="1">
+						<button class="btn btn-primary btn_submit" type="submit">{l_create_user}</button>
+					</fieldset>
 
 		    	</div>
 		    </div>
-
-	        <div class="col-md-12 text-center">
-				<fieldset class="form-group">
-					<input type="hidden" name="cmd" value="insert">
-					<input type="hidden" name="cmd_ajax" value="1">
-					<button class="btn btn-primary btn_submit" type="submit">{l_create_user}</button>
-				</fieldset>
-			</div>
 		</div>
 	</form>
 
@@ -199,7 +184,6 @@
 			event.preventDefault();			
 			let email = $("#email").val()
 			let username = $("#username").val()
-			let password = $("#password").val()
 			let full_phone_number = $("#full_phone_number").val()
 
 			let country = $("#country").val()
@@ -210,20 +194,18 @@
 			let photo_file = $('#dpz-upload-single-icon')[0].dropzone.getAcceptedFiles()[0]
 
 			let elementOffset = document.getElementById("frm_users_add").offsetTop;
-			if(email == "" || username == "" || password == "" || full_phone_number == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
+			if(email == "" || username == "" || full_phone_number == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
 				var msg = ""
 				if(email == "")
 					msg += "Email Required!<br>"
 				if(username == "")
 					msg += "Username Required!<br>"
-				if(password == "")
-					msg += "Password Required!<br>"
 				if(full_phone_number == "")
 					msg += "Phone Number Required!<br>"
 				if(country == 0 || state == 0 || city == 0)
 					msg += "Location Required!<br>"
 				if(photo_file == undefined)
-					msg += "Photo Required!<br>"
+					msg += "User Photo Required!<br>"
 
 				$("#warAlert").html(msg)
 			} else {				
@@ -244,7 +226,6 @@
 		            		
 		            		$("#email").val("")
 							$("#username").val("")
-							$("#password").val("")
 							$("#full_phone_number").val("")
 							$("#join_phone_number").val("")
 

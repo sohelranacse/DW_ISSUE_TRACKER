@@ -24,7 +24,7 @@ class CAddUser extends UserFields //CHtmlBlock
             $phone = trim(get_param('phone'));
             $this->message .= User::checkExistPhone($phone);
 
-            $password = trim(get_param('password'));
+            $password = trim('deshiwedding');
             $password = User::preparePasswordForDatabase($password);
 
             $mail = get_param('email', '');
@@ -49,14 +49,17 @@ class CAddUser extends UserFields //CHtmlBlock
                 $register = date("Y-m-d H:i:s");
                 $under_admin = get_session('groupAdmin_id') ? get_session('groupAdmin_id') : "NULL";
 
+                $name_seo = to_sql(Router::prepareNameSeo($name));
                 $h = zodiac($year . '-' . $month . '-' .  $day);
                 $query = "
                     INSERT INTO user (
-                        role, under_admin, name, password, mail, country_id, state_id, city_id, country, state, city, birth, orientation, horoscope, register, last_ip, active, use_as_online, phone
+                        role, under_admin, name, name_seo, password, mail, country_id, state_id, city_id, country, state, city, birth, orientation, horoscope, register, last_ip, active, use_as_online, phone
                     )
                     VALUES (
-                        ".to_sql('user', 'Text').", ".$under_admin.",
+                        ".to_sql('user', 'Text').",
+                        ".$under_admin.",
                         ".to_sql($name, 'Text').",
+                        ".to_sql($name_seo, 'Text').",
                         ".to_sql($password, 'Text').",
                         ".to_sql($mail, "Text").",
                         ".to_sql($country, "Number").",

@@ -235,23 +235,15 @@ class GroupAdmin extends CHtmlList
 		if ($this->m_field['country_title'][1] == "") $this->m_field['country_title'][1] = "blank";
 
 		$html->setvar("user_id", $row['user_id']);
-		if($gadmin_previllage[0])
-			$html->parse("editRestrict", false);
 		
 		if($gadmin_previllage[1])
 			$html->parse("delRestrict", false);
 
-		if($gadmin_previllage[2]) {
-			if($row['ban_global']){
-				$html->setvar("ban_action", l('unban'));
-				$this->m_field['ban_action'][1] = l('unban');
-			} else {
-				$html->setvar("ban_action", l('ban'));
-				$this->m_field['ban_action'][1] = l('ban');
-			}
-			$html->parse("banRestrict", false);
-		} else
-			$this->m_field['ban_action'][1] = '';	
+		if($row['ban_global']){
+			$this->m_field['ban_action'][1] = l('unban');
+		} else {
+			$this->m_field['ban_action'][1] = l('ban');
+		}
 
 
         if ($row['type'] != 'none')

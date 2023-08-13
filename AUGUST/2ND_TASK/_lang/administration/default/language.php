@@ -2969,7 +2969,7 @@ $l['add_group_user.php']['date_of_birth'] = "Date of Birth";
 $l['add_group_user.php']['user_information'] = "User Information";
 $l['add_group_user.php']['create_user'] = "Create User";
 $l['add_group_user.php']['created_success'] = "User Created Successfully!";
-$l['add_group_user.php']['add_photo'] = "Add Photo";
+$l['add_group_user.php']['user_photo'] = "User Photo";
 
 $l['all']['localtion'] = "Location";
 $l['all']['exists_phone_number'] = "The Phone Number you entered already exists on our system.";
