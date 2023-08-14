@@ -60,10 +60,11 @@ class CLoginForm extends CHtmlBlock
                         set_cookie('c_user', '', -1);
                         set_cookie('c_password', '', -1);
                     }
+                    $redirect = Common::getHomePage();
 
                     if($g_user['role'] == 'group_admin') {
-                        $redirect = 'group_admin_panel.php';
-                        set_session('groupAdmin_id', $id);
+                        $redirect = 'group_users';
+                        // set_session('groupAdmin_id', $id);
                     }
                     else
                         $redirect = Common::getHomePage();

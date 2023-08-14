@@ -1,6 +1,8 @@
 1. Add Language
 	group_admin = Group Admin
 	add_group_user = Add User
+
+	group_users = Group Users
 	
 2. Create column
 	
@@ -9,3 +11,7 @@ ALTER TABLE `user` CHANGE `role` `role` ENUM('user','group_admin') CHARACTER SET
 ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL' AFTER `role`;
 
 ALTER TABLE `user` ADD `gadmin_previllage` VARCHAR(5) NOT NULL DEFAULT '0,0,0' COMMENT 'add,edit,delete' AFTER `live_now_status`;
+
+3. .htaccess -> add line no. 29
+
+RewriteRule ^group_users$ group_users.php [L,QSA]

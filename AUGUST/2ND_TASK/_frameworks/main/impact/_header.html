@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{title}</title>
+    <!-- begin_color_scheme_styles_background_image_head_js -->
+    <script language="javascript" type="text/javascript">
+		var bgLast = '';
+        if(name) {
+            bgLast = name;
+            var bgLastParts = bgLast.split(',');
+            var bgLastUrl = bgLastParts[0];
+            //console.log('BG LAST', bgLastUrl);
+             document.documentElement.style.background='url('+bgLastUrl+') center top / cover transparent';
+         }
+ 	</script>
+    <!-- end_color_scheme_styles_background_image_head_js -->
+    <meta name="viewport" content="width=973">
+    <meta http-equiv="Content-Type" content="text/html; charset={l_charset}"/>
+    <meta name="description" content="{description}">
+    <meta name="keywords" content="{keywords}">
+
+	<!-- begin_base_url_main_head -->
+	<base href="{base_url_main_head}">
+	<!-- end_base_url_main_head -->
+
+    {to_head_meta}
+    {header_favicon}
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery-1.11.2.min.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery-ui-1.11.4.min.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.formstyler.js{cache_version_param}"></script>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/jquery.formstyler.css{cache_version_param}"/>
+
+    <!-- begin_header_visitor_join1_head -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/jquery.jscrollpane.css{cache_version_param}"/>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.jscrollpane.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.mousewheel.js{cache_version_param}"></script>
+    <!-- end_header_visitor_join1_head -->
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jcarousel/modernizr.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/lib.js{cache_version_param}"></script>
+    <script language="javascript" type="text/javascript">
+        setOptionsSite({site_options});
+    </script>
+    <script type="text/javascript" src="{url_tmpl_main}js/lib.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/script.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.form.js{cache_version_param}"></script>
+
+    <!-- begin_header_visitor_head_style -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/index_page.css{cache_version_param}"/>
+    <!-- end_header_visitor_head_style -->
+    <!-- begin_header_visitor_head_style_rtl -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/index_page.rtl.css{cache_version_param}"/>
+    <!-- end_header_visitor_head_style_rtl -->
+    <!-- begin_header_visitor_head -->
+    <script type="text/javascript" src="{url_tmpl_main}js/index.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/login_form.js{cache_version_param}"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+
+    <script language="javascript" type="text/javascript">
+        var siteLangParts = {
+            signIn : '{j_sign_in}',
+			incorrectEmail : '{j_incorrect_email}',
+            send_again : '{j_send_again}',
+            send_password : '{j_send_password}',
+            link_password_send : '{j_the_link_for_changing_password_has_been_sent}'
+        };
+    </script>
+    <!-- end_header_visitor_head -->
+    <!-- begin_header_visitor_join2_head -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/card.css{cache_version_param}"/>
+    <!-- end_header_visitor_join2_head -->
+
+    <!-- begin_header_visitor_page_head -->
+    <script type="text/javascript" src="{url_tmpl_main}js/index.js{cache_version_param}"></script>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/style.css{cache_version_param}"/>
+    <!-- end_header_visitor_page_head -->
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/font-awesome.min.css{cache_version_param}"/>
+
+    <!-- begin_header_member_head -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/tinyscrollbar.css{cache_version_param}"/>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/style.css{cache_version_param}"/>
+    <!-- begin_header_member_head_style_rtl -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/style.rtl.css{cache_version_param}"/>
+    <!-- end_header_member_head_style_rtl -->
+    <script type="text/javascript" src="{url_tmpl_main}js/profile.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/upgrade.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_tmpl_main}js/profile_photo.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/messages.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/im.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.lazyload.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jcarousel/jquery.jcarousel.min.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/server_impact.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/js/sound/soundmanager2-nodebug-jsmin.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.winFocus.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.autosize.js{cache_version_param}"></script>
+	<script type='text/javascript' src="{url_tmpl_main}js/jquery.scrollTo.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.tinyscrollbar.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/chat.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_main}js/city_street_chat.js{cache_version_param}"></script>
+
+
+    <script type="text/javascript" src="{url_main}_server/js/imagesloaded.pkgd.min.js{cache_version_param}"></script>
+    <link rel="stylesheet" href="{url_tmpl}common/lightbox/jquery.lightbox-0.5.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl}common/lightbox/jquery.lightbox-0.5.min.js{cache_version_param}"></script>
+
+    <script language="javascript" type="text/javascript">
+		var isAppAndroid = '{is_app_android}'*1;
+
+        var siteLangParts = {
+            server_error_try_again : '{j_server_error_try_again}',
+            user_has_been_blocked : '{j_the_user_has_been_blocked}',
+            user_has_been_unlocked : '{j_the_user_has_been_unlocked}',
+            close_window : '{j_close_window}',
+            please_wait_for : '{j_please_wait_for_confirmation}',
+            invitation_sent : '{j_invitation_sent}',
+            attention : '{j_attention}',
+            decline : '{j_mediachat_decline}',
+            start : '{j_mediachat_start}',
+            invitation_declined : '{j_mediachat_invitation_declined}',
+            user_not_online : '{j_the_user_is_offline_now_please_try_later}',
+            lMediaChatSsl_video : '{j_your_browser_needs_ssl_certificate_to_run_video_chat}',
+            lMediaChatSsl_audio : '{j_your_browser_needs_ssl_certificate_to_run_audio_chat}',
+            lNoWebrtcSupport : '{j_the_browser_has_no_webrtc_support}',
+            you_have_no_enough_credits : '{j_you_have_no_enough_credits}',
+            buy_credits: '{j_buy_credits}',
+            remove_ads : '{j_remove_ads}',
+            show_ads : '{j_show_ads}'
+        };
+
+        var Profile = new CProfile('{user_id}', '{spotlight_photos_number}', '{request_uri}', '{is_free_site}');
+            Profile.init('{is_photo_default_public}', '{is_photo_public}', '{spotlight_i_am}', '{spotlight_costs}', '{hide_my_presence}', '{min_number_photos_to_use_site}', '{alert_min_number_photos_to_use_site}', '{profile_status_max_length}');
+            Profile.langParts = {
+                do_you_want_to_log_out : '{j_do_you_want_to_log_out}',
+                reset : '{j_reset}',
+                cancel : '{j_cancel}',
+                who_are_you_looking_for : '{j_who_are_you_looking_for}',
+                your_status_here : '{j_your_status_here}',
+                edit_basic_details : '{j_edit_basic_details}',
+				edit_personal_details : '{j_edit_personal_details}',
+                your_like_has_been_sent : '{j_your_like_has_been_sent}',
+                profile_menu_user_block : '{j_profile_menu_user_block}',
+                profile_menu_user_unblock : '{j_profile_menu_user_unblock}',
+                report_sent : '{j_report_sent}',
+                report_title_user : '{j_add_a_message_for_the_administrator}',
+                report_title_photo : '{j_report_this_photo_to_administrator}',
+				unlike : '{j_unlike}',
+				like : '{j_like}',
+				profile_like : '{j_profile_like}',
+				profile_liked : '{j_profile_liked}',
+                go : '{j_go}',
+                profile_settings : '{j_profile_settings}',
+                block_visitor_user_alert : '{j_profile_menu_user_block}',
+                user_unblock_alert : '{j_profile_menu_user_unblock}',
+                you_havent_blocked_anyone_yet : '{j_you_havent_blocked_anyone_yet}',
+                unblock : '{j_unblock}',
+                the_profile_will_be_unblocked_if_you_like_it : '{j_the_profile_will_be_unblocked_if_you_like_it}',
+                the_profile_will_be_unlocked_if_you_send_a_message : '{j_the_profile_will_be_unlocked_if_you_send_a_message}',
+            };
+
+        var upgrade = new CUpgrade('{request_uri}');
+            upgrade.langParts = {
+                proceed : '{j_proceed}',
+                go : '{j_go}',
+                credit_balance : '{j_credit_balance}'
+            };
+			upgrade.setData({live_price : '{live_price}'*1})
+
+        var messages = new CMessages('{user_id}', '{im_history_messages}');
+            messages.maxFileSize = '{max_filesize}'*1;
+            messages.langParts = {
+                'really_delete_all_messages' : '{j_really_delete_all_messages}',
+                'cancel' : '{j_cancel}',
+                'delete' : '{j_delete}',
+                'btn_perform_action' : '{j_btn_perform_action}',
+                'accept_file_types' : '{j_accept_file_types}',
+                'max_file_size' : '{max_photo_file_size_limit}'
+            }
+
+        var imChats = new CIm('{user_id}', '{im_history_messages}', '{is_super_powers}');
+            imChats.maxFileSize = '{max_filesize}'*1;
+            imChats.langParts = {
+                count:'{j_people_online_count}',
+                count_empty:'{j_people_online_count_empty}',
+                upgrade_to_see_if_read:'{j_upgrade_to_see_if_read}',
+                just_now:'{j_just_now}',
+                are_you_sure_you_want_to_close:'{j_are_you_sure_you_want_to_close_this_chat_window}',
+                accept_file_types : '{j_accept_file_types}',
+                max_file_size : '{max_photo_file_size_limit}'
+            };
+            imChats.setData({
+                user_name:'{user_name}',
+                user_age:'{user_age}',
+                user_photo:'{user_photo_default_url}'
+            });
+        var audioChat = new CChat('audio');
+            audioChat.price = '{audio_chat_price}'*1;
+            audioChat.langParts = {
+                start_chat:'{j_start_audio_chat}'
+            }
+        var videoChat = new CChat('video');
+            videoChat.price = '{video_chat_price}'*1;
+            videoChat.isDemoUser = '{is_demo_user}'*1;
+            videoChat.langParts = {
+                start_chat:'{j_start_video_chat}'
+            }
+
+        var cityStreetChat = new CCityStreetChat();
+            cityStreetChat.langParts = {
+                start_chat : '{j_start_street_chat}',
+            }
+
+        var isPlayerNative = '{is_player_native}' * 1;
+    </script>
+    <!-- end_header_member_head -->
+
+    <script type="text/javascript" src="{url_main}_server/jquery/jquery.popup.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_main}_server/jquery/prettyCheckable.js{cache_version_param}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{url_main}css.php{cache_version_param}&set_template_runtime={tmpl_loaded}&page={current_page}&demo_version={demo_version}" />
+
+    <style type="text/css">
+        button.btn.pink{ background: {color_scheme_button_primary_background_color_impact}; color: {color_scheme_button_primary_text_color_impact}; }
+        button.btn.pink:hover { background: {color_scheme_button_primary_background_color_hover_impact}; }
+    </style>
+    <!-- begin_color_scheme_styles -->
+    <style type="text/css">
+
+        html{ background: {color_scheme_background_color_impact}; }
+        body{ background: {color_scheme_background_color_impact}!important; }
+
+        <!-- begin_color_scheme_styles_background_image -->
+        body {background: transparent !important;}
+        /*html, body {
+            background-image: url({color_scheme_styles_background_image});
+            background-size: cover;
+            background-position: center top;
+        }*/
+        <!-- end_color_scheme_styles_background_image -->
+
+        .header ul.nav li a { color: {color_scheme_header_text_color_impact} }
+        .header ul.nav li a:hover, .header ul.nav li span { color: {color_scheme_header_text_color_hover_impact} }
+
+        .column_main{background-color: {color_scheme_central_column_background_color_impact};}
+
+        .column_main .col ul.nav li span.icon { background-image: url({url_tmpl_main}/images/menu_icons/{color_scheme_menu_icons_impact}); }
+
+        #colfix_l, .colfix_r_bg, .colfix_r_bg_head { background-color: {color_scheme_column_background_color_impact} }
+        .column_main .col ul.nav li a.menu_selected { background-color: {color_scheme_menu_selected_item_background_color_impact}; }
+
+        .column_main .col ul.nav li a {
+            color: {color_scheme_menu_text_color_impact};
+            border-top-color: rgba({color_scheme_menu_item_border_top_color_rgba});
+            border-bottom-color: rgba({color_scheme_menu_item_border_bottom_color_rgba});
+        }
+        .column_main .col ul.nav li a:hover, .column_main .col ul.nav li a.inactive:hover { color: {color_scheme_menu_text_hover_color_impact} }
+
+        .column_main .col ul.nav li a.inactive {
+            color: {color_scheme_menu_inactive_text_color_impact};
+        }
+
+        .column_main .col ul.nav li .count { color: {color_scheme_menu_counter_color_impact} }
+        .column_main .col ul.nav li .count.decor { background-color: {color_scheme_menu_counter_background_color_impact} }
+
+        .column_main .col .link a { color: {color_scheme_remove_ads_color_impact} }
+        .column_main .col .link a:hover { color: {color_scheme_remove_ads_color_hover_impact} }
+        .column_main .col .link a.link_show_banner.action_show {color: {color_scheme_menu_inactive_text_color_impact}}
+        .column_main .col .link a.link_show_banner.action_show:hover {color: {color_scheme_menu_text_hover_color_impact} }
+
+        .column_main .banner_header_bl a.link_show_banner { color: {color_scheme_remove_header_ads_color_impact} }
+        .column_main .banner_header_bl a.link_show_banner:hover { color: {color_scheme_remove_header_ads_color_hover_impact} }
+
+        .main .banner_footer_bl a.link_show_banner { color: {color_scheme_remove_footer_ads_color_impact} }
+        .main .banner_footer_bl a.link_show_banner:hover { color: {color_scheme_remove_footer_ads_color_hover_impact} }
+
+        .column_main .col .bl_visited_photo strong, .profile_sign .txt { color: {color_scheme_column_text_color_impact} }
+
+        .footer .nav li, .footer .nav li a, .column_lang_bl .column_lang a.language{ color: {color_scheme_footer_menu_color_impact} }
+        .column_lang_bl .column_lang a.language::after{ border-bottom: 6px solid {color_scheme_footer_menu_color_impact}; }
+        .footer .nav li a:hover, .column_lang_bl .column_lang a.language:hover { color: {color_scheme_footer_menu_color_hover_impact} }
+        .column_lang_bl .column_lang a.language:hover::after{ border-bottom: 6px solid {color_scheme_footer_menu_color_hover_impact}; }
+
+        .footer_w, .footer-ssl-seal{ color: {color_scheme_footer_copyright_color_impact} }
+
+        button.btn.pink.btn_question { background: {color_scheme_join_button_no_background_color_impact}; color: {color_scheme_join_button_no_text_color_impact}; }
+        button.btn.pink.btn_question:hover { background: {color_scheme_join_button_no_background_color_hover_impact}; }
+
+        button.btn.turquoise{ background: {color_scheme_button_secondary_1_background_color_impact}; color: {color_scheme_button_secondary_1_text_color_impact}; }
+        button.btn.turquoise:hover { background: {color_scheme_button_secondary_1_background_color_hover_impact}; }
+
+        button.btn.lblue{ background: {color_scheme_button_secondary_2_background_color_impact}; color: {color_scheme_button_secondary_2_text_color_impact}; }
+        button.btn.lblue:hover { background: {color_scheme_button_secondary_2_background_color_hover_impact}; }
+
+        button.btn.btn_secondary_3{ background: {color_scheme_button_secondary_3_background_color_impact}; color: {color_scheme_button_secondary_3_text_color_impact}; }
+        button.btn.btn_secondary_3:hover { background: {color_scheme_button_secondary_3_background_color_hover_impact}; }
+
+
+        button.btn.turquoise.btn_question { background: {color_scheme_join_button_yes_background_color_impact}; color: {color_scheme_join_button_yes_text_color_impact}; }
+        button.btn.turquoise.btn_question:hover { background: {color_scheme_join_button_yes_background_color_hover_impact}; }
+
+        button.btn.btn_submit_upgrade { background: {color_scheme_button_upgrade_background_color_impact}; color: {color_scheme_button_upgrade_text_color_impact}; }
+        button.btn.btn_submit_upgrade:hover { background: {color_scheme_button_upgrade_background_color_hover_impact}; }
+
+        button.btn.like_frame {background: {color_scheme_button_like_background_color_impact}; border: 1px solid {color_scheme_button_like_border_color_impact}; color: {color_scheme_button_like_text_color_impact};}
+        button.btn.like_frame:hover {background: {color_scheme_button_like_background_color_hover_impact}; border: 1px solid {color_scheme_button_like_border_color_hover_impact};}
+        button.btn.like_frame.active{background: {color_scheme_button_active_like_background_color_impact}; border: 1px solid {color_scheme_button_active_like_background_color_impact};}
+        button.btn.like_frame.active:hover{background: {color_scheme_button_active_like_background_color_hover_impact}; border: 1px solid {color_scheme_button_active_like_background_color_hover_impact};}
+
+
+        button.btn.btn_open_im_top{background: {color_scheme_button_message_background_color_impact}; color:{color_scheme_button_message_text_color_impact};}
+        button.btn.btn_open_im_top:hover{background: {color_scheme_button_message_background_color_hover_impact};}
+        button.btn.btn_open_im_top .border_decor{border-bottom: 6px solid {color_scheme_button_message_reply_rate_background_color_impact};}
+
+        button.btn.btn_open_im_bottom{background: {color_scheme_button_message_bottom_background_color_impact}; color:{color_scheme_button_message_bottom_text_color_impact};}
+        button.btn.btn_open_im_bottom:hover{background: {color_scheme_button_message_bottom_background_color_hover_impact};}
+
+        .tabs_profile .col_right .btn_browse_invisibly{background: {color_scheme_button_invisible_mode_background_color_impact} url({url_tmpl_main}/images/arrow_browse_invisibly.png) 95% 50% no-repeat; color: {color_scheme_button_invisible_mode_text_color_impact};}
+        .tabs_profile .col_right .btn_browse_invisibly:hover{background: {color_scheme_button_invisible_mode_background_color_hover_impact} url({url_tmpl_main}/images/arrow_browse_invisibly.png) 95% 50% no-repeat; }
+
+        .bl_browse .bl_filter{background: {color_scheme_search_filter_background_color_impact};}
+        .bl_browse .bl_filter .filter_extended{background: {color_scheme_search_extended_filter_background_color_impact};}
+
+        .chat .head a { background-color: {color_scheme_chat_header_background_color_impact}; color: {color_scheme_chat_header_text_color_impact}; }
+        .chat .head span.marker { background-color: {color_scheme_chat_header_icon_color_impact}; }
+
+        .chat.active .head a, .open_im_more_bl, .open_im_more ul.open_im_more_list li:last-child::after,
+        .open_im_more ul.open_im_more_list{ background-color: {color_scheme_chat_online_header_background_color_impact}; color: {color_scheme_chat_online_header_text_color_impact}; }
+
+        .chat.open .cont .item .message .msg_check,
+        .chat.active .head a:hover, .open_im_more_bl:hover,
+        .open_im_more ul.open_im_more_list li:last-child:hover::after,
+        .open_im_more ul.open_im_more_list li:hover{ background-color: {color_scheme_chat_online_header_background_color_hover_impact}; }
+
+        .chat.open .foot .pp_message_upload_img i.fa-camera{ color: {color_scheme_chat_online_header_background_color_hover_impact}; }
+        .chat.open .foot .pp_message_upload_img .pp_message_upload_img_loader .spinner-blade{
+            background-color: {color_scheme_chat_online_header_background_color_hover_impact};
+        }
+
+        @-webkit-keyframes open_im_head_blink {
+            0% {background-color: {color_scheme_chat_online_header_background_color_impact};}
+            50% {background-color: {color_scheme_chat_online_header_background_color_hover_impact_darker};}
+            100% {background-color: {color_scheme_chat_online_header_background_color_impact};}
+        }
+        @keyframes open_im_head_blink {
+            0% {background-color: {color_scheme_chat_online_header_background_color_impact};}
+            50% {background-color: {color_scheme_chat_online_header_background_color_hover_impact_darker};}
+            100% {background-color: {color_scheme_chat_online_header_background_color_impact};}
+        }
+
+        .chat.open .cont .item .message .msg_check.msg_arrow:after {
+            border-left-color:{color_scheme_chat_online_header_background_color_hover_impact};
+        }
+
+        .chat.active .head span.marker { background-color: {color_scheme_chat_online_header_icon_color_impact}; }
+
+        .chat.noactive .head a { background-color: {color_scheme_chat_offline_header_background_color_impact}; color: {color_scheme_chat_offline_header_text_color_impact}; }
+        .chat.noactive .head a:hover { background-color: {color_scheme_chat_offline_header_background_color_hover_impact}; }
+        .chat.noactive .head span.marker { background-color: {color_scheme_chat_offline_header_icon_color_impact}; }
+
+        .chat .cont .chat_cont .item { color: {color_scheme_chat_online_header_background_color_impact}; }
+        .chat .cont .chat_cont .item:hover { background-color: {color_scheme_chat_online_header_background_color_impact}; color: {color_scheme_chat_online_header_text_color_impact}; }
+
+        .bl_ads { color: {color_scheme_menu_text_color_impact}; }
+
+        .pagination a.disabled:hover, .pagination a.disabled {
+            color: {color_scheme_pagination_disabled_item_color_impact};
+        }
+
+        .pagination a:hover, .pagination .pagination-active {
+            color: {color_scheme_pagination_active_item_text_color_impact};
+        }
+
+        .pagination a:before {
+            background-color: {color_scheme_pagination_active_item_background_color_impact};
+        }
+
+        .pagination a {
+            color: {color_scheme_pagination_inactive_item_text_color_impact};
+        }
+    </style>
+    <!-- end_color_scheme_styles -->
+
+    <!-- begin_color_scheme_styles_main_page -->
+    <style type="text/css">
+        body, .footer, .content{ background-color: {color_scheme_main_page_footer_background_color_impact} }
+        .bl_main_info .item p, .footer, .footer .nav li, .footer .nav li a { color: {color_scheme_main_page_footer_text_color_impact} }
+
+        .header, .main.above .wrapper {
+            background: {main_page_header_background_color};
+        }
+
+        <!-- begin_color_scheme_styles_main_page_image_size_big -->
+        .header{ min-height: 100vh; }
+        .header .cover{ min-height: 100vh; }
+        .wrap_header_cont{ height: 100vh; }
+        .wrap_header_cont .bl{ padding: 0; }
+        <!-- end_color_scheme_styles_main_page_image_size_big -->
+
+        <!-- begin_color_scheme_styles_main_page_image_join_size_big -->
+        .header { min-height: 100vh !important; }
+        .main.above .header .cover img{ min-height: 100vh; }
+        .main.above .wrapper { margin-bottom: 0px; }
+        <!-- end_color_scheme_styles_main_page_image_join_size_big -->
+
+        .main.above .bg_shadow { background: rgba(0, 0, 0, 0.{color_scheme_join_overlay_opacity_impact})}
+    </style>
+    <!-- end_color_scheme_styles_main_page -->
+
+    <!-- begin_color_scheme_styles_join2_page -->
+    <style type="text/css">
+        .header {
+            background-color: {color_scheme_column_background_color_impact};
+            color: {color_scheme_column_text_color_impact};
+        }
+
+        /*.header .step ul li {
+            color: {color_scheme_background_color_impact_one_color};
+            border-color: {color_scheme_background_color_impact_one_color};
+        }*/
+
+        .header .step ul li.selected {
+            border-color: {color_scheme_column_text_color_impact};
+            color: {color_scheme_column_text_color_impact};
+        }
+
+        .header .step ul li.checked {
+            border-color: {color_scheme_column_text_color_impact};
+            background-color: {color_scheme_background_color_impact_one_color};
+        }
+
+        .card_profile .part_photo .upload {
+            background: {color_scheme_column_background_color_impact};
+        }
+
+        .bl_card_type .list_photos_card .item {
+            background: {color_scheme_column_background_color_impact};
+        }
+    </style>
+    <!-- end_color_scheme_styles_join2_page -->
+
+    <!-- begin_color_scheme_styles_city_page -->
+    <style type="text/css">
+        .city_body .column_main, .city_body .content .cont_w, .city_body .bl_3dchat, .city_body .bl_3dchat .bs_main, .city_body .bl_3dchat #myIFrame, .city_body .footer {
+            background-color: {color_scheme_3dcity_page_background_color_impact}!important;
+        }
+        .city_body .bl_3dchat #loading_screen, .city_body .city_bl{ background-color: {color_scheme_3dcity_background_color_impact}; }
+    </style>
+    <!-- end_color_scheme_styles_city_page -->
+
+    <!--<style>body,.header{background-color: transparent;}</style>-->
+
+    <script type="text/javascript" src="{url_main}js.php{cache_version_param}&file=tmpl.js&set_template_runtime={tmpl_loaded}&set_language_runtime={lang_loaded}"></script>
+    <script type="text/javascript" src="{url_main}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_runtime={tmpl_loaded}&set_language_runtime={lang_loaded}"></script>
+    <script type="text/javascript" src="{url_main}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_runtime={tmpl_loaded}&set_language_runtime={lang_loaded}&page={current_page}"></script>
+
+	<script type="text/javascript" src="{url_main}_server/js/device.min.js{cache_version_param}"></script>
+	<script type="text/javascript" src="{url_main}_server/jquery/jquery.cookie.js{cache_version_param}"></script>
+
+    <link href="{url_main}_server/videojs/video-js.css{cache_version_param}" rel="stylesheet">
+    <!-- If you'd like to support IE8 -->
+    <script src="{url_main}_server/videojs/ie8/videojs-ie8.min.js{cache_version_param}"></script>
+
+    <link href="{url_tmpl_main}css/videojs.css{cache_version_param}" rel="stylesheet">
+
+	{include_city}
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_main}css/cookiepopup.css{cache_version_param}" />
+    <script type="text/javascript" src="{url_tmpl_main}js/cookiepopup.js{cache_version_param}"></script>
+
+    <script language="javascript" type="text/javascript">
+        <!-- begin_smooth_scroll -->
+        initSmoothScroll();
+        <!-- end_smooth_scroll -->
+        var ajax_login_status={xajax_login_status};
+        var siteTitle='{js_title}';
+        var siteTitleTemp='{js_title}';
+
+        var urlMain=url_main='{url_main}';
+        var urlFiles='{url_files}';
+        var url_tmpl_main='{url_tmpl_main}';
+        var url_tmpl_images=url_tmpl_main+'images/';
+        var url_ajax='{url_main}ajax.php';
+        var url_tmpl='{url_tmpl}';
+        var dirTmplMain='.'+'{url_tmpl_main}';
+        var urlPageLogin='{url_page_login}';
+        var urlPageUpgrade='{url_page_upgrade}';
+        var urlPageProfile='{url_page_profile_view}';
+        var currentPage='{url_page}';
+        var activePage='{current_page}';
+
+        var isPlayerNative='{is_player_native}'*1;
+        var isPageProfile=false;
+		var isCurUserSuperPowers='{is_super_powers}'*1;
+
+        // Server
+        var requestUserId='{request_user_id}'*1;
+        var userAllowedFeature={user_allowed_feature};
+
+        var user_profile_bg='{color_scheme_styles_background_image}';
+        var user_profile_bg_video = {user_profile_bg_video};
+        var is_bg_video_all_page = {is_bg_video_all_page};
+        var profile_bg_video_quality = '{profile_bg_video_quality}';
+
+        var profile_bg_video_play_disabled = {profile_bg_video_play_disabled};
+
+        <!-- begin_main_page_video_js -->
+        var isBgVideoMute = {main_page_video_mute};
+        var bgVideoVolume = {main_page_video_volume};
+        var bgVideoOnce = {main_page_video_show_video_once};
+        var bgLast = [0, 0, 0];
+        <!-- end_main_page_video_js -->
+        <!-- begin_watch_geo_position -->
+        setWatchPositionTimeOut('{watch_geo_position_time}');
+        watchPosition();
+        <!-- end_watch_geo_position -->
+        setGeoPointData({geo_position_data});
+    </script>
+    {custom_head}
+</head>
+<body <!-- begin_body_city -->class="city_body"<!-- end_body_city --> <!-- begin_body_visitor_page -->class="visitor_page"<!-- end_body_visitor_page -->>
+
+
+<!-- begin_pp_presenter_start -->
+<div id="pp_presenter_start" class="pp_edit_info" style="display: none;">
+    <div class="frame">
+        <div class="head">{l_live_title_popup}</div>
+        <div class="cont">
+            <div class="bl_frm">
+                <div class="field">
+                    <input id="pp_stream_title" maxlength="255" name="stream_title" type="text" class="form-control placeholder" placeholder="{a_live_title_placeholder}">
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <div class="fl_right bl_btn to_show">
+				<button id="pp-make-call" type="button" data-no-fade-in="true" class="btn small turquoise" disabled>
+                    <span class="bl_title"><i class="fa fa-video-camera" aria-hidden="true"></i></span><span>{l_start_striming_presenter}</span>
+                </button>
+                <script>$('#pp-make-call').addChildrenLoader();</script>
+			</div>
+            <div class="cl"></div>
+        </div>
+    </div>
+</div>
+<!-- end_pp_presenter_start -->
+
+<!-- main -->
+<div class="main <!-- begin_bl_header_join -->above<!-- end_bl_header_join --> <!-- begin_header_visitor_join_social -->join_social<!-- end_header_visitor_join_social -->">
+    <!-- begin_color_scheme_styles_background_image_js -->
+    <div class="profile_bg"></div>
+    <script>
+        if (user_profile_bg) {
+            var $bgPage=$('.profile_bg');
+            $(new Image()).load(function(){
+                if(bgLast!=user_profile_bg){
+                    var styleBg='url('+user_profile_bg+') center top / cover transparent';
+                    $bgPage.oneTransEnd(function(){
+                        //$('html').css({background:'transparent url('+user_profile_bg+')',backgroundSize:'cover', backgroundPosition:'center top'});
+                        $('html').css('background', styleBg);
+                        $bgPage.remove();
+                    }).css({background:styleBg,opacity:1});
+                }else{
+                    $bgPage.remove();
+                }
+                name=user_profile_bg;
+                //$('html').css({background:''});
+                //bgLast=user_profile_bg;
+            }).on('error', function(){
+                name='';
+                $('html').css({background:''});
+                $bgPage.remove();
+            }).prop('src', user_profile_bg)
+        }
+    </script>
+    <!-- end_color_scheme_styles_background_image_js -->
+	<!-- begin_header_visitor -->
+    <!-- wrapper -->
+    <div class="wrapper">
+        <!-- header_top  -->
+        <div class="head_top absolute">
+            <div class="bl">
+					<div class="fl_right">
+                    <!-- begin_header_visitor_sign_in -->
+                    <span class="link">{l_have_an_account}</span>
+                    <a id="pp_sign_in_open" class="btn_sign" href="">{l_sign_in}</a>
+                    <!-- end_header_visitor_sign_in -->
+                    <!-- begin_view -->
+                    <script>
+                    var pageUrlWithoutLanguage = '{page_url}';
+                    </script>
+                    <div id="main_page_language" class="lang main_page_language">
+                        <div class="main_page_language_bl">
+                        <a class="language" href="" onclick="return false;">{language_current}</a>
+                        <div class="lang_item" id="main_page_language_item">
+                            <ul class="pp_small" id="pp_language" >
+                                <!-- begin_language -->
+                                <li><a href="#" onclick="siteSetLanguage('{language_value}'); return false;"><span class="{language_class}">{language_title}</span></a></li>
+                                <!-- end_language -->
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                    <script>prepareLang();</script>
+                    <!-- end_view -->
+                    </div>
+                <div class="cl"></div>
+            </div>
+            <!-- begin_btn_download_app_top -->
+            <div class="bl_btn_app absolute">
+                <!-- begin_btn_download_app_top_item -->
+                <a target="_blank" class="{btn_download_app_top_item_class}" href="{btn_download_app_top_item_url}" title="{btn_download_app_top_item_title}">
+                    <img src="{url_tmpl_main}images/icon_btn_{btn_download_app_top_item_icon}.png" alt="" />&nbsp;{btn_download_app_top_item_title}
+                </a>
+                <!-- end_btn_download_app_top_item -->
+            </div>
+            <!-- end_btn_download_app_top -->
+            <div class="cl"></div>
+        </div>
+        <!-- /header_top  -->
+        <!-- header_cont  -->
+        <div class="wrap_header_cont absolute">
+            <!-- header_cont_bl -->
+            <div class="bl">
+            <div class="bl_logo">
+                <img id="logo_main_page" src="{header_url_logo}" <!-- begin_logo_params -->style="height:{logo_height}px;"<!-- end_logo_params --> alt="" />
+                <script>goToIndexForLogo();</script>
+            </div>
+    <!-- end_header_visitor -->
+
+    <!-- begin_header_member -->
+    <!-- wrapper -->
+    <div class="wrapper">
+    <!-- header -->
+	<div class="header">
+        <div class="header_w">
+            <!--<a href="{url_main}{url_logo}" class="empty_logo"></a>-->
+
+			<!-- begin_header_member_logo -->
+			<div class="wrap_logo" style="margin: 0;" >
+                <a href="{url_main}{url_logo}" class="logo">
+                    <img src="{header_url_logo_inner}" <!-- begin_logo_inner_params -->style="max-width:{logo_inner_width}px; max-height:38px;"<!-- end_logo_inner_params --> alt="" />
+                </a>
+            </div>
+			<!-- end_header_member_logo -->
+            <ul class="nav">
+                <!-- begin_header_menu_impact -->
+
+                <!-- begin_header_menu_credits_balans_item -->
+                <li class="credits_balans_li"><a class="credits_balans" id="credits_balans_header" href="">{header_credits_balance}</a></li>
+                <!-- end_header_menu_credits_balans_item -->
+
+                <!-- begin_header_menu_profile_item -->
+                    <!-- begin_header_menu_profile -->
+                        <li><a href="{url_main}{url_page_profile_view}">{l_header_menu_profile}</a></li>
+                    <!-- end_header_menu_profile -->
+
+                    <!-- begin_header_menu_profile_selected -->
+                        <li class="selected"><span>{l_header_menu_profile}</span></li>
+                    <!-- end_header_menu_profile_selected -->
+
+                    <!-- begin_group_user -->
+                        <li><a href="{url_main}{url_page_group_users}">{l_group_users}</a></li>
+                    <!-- end_group_user -->
+
+                <!-- end_header_menu_profile_item -->
+
+                <!-- begin_header_menu_settings_item -->
+                <li><a href="" onclick="Profile.showSettingsEditor(); return false;">{l_header_menu_settings}</a></li>
+                <!-- end_header_menu_settings_item -->
+
+                <!-- begin_header_menu_upgrade_item -->
+                <!-- begin_header_menu_upgrade -->
+                <li><a href="{url_main}{url_page_upgrade}">{l_header_menu_upgrade}</a></li>
+                <!-- end_header_menu_upgrade -->
+                <!-- begin_header_menu_upgrade_selected -->
+                <li class="selected"><span>{l_header_menu_upgrade}</span></li>
+                <!-- end_header_menu_upgrade_selected -->
+                <!-- end_header_menu_upgrade_item -->
+
+                <!-- begin_header_menu_moderator_item -->
+                <!-- begin_header_menu_moderator -->
+                <li><a href="{url_main}{url_page_moderator}">{l_header_menu_moderator}</a></li>
+                <!-- end_header_menu_moderator -->
+                <!-- begin_header_menu_moderator_selected -->
+                <li class="selected"><span>{l_header_menu_moderator}</span></li>
+                <!-- end_header_menu_moderator_selected -->
+                <!-- end_header_menu_moderator_item -->
+
+                <!-- begin_header_menu_sign_out_item -->
+                <li><a onclick="Profile.confirmLogout(); return false;" href="">{l_header_menu_sign_out}</a></li>
+                <!-- end_header_menu_sign_out_item -->
+
+                <!-- end_header_menu_impact -->
+            </ul>
+        </div>
+	</div>
+	<!-- /header -->
+
+	<!-- content -->
+
+    <div class="content">
+        <div class="cont_w">
+            <div class="column_main">
+    <!-- end_header_member -->
+
+    <!-- begin_header_visitor_page -->
+    <!-- wrapper -->
+    <div class="wrapper">
+    <!-- header -->
+	<div class="header">
+        <div class="header_w">
+			<div class="wrap_logo">
+                <a href="{url_main}{url_page_index}" class="logo">
+                    <img src="{header_url_logo_inner}" alt="" />
+                </a>
+            </div>
+            <div id="fl_right_sign_in" class="fl_right" style="opacity:0;">
+                <span class="link">{l_have_an_account}</span>
+                <a class="btn_sign" href="{url_main}{url_page_login}">{l_sign_in}</a>
+                <script>
+                var pageUrlWithoutLanguage = '{page_url}';
+                </script>
+                <!-- begin_show_lang_top -->
+                <div id="main_page_language" class="lang main_page_language">
+                        <div class="main_page_language_bl">
+                        <a class="language" onclick="return false;" href="">{lang_top_current}</a>
+                        <div class="lang_item" id="main_page_language_item">
+                            <ul class="pp_small" id="pp_language" >
+                                <!-- begin_lang_top -->
+                                <li><a href="#" onclick="siteSetLanguage('{lang_top_value}'); return false;"><span class="{lang_top_class}">{lang_top_title}</span></a></li>
+                                <!-- end_lang_top -->
+                            </ul>
+                        </div>
+                        </div>
+                </div>
+                <!-- end_show_lang_top -->
+                <script>prepareLang();</script>
+            </div>
+        </div>
+	</div>
+	<!-- /header -->
+	<!-- content -->
+    <div class="content">
+        <div class="cont_w">
+            <div class="column_main">
+    <!-- end_header_visitor_page -->
+    <!-- begin_banner_header_bl -->
+    <div class="banner_header_bl {banner_header_class}">
+    <!-- begin_banner_header -->
+    <div class="banner_header <!-- begin_banner_header_list_hide -->banner_hidden<!-- end_banner_header_list_hide -->">
+        {banner_header}
+    </div>
+    <!-- end_banner_header -->
+    <!-- begin_banner_header_list_action -->
+    <div class="banner_header_remove link">
+    <a class="link_show_banner <!-- begin_banner_header_show -->action_show<!-- end_banner_header_show -->" href="" onclick="Profile.visibleBanners($(this), 'content'); return false;">{banner_header_title}</a>
+    </div>
+    <!-- end_banner_header_list_action -->
+    </div>
+    <!-- end_banner_header_bl -->
