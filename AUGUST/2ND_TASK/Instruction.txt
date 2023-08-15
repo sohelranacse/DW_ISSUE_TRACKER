@@ -15,3 +15,4 @@ ALTER TABLE `user` ADD `gadmin_previllage` VARCHAR(5) NOT NULL DEFAULT '0,0,0' C
 3. .htaccess -> add line no. 29
 
 RewriteRule ^group_users$ group_users.php [L,QSA]
+RewriteRule ^add_user$ group_users_add.php [L,QSA]

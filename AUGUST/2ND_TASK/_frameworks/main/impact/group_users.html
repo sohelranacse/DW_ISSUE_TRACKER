@@ -19,67 +19,87 @@
 .groupTable tbody tr:nth-child(even) {
     background-color: white;
 }
+.groupLink {
+    display: block;
+    padding-bottom: 15px;
+    text-decoration: underline;
+}
 </style>
 <div class="col_center">
     <div class="head icon_head_visitors">{page_title}</div>
-    <div class="cont">
-        <table class="groupTable">
-            <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Orientation</th>
-                    <th>Age</th>
-                    <th>IP</th>
-                    <th>Registration</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Sohel Rana</td>
-                    <td>mdsohelranacse@gmail.com</td>
-                    <td>01775326442</td>
-                    <td>Man</td>
-                    <td>28</td>
-                    <td>127.0.0.1</td>
-                    <td>2023-12-25 18:40:53</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sohel Rana</td>
-                    <td>mdsohelranacse@gmail.com</td>
-                    <td>01775326442</td>
-                    <td>Man</td>
-                    <td>28</td>
-                    <td>127.0.0.1</td>
-                    <td>2023-12-25 18:40:53</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sohel Rana</td>
-                    <td>mdsohelranacse@gmail.com</td>
-                    <td>01775326442</td>
-                    <td>Man</td>
-                    <td>28</td>
-                    <td>127.0.0.1</td>
-                    <td>2023-12-25 18:40:53</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Sohel Rana</td>
-                    <td>mdsohelranacse@gmail.com</td>
-                    <td>01775326442</td>
-                    <td>Man</td>
-                    <td>28</td>
-                    <td>127.0.0.1</td>
-                    <td>2023-12-25 18:40:53</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="cl"></div>
-    </div>
+    <span id="add_group_user_link"></span>
+    <div class="cont" id="tableData"></div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        // set active color
+        var groupUsersLink = document.querySelector('a[href="./group_users"]');
+        groupUsersLink.style.color = '#8ad4ff';
+
+        // previllage
+        const gadmin_previllage = '{gadmin_previllage}';
+        const previllage = gadmin_previllage.split(",");
+
+        if(previllage[0] == 1) // add
+            $("#add_group_user_link").html(`<a href="{main_url}add_user" class="groupLink">{l_add_group_user}</a>`)
+
+        // preloader
+        $("#tableData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
+        
+        $.ajax({
+            url: 'group_users',
+            type: "POST",
+            dataType: "json",
+            data:{ "cmd": "get_group_user_data", "cmd_ajax": 1},
+            success:function(response){
+                if(response.length) {
+                    var tableData = `<table class="groupTable">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Orientation</th>
+                                <th>Age</th>
+                                <th>Registration</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+
+                    for(var i=0; i < response.length; i++) {
+                        var editTxt = delTxt = line = ""
+                        if(previllage[1] == 1) // edit
+                            editTxt = `<a href="{url_main}${response[i].name}">Edit</a>`
+
+                        if(previllage[1] == 1 && previllage[2] == 1)
+                            line = ` | `
+
+                        if(previllage[2] == 1) // delete
+                            delTxt = `<a href="{url_main}${response[i].name}">Delete</a>`
+                        
+                        var banTxt = ` | <a href="{url_main}${response[i].name}">Ban</a>`
+
+                        tableData+= '<tr><td style="white-space: nowrap">'+editTxt+line+delTxt+banTxt+'</td>';
+                        tableData += `
+                            <td><a href="{url_main}${response[i].name}">${response[i].name}</a></td>
+                            <td>${response[i].mail}</td>
+                            <td>${response[i].phone}</td>
+                            <td>${response[i].gender}</td>
+                            <td>${response[i].age}</td>
+                            <td>${response[i].register}</td>
+                        </tr>`
+                    }                        
+
+                    tableData += `</tbody></table>`;
+
+                    $("#tableData").html(tableData)
+
+                } else
+                    $("#tableData").html(`<div id="im_list_users_empty" style="display: block;"><div class="dialog pp_message_user_info"><div class="bl"><img src="{url_tmpl_main}images/icon_upgrade_profile_visitors.png" width="239" height="207" alt="No users"><div class="bl_txt_msg_empty"><span>You have no users yet.</span></div></div></div></div>`)
+            }
+        })
+    })
+</script>
 {footer}

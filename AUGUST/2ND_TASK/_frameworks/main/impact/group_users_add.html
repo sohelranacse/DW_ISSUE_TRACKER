@@ -1,0 +1,139 @@
+{header}
+<!-- <script type="text/javascript" src="{url_tmpl_main}js/join.js{cache_version_param}"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="{url_main}_frameworks/main/impact/css/index_page.css?v=24"/> -->
+
+<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/modern/app-assets/vendors/css/file-uploaders/dropzone.min.css?v=24">
+<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/modern/app-assets/css/plugins/file-uploaders/dropzone.css?v=24">
+
+
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.location.js{cache_version_param}"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+<script>
+nameLengthMin='{username_length_min}'*1;
+nameLengthMax='{username_length}'*1;
+</script>
+<style type="text/css">
+
+</style>
+<div class="col_center">
+    <div class="head icon_head_visitors">{page_title}</div>
+    
+    <form id="frm_users_add" method="POST" action="{url_main}administration/add_group_user.php?cmd=insert" name="EditProfileBasicForm" autocomplete="off">   
+
+        <div class="bl">
+            <div id="dpz-upload-single-icon" data-name="photo_file" class="dropzone dropzone-area dpz-upload-single-icon">
+                <input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file">
+            </div> 
+        </div>       
+
+        <div class="bl">
+            <label>{l_name}</label>
+            <div class="bl_inp_pos">
+                <input id="join_name" class="inp name placeholder" name="join_name" maxlength="100" type="text" placeholder="{l_name}" />
+            </div>
+        </div>
+
+        <div class="bl">
+            <label>{l_email}</label>
+            <div class="bl_inp_pos">
+                <input id="email" name="email" class="inp email placeholder" type="text" placeholder="{a_placeholder_email}" value="{email}"/>
+            </div>
+        </div>
+
+        <div class="bl">
+            <label>{l_phone_number}</label>
+            <div class="bl_inp_pos">
+                <input type="tel" id="join_phone_number" class="form-control" maxlength="11">
+                <input type="hidden" name="phone" id="full_phone_number"/>
+            </div>
+        </div>
+
+        <div class="bl">
+            <label>{l_orientation}</label>
+            <div class="bl_select">
+                <select id="bl_join_done_orientation" name="orientation" class="i_am">
+                    {orientation_options}
+                </select>
+            </div>
+        </div>
+
+        <div class="bl">
+            <label>{l_date_birth}</label>
+            <div class="inp_birth dd">
+                <select name="day" id="day" class="birthday">
+                {day_options}
+                </select>
+            </div>
+            <div class="inp_birth mm">
+                <select name="month" id="month" class="birthday">
+                {month_options}
+                </select>
+            </div>
+            <div class="inp_birth yy">
+                <select name="year" id="year" class="birthday">
+                {year_options}
+                </select>
+            </div>
+        </div>
+
+        <div class="bl">
+            <label>{l_location}</label>
+            <div class="">
+                <select class="form-control" name="country"  id="country">
+                    <option value="0">- {l_localtion} -</option>
+                    {country_options}
+                </select>
+            </div>
+            <div class="">
+                <select class="form-control mt-1" name="state" id="state">
+                    <option value="0">- {l_state_province} -</option>
+                    {state_options}
+                </select>
+            </div>
+            <div class="">
+                <select class="form-control mt-1" name="city" id="city">
+                    <option value="0">- {l_city} -</option>
+                    {city_options}
+                </select>
+            </div>
+        </div>
+
+        <button id="frm_register_submit" class="btn pink disabled" disabled>{l_next}</button>
+
+    </form>
+
+</div>
+
+<script type="text/javascript">
+    var _dzThumbnailWidth = 195,
+        _dzThumbnailHeight = 195;
+    $(function(){
+
+        // set active color
+        var groupUsersLink = document.querySelector('a[href="./group_users"]');
+        groupUsersLink.style.color = '#8ad4ff';
+
+        // phone number
+        var phone_number = window.intlTelInput(document.querySelector("#join_phone_number"), {
+            separateDialCode: true,
+            preferredCountries:["gb","us","sa","ae"],
+            hiddenInput: "full",
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+        })
+        document.getElementById('join_phone_number').onkeyup = function(){
+            var full_number = phone_number.getNumber(intlTelInputUtils.numberFormat.E164);
+            $("#full_phone_number").val(full_number);
+        }
+
+        // location
+        $('#country').location({first_option_state: '- {j_state_province} -', first_option_city: '- {j_city} -', location: 'add_user'});
+        $('#state').location({method: 'cities', first_option_city: '- {j_city} -', location: 'add_user'});
+
+    })
+</script>
+
+<script src="{url_main}_frameworks/administration/modern/app-assets/vendors/js/extensions/dropzone.min.js?v=24" type="text/javascript"></script>
+<script src="{url_main}_frameworks/administration/modern/js/dropzone.js?v=24" type="text/javascript"></script>
+{footer}
