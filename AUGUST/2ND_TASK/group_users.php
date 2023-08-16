@@ -9,6 +9,13 @@ if($g_user['role'] == "user")
 class CGroupUsers extends CHtmlBlock
 {
 	function action() {
+		global $g_user, $p, $g;
+
+		$del = get_param('delete');
+        $banned = intval(get_param('ban'));
+        $isRedirect = false;
+
+        $gadmin_previllage = explode(',', $g_user['gadmin_previllage']);
 
 		$cmd = get_param('cmd', '');
 		if ($cmd == 'get_group_user_data') {
@@ -17,12 +24,33 @@ class CGroupUsers extends CHtmlBlock
 				SELECT a.user_id, a.name, a.name_seo, a.mail, a.phone, a.register,
 				(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(a.birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(a.birth, '00-%m-%d'))
 				) AS age,
-				(SELECT title FROM const_orientation WHERE id = a.orientation) AS gender
+				(SELECT title FROM const_orientation WHERE id = a.orientation) AS gender, a.ban_global
                 FROM user a WHERE a.under_admin = '".$group_admin_id."' ORDER BY a.register
             ");
 			echo json_encode($result);
             die();
+		} elseif ($del && $gadmin_previllage[1]) {
+            $user =  explode(',', $del);
+            foreach ($user as $userId) {
+                if (Common::isEnabledAutoMail('admin_delete')) {
+                    DB::query('SELECT * FROM user WHERE under_admin = '.guid().' AND user_id = ' . to_sql($userId, 'Number'));
+                    $row = DB::fetch_row();
+                    $vars = array(
+                        'title' => $g['main']['title'],
+                        'name' => $row['name'],
+                    );
+                    Common::sendAutomail($row['lang'], $row['mail'], 'admin_delete', $vars);
+                }
+                delete_user($userId);
+            }
+			$isRedirect = true;
+		} elseif ($banned) {
+			$sql='UPDATE user SET ban_global=1-ban_global WHERE under_admin = '.guid().' AND user_id='. to_sql($banned, 'Number');
+			DB::execute($sql);
+            $isRedirect = true;
 		}
+        if ($isRedirect)
+            redirect('group_users');
 	}
 	function parseBlock(&$html)
 	{

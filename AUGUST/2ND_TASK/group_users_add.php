@@ -6,11 +6,16 @@ checkByAuth();
 if($g_user['role'] == "user")
 	redirect('search_results');
 
+$gadmin_previllage = explode(',', $g_user['gadmin_previllage']);
+if($gadmin_previllage[0] == 0)
+    redirect('group_users');
+
 class CGroupUsersAdd extends CHtmlBlock
 {
 	var $message = "";
 
 	function action() {
+        global $g, $g_user;
 
 		$cmd = get_param('cmd', '');
 		if ($cmd == 'get_group_user_data') {
@@ -24,7 +29,89 @@ class CGroupUsersAdd extends CHtmlBlock
             ");
 			echo json_encode($result);
             die();
-		} elseif($cmd == 'location') {
+		} elseif ($cmd == 'insert') {
+
+            $this->message = "";
+            $orientation = get_param('orientation', 'Number');
+            
+            $name = trim(get_param('username'));
+
+            $phone = trim(get_param('phone'));
+
+            $mail = get_param('email', '');
+
+            $month  = (int) get_param('month', 1);
+            $day    = (int) get_param('day', 1);
+            $year   = (int) get_param('year', 1980);
+
+            $country = get_param('country', '');
+            $state   = get_param('state', '');
+            $city    = get_param('city', '');
+
+            $this->message .= User::validateName($name);
+            $this->message .= Common::validateField('mail', $mail) ? l('exists_email') . '<br>' : '';
+            $this->message .= Common::validateField('phone', $phone) ? l('phone_email') . '<br>' : '';
+
+            $fileTemp = $g['path']['dir_files'] . 'temp/admin_upload_user_profile_' . time();
+            Common::uploadDataImageFromSetData($fileTemp, 'photo_file');
+            $this->message .= User::validatePhoto("photo_file");
+
+            if ($this->message == '')
+            {
+                $register = date("Y-m-d H:i:s");
+                $under_admin = get_session('groupAdmin_id') ? get_session('groupAdmin_id') : "NULL";
+
+                $name_seo = Common::uniqueNameSEO($name);
+
+                $date = strtotime($year . '-' . $month . '-' .  $day);
+                $birth = date('Y-m-d', $date);
+                $h = zodiac($birth);
+
+                $query = "
+                    INSERT INTO user (
+                        role, under_admin, name, name_seo, password, mail, country_id, state_id, city_id, country, state, city, birth, orientation, horoscope, register, last_ip, active, use_as_online, phone
+                    )
+                    VALUES (
+                        ".to_sql('user', 'Text').",
+                        ".$under_admin.",
+                        ".to_sql($name, 'Text').",
+                        ".to_sql($name_seo, 'Text').",
+                        ".to_sql($g_user['password'], 'Text').",
+                        ".to_sql($mail, "Text").",
+                        ".to_sql($country, "Number").",
+                        ".to_sql($state, "Number").",
+                        ".to_sql($city, "Number").",
+                        ".to_sql(Common::getLocationTitle('country', $country), 'Text').",
+                        ".to_sql(Common::getLocationTitle('state', $state), 'Text').",
+                        ".to_sql(Common::getLocationTitle('city', $city), 'Text').",
+                        '". $birth . "',
+                        ".to_sql($orientation, 'Number').",
+                        ".$h.",
+                        '".$register."',
+                        ".to_sql(IP::getIp()).",
+                        0,
+                        1,
+                        ".to_sql($phone, "Text")."
+                    )
+                ";
+                DB::execute($query);
+
+                $q = DB::row("SELECT user_id FROM user WHERE register = '".$register."' ORDER BY register DESC LIMIT 1");
+                $newUserID = $q['user_id'];
+                DB::execute("INSERT INTO userinfo (user_id) VALUES (".$newUserID.")");
+                DB::execute("INSERT INTO userpartner (user_id) VALUES (".$newUserID.")");
+
+                // upload photo
+                $g['options']['photo_approval'] = 'N';
+                $g['options']['nudity_filter_enabled'] = 'N';
+                uploadphoto($newUserID, '', 'upload', 1, '../', false, 'photo_file', get_param('private'));
+
+                $this->message = 'success';
+            }
+            
+            echo $this->message;
+            die();
+        } elseif($cmd == 'location') {
             $param  = get_param('param');
             $method = 'list' . get_param('method');
             echo Common::$method($param, -1);

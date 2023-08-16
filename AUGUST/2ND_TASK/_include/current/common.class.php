@@ -2876,6 +2876,24 @@ JS;
         return $isActive;
     }
 
+    static function validateField($fieldName, $fieldData)
+    {
+        if (DB::result("SELECT `user_id` FROM `user` WHERE ".$fieldName." = " . to_sql($fieldData, "Text")) > 0) {
+           return true;
+        }
+    }
+    static function uniqueNameSEO($name)
+    {
+        $name_seo = Router::prepareNameSeo($name);
+
+        for($i=1; $i<100; $i++) {
+            if(Common::validateField('name_seo', $name_seo))
+                $name_seo = Router::prepareNameSeo($name.' '.$i);
+            else
+                return $name_seo;
+        }
+    }
+
     static function validateEmail($email)
     {
        $maxLength = Common::getOption('mail_length_max');
