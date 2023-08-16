@@ -59,8 +59,6 @@ class CGroupUsersAdd extends CHtmlBlock
             if ($this->message == '')
             {
                 $register = date("Y-m-d H:i:s");
-                $under_admin = get_session('groupAdmin_id') ? get_session('groupAdmin_id') : "NULL";
-
                 $name_seo = Common::uniqueNameSEO($name);
 
                 $date = strtotime($year . '-' . $month . '-' .  $day);
@@ -73,7 +71,7 @@ class CGroupUsersAdd extends CHtmlBlock
                     )
                     VALUES (
                         ".to_sql('user', 'Text').",
-                        ".$under_admin.",
+                        ".$g_user['user_id'].",
                         ".to_sql($name, 'Text').",
                         ".to_sql($name_seo, 'Text').",
                         ".to_sql($g_user['password'], 'Text').",

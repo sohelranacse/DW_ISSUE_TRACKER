@@ -15,7 +15,7 @@ class CGroupUsers extends CHtmlBlock
         $banned = intval(get_param('ban'));
         $isRedirect = false;
 
-        $gadmin_previllage = explode(',', $g_user['gadmin_previllage']);
+        $gadmin_previllage = explode(',', $g_user['gadmin_previllage']); // add, edit, delete
 
 		$cmd = get_param('cmd', '');
 		if ($cmd == 'get_group_user_data') {
@@ -29,20 +29,22 @@ class CGroupUsers extends CHtmlBlock
             ");
 			echo json_encode($result);
             die();
-		} elseif ($del && $gadmin_previllage[1]) {
-            $user =  explode(',', $del);
-            foreach ($user as $userId) {
-                if (Common::isEnabledAutoMail('admin_delete')) {
-                    DB::query('SELECT * FROM user WHERE under_admin = '.guid().' AND user_id = ' . to_sql($userId, 'Number'));
-                    $row = DB::fetch_row();
-                    $vars = array(
-                        'title' => $g['main']['title'],
-                        'name' => $row['name'],
-                    );
-                    Common::sendAutomail($row['lang'], $row['mail'], 'admin_delete', $vars);
-                }
-                delete_user($userId);
-            }
+		} elseif ($del) {
+			if($gadmin_previllage[2]) {
+	            $user =  explode(',', $del);
+	            foreach ($user as $userId) {
+	                if (Common::isEnabledAutoMail('admin_delete')) {
+	                    DB::query('SELECT * FROM user WHERE under_admin = '.guid().' AND user_id = ' . to_sql($userId, 'Number'));
+	                    $row = DB::fetch_row();
+	                    $vars = array(
+	                        'title' => $g['main']['title'],
+	                        'name' => $row['name'],
+	                    );
+	                    Common::sendAutomail($row['lang'], $row['mail'], 'admin_delete', $vars);
+	                }
+	                delete_user($userId);
+	            }
+	        }
 			$isRedirect = true;
 		} elseif ($banned) {
 			$sql='UPDATE user SET ban_global=1-ban_global WHERE under_admin = '.guid().' AND user_id='. to_sql($banned, 'Number');

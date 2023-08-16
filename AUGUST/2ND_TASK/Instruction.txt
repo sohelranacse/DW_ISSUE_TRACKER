@@ -16,3 +16,4 @@ ALTER TABLE `user` ADD `gadmin_previllage` VARCHAR(5) NOT NULL DEFAULT '0,0,0' C
 
 RewriteRule ^group_users$ group_users.php [L,QSA]
 RewriteRule ^add_user$ group_users_add.php [L,QSA]
+RewriteRule ^edit_user$ group_users_edit.php?name=$1 [L,QSA]

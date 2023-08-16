@@ -32,11 +32,11 @@
         alertCustom("{message}");
     }
     function ban(uid) {
-        redirectUrl('{url_page}?ban='+uid);
+        redirectUrl('group_users?ban='+uid);
     }
 
     function one_delete(uid) {
-        redirectUrl('{url_page}?delete='+uid);
+        redirectUrl('group_users?delete='+uid);
     }
 </script>
 <div class="col_center">
@@ -84,18 +84,18 @@
                     for(var i=0; i < response.length; i++) {
                         var editTxt = delTxt = line = ""
                         if(previllage[1] == 1) // edit
-                            editTxt = `<a href="{url_main}edit_user/${response[i].name_seo}">Edit</a>`
+                            editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}">Edit</a>`
 
                         if(previllage[1] == 1 && previllage[2] == 1)
                             line = ` | `
 
                         if(previllage[2] == 1) // delete
-                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;">Delete</a>`
+                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" style="color: #f00">Delete</a>`
                         
                         if(response[i].ban_global == 0)
                             var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;">Ban</a>`
                         else
-                            var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;">Unban</a>`
+                            var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" style="color: #f00">Unban</a>`
 
                         tableData+= '<tr><td style="white-space: nowrap">'+editTxt+line+delTxt+banTxt+'</td>';
                         tableData += `
