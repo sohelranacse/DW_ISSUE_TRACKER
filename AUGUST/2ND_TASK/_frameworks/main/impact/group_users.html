@@ -92,10 +92,7 @@
                         if(previllage[2] == 1) // delete
                             delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" style="color: #f00">Delete</a>`
                         
-                        if(response[i].ban_global == 0)
-                            var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;">Ban</a>`
-                        else
-                            var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" style="color: #f00">Unban</a>`
+                        var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;">${response[i].banData}</a>`;
 
                         tableData+= '<tr><td style="white-space: nowrap">'+editTxt+line+delTxt+banTxt+'</td>';
                         tableData += `

@@ -24,31 +24,30 @@ class CGroupUsers extends CHtmlBlock
 				SELECT a.user_id, a.name, a.name_seo, a.mail, a.phone, a.register,
 				(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(a.birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(a.birth, '00-%m-%d'))
 				) AS age,
-				(SELECT title FROM const_orientation WHERE id = a.orientation) AS gender, a.ban_global
+				(SELECT title FROM const_orientation WHERE id = a.orientation) AS gender, IF(a.ban_global=1, '".l('Unban')."', '".l('Ban')."') AS banData
                 FROM user a WHERE a.under_admin = '".$group_admin_id."' ORDER BY a.register
             ");
 			echo json_encode($result);
             die();
 		} elseif ($del) {
 			if($gadmin_previllage[2]) {
-	            $user =  explode(',', $del);
-	            foreach ($user as $userId) {
-	                if (Common::isEnabledAutoMail('admin_delete')) {
-	                    DB::query('SELECT * FROM user WHERE under_admin = '.guid().' AND user_id = ' . to_sql($userId, 'Number'));
-	                    $row = DB::fetch_row();
-	                    $vars = array(
-	                        'title' => $g['main']['title'],
-	                        'name' => $row['name'],
-	                    );
-	                    Common::sendAutomail($row['lang'], $row['mail'], 'admin_delete', $vars);
-	                }
-	                delete_user($userId);
-	            }
+                if (Common::isEnabledAutoMail('admin_delete') && Common::validateField('user_id', $del)) {
+                    DB::query('SELECT * FROM user WHERE under_admin = '.guid().' AND user_id = ' . to_sql($del, 'Number'));
+                    $row = DB::fetch_row();
+                    $vars = array(
+                        'title' => $g['main']['title'],
+                        'name' => $row['name'],
+                    );
+                    Common::sendAutomail($row['lang'], $row['mail'], 'admin_delete', $vars);
+                }
+                delete_user($del);
 	        }
 			$isRedirect = true;
 		} elseif ($banned) {
-			$sql='UPDATE user SET ban_global=1-ban_global WHERE under_admin = '.guid().' AND user_id='. to_sql($banned, 'Number');
-			DB::execute($sql);
+			if(Common::validateField('user_id', $banned)) {
+				$sql='UPDATE user SET ban_global=1-ban_global WHERE under_admin = '.guid().' AND user_id='. to_sql($banned, 'Number');
+				DB::execute($sql);
+			}
             $isRedirect = true;
 		}
         if ($isRedirect)
