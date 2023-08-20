@@ -2200,7 +2200,7 @@ class UserFields extends CHtmlBlock
                 case 'profile_html_urban':
                     if ($num == 1) {
                         $isParse = false;
-                        if ($this->userId == guid()) {// && $this->countShowGroupInt[1]
+                        if ($this->userId == guid() || $this->userId == EUsers_List::$c_user_id) {// && $this->countShowGroupInt[1]
                             $html->parse('personal_edit', false);
                             $isParse = true;
                         }

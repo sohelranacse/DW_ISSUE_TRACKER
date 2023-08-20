@@ -4996,4 +4996,5 @@ $l['all']['phone_email'] = "The Phone Number you entered already exists on our s
 $l['all']['created_success'] = "User added successfully.";
 $l['all']['create_user'] = "Create";
 $l['all']['processing'] = "Processing...";
+$l['search_results.php']['user'] = "User";
 ?>

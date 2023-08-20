@@ -3457,6 +3457,10 @@ static function profileComplite() {
         global $g_user;
 
         $guid = $g_user['user_id'];
+
+        if(EUsers_List::$c_user_id) // added by sohel
+            $guid = EUsers_List::$c_user_id;
+
         if ($row == null) {
             $row = User::getInfoBasic($uid);
         }

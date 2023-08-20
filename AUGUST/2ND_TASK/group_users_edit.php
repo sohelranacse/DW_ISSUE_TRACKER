@@ -24,6 +24,6 @@ $_GET['display'] = get_param('display', User::displayProfile());
 
 $where = ' u.user_id = ' . to_sql($c_user_id, 'Number');
 $order = '';
-$page = Users_List::show($where, $order);
+$page = EUsers_List::show($where, $order, '', '', '', false, $c_user_id);
 
 include('./_include/core/main_close.php');

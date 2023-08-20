@@ -25,6 +25,7 @@
     text-decoration: underline;
 }
 .text-right {text-align: right !important;}
+.groupTable a {color: #6d8fff}
 </style>
 <script type="text/javascript">
     var m="{message}";
@@ -70,12 +71,12 @@
                     var tableData = `<table class="groupTable">
                         <thead>
                             <tr>
-                                <th>Action</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Orientation</th>
-                                <th>Age</th>
-                                <th class="text-right">Registration</th>
+                                <th>{l_action}</th>
+                                <th>{l_name}</th>
+                                <th>{l_email_address}</th>
+                                <th>{l_orientation}</th>
+                                <th>{l_age}</th>
+                                <th class="text-right">{l_register}</th>
                             </tr>
                         </thead>
                         <tbody>`;
