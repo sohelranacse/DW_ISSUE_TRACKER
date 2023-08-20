@@ -34,6 +34,8 @@ class CUsers extends CHtmlList {
     var $isParentUserChartsParserActive = true;
     var $isEncounters = false;
 
+    var $c_user_id = false;
+
     static $url = array(
         'users_rated_me_show_photo' => 'search_results.php?display=profile&uid={user_id}&show=gallery&photo_id={photo_id}#tabs-2',
         'users_rated_me_redirect' => 'search_results.php?display=rate_people',
@@ -52,6 +54,12 @@ class CUsers extends CHtmlList {
         self::$parDisplay = get_param('display');
         self::$parAjax = get_param('ajax');
         self::$guid = guid();
+
+
+        // added by sohel
+        $this->c_user_id = EUsers_List::$c_user_id;
+        if($this->c_user_id)
+            self::$guid = $this->c_user_id;
 
         if(UserFields::isActive('const_relation')) {
             DB::query("SELECT * FROM const_relation");
@@ -161,12 +169,12 @@ class CUsers extends CHtmlList {
             $this->m_field = $this->m_field_default;
         }
 
-        if ($row['user_id'] == guid()) {
+        if ($row['user_id'] == guid() || $row['user_id'] == $this->c_user_id) { // update by sohel
             $this->m_is_me = true;
         } else {
             $this->m_is_me = false;
         }
-// profile status
+        // profile status
         if($this->profileStatusVarExists || $html->varExists('status') || $html->varExists('profile_status')) {
             $this->profileStatusVarExists = true;
             $profileStatus = DB::row('SELECT * FROM profile_status WHERE user_id = ' . to_sql($row['user_id'], 'Number'), 1);
@@ -187,7 +195,7 @@ class CUsers extends CHtmlList {
                 $html->setblockvar("user_status", "");
             }
         }
-// profile status
+        // profile status
 
         if ($this->m_is_me) {
             #print $row['user_id'].":".$row['name']."<br>";
