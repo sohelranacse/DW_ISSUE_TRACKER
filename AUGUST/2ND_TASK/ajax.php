@@ -19,6 +19,9 @@ if ($siteGuid !== false && $siteGuid != $guid) {
     die();
 }
 
+if(!empty(get_param('c_user_id', 0))) // added by sohel
+    $guid = get_param('c_user_id');
+
 global $g;
 global $g_user;
 global $p;
@@ -378,7 +381,7 @@ if ($cmd == 'login') {
         if (Common::isOptionActive('profile_basic_fields_edit_to_page', 'template_options')) {
             $tmpl = null;
         }
-        $responsePage = new CProfileEditMain('', $tmpl, false, false, false, 'profile_about_urban', $guid);
+        $responsePage = new CProfileEditMain('', $tmpl, false, false, false, 'profile_about_urban', $guid, $guid);
 
     }
 } elseif ($cmd == 'pp_profile_private_note') {

@@ -102,13 +102,27 @@ class UserFields extends CHtmlBlock
     static $parseTextDescrption = false;
 	private $setAdminAboutProfile = false;
 
-    function __construct($name, $html_path, $isTextTemplate = false, $textTemplate = false, $noTemplate = false, $typeParse = false, $uid = false)
+    static $guid = 0;
+    var $c_user_id = false;
+
+    function __construct($name, $html_path, $isTextTemplate = false, $textTemplate = false, $noTemplate = false, $typeParse = false, $uid = false, $update_id = false)
     {
         $this->typeParse = $typeParse;
         $this->userId = $uid;//(empty($uid)) ? guid() : $uid;
         $this->paramDisplay = get_param('display');
         $this->set = Common::getOption('set', 'template_options');
         $this->name = Common::getOption('name', 'template_options');
+
+        self::$guid = guid();
+
+        // added by sohel
+        $this->c_user_id = EUsers_List::$c_user_id;
+        if($this->c_user_id)
+            self::$guid = $this->c_user_id;
+
+        if($update_id) // for update user info
+            self::$guid = $update_id;
+
         parent::__construct($name, $html_path, $isTextTemplate = false, $textTemplate = false, $noTemplate = false);
     }
 
@@ -147,7 +161,7 @@ class UserFields extends CHtmlBlock
         $this->gFields = $g['user_var'];
 
         //Sorted into groups - is part isAllowed postponed
-        $guid = guid();
+        $guid = self::$guid;
         foreach ($this->gFields as $name => $field) {
             if ($field['status'] == 'active' || in_array($this->typeParse, $this->alwaysVisible))
             {
@@ -302,10 +316,10 @@ class UserFields extends CHtmlBlock
         $html->setvar('field_js', toJs($title));
 
         if ($this->set == 'urban') {
-            if(!guid()&&Common::isOptionActive('hide_profile_data_for_guests_urban')) {
+            if(!self::$guid&&Common::isOptionActive('hide_profile_data_for_guests_urban')) {
                 $html->parse("{$block}_show_more", false);
             }
-            if ($this->userId == guid() || in_array($name, $this->multipleField)) {
+            if ($this->userId == self::$guid || in_array($name, $this->multipleField)) {
                 $html->parse($block . '_handler_js', $parse_js);
                 $html->parse("{$block}_edit", false);
                 if ($data['type'] == 'text' || $data['type'] == 'textarea') {
@@ -334,7 +348,7 @@ class UserFields extends CHtmlBlock
     {
         $description = '';
         if (self::$parseTextDescrption || ($default && $this->set == 'urban' && empty($this->gUser[$name]))) {
-            if ($this->userId == guid()) {
+            if ($this->userId == self::$guid) {
                 $lVal = "field_description_{$name}";
                 $desc = l($lVal);
                 if ($desc != $lVal){
@@ -359,13 +373,13 @@ class UserFields extends CHtmlBlock
 
         /* URBAN */
         $forcedOptionName='forced_user_about_me';
-        if (!guid()
+        if (!self::$guid
             && $this->set == 'urban'
             && (Common::isOptionActive('hide_profile_data_for_guests_urban') || Common::isOptionActive($forcedOptionName))) {
                 $value = hard_trim($value, 25);
         }
         /* URBAN */
-        $myId = guid();
+        $myId = self::$guid;
         if($myId != $this->userId && (Common::isOptionActive($forcedOptionName) && $this->set == 'urban')){
             $myValue='';
             if($myId){
@@ -430,7 +444,7 @@ class UserFields extends CHtmlBlock
                 }
                 /* URBAN */
                 $setFieldValue = $fieldValue;
-                if (!guid()
+                if (!self::$guid
                     &&Common::getOption('name', 'template_options') == 'urban'
                     &&Common::isOptionActive('hide_profile_data_for_guests_urban')) {
                     $setFieldValue = '';
@@ -613,7 +627,7 @@ class UserFields extends CHtmlBlock
             $block = ($isGroup) ? $type . '_' . $data['group'] : $type;
             $title = l($data['title']);
             $html->setvar('field', $title);
-            if (!guid()
+            if (!self::$guid
                 && Common::getOption('name', 'template_options') == 'urban'
                 && Common::isOptionActive('hide_profile_data_for_guests_urban')) {
                 $desc = '';
@@ -667,7 +681,7 @@ class UserFields extends CHtmlBlock
                     //$option = User::getInfoCheckbox($this->userId, $name, 1);
                 //}
                 $isFirstOptionChecked = false;
-                if ($this->parseSearchModule && !guid() && empty($option)) {
+                if ($this->parseSearchModule && !self::$guid && empty($option)) {
                     $isFirstOptionChecked = true;
                 }
                 foreach($rows as $row)
@@ -719,7 +733,7 @@ class UserFields extends CHtmlBlock
                     $html->parse('am_here_to_center');
                 }
                 /* Filter */
-                if ($this->userId == guid()) {
+                if ($this->userId == self::$guid) {
                     $html->parse("{$blockGroup}_edit", true);
                 }
                 $html->parse($blockGroup, false);
@@ -763,7 +777,7 @@ class UserFields extends CHtmlBlock
         $sql = "SELECT id, title FROM " . $data['table'] . ' ORDER BY id ASC';
 
         $isAllOptionChecked = false;
-        if ($this->parseSearchModule && !guid() && !$mask) {
+        if ($this->parseSearchModule && !self::$guid && !$mask) {
             $isAllOptionChecked = true;
         }
 
@@ -885,7 +899,7 @@ class UserFields extends CHtmlBlock
         }
 
         $isCustomPart = Common::isOptionActive('custom_show_part_interests', 'template_options');
-        $isGuid = (guid() == $this->userId);
+        $isGuid = (self::$guid == $this->userId);
         if ($isCustomPart && $p != 'profile_interests_edit.php') {
             if ($isGuid && $this->paramDisplay == '') {
                 return;
@@ -898,7 +912,7 @@ class UserFields extends CHtmlBlock
         $userInterestsAll = array();
 
         if (!$isGuid) {
-            $guidInterests = User::getInterests(guid());
+            $guidInterests = User::getInterests(self::$guid);
             $guidInterestsAll = array();
             foreach ($guidInterests as $item) {
                 $guidInterestsAll[$item['id']] = $item;
@@ -913,7 +927,7 @@ class UserFields extends CHtmlBlock
 
 
         $i = 0;
-        $isHideProfile = !guid() && Common::isOptionActive('hide_profile_data_for_guests_urban');
+        $isHideProfile = !self::$guid && Common::isOptionActive('hide_profile_data_for_guests_urban');
         $numberInterests = count($userInterests);
         $isParseMorePart = false;
         $trimCustomPart = Common::getOption('custom_show_part_interests_trim', 'template_options');
@@ -957,7 +971,7 @@ class UserFields extends CHtmlBlock
                 $isParseMorePart = true;
                 break;
             }
-            if (!guid() && $i == 2) {
+            if (!self::$guid && $i == 2) {
                 if ($isHideProfile && $i == 2) {
                     break;
                 }
@@ -1121,7 +1135,7 @@ class UserFields extends CHtmlBlock
         if (!empty($city)) {
             $html->setvar($block . '_city', l($city['city_title']) . ', ');
         }
-        if (guid() == $this->userId) {
+        if (self::$guid == $this->userId) {
             $html->parse('city_choose');
         } else if ($g_user['user_id']) {
             if ($html->blockexists($block . '_visitors')) {
@@ -1171,7 +1185,7 @@ class UserFields extends CHtmlBlock
         $sql = 'SELECT `comment`
                   FROM `users_private_note`
                  WHERE `user_id`=' . to_sql($this->userId)
-               . ' AND `from_user_id`=' . to_sql(guid());
+               . ' AND `from_user_id`=' . to_sql(self::$guid);
         $value = DB::result($sql);
         if (!$value) {
             $value = l('it_will_be_visible_only_to_you');
@@ -1217,7 +1231,7 @@ class UserFields extends CHtmlBlock
             $block = ($isGroup) ? $type . '_' . $data['group'] : $type;
             $title = l($data['title']);
             $html->setvar('field', $title);
-            if (!guid() && Common::isOptionActive('hide_profile_data_for_guests_urban')) {
+            if (!self::$guid && Common::isOptionActive('hide_profile_data_for_guests_urban')) {
                 $desc = '';
             } else {
                 $desc = implode(l('profile_appearance_delimiter'), $desc);
@@ -1479,10 +1493,10 @@ class UserFields extends CHtmlBlock
 
     public function setValueTexts()
     {
-        if (!isset($this->gUser['user_id']) || $this->gUser['user_id'] != guid() || !Common::isOptionActive('texts_approval')) {
+        if (!isset($this->gUser['user_id']) || $this->gUser['user_id'] != self::$guid || !Common::isOptionActive('texts_approval')) {
             return;
         }
-        DB::query("SELECT * FROM `texts` WHERE `user_id` = " . to_sql(guid(), 'Number') . " ORDER BY id DESC LIMIT 1");
+        DB::query("SELECT * FROM `texts` WHERE `user_id` = " . to_sql(self::$guid, 'Number') . " ORDER BY id DESC LIMIT 1");
 		if ($rows = DB::fetch_row())
 		{
             foreach ($rows as $name => $data)
@@ -1588,7 +1602,7 @@ class UserFields extends CHtmlBlock
         global $g;
 
         $optiontTmplName = Common::getOption('name', 'template_options');
-        $uid = guid();
+        $uid = self::$guid;
 
         $filtersInfo = array();
         if ($filters) {
@@ -1665,7 +1679,7 @@ class UserFields extends CHtmlBlock
         }
 
         $isAmHereTo = false;
-        $uid = guid();
+        $uid = self::$guid;
         $numColumn = 1;
         if ($this->name == 'urban_mobile' && $p == 'search.php') {
             $numColumn = 3;
@@ -1700,7 +1714,7 @@ class UserFields extends CHtmlBlock
         $isOrientation = false;
         if (self::isActive('orientation')) {
             if (Common::isOptionActive('your_orientation')){
-                if (guid()) {
+                if (self::$guid) {
                     $html->parse('p_orientations_hide');
                 }
             } else {
@@ -1719,7 +1733,7 @@ class UserFields extends CHtmlBlock
                     $isOrientation = true;
                 }
 
-                if(!guid()) {
+                if(!self::$guid) {
                     $isOrientation = true;
                     $fieldsWithHidden = false;
                 }
@@ -1919,7 +1933,7 @@ class UserFields extends CHtmlBlock
     {
         global $g_user;
         if (Common::isOptionActive('texts_approval')) {
-            $this->updateTexts(guid(), $type);
+            $this->updateTexts(self::$guid, $type);
             if ($this->isChangesFields && Common::isEnabledAutoMail('approve_text_admin')){
                 $vars = array(
                     'name'  => User::getInfoBasic($g_user['user_id'],'name'),
@@ -1927,7 +1941,7 @@ class UserFields extends CHtmlBlock
                 Common::sendAutomail(Common::getOption('administration', 'lang_value'), Common::getOption('info_mail', 'main'), 'approve_text_admin', $vars);
             }
         } else {
-            $this->updateInfo(guid(), $type);
+            $this->updateInfo(self::$guid, $type);
         }
     }
 
@@ -2110,7 +2124,7 @@ class UserFields extends CHtmlBlock
                             if ($data['type'] == 'text' || $data['type'] == 'textarea') {
                                 if ($this->gUser[$name] != ''
                                     || ($this->name != 'urban_mobile' && $num != 1
-                                        && ($this->userId == guid() /*|| ($this->userId != guid() && $name == 'interested_in')*/))) {
+                                        && ($this->userId == self::$guid /*|| ($this->userId != self::$guid && $name == 'interested_in')*/))) {
                                     $this->parseText($html, $name, $data, true, false, 'basic', true);
                                 } else {
                                     $this->cleanBlocks($html, 'basic');//???
@@ -2200,7 +2214,7 @@ class UserFields extends CHtmlBlock
                 case 'profile_html_urban':
                     if ($num == 1) {
                         $isParse = false;
-                        if ($this->userId == guid() || $this->userId == EUsers_List::$c_user_id) {// && $this->countShowGroupInt[1]
+                        if ($this->userId == self::$guid) {// && $this->countShowGroupInt[1]
                             $html->parse('personal_edit', false);
                             $isParse = true;
                         }

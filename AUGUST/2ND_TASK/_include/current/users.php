@@ -125,7 +125,7 @@ class CUsers extends CHtmlList {
     }
 
     function onItemCUsersImpact(&$html, $row, $i, $last) {
-        $guid = guid();
+        $guid = self::$guid;
         if ($row['user_id'] == $guid) {
 
         } else {
@@ -150,13 +150,13 @@ class CUsers extends CHtmlList {
         global $status_style;
         global $p;
 
-        $guid = guid();
+        $guid = self::$guid;
         $optionSet = Common::getOption('set', 'template_options');
         $optionTmplName = Common::getOption('name', 'template_options');
         $isFreeSite = Common::isOptionActive('free_site');
         $display = get_param('display');
 
-        $html->setvar('guid', guid());
+        $html->setvar('guid', self::$guid);
 
         if (lp('blank', 'all') == '') {
             $l['all']['blank'] = ' ';
@@ -169,7 +169,7 @@ class CUsers extends CHtmlList {
             $this->m_field = $this->m_field_default;
         }
 
-        if ($row['user_id'] == guid() || $row['user_id'] == $this->c_user_id) { // update by sohel
+        if ($row['user_id'] == self::$guid || $row['user_id'] == $this->c_user_id) { // update by sohel
             $this->m_is_me = true;
         } else {
             $this->m_is_me = false;
@@ -202,7 +202,7 @@ class CUsers extends CHtmlList {
             $cannot_self = l('cannot_self');
             $html->setvar("cannot_self_1", "onclick='alert(\"$cannot_self\"); return false;' ");
             $html->setvar("cannot_self_2", "onclick='alert(\"$cannot_self\"); return false;' ");
-        } elseif (guid() && $html->varExists('cannot_self_1') && DB::row(
+        } elseif (self::$guid && $html->varExists('cannot_self_1') && DB::row(
                         "SELECT * FROM friends_requests WHERE (accepted = 1 AND ((user_id=" . to_sql($row['user_id'], 'Number') . " AND friend_id=" . $g_user['user_id'] . ") " .
                         "OR (user_id=" . $g_user['user_id'] . " AND friend_id=" . to_sql($row['user_id'], 'Number') . "))) OR (accepted = 0 AND (user_id=" . $g_user['user_id'] . " AND friend_id=" . to_sql($row['user_id'], 'Number') . "))", 4)) {
             #print $row['user_id'].":".$row['name']."<br>";
@@ -219,7 +219,7 @@ class CUsers extends CHtmlList {
         $cannot_self = '';
         if ($this->m_is_me) {
             $cannot_self = l('Cannot self');
-        } elseif (guid()) {
+        } elseif (self::$guid) {
             if (Common::isOptionActive('bookmarks')) {
                 if (User::isBookmarkExists($g_user['user_id'], $row['user_id'])) {
                     $cannot_self = l('allready_bookmarked_friend');
@@ -302,7 +302,7 @@ class CUsers extends CHtmlList {
             if($display == 'encounters' && self::$tmplName != 'impact'){
 
             } else {
-                if ($row['user_id'] == guid() && $html->blockExists('profile_main_photo_add')) {
+                if ($row['user_id'] == self::$guid && $html->blockExists('profile_main_photo_add')) {
                     $html->parse("{$blockPhotoMain}_photo_add");
                 }
                 $html->parse('main_cursor_def');
@@ -559,16 +559,16 @@ class CUsers extends CHtmlList {
                 $html->setblockvar("couple", "");
         }
 
-        if (guid() && !$this->m_is_me) {
+        if (self::$guid && !$this->m_is_me) {
             $blockedOptions = null;
             if(Common::getOptionSetTmpl() !== 'urban') {
-                $blockedOptions = User::blockedOptions($row['user_id'], guid());
+                $blockedOptions = User::blockedOptions($row['user_id'], self::$guid);
             }
         }
         $interactiveOptionsCount = 0;
         $interactiveOptions = array('games', 'videochat', 'audiochat', 'im');
         foreach ($interactiveOptions as $interactiveOption) {
-            if (guid() and !$this->m_is_me and Common::isOptionActive($interactiveOption) and (!isset($blockedOptions[$interactiveOption]) || $blockedOptions[$interactiveOption] == 0)) {
+            if (self::$guid and !$this->m_is_me and Common::isOptionActive($interactiveOption) and (!isset($blockedOptions[$interactiveOption]) || $blockedOptions[$interactiveOption] == 0)) {
                 $online = ((time() - $row['last_visit']) / 60) < $g['options']['online_time'];
                 if ($interactiveOption == 'im') {
                     $online = true;
@@ -596,7 +596,7 @@ class CUsers extends CHtmlList {
         }
 
         if (Common::isOptionActive('im')) {
-            if (guid() && $this->m_is_me) {
+            if (self::$guid && $this->m_is_me) {
                 $html->setblockvar('im', '');
                 $html->parse('im_off', false);
             }
@@ -707,7 +707,7 @@ class CUsers extends CHtmlList {
         }
         $parseFavoriteAdd = false;
         if(Common::isOptionActive('favorite_add')) {
-            $isFavorited = User::isFavoriteExists(guid(), $row['user_id']);
+            $isFavorited = User::isFavoriteExists(self::$guid, $row['user_id']);
             #if (empty($isFavorited) && !$this->m_is_me) {
             if (!$isFavorited) {
                 $parseFavoriteAdd = true;
@@ -865,7 +865,7 @@ class CUsers extends CHtmlList {
 
         $isBlockedUser = 0;
         if ($html->varExists('is_blocked_user')) {
-            if (guid() != $row['user_id']) {
+            if (self::$guid != $row['user_id']) {
                 $isBlockedUser = User::isEntryBlocked($g_user['user_id'], $row['user_id']);
             }
             $html->setvar('is_blocked_user', $isBlockedUser);
@@ -874,7 +874,7 @@ class CUsers extends CHtmlList {
             $html->setvar('sign_blocked_user_hide', 'sign_blocked_user_hide');
         }
 
-        if (guid() != $row['user_id']) {
+        if (self::$guid != $row['user_id']) {
 
             $isFriendRequested = null;
             if ($p == 'my_friends.php' && $html->blockExists('friend_approve')) {
@@ -917,13 +917,13 @@ class CUsers extends CHtmlList {
 
                 if (Common::isOptionActive('contact_blocking')) {
                     $titleBlocked = l('tip_report_block');
-                    if (User::isEntryBlocked(guid(), $row['user_id'])) {
+                    if (User::isEntryBlocked(self::$guid, $row['user_id'])) {
                         $titleBlocked = l('tip_report_unblock');
                     }
                     $html->setvar("{$block}_blocked_title", $titleBlocked);
                     $html->parse("{$block}_blocked", false);
                 }
-                if (!in_array(guid(), explode(',', $row['users_reports']))) {
+                if (!in_array(self::$guid, explode(',', $row['users_reports']))) {
                     $html->parse("{$block}_user", false);
                 }
                 $html->parse($block, false);
@@ -968,7 +968,7 @@ class CUsers extends CHtmlList {
         }
 
         $block = 'mutual_attraction_active';
-        if ($html->blockExists($block) && guid() != $row['user_id']) {
+        if ($html->blockExists($block) && self::$guid != $row['user_id']) {
             if (Encounters::isWantsToMeet($row['user_id'])) {
                 $html->setvar("{$block}_title", l('unlike'));
                 $html->setvar("{$block}_name", l('profile_liked'));
@@ -1467,7 +1467,7 @@ class CUsersProfile extends CUsers {
                     $block = 'show_video_js';
                     $html->setvar("{$block}_id", $videoShow);
                     $html->setvar("{$block}_live_id", $videoInfo['live_id']);
-                    $html->setvar("{$block}_my_video", intval($videoInfo['user_id'] == guid()));
+                    $html->setvar("{$block}_my_video", intval($videoInfo['user_id'] == self::$guid));
                 }
 
             }
@@ -1501,12 +1501,12 @@ class CUsersProfile extends CUsers {
 
         $optionTmplSet = Common::getOption('set', 'template_options');
         $optionTmplName = Common::getOption('name', 'template_options');
-        $guid = guid();
+        $guid = self::$guid;
 
         $isFreeSite = Common::isOptionActive('free_site');
         $display = get_param('display');
         $option = 'set_who_view_profile';
-        if (!guid() && User::isSettingEnabled($option) && $row[$option] == 'members') {
+        if (!self::$guid && User::isSettingEnabled($option) && $row[$option] == 'members') {
             redirect(Common::pageUrl('login'));
         }
 
@@ -1569,7 +1569,7 @@ class CUsersProfile extends CUsers {
             $html->setvar($blockLookingFor, User::getLookingFor($row['user_id'], null, $lKey));
             $html->parse($blockLookingFor);
         }
-        if (guid()) {
+        if (self::$guid) {
             $cmd = get_param('cmd');
             if ($cmd == 'payment_error' && $html->blockexists('payment_error')) {
                 $html->parse('payment_error');
@@ -1596,7 +1596,7 @@ class CUsersProfile extends CUsers {
             $html->parse('user_profile_bg', false);
         }
 
-        $html->setvar('friend_id', User::isFriend(guid(), $row['user_id']));
+        $html->setvar('friend_id', User::isFriend(self::$guid, $row['user_id']));
 
         $html->setvar('country_id', $row['country_id']);
         $html->setvar('state_id', $row['state_id']);
@@ -1683,7 +1683,7 @@ class CUsersProfile extends CUsers {
             $html->setvar('greeting_video_id', intval(guser('video_greeting')));
         }
 
-        if (guid() == $row['user_id']) {
+        if (self::$guid == $row['user_id']) {
             $html->setvar('not_locked_user', 1);
             //$html->parse('profile_edit_main');//profile_head
             $html->parse('edit_photos');
@@ -1793,7 +1793,7 @@ class CUsersProfile extends CUsers {
         $this->m_field['photo_id'][1] = User::getPhotoDefault($row['user_id'], 'm', false, $row['gender']);
 
         $groupId = Groups::getParamId();
-        if (!$this->m_is_me and $this->m_view == 1 and guid() && !$groupId) {
+        if (!$this->m_is_me and $this->m_view == 1 and self::$guid && !$groupId) {
             $ref = get_param('ref');
             $view = DB::result("SELECT user_to FROM users_view WHERE user_from=" . $g_user['user_id'] . " AND user_to=" . $row_user['user_id'] . "");
             if ($view != "0" and $p != "users_i_viewed.php") {
@@ -1890,8 +1890,8 @@ class CUsersProfile extends CUsers {
             $profileHtml->parseBlock($html);
         }
 
-        $isFriendRequested = User::isFriendRequestExists($row['user_id'], guid());
-        $isFriend = User::isFriend($row['user_id'], guid());
+        $isFriendRequested = User::isFriendRequestExists($row['user_id'], self::$guid);
+        $isFriend = User::isFriend($row['user_id'], self::$guid);
 
         if ($html->blockExists('is_request_friends_hide') || $html->blockExists('no_request_friends_hide')) {
             if ($isFriendRequested) {
@@ -1906,7 +1906,7 @@ class CUsersProfile extends CUsers {
         }
 
         if (Common::isOptionActive('bookmarks')) {
-            $isBookmarded = User::isBookmarkExists(guid(), $row['user_id']);
+            $isBookmarded = User::isBookmarkExists(self::$guid, $row['user_id']);
 
             if (empty($isBookmarded)) {
                 $html->parse('bookmark_add');
@@ -1938,7 +1938,7 @@ class CUsersProfile extends CUsers {
 
         $notParseSubmenuItem = 'profile_tabs_wall_item';
         $submenuItemSelectedKey = 0;
-        if (guid()) {
+        if (self::$guid) {
             $blockStatistics = 'profile_statistics';
             if ($html->blockexists($blockStatistics)) {
 
@@ -1984,7 +1984,7 @@ class CUsersProfile extends CUsers {
 
                 $popularityLevel = User::getLevelOfPopularity($row['user_id']);
                 $vars = array('popularity' => mb_ucfirst(l($popularityLevel), 'UTF-8'));
-                if ($row['user_id'] != guid()) {
+                if ($row['user_id'] != self::$guid) {
                     $averagePopularity = lSetVars('profile_her_popularity_' . $row['gender'], $vars);
                 } else {
                     if (Common::isCreditsEnabled()) {
@@ -2217,7 +2217,7 @@ class CUsersProfile extends CUsers {
         }
 
         $block = 'response_superpowers_activated';
-        if ($html->blockExists($block) && guid() == $row['user_id']
+        if ($html->blockExists($block) && self::$guid == $row['user_id']
             && User::isSuperPowers() && get_session($block)) {
             delses($block);
             $html->parse($block, false);
@@ -2298,8 +2298,8 @@ class CHtmlUsersPhoto extends CUsers {
 
                 $access = ($row['private'] == 'Y') ? 'friends' : 'public';
 
-                if (guid() == $row['user_id']) {
-                    $hideFromUser = guid();
+                if (self::$guid == $row['user_id']) {
+                    $hideFromUser = self::$guid;
                 }
                 Wall::setSiteSectionItemId($photo_id_cur);
                 Wall::add('photo_comment', $id, false, '', false, $hideFromUser, $access, $row['user_id']);*/
@@ -2598,8 +2598,8 @@ class CHtmlUsersPhoto extends CUsers {
 
             // COMMENTS
             if (($displayParams != 'encounters' && $displayParams != 'rate_people') && ($private_photo == 'N'
-                    || User::isFriend(guid(), $row_user['user_id'])
-                    || $row_user['user_id'] == guid())) {
+                    || User::isFriend(self::$guid, $row_user['user_id'])
+                    || $row_user['user_id'] == self::$guid)) {
 
             $where = ($optionTmplSet == 'urban') ? '' : ' AND `system` = 0';
             DB::query("SELECT * FROM photo_comments WHERE photo_id=" . $photo_id . $where . " ORDER BY id DESC");
@@ -2673,7 +2673,7 @@ class CHtmlUsersPhoto extends CUsers {
             }
             $html->parse("no_photo", true);
 
-            if ($row_user['user_id'] == guid()) {
+            if ($row_user['user_id'] == self::$guid) {
                 redirect('profile_photo.php');
             }
         }
@@ -2780,7 +2780,7 @@ class CUsersFriends extends CUsers {
 
 
 
-                if (guid() != $row['user_id'] && guid() != $fid && User::isFriend(guid(), $fid, 3)) {
+                if (self::$guid != $row['user_id'] && self::$guid != $fid && User::isFriend(self::$guid, $fid, 3)) {
                     $html->parse('mutual_friend', false);
                 } else {
                     $html->setblockvar('mutual_friend', '');

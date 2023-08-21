@@ -187,8 +187,9 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         }
     }
 
-    this.saveBasicFieldEditor = function(field, uid){
+    this.saveBasicFieldEditor = function(field, uid, c_user_id){
         var uid = uid || 0;
+        var c_user_id = c_user_id || 0;
         var value=$jq('#basic_editor_text_'+field).val();
         $this.cacheData[field+'_old_value']=$this.cacheData[field+'_value'];
         $this.cacheData[field+'_value']=value;
@@ -204,6 +205,9 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             data['uid'] = uid;
             data['comment'] = val;
         } else {
+            if(c_user_id)
+                data['c_user_id'] = c_user_id;
+
             data[field] = val;
         }
 

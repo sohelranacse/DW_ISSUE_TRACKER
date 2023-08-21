@@ -334,7 +334,7 @@ var positionTabWall='{position_tab_wall}';
                         <input id="basic_editor_text_{name}" data-desc="{field_description}" class="basic_textarea" type="text" maxlength="{maxlen}" value="{value_input}" disabled/>
                         <!-- end_basic_text -->
                         <div id="basic_editor_{name}" class="frm_edit">
-                            <button id="basic_editor_save_{name}" class="btn small pink" onclick="Profile.saveBasicFieldEditor('{name}'); return false;" disabled>{l_save}</button>
+                            <button id="basic_editor_save_{name}" class="btn small pink" onclick="Profile.saveBasicFieldEditor('{name}', '', '{user_id}'); return false;" disabled>{l_save}</button>
                             <button id="basic_editor_cancel_{name}" class="btn small white_frame" onclick="Profile.closeBasicFieldEditor('{name}'); return false;">{l_cancel}</button>
                             <div class="cl"></div>
                         </div>
