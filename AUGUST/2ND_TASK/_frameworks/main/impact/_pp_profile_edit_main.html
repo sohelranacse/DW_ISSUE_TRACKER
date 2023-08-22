@@ -1,0 +1,327 @@
+<form id="frm_profile_edit_main" name="frm_profile_edit_main"  method="post" action="{url_main}ajax.php">
+<input type="hidden" name="cmd" value="profile_edit_main_save" class="ajax"/>
+<input type="hidden" name="ajax" class="ajax" value="0" />
+<input type="hidden" name="e_user_id" value="{e_user_id}" />
+<table class="tb_frm frm_edit_main">
+    <tr>
+        <th>
+            <div class="name">{l_name_or_nickname}</div>
+        </th>
+        <td>
+            <div class="field">
+                <!-- begin_name_edit_on -->
+                <input id="profile_edit_main_nickname" class="inp nickname" name="nickname" type="text" value="{nickname}" title="{nickname_title}"/>
+                <div id="profile_edit_main_nickname_error" class="error_frm"></div>
+                <!-- end_name_edit_on -->
+                <!-- begin_name_edit_off -->
+                <span class="main_nickname">{nickname}</span>
+                <!-- end_name_edit_off -->
+            </div>
+
+        </td>
+    </tr>
+    <!-- begin_field_orientation_edit_bl -->
+    <tr>
+        <th>
+            <div class="name">{l_i_am}</div>
+        </th>
+        <td>
+            <div class="field">
+                <!-- begin_field_orientation_edit_on -->
+                <select id="profile_edit_main_orientation" name="orientation" class="select_main">
+                    {orientation_options}
+                </select>
+                <!-- end_field_orientation_edit_on -->
+                <!-- begin_field_orientation_edit_off -->
+                <b>{field_orientation_value}</b>
+                <!-- end_field_orientation_edit_off -->
+            </div>
+        </td>
+    </tr>
+    <!-- end_field_orientation_edit_bl -->
+
+    <tr>
+        <th>
+            <div class="name">{l_birthday}</div>
+        </th>
+        <td>
+            <div id="profile_edit_main_birthday" class="field birthday">
+                <select id="profile_edit_main_day" name="day" class="select_main day">
+                    {day_options}
+                </select>
+                <select id="profile_edit_main_month" name="month" class="select_main month" onChange="updateDay('month','frm_profile_edit_main','year','month','day', refreshSelectBirthdayEditMain)">
+                    {month_options}
+                </select>
+                <select id="profile_edit_main_year" name="year" class="select_main year" onChange="updateDay('year','frm_profile_edit_main','year','month','day', refreshSelectBirthdayEditMain)">
+                    {year_options}
+                </select>
+            </div>
+            <div class="error_frm"></div>
+        </td>
+    </tr>
+    <!-- begin_location -->
+    <tr>
+        <th>
+            <div class="name">{l_location}</div>
+        </th>
+        <td>
+            <div class="field">
+                <select name="country" id="country" data-location="geo_states" class="geo select_main">
+                {country_options}
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <div class="name">&nbsp;</div>
+        </th>
+        <td>
+            <div class="field">
+                <select name="state" id="state" data-location="geo_cities" class="geo select_main">
+                {state_options}
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <div class="name">&nbsp;</div>
+        </th>
+        <td>
+            <div id="profile_edit_main_location" class="field">
+                <select name="city" id="city" class="select_main">
+                {city_options}
+                </select>
+            </div>
+            <div class="error_frm"></div>
+        </td>
+    </tr>
+    <!-- end_location -->
+</table>
+</form>
+<script>
+    $('.select_main','#frm_profile_edit_main').styler({singleSelectzIndex: '11',
+		selectAutoWidth : false,
+        selectAppearsNativeToIOS: false,
+        selectAnimation: true
+    });
+
+    var pp_profile_edit_main=$jq('#pp_profile_main_editor'),
+        nick_profile_edit_main=$('#profile_edit_main_nickname', pp_profile_edit_main),
+        pp_profile_edit_main_frm=$('#frm_profile_edit_main', pp_profile_edit_main),
+        pp_profile_edit_main_btn_save=$('.frm_editor_save', pp_profile_edit_main),
+        pp_profile_edit_main_btn_cancel=$('.frm_editor_cancel', pp_profile_edit_main),
+        pp_profile_edit_main_select=$('.select_main',pp_profile_edit_main).on('change', function(){
+            hideErrorFrm('#profile_edit_main_birthday',pp_profile_edit_main_btn_save);
+            setDisabledSave();
+        }),
+        pp_profile_edit_main_day=$('#profile_edit_main_day'),
+        pp_profile_edit_main_month=$('#profile_edit_main_month'),
+        pp_profile_edit_main_state=$('#state', pp_profile_edit_main_frm),
+        pp_profile_edit_main_city=$('#city', pp_profile_edit_main_frm),
+        basic_info = {}, last_exists_username='#', is_error = false,
+        isSaveEditMain = false;
+
+    function refreshSelectBirthdayEditMain(){
+        pp_profile_edit_main_day.trigger('refresh');
+    }
+
+    $('.icon_close, .frm_editor_cancel', pp_profile_edit_main).click(function (){
+        if(this.hash=='#close'){
+            if(isSaveEditMain){
+                Profile.closePopupEditor('pp_profile_main_editor');
+            }else if(isModifiedBasicInfo()){
+                confirmCustom(l('are_you_sure'), function(){
+                    Profile.closePopupEditor('pp_profile_main_editor',resetBasicInfo);
+                }, l('close_window'));
+            }else{
+                Profile.closePopupEditor('pp_profile_main_editor',resetBasicInfo);
+            }
+        }else{
+            if(isModifiedBasicInfo()){
+                resetBasicInfo();
+            }else{
+                Profile.closePopupEditor('pp_profile_main_editor',resetBasicInfo);
+            }
+        }
+        return false;
+    })
+
+    nick_profile_edit_main.on('change propertychange input', function(){
+        var val=this.value, l=$.trim(val).length;
+        is_error = true;
+        if (/[#&'"\/\\<]/.test(val))showErrorFrm('#profile_edit_main_nickname','{j_invalid_username}',pp_profile_edit_main_btn_save)
+        else if (l<'{minLength}'*1||l>'{maxLength}'*1)showErrorFrm('#profile_edit_main_nickname',this.title, pp_profile_edit_main_btn_save)
+        else if (last_exists_username.search('#'+val+'#')+1)showErrorFrm('#profile_edit_main_nickname','{j_exists_username}', pp_profile_edit_main_btn_save)
+        else {
+            hideErrorFrm('#profile_edit_main_nickname',pp_profile_edit_main_btn_save);
+            is_error = false;
+            setDisabledSave();
+        }
+    })
+
+    pp_profile_edit_main_btn_save.click(function(){
+        pp_profile_edit_main_frm.submit();
+    })
+
+    function disabledProfileEditMain(is){
+        if(is){
+            pp_profile_edit_main_btn_save.html(getLoader('pp_profile_edit_main_loader')).prop('disabled',is);
+        }else{
+            pp_profile_edit_main_btn_save.html('{j_save}').prop('disabled', true);
+        }
+        $('input', pp_profile_edit_main_frm).prop('disabled',is)
+        $('select.select_main', pp_profile_edit_main_frm).prop('disabled',is).each(function(){
+            //$(this).trigger('refresh') - тормозит сильно из-за этого, вроде не кретично
+        });
+        pp_profile_edit_main_btn_cancel.prop('disabled',is);
+    }
+
+    pp_profile_edit_main_frm.submit(function(){
+        nick_profile_edit_main.val($.trim(nick_profile_edit_main.val()));
+        if (!isModifiedBasicInfo()) return false;
+        isSaveEditMain=true;
+        this.ajax.value=1;
+        $(this).ajaxSubmit({success: profile_edit_main_response});
+        this.ajax.value=0;
+        disabledProfileEditMain(true);
+        return false;
+    })
+
+    function profile_edit_main_response(data) {
+        var data=checkDataAjax(data);
+        if(data!==false){
+            var $data=$(data);
+            if ($data.is('error')) {
+                disabledProfileEditMain(false);
+                var nick=nick_profile_edit_main.val();
+                $('span',$data).each(function(){
+                    var msg=$(this).text();
+                    showErrorFrm('#profile_edit_main_'+this.id, msg, pp_profile_edit_main_btn_save);
+                    if(this.id=='nickname'&&msg=='{j_exists_username}'&&last_exists_username.search('#'+nick+'#')<0){
+                        last_exists_username+=nick+'#';
+                    }
+                })
+            } else {
+                updateSiteSeo(data.seo);
+
+                Photo.replacePhotoMainChangeGander(data.gender);
+                setBasicInfo();
+                if(data.star_sign!=''){$('#personal_info_value_star_sign').html(data.star_sign)}
+
+                var $name=$jq('#profile_name').text(data.title_name),
+                    hash=location.hash,
+                    $li=$('#'+hash.replace(/#/g,'')+'_switch.selected');
+                if(data.name_seo && window.history && history.pushState){
+                    history.replaceState(history.state, document.title, url_main+data.name_seo);
+                    $name.attr('href',url_main+data.name_seo);
+                }
+                if ($li[0]) {
+                    location.hash=hash;
+                    document.title=siteTitle+' '+$li.text();
+                    siteTitle=document.title;
+                }
+
+                if(data.orientation){
+                    $jq('#list_info_gender').html(data.orientation).closest('li').removeClass('to_hide');
+                }
+                $jq('#list_info_age').html(data.age);
+                data.city&&data.country&&$jq('#list_info_location').html(data.city+', '+data.country);
+
+                Profile.closePopupEditorDelay('pp_profile_main_editor', function(){
+                    pp_profile_edit_main_btn_cancel.text('{j_cancel}');
+                })
+                disabledProfileEditMain(false);
+            }
+        }
+        isSaveEditMain = false;
+    }
+
+    function setDisabledSave() {
+        if (isModifiedBasicInfo()&&!is_error){
+            pp_profile_edit_main_btn_cancel.text('{j_reset}');
+            pp_profile_edit_main_btn_save.prop('disabled',false);
+        } else {
+            pp_profile_edit_main_btn_cancel.text('{j_cancel}');
+            pp_profile_edit_main_btn_save.prop('disabled', true);
+        }
+    }
+
+    function setBasicInfo() {
+        $('input:not(.ajax), select', pp_profile_edit_main_frm).each(function(){
+            var $el=$(this);
+            basic_info[this.name]=this.value;
+            if($el.is('.geo')||this.name=='city'){
+                basic_info[this.name+'_html']=$el.html();
+            }
+        })
+    }
+    setBasicInfo();
+
+    function resetBasicInfo() {
+        $('input:not(.ajax), select', pp_profile_edit_main_frm).each(function(){
+            var $el=$(this);
+            if($el.is('.geo')||this.name=='city'){
+                $el.html(basic_info[this.name+'_html']).trigger('refresh');
+            }else{
+                this.value=basic_info[this.name];
+                if($el.is('.select_main')){
+                    $el.trigger('refresh');
+                    this.name=='month'&&pp_profile_edit_main_month.change();
+                }
+            }
+        })
+        nick_profile_edit_main.change();
+        is_error = false;
+    }
+
+    function isModifiedBasicInfo() {
+        var is=0;
+        $('input:not(.ajax), select', pp_profile_edit_main_frm).each(function(){
+            is|=(this.value!=basic_info[this.name])
+        })
+        return is;
+    }
+
+    $jq('.geo, #city', pp_profile_edit_main_frm).change(function() {
+        hideErrorFrm('#profile_edit_main_location',pp_profile_edit_main_btn_save);
+        setDisabledSave();
+    })
+
+    $('.geo', pp_profile_edit_main_frm).change(function() {
+        var type=$(this).data('location');
+        $.ajax({type: 'POST',
+                url: '{url_main}ajax.php',
+                data: { cmd:type,
+                        select_id:this.value,
+                        filter:'1',
+                        list: 0},
+                        beforeSend: function(){
+                            $jq('.geo, #city', pp_profile_edit_main_frm).prop('disabled', true).trigger('refresh');
+                            // preloader
+                        },
+                        success: function(res){
+                            var data=checkDataAjax(res);
+                            $jq('.geo, #city', pp_profile_edit_main_frm).prop('disabled', false).trigger('refresh');
+                            if (data) {
+                                var option='<option value="0">{j_choose_a_city}</option>';
+                                switch (type) {
+                                    case 'geo_states':
+                                        pp_profile_edit_main_state.html('<option value="0">{j_choose_a_state}</option>' + data.list).trigger('refresh');
+                                        pp_profile_edit_main_city.html(option).trigger('refresh');
+                                        break
+                                    case 'geo_cities':
+                                        pp_profile_edit_main_city.html(option + data.list).trigger('refresh');
+                                        break
+                                }
+                            }
+
+                        }
+                    });
+        return false;
+    })
+
+    Profile.initClosePpEditorButton(pp_profile_edit_main);
+
+</script>

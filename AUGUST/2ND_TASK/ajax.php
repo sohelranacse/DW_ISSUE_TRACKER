@@ -86,7 +86,7 @@ if ($cmd == 'login') {
     $typeData = get_param('type_data', '');
     switch ($type) {
         case 'status':
-            User::updateProfileStatus($data);
+            User::updateProfileStatus($data, $id);
             break;
 
         case 'photo':
@@ -363,9 +363,10 @@ if ($cmd == 'login') {
     }
 // Profile Edit
 } elseif ($cmd == 'pp_profile_edit_main') {
+    $e_user_id = get_param('e_user_id', 0);
     $responsePage = false;
     if ($isAuth) {
-        $responsePage = new CProfileEditMain('', "{$dirTmpl}_pp_profile_edit_main.html", false, false, false, 'birthday');
+        $responsePage = new CProfileEditMain('', "{$dirTmpl}_pp_profile_edit_main.html", false, false, false, 'birthday', false, $e_user_id);
     }
 } elseif ($cmd == 'profile_edit_main_save') {//Settings
     $responseData = CProfileEditMain::UpdateBasicInfo();

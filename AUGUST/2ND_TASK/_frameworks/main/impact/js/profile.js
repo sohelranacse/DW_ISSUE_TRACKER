@@ -250,8 +250,13 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
     /* Edit main */
     this.showMainEditor = function(){
         var id='pp_profile_main_editor';
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
         if($this.openPopupEditor(id,$this.langParts.edit_basic_details,$this.hStub,$this.hStub))return;
-        $.post(url_main+'ajax.php',{cmd:'pp_profile_edit_main'},function(res){
+        $.post(url_main+'ajax.php',{cmd:'pp_profile_edit_main', e_user_id:e_user_id},function(res){
             var data=checkDataAjax(res);
             if(data!==false){
                 $this.updatePopupEditor(id,data);

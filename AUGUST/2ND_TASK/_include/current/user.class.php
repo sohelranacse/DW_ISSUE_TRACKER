@@ -2647,22 +2647,27 @@ static function profileComplite() {
        return $msg;
    }
 
-   static function updateProfileStatus($status)
+   static function updateProfileStatus($status, $e_user_id=0)
    {
         global $g_user;
 
-        $sqlstat = "SELECT `status` FROM `profile_status` WHERE user_id = " . to_sql($g_user['user_id'], 'Number');
+        $user_id = to_sql($g_user['user_id'], 'Number');
+        if($e_user_id !=0) // added by sohel
+            $user_id = to_sql($e_user_id, 'Number');
+
+
+        $sqlstat = "SELECT `status` FROM `profile_status` WHERE user_id = " . $user_id;
         DB::query($sqlstat);
         $sql2assoc = DB::fetch_row();
         if($sql2assoc['status'] == $status) {
             return true;
         }
 
-        $sql = "DELETE FROM `profile_status` WHERE user_id = " . to_sql($g_user['user_id'], 'Number');
+        $sql = "DELETE FROM `profile_status` WHERE user_id = " . $user_id;
         DB::execute($sql);
 
         if (trim($status)!= '') {
-            $sql = "INSERT INTO `profile_status` VALUES(" . to_sql($g_user['user_id'], 'Number') . "," . to_sql($status,'Text') . ",NOW())";
+            $sql = "INSERT INTO `profile_status` VALUES(" . $user_id . "," . to_sql($status,'Text') . ",NOW())";
             DB::execute($sql);
             Wall::setUid(guid());
             Wall::add('status', 0, false, trim($status));

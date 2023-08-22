@@ -105,7 +105,7 @@ class UserFields extends CHtmlBlock
     static $guid = 0;
     var $c_user_id = false;
 
-    function __construct($name, $html_path, $isTextTemplate = false, $textTemplate = false, $noTemplate = false, $typeParse = false, $uid = false, $update_id = false)
+    function __construct($name, $html_path, $isTextTemplate = false, $textTemplate = false, $noTemplate = false, $typeParse = false, $uid = false, $update_id = 0)
     {
         $this->typeParse = $typeParse;
         $this->userId = $uid;//(empty($uid)) ? guid() : $uid;
