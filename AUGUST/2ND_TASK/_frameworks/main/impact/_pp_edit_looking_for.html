@@ -1,0 +1,277 @@
+<form id="frm_pp_edit_looking" class="edit_form" name="frm_pp_edit_looking"  method="post" action="{url_main}ajax.php">
+<input type="hidden" name="cmd" value="update_edit_looking" class="ajax" />
+<input type="hidden" name="ajax" class="ajax" value="1" />
+<input type="hidden" name="c_user_id" value="{e_user_id}" />
+<table class="tb_frm frm_looking_for">
+    <!-- begin_sexualitys111 -->
+    <tr>
+        <th class="vt">
+            <div class="name">{l_i_want}</div>
+        </th>
+        <td>
+           <div class="field" style="margin: -7px 0 0;">
+                <!-- begin_sexuality -->
+                <div class="one_checkbox s">
+                    <label>
+                    <input id="p_sexuality_{id}" class="niceCheck p_sexuality" name="p_sexuality[]" value="{id}" {checked} type="checkbox">
+                    {title}
+                    </label>
+                </div>
+                <!-- end_sexuality -->
+            </div>
+        </td>
+    </tr>
+    <!-- end_sexualitys111 -->
+
+    <!-- begin_p_orientations -->
+    <tr>
+        <th class="vt">
+            <div class="name">{l_im_looking_for}</div>
+        </th>
+        <td>
+           <div class="field" style="margin: -7px 0 0;">
+                <!-- begin_p_orientation -->
+                <div class="one_checkbox s">
+                    <label>
+                    <input id="p_orientation_{id}" class="niceCheck p_sexuality" name="{name}[]" value="{id}" {checked} type="checkbox">
+                    {title}
+                    </label>
+                </div>
+                <!-- end_p_orientation -->
+            </div>
+        </td>
+    </tr>
+    <!-- end_p_orientations -->
+    <!-- begin_looking_your_orientation -->
+    <tr>
+        <th class="vt">
+            <div class="name">{l_im_looking_for}</div>
+        </th>
+        <td>
+            <div class="field" style="margin: 1px 0 0;">
+                <div class="ch"><b>{name}</b></div>
+            </div>
+        </td>
+    </tr>
+    <!-- end_looking_your_orientation -->
+
+    <!-- begin_age_range -->
+    <tr>
+        <th>
+            <div class="name">{l_field_ages}</div>
+        </th>
+        <td>
+            <div class="field age">
+                <select id="pp_edit_looking_p_age_from" name="p_age_from" class="select_main select_age">
+                    {p_age_from_options}
+                </select>
+                <span class="mdash">&mdash;</span>
+                <select id="pp_edit_looking_p_age_to" name="p_age_to" class="select_main select_age">
+                    {p_age_to_options}
+                </select>
+            </div>
+        </td>
+    </tr>
+    <!-- end_age_range -->
+    <tr>
+        <th>
+            <div class="name">{l_field_location}</div>
+        </th>
+        <td>
+           <div class="field">
+                <div class="one_checkbox">
+                    <label>
+                    <input class="niceCheck" <!-- begin_field_near_me_checked -->checked<!-- end_field_near_me_checked --> name="search_near_me" type="checkbox">
+                    {l_near_me}
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <!-- begin_i_am_here_to -->
+    <tr>
+        <th>
+            <div class="name">{l_i_am_here_to}</div>
+        </th>
+        <td>
+            <div class="field">
+                <select id="pp_edit_looking_i_am_here_to" name="{name}" class="select_main">
+                    <!-- begin_i_am_here_to_item -->
+                    <option value="{id}" <!-- begin_i_am_here_to_selected -->selected<!-- end_i_am_here_to_selected -->>{title}</option>
+                    <!-- end_i_am_here_to_item -->
+                </select>
+            </div>
+        </td>
+    </tr>
+    <!-- end_i_am_here_to -->
+</table>
+</form>
+<script>
+    $('.select_main, .niceCheck','.frm_looking_for').styler({singleSelectzIndex: '11',
+		selectAutoWidth : false,
+        selectAppearsNativeToIOS: false,
+        selectAnimation: true
+    })
+
+     var pp_edit_looking=$('#pp_profile_looking_for_editor'),
+         pp_edit_looking_frm=$('#frm_pp_edit_looking', pp_edit_looking),
+         pp_edit_looking_save=$('.frm_editor_save', pp_edit_looking),
+         pp_edit_looking_cancel=$('.frm_editor_cancel', pp_edit_looking),
+         pp_edit_looking_age_from=$('#pp_edit_looking_p_age_from', pp_edit_looking),
+         pp_edit_looking_age_to=$('#pp_edit_looking_p_age_to', pp_edit_looking),
+         pp_edit_looking_i_am_here_to=$('#pp_edit_looking_i_am_here_to', pp_edit_looking),
+         pp_edit_looking_sexuality=$('#pp_edit_looking_sexuality', pp_edit_looking),
+
+         editLookingInfo={},
+         curSelLookingInfo={},
+         setDisabledLooking=true,
+         isSaveEditLooking=false;
+
+    function disabledOptionAge(){
+        pp_edit_looking_age_from.find('option').toggleDisabled(pp_edit_looking_age_to.val()*1,true);
+        pp_edit_looking_age_to.find('option').toggleDisabled(pp_edit_looking_age_from.val()*1,false);
+        setTimeout(function(){
+            pp_edit_looking_age_from.trigger('refresh');
+            pp_edit_looking_age_to.trigger('refresh');
+        },1);
+    }
+
+    $.fn.toggleDisabled = function(limit,rang) {
+		return this.each(function(){
+            if(rang){
+                if(this.value>limit){this.disabled=true}
+                else{this.disabled=false}
+            }else{
+                if(this.value<limit){this.disabled=true}
+                else{this.disabled=false}
+            }
+		});
+	};
+    setTimeout(disabledOptionAge,200);
+
+    function setLookingInfo(){
+        $('input:not(.ajax), select', pp_edit_looking_frm).each(function(){
+            var $el=$(this), key=$el.is('.p_sexuality')?this.id:this.name;
+            editLookingInfo[key]=this.type=='checkbox'?$(this).prop('checked'):this.value;
+        })
+    }
+    setLookingInfo();
+
+    function isModifiedLookingInfo(){
+        var is=0;
+        $('input:not(.ajax), select', pp_edit_looking_frm).each(function(){
+            var $el=$(this), key=$el.is('.p_sexuality')?this.id:this.name;
+            if(this.type=='checkbox'){
+                is|=($(this).prop('checked')!=editLookingInfo[key])
+            }else{is|=(this.value!=editLookingInfo[key])}
+        })
+        return is;
+    }
+
+    function resetLookingInfo(){
+        $('input:not(.ajax), select', pp_edit_looking_frm).each(function(){
+            var $el=$(this), key=$el.is('.p_sexuality')?this.id:this.name;
+            if(this.type=='select-one'){
+                $(this).val(editLookingInfo[key]).trigger('refresh')
+            }else if(this.type=='checkbox'&&$(this).prop('checked')!=editLookingInfo[key]) {
+                $(this).prop('checked',editLookingInfo[key]).trigger('refresh')
+            }
+        })
+    }
+
+    function resetLookingFrm(){
+        pp_edit_looking_save.prop('disabled',true);
+        pp_edit_looking_cancel.text('{j_cancel}');
+        resetLookingInfo();
+        disabledOptionAge();
+    }
+
+    $('.icon_close, .frm_editor_cancel', pp_edit_looking).click(function (){
+        if(this.hash=='#close'){
+            if(isSaveEditLooking){
+                Profile.closePopupEditor('pp_profile_looking_for_editor');
+            }else if(isModifiedLookingInfo()){
+                confirmCustom(l('are_you_sure'), function(){
+                    Profile.closePopupEditor('pp_profile_looking_for_editor',resetLookingFrm);
+                }, l('close_window'));
+            }else{
+                Profile.closePopupEditor('pp_profile_looking_for_editor',resetLookingFrm);
+            }
+        }else{
+            if(isModifiedLookingInfo()){
+                resetLookingFrm();
+            }else{
+                Profile.closePopupEditor('pp_profile_looking_for_editor',resetLookingFrm);
+            }
+        }
+        return false;
+    })
+
+    $('select.select_age', pp_edit_looking_frm).on('change',function(){
+        disabledOptionAge();
+        setDisabledLookingSave();
+    })
+
+    $('select:not(.select_age)', pp_edit_looking_frm).on('change',function(){
+        setDisabledLookingSave();
+    })
+
+    $('input:not(.ajax)', pp_edit_looking_frm).on('change',setDisabledLookingSave)
+
+    function setDisabledLookingSave() {
+        if (isModifiedLookingInfo()){
+            pp_edit_looking_cancel.text('{j_reset}');
+            pp_edit_looking_save.prop('disabled',false);
+        } else {
+            pp_edit_looking_cancel.text('{j_cancel}');
+            pp_edit_looking_save.prop('disabled',true);
+        }
+    }
+
+    pp_edit_looking_save.click(function(){
+        pp_edit_looking_frm.submit();
+    })
+
+    function disabledProfileEditLokingFor(is){
+        if(is){
+            pp_edit_looking_save.html(getLoader('pp_profile_edit_main_loader')).prop('disabled',true);
+        }else{
+            pp_edit_looking_save.html('{j_save}').prop('disabled', true);
+        }
+        $('input', pp_edit_looking_frm).prop('disabled',is).trigger('refresh');
+        $('select.select_main', pp_edit_looking_frm).prop('disabled',is).each(function(){
+            $(this).trigger('refresh')
+        });
+        pp_edit_looking_cancel.prop('disabled',is);
+    }
+
+    pp_edit_looking_frm.submit(function(){
+        if (!isModifiedLookingInfo()) return false;
+        isSaveEditLooking = true;
+        this.ajax.value=1;
+        $(this).ajaxSubmit({success: pp_edit_looking_response});
+        this.ajax.value=0;
+        disabledProfileEditLokingFor(true);
+        return false;
+    })
+
+    function pp_edit_looking_response(res){
+        var data=checkDataAjax(res);
+        if(data!==false){
+            setLookingInfo();
+            data.orientation&&$jq('#info_looking_for_orientation').html(data.orientation);
+            $jq('#info_looking_for_i_am_here_to').html($('option[value="'+pp_edit_looking_i_am_here_to.val()+'"]',pp_edit_looking_i_am_here_to).text());
+            data.ages&&$jq('#info_looking_for_ages').html(data.ages);
+            data.near_me&&$jq('#info_looking_for_near_me').html(data.near_me);
+            Profile.closePopupEditorDelay('pp_profile_looking_for_editor', function(){
+                disabledProfileEditLokingFor(false);
+                pp_edit_looking_cancel.text('{j_cancel}');
+            })
+        }else{
+            alertServerError()
+        }
+        isSaveEditLooking = false;
+    }
+
+    Profile.initClosePpEditorButton(pp_edit_looking);
+</script>

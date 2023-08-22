@@ -18,7 +18,7 @@ class CProfileEditMain extends UserFields
 
         $e_user_id = get_param('e_user_id', 0);
         if($e_user_id) // added by sohel
-            $g_user = DB::row("SELECT * FROM user WHERE user_id = ".to_sql($e_user_id, 'Number'));
+            $g_user = DB::row("SELECT * FROM user WHERE user_id = ".to_sql($e_user_id));
 
         $message = '';
         $responseData = false;
@@ -102,7 +102,7 @@ class CProfileEditMain extends UserFields
                 }
                 $orientationTitle = '';
                 $gender = $g_user['gender'];
-                $data = User::setOrientation($g_user);
+                $data = User::setOrientation($g_user['user_id']);
                 if ($data) {
                     $orientationTitle = l($data['title']);
                     $gender = $data['gender'];
@@ -278,6 +278,10 @@ class CProfileEditMain extends UserFields
         }
         if ($html->varExists('users_age')) {
             $html->setvar('users_age', Common::getOption('users_age'));
+        }
+
+        if($this->typeParse == 'personal_edit_urban' || $this->typeParse == 'edit_looking_for_urban') { // added by sohel
+            $html->setvar('e_user_id', $g_user['user_id']);
         }
 
 		parent::parseBlock($html);

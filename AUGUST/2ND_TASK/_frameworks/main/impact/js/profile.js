@@ -235,8 +235,13 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
     /* Edit looking for */
     this.showLookingForEditor = function(){
         var id='pp_profile_looking_for_editor';
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+        
         if($this.openPopupEditor(id,$this.langParts.who_are_you_looking_for,$this.hStub,$this.hStub))return;
-        $.post(url_main+'ajax.php',{cmd:'pp_profile_edit_looking'},function(res){
+        $.post(url_main+'ajax.php',{cmd:'pp_profile_edit_looking', e_user_id:e_user_id},function(res){
             var data=checkDataAjax(res);
             if(data!==false){
                 $this.updatePopupEditor(id,data);
@@ -269,8 +274,14 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
 	/* Edit personal */
     this.showPersonalEditor = function(){
         var id='pp_profile_personal_editor';
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
         if($this.openPopupEditor(id,$this.langParts.edit_personal_details,$this.hStub,$this.hStub,'wrapper_custom'))return;
-        $.post(url_main+'ajax.php?cmd=pp_profile_edit_field_personal',{},function(res){
+        // $.post(url_main+'ajax.php?cmd=pp_profile_edit_field_personal',{},function(res){
+        $.post(url_main+'ajax.php',{cmd:'pp_profile_edit_field_personal', e_user_id:e_user_id},function(res){
             var data=checkDataAjax(res);
             if(data!==false){
 	            $this.updatePopupEditor(id,data);

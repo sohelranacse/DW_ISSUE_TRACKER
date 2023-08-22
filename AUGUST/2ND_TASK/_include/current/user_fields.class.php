@@ -1829,7 +1829,7 @@ class UserFields extends CHtmlBlock
             }
             if ($setRadius) {
                 $_GET['radius'] = $setRadius;
-                User::updateFilterAll(null, array('radius'));
+                User::updateFilterAll($user_id, array('radius'));
             }
         }
         if (User::noYourOrientationSearch()) {

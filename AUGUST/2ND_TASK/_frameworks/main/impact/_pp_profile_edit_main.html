@@ -214,8 +214,8 @@
                     hash=location.hash,
                     $li=$('#'+hash.replace(/#/g,'')+'_switch.selected');
                 if(data.name_seo && window.history && history.pushState){
-                    history.replaceState(history.state, document.title, url_main+data.name_seo);
-                    $name.attr('href',url_main+data.name_seo);
+                    // history.replaceState(history.state, document.title, url_main+data.name_seo); // comment by sohel
+                    // $name.attr('href',url_main+data.name_seo);
                 }
                 if ($li[0]) {
                     location.hash=hash;

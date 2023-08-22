@@ -4376,7 +4376,9 @@ static function profileComplite() {
         if (!$g_user['user_id']) return;
         if ($userinfo == null) {
             $userinfo = User::getInfoFull($g_user['user_id']);
-        }
+        } else
+            $userinfo = User::getInfoFull($userinfo);
+            
         User::updateParamsFilterUserInfo('user_search_filters', $userinfo, $fields);
         User::updateParamsFilterUserInfo('user_search_filters_mobile', $userinfo, $fields);
         return $userinfo;

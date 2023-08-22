@@ -366,7 +366,7 @@ if ($cmd == 'login') {
     $e_user_id = get_param('e_user_id', 0);
     $responsePage = false;
     if ($isAuth) {
-        $responsePage = new CProfileEditMain('', "{$dirTmpl}_pp_profile_edit_main.html", false, false, false, 'birthday', false, $e_user_id);
+        $responsePage = new CProfileEditMain('', "{$dirTmpl}_pp_profile_edit_main.html", false, false, false, 'birthday', $e_user_id, $e_user_id);
     }
 } elseif ($cmd == 'profile_edit_main_save') {//Settings
     $responseData = CProfileEditMain::UpdateBasicInfo();
@@ -395,6 +395,7 @@ if ($cmd == 'login') {
 } elseif ($cmd == 'pp_profile_edit_field_personal' || $cmd == 'update_personal_field') {
     $responsePage = false;
     if ($isAuth) {
+        $e_user_id = get_param('e_user_id', 0);
         if ($cmd == 'update_personal_field') {
             $tmpl = "{$dirTmpl}_items_fields_profile.html";
             $typeParse = 'profile_html_urban';
@@ -402,7 +403,12 @@ if ($cmd == 'login') {
             $tmpl = "{$dirTmpl}_pp_profile_edit_personal.html";
             $typeParse = 'personal_edit_urban';
         }
-        $responsePage = new CProfileEditMain('', $tmpl, false, false, false, $typeParse, $guid);
+
+        if($e_user_id)
+            $responsePage = new CProfileEditMain('', $tmpl, false, false, false, $typeParse, $e_user_id, $e_user_id);
+        else
+            $responsePage = new CProfileEditMain('', $tmpl, false, false, false, $typeParse, $guid);
+
         if ($cmd == 'update_personal_field') {
             $responsePage->setAllowedGruops(array(1,2));
             $responsePage->setBanCustomFields(array('location_map', 'interests'));
@@ -702,7 +708,12 @@ if ($cmd == 'login') {
 } elseif ($cmd == 'pp_profile_edit_looking') {
     $responsePage = false;
     if ($isAuth) {
-        $responsePage = new CProfileEditMain('', "{$dirTmpl}_pp_edit_looking_for.html", false, false, false, 'edit_looking_for_urban');
+        $e_user_id = get_param('e_user_id', 0);
+
+        if($e_user_id)
+            $responsePage = new CProfileEditMain('', "{$dirTmpl}_pp_edit_looking_for.html", false, false, false, 'edit_looking_for_urban', $e_user_id, $e_user_id);
+        else
+            $responsePage = new CProfileEditMain('', "{$dirTmpl}_pp_edit_looking_for.html", false, false, false, 'edit_looking_for_urban');
     }
 } elseif ($cmd == 'update_edit_looking') {
     $responseData = false;
