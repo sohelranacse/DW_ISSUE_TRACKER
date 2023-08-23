@@ -48,7 +48,7 @@ class CGroupUsersAdd extends CHtmlBlock
             $state   = get_param('state', '');
             $city    = get_param('city', '');
 
-            $this->message .= User::validateName($name);
+            // $this->message .= User::validateName($name);
             $this->message .= Common::validateField('mail', $mail) ? l('exists_email') . '<br>' : '';
             $this->message .= Common::validateField('phone', $phone) ? l('phone_email') . '<br>' : '';
 
