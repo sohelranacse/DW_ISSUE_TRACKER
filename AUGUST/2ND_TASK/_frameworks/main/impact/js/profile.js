@@ -1072,6 +1072,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         $('#btn_upload_pdf').prop('disabled', true);
         $('#btn_upload_pdf').text('Uploading');
 
+
+        if($("#btn_upload_pdf").val())
+            pdf.append('e_user_id', $("#btn_upload_pdf").val());
+
         $.ajax({
             url: 'profile_upload_pdf.php',
             type: 'POST',
@@ -1185,18 +1189,27 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
 
         $('.profile_upload_pdf').click(function(){
             $this.openPopupEditorUploadPDF();
+            $("#btn_upload_pdf").val('')
+            return false;
+        });
+
+        $('.user_profile_upload_pdf').click(function(){
+            $this.openPopupEditorUploadPDF();
+            $("#btn_upload_pdf").val($("#ua_user_id").val())
             return false;
         });
 
         $('.profile_delete_pdf').click(function(){
+            var e_user_id = 0
+            if(this.value)
+                e_user_id = this.value;
 
             if (confirm("Are you sure, do you want to really delete this file?")) {
                 $.ajax({
                     url: 'profile_delete_pdf.php',
-                    type: 'POST',
-                    processData: false,
-                    contentType: false,
-        
+                    data: { "e_user_id": e_user_id },
+                    type: 'POST',    
+                    dataType: "json",    
                     success:function(data){
                         if(data){
                             alert('PDF File deleted successfully!');

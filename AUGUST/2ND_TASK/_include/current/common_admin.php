@@ -3613,7 +3613,8 @@ class CAdminPageMenuCustomPages extends CAdminPageMenu {
 class CAdminPageMenuUsers extends CAdminPageMenu {
     protected $items = array(
         'users_results.php'     => array('title' => 'menu_users', 'icon' => '<i class="ft-users"></i>'),
-		'group_admin.php'		=> array('title' => 'group_admin', 'icon' => '<i class="ft-user-plus"></i>'),
+        'add_group_user.php'       => array('title' => 'add_group_user', 'icon' => '<i class="ft-user-plus"></i>'),
+		'group_admin.php'		=> array('title' => 'group_admin', 'icon' => '<i class="ft-users"></i>'),
 		'users_approval.php?view=activate'	=> array('title' => 'menu_users_activate', 'icon' => '<i class="ft-plus"></i>'),
 		'users_approval.php'	=> array('title' => 'menu_users_approval', 'icon' => '<i class="ft-user-check"></i>'),
 		'users_search.php'		=> array('title' => 'menu_search', 'icon' => '<i class="ft-search"></i>'),
@@ -3626,7 +3627,7 @@ class CAdminPageMenuUsers extends CAdminPageMenu {
 class CGroupAdminPageMenuUsers extends CAdminPageMenu {
     protected $items = array(
         'group_admin_panel.php'       => array('title' => 'menu_users', 'icon' => '<i class="ft-users"></i>'),
-        'add_group_user.php'       => array('title' => 'add_group_user', 'icon' => '<i class="ft-user-plus"></i>')
+        // 'add_group_user.php'       => array('title' => 'add_group_user', 'icon' => '<i class="ft-user-plus"></i>')
     );
 }
 

@@ -43,13 +43,13 @@ if (get_session('admin_auth') == 'Y') {
     }
 	$pages_zone = array('index.php', 'fakes_reply_mails.php','fakes_reply_im.php','fakes_reply_winks.php', 'fakes_friend_requests.php');
 }
-elseif(get_session('groupAdmin_auth') == 'Y'){
+/*elseif(get_session('groupAdmin_auth') == 'Y'){
     $area = 'login';
     if ($p == 'index.php' and get_param('cmd') != 'logout') {
         redirect("group_admin_panel.php");
     }
     $pages_zone = array('index.php', 'ajax.php', 'group_admin_panel.php', 'add_group_user.php', 'users_edit.php');
-}
+}*/
 
 else {
 	$area = 'public';

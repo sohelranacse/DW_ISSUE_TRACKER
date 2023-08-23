@@ -19,7 +19,6 @@ class CAddUser extends UserFields //CHtmlBlock
             $orientation = get_param('orientation', 'Number');
             
             $name = trim(get_param('username'));
-            $this->message .= User::validateName($name);
 
             $phone = trim(get_param('phone'));
             $this->message .= User::checkExistPhone($phone);
@@ -37,27 +36,30 @@ class CAddUser extends UserFields //CHtmlBlock
             $state   = get_param('state', '');
             $city    = get_param('city', '');
 
-            $this->message .= User::validatePassword($password, 4, 100);
-            $this->message .= User::validate('email,birthday,country');
+            // $this->message .= User::validateName($name);
+            $this->message .= Common::validateField('mail', $mail) ? l('exists_email') . '<br>' : '';
+            $this->message .= Common::validateField('phone', $phone) ? l('phone_email') . '<br>' : '';
+
 
             $fileTemp = $g['path']['dir_files'] . 'temp/admin_upload_user_profile_' . time();
             Common::uploadDataImageFromSetData($fileTemp, 'photo_file');
-            $this->message = User::validatePhoto("photo_file");
+            $this->message .= User::validatePhoto("photo_file");
 
             if ($this->message == '')
             {
                 $register = date("Y-m-d H:i:s");
-                $under_admin = get_session('groupAdmin_id') ? get_session('groupAdmin_id') : "NULL";
+                $name_seo = Common::uniqueNameSEO($name);
 
-                $name_seo = to_sql(Router::prepareNameSeo($name));
-                $h = zodiac($year . '-' . $month . '-' .  $day);
+                $date = strtotime($year . '-' . $month . '-' .  $day);
+                $birth = date('Y-m-d', $date);
+                $h = zodiac($birth);
+
                 $query = "
                     INSERT INTO user (
-                        role, under_admin, name, name_seo, password, mail, country_id, state_id, city_id, country, state, city, birth, orientation, horoscope, register, last_ip, active, use_as_online, phone
+                        role, name, name_seo, password, mail, country_id, state_id, city_id, country, state, city, birth, orientation, horoscope, register, last_ip, active, use_as_online, phone
                     )
                     VALUES (
                         ".to_sql('user', 'Text').",
-                        ".$under_admin.",
                         ".to_sql($name, 'Text').",
                         ".to_sql($name_seo, 'Text').",
                         ".to_sql($password, 'Text').",
@@ -68,7 +70,7 @@ class CAddUser extends UserFields //CHtmlBlock
                         ".to_sql(Common::getLocationTitle('country', $country), 'Text').",
                         ".to_sql(Common::getLocationTitle('state', $state), 'Text').",
                         ".to_sql(Common::getLocationTitle('city', $city), 'Text').",
-                        ". $year . "-" . $month . "-" .  $day . ",
+                        '". $birth . "',
                         ".to_sql($orientation, 'Number').",
                         ".$h.",
                         '".$register."',
@@ -102,15 +104,15 @@ class CAddUser extends UserFields //CHtmlBlock
             die();
         }
     }
-	function parseBlock(&$html)
-	{
+    function parseBlock(&$html)
+    {
         $optionsSet = Common::getOption('set', 'template_options');
         $optionsTmplName = Common::getOption('name', 'template_options');
         $html->setvar('message', $this->message);
 
 
-		parent::parseBlock($html);
-	}
+        parent::parseBlock($html);
+    }
 }
 
 $page = new CAddUser('', $g['tmpl']['dir_tmpl_administration'] . 'add_group_user.html', false, false, false, 'profile');
@@ -121,5 +123,5 @@ $page->add($header);
 $footer = new CAdminFooter("footer", $g['tmpl']['dir_tmpl_administration'] . "_footer.html");
 $page->add($footer);
 
-$page->add(new CGroupAdminPageMenuUsers());
+$page->add(new CAdminPageMenuUsers());
 include("../_include/core/administration_close.php");

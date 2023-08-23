@@ -54,10 +54,12 @@ $(function(){
     //})
     <!-- begin_profile_edit_js -->
     <!-- end_profile_edit_js -->
+
 })
 
 var positionTabWall='{position_tab_wall}';
 
+siteTitle = '{user_name}'; // added by sohel
 </script>
 <style type="text/css">
     .profile_pic_one > .show_photo_gallery {position: relative;}
@@ -75,6 +77,15 @@ var positionTabWall='{position_tab_wall}';
     }
     .via_admin_link:hover{
         background: rgba(235, 96, 119, 0.5);
+    }
+    .pdf_user_div {display: flex;justify-content: space-between;}
+    .pdf_user_div li button {
+        border: none;
+        color: tomato;
+        font-weight: 500;
+        background: transparent;
+        font-size: 15px;
+        line-height: 33px;
     }
 </style>
 <!-- col_center -->
@@ -424,6 +435,23 @@ var positionTabWall='{position_tab_wall}';
                             <!-- end_personal_item -->
                         </table>
                     </div>
+
+                    <button class="btn small yellow user_profile_upload_pdf=" style="line-height: unset;{uploaded_btn_style}">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        Upload PDF
+                    </button>
+                    <ul class="pdf_user_div">
+                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                            <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View PDF</a>
+                        </li>
+                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                            <button class="profile_delete_pdf" id="profile_delete_pdf" value="{user_id}">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                Delete PDF
+                            </button>
+                        </li>
+                    </ul>
+
                     <!-- end_personal_impact -->
                     <!-- begin_profile_send_message_btn -->
                     <div class="bl">
@@ -484,7 +512,7 @@ var positionTabWall='{position_tab_wall}';
                         <div class="some_link_add_photo">
                             <div>
                                 <form>
-                                    <input id="some_link_photo_public" type="file" title="" multiple name="file_public[]" />
+                                    <input id="some_link_photo_public" type="file" title="" multiple name="file_public[]" accept=".jpg, .jpeg, .png" />
                                     <input id="some_link_photo_public_reset" type='reset' value=''/>
                                 </form>
                             </div>
@@ -656,7 +684,7 @@ var positionTabWall='{position_tab_wall}';
     <div class="foot">
         <div class="pp_link_add_photo">
             <form>
-            <input id="photo_file_public" type="file" multiple name="file_public[]" />
+            <input id="photo_file_public" type="file" multiple name="file_public[]" accept=".jpg, .jpeg, .png" />
             <input id="photo_file_public_reset" type='reset' value=''/>
             </form>
         </div>

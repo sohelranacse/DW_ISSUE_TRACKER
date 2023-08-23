@@ -945,9 +945,12 @@ class CUsers extends CHtmlList {
         // PDF FILE
         $row_user = User::getInfoFull($row['user_id'], 2);
         if($row_user['profile_pdf']){
+            $html->setvar("uploaded_btn_style", "display:none");
+
             $html->setvar("view_pdf_class", "yes_profile_pdf");
             $html->setvar("pdf_file_name", $row_user['profile_pdf']);
         } else {
+            $html->setvar("uploaded_btn_style", "");
             $html->setvar("view_pdf_class", "no_profile_pdf");
         }
 

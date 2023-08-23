@@ -29,9 +29,9 @@ class CAdminLogin extends CHtmlBlock
 			set_session('admin_auth', '');
             set_session('admin_last_login', false);
 
-            set_session("groupAdmin_auth", '');
+            /*set_session("groupAdmin_auth", '');
             set_session("groupAdmin_id", '');
-            set_session("groupAdmin_name", '');
+            set_session("groupAdmin_name", '');*/
 			redirect("index.php");
 		}
 		elseif ($cmd == "login")
@@ -75,7 +75,7 @@ class CAdminLogin extends CHtmlBlock
                     }
                 }
             } else { // group admin
-                $sql = 'SELECT user_id FROM user WHERE ban_global = 0 AND role = '.to_sql("group_admin").' AND mail = '.to_sql($login, 'Text');
+                /*$sql = 'SELECT user_id FROM user WHERE ban_global = 0 AND role = '.to_sql("group_admin").' AND mail = '.to_sql($login, 'Text');
                 $groupUser=DB::row($sql);
                 if(isset($groupUser)) {
                     $user=User::getUserByLoginAndPassword($login, $pass);
@@ -86,7 +86,7 @@ class CAdminLogin extends CHtmlBlock
                         set_session("groupAdmin_name", $user['name']);
                         if(!$cmd_ajax) redirect("index.php");
                     }
-                }
+                }*/
             }
 		}
 	}
