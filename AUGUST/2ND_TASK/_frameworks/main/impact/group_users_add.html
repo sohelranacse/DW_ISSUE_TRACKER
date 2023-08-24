@@ -1,6 +1,4 @@
 {header}
-<!-- <script type="text/javascript" src="{url_tmpl_main}js/join.js{cache_version_param}"></script> -->
-<!-- <link rel="stylesheet" type="text/css" href="{url_main}_frameworks/main/impact/css/index_page.css{cache_version_param}"/> -->
 <link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/modern/app-assets/vendors/css/vendors.min.css{cache_version_param}">
 <!-- file upload -->
 <link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/modern/app-assets/vendors/css/file-uploaders/dropzone.min.css{cache_version_param}">
@@ -22,6 +20,7 @@
     nameLengthMax='{username_length}'*1;
 </script>
 <style type="text/css">
+.add_group_user_link {color: blue;font-weight: bold;display: inline-block;margin-bottom: 20px}
 
 /* Drop zone */
 .dropzone .dz-preview.dz-error .dz-info,
@@ -288,6 +287,7 @@ form .btn{
 </style>
 <div class="col_center">
     <div class="head icon_head_visitors">{page_title}</div>
+    <a href="{main_url}group_users" class="add_group_user_link"><i class="fa fa-users"></i> {l_group_users}</a>
 
     <div class="alert alert-warning" id="warAlert" style="display: none;"></div>
     <div class="alert alert-success" id="sucAlert" style="display: none;"></div>
