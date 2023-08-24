@@ -223,18 +223,21 @@ var positionTabWall='{position_tab_wall}';
                     </li>
                     <!-- end_profile_tabs_tab_profile_item -->
                     <!-- begin_profile_tabs_tab_photos_item -->
+                    <!-- <li id="tabs-2_switch" class="switch_tab">
+                        <a href="#tabs-2" title=""><span>{l_tab_photos}</span></a>
+                    </li> -->
+                    <!-- end_profile_tabs_tab_photos_item -->
                     <li id="tabs-2_switch" class="switch_tab">
                         <a href="#tabs-2" title=""><span>{l_tab_photos}</span></a>
                     </li>
-                    <!-- end_profile_tabs_tab_photos_item -->
                     <!-- end_profile_tabs -->
                 </ul>
                 <!-- begin_profile_tabs_visitor -->
                 <div class="menu_func">
                     <ul class="menu_list">
-                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                        <!-- <li class="view_pdf view_pdf_menu {view_pdf_class}">
                             <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View PDF</a>
-                        </li>
+                        </li> -->
                         <!-- begin_profile_tabs_visitor_video_chat -->
                         <li class="video_chat video_chat_menu">
                             <a href="" onclick="return false;">
@@ -425,17 +428,17 @@ var positionTabWall='{position_tab_wall}';
                             <!-- end_personal_item -->
                         </table>
                     </div>
-                    <uL>
-                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
-                            <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View PDF</a>
-                        </li>
-                    </uL>
                     <!-- end_personal_impact -->
                     <!-- begin_profile_send_message_btn -->
                     <div class="bl">
                         <button data-type-loader="fade_btn" onclick="Profile.toOpenIm('{ua_user_id}', $(this));" class="btn large lblue btn_open_im_bottom"><span class="icon_message"></span><span>{l_send_a_message} {ua_name}</span></button>
                     </div>
                     <!-- end_profile_send_message_btn -->
+                    <uL>
+                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                            <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View PDF</a>
+                        </li>
+                    </uL>
                 </div>
             </div>
             <!-- /tab_about -->

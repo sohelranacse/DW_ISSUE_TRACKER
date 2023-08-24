@@ -682,7 +682,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
 
     this.redirectToUploadPhoto = function(url){
         redirectUrl(url);
-        $jq('#some_add_photo_public').trigger('click'); // uncomment by sohel
+        // $jq('#some_add_photo_public').trigger('click');
     }
 
     this.setTabs = function(id0){

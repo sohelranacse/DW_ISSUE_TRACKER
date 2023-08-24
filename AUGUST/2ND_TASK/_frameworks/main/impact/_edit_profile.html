@@ -102,6 +102,7 @@ siteTitle = '{user_name}'; // added by sohel
                             <a class="via_admin_link" href="{url_main}{ua_name_seo}">Via {l_group_admin} {ua_name}</a>
                         <!-- end_via_under_admin -->
 
+                        <!-- begin_photo_main_upload -->
                         <div id="add_photo_main_profile" class="add_photo" style="display:block;">
                             <div class="file" id="add_photo_profile">
                                 <form>
@@ -111,6 +112,7 @@ siteTitle = '{user_name}'; // added by sohel
                                 </form>
                             </div>
                         </div>
+                        <!-- end_photo_main_upload -->
 
                         <!-- begin_profile_user_blocked_bl -->
                         <div id="bl_user_blocked" class="user_blocked <!-- begin_profile_user_blocked_bl_show -->to_show<!-- end_profile_user_blocked_bl_show -->">
@@ -233,10 +235,13 @@ siteTitle = '{user_name}'; // added by sohel
                     </li>
                     <!-- end_profile_tabs_tab_profile_item -->
                     <!-- begin_profile_tabs_tab_photos_item -->
+                    <!-- <li id="tabs-2_switch" class="switch_tab">
+                        <a href="#tabs-2" title=""><span>{l_tab_photos}</span></a>
+                    </li> -->
+                    <!-- end_profile_tabs_tab_photos_item -->
                     <li id="tabs-2_switch" class="switch_tab">
                         <a href="#tabs-2" title=""><span>{l_tab_photos}</span></a>
                     </li>
-                    <!-- end_profile_tabs_tab_photos_item -->
                     <!-- end_profile_tabs -->
                 </ul>
                 <!-- begin_profile_tabs_visitor -->
@@ -436,7 +441,7 @@ siteTitle = '{user_name}'; // added by sohel
                         </table>
                     </div>
 
-                    <button class="btn small yellow user_profile_upload_pdf=" style="line-height: unset;{uploaded_btn_style}">
+                    <button class="btn small yellow user_profile_upload_pdf" style="line-height: unset;{uploaded_btn_style}">
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         Upload PDF
                     </button>
