@@ -331,7 +331,7 @@ $userSearchFilters = array();
 $user['i_am_here_to'] = (int) get_param('i_am_here_to', '');
 if ($user['i_am_here_to'])
 {
-    //$where .= " AND u.i_am_here_to = " . to_sql($user['i_am_here_to']);
+    $where .= " AND u.i_am_here_to = " . to_sql($user['i_am_here_to']);
 }
 
 $user["horoscope"] = (int) get_checks_param("p_star_sign");
@@ -361,7 +361,7 @@ $user['name'] = get_param("name_search", ""); // added by sohel
 if ($user['name'] != '')
 {
     $where .= " AND u.name LIKE '%" . to_sql($user['name'], "Plain") . "%'";
-    $where .= " OR u.name_seo LIKE '%" . to_sql($user['name'], "Plain") . "%'";
+    // $where .= " OR u.name_seo LIKE '%" . to_sql($user['name'], "Plain") . "%'";
 }
 $user['user_type'] = get_param("user_type", ""); // added by sohel
 
