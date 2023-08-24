@@ -103,7 +103,7 @@ siteTitle = '{user_name}'; // added by sohel
                         <!-- end_via_under_admin -->
 
                         <!-- begin_photo_main_upload -->
-                        <!-- <div id="add_photo_main_profile" class="add_photo" style="display:block;">
+                        <div id="add_photo_main_profile" class="add_photo" style="display:block;">
                             <div class="file" id="add_photo_profile">
                                 <form>
                                     <button class="btn small violet"><img width="16" height="16" alt="" src="{url_tmpl_main}images/icon_add_photo.png">{l_add_a_photo}</button>
@@ -111,7 +111,7 @@ siteTitle = '{user_name}'; // added by sohel
                                     <input id="some_add_photo_main_public_reset" type="reset" value=""/>
                                 </form>
                             </div>
-                        </div> -->
+                        </div>
                         <!-- end_photo_main_upload -->
 
                         <!-- begin_profile_user_blocked_bl -->
@@ -473,7 +473,7 @@ siteTitle = '{user_name}'; // added by sohel
                     <!-- begin_photo_public_block -->
                     <div class="list_photos_public">
                         <div class="list_photos_trans">
-                        
+                        <!-- begin_photo_public_add -->
                         <div id="photo_add_public" class="item add_photo add_photo_public">
 
                             <a href="#null"><img src="{url_tmpl_main}images/add_photo126x140.png" alt="" /></a>
@@ -482,6 +482,7 @@ siteTitle = '{user_name}'; // added by sohel
                                 <input id="some_add_photo_public_reset" type="reset" value=""/>
                             </form>
                         </div>
+                        <!-- end_photo_public_add -->
                         <!-- begin_photo_public -->
                         <div id="{photo_public_id}"  class="item profile_photo_frame">
                             <a onclick="Photo.openGalleryId('{photo_public_id}'); return false;" data-offset-id="{photo_public_id}" class="show_photo_gallery" style="opacity:0;" href="">
@@ -493,6 +494,7 @@ siteTitle = '{user_name}'; // added by sohel
                             <script>
                             Photo.setPhotoInfo('{photo_public_id}', 'public', {gallery_photo_public_info});
                             </script>
+                            <!-- begin_photo_public_action -->
                             <span onclick="Photo.confirmPhotoDelete('{photo_public_id}');" title="{a_delete_photo}" class="icon_delete">
                                 <span class="icon_delete_photo"></span>
                                 <span class="icon_delete_photo_hover"></span>
@@ -505,6 +507,7 @@ siteTitle = '{user_name}'; // added by sohel
                                 <span class="icon_rotate_photo"></span>
                                 <span class="icon_rotate_photo_hover"></span>
                             </span>
+                            <!-- end_photo_public_action -->
                         </div>
                         <!-- end_photo_public -->
                         </div>
