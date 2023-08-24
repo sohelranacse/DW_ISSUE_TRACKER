@@ -1,31 +1,57 @@
 {header}
 <style type="text/css">
-.groupTable {
-    width: 100%;
-    border-collapse: collapse;
+#add_group_user_link > a {color: blue;font-weight: bold;}
+.container {
+    width: 735px;
+  margin: 0 auto;
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+/*  justify-content: center;*/
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px 15px 15px 0px;
+    padding: 12px;
+    width: calc(25% - 15px);
+    box-sizing: border-box;
+}
+.card-header {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card-content {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.card-header a {display: inline-block;color: blue}
+.card-header img{
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+}
+.card-content p {
     font-size: 12px;
+    line-height: 10px;
+    display: inline-block;
+    padding-bottom: 8px;
 }
-.groupTable th, .groupTable td {
-    padding: 8px;
-    text-align: left;
-}
-.groupTable th {
-    background-color: #ddd;
-    color: #333;
-}
-.groupTable tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
-}
-.groupTable tbody tr:nth-child(even) {
-    background-color: white;
-}
-.groupLink {
+.card-content .p_action {
+    text-align: center;
     display: block;
-    padding-bottom: 15px;
-    text-decoration: underline;
+    padding: 10px 0 0;
+    border-top: 1px solid #eee;
 }
-.text-right {text-align: right !important;}
-.groupTable a {color: #6d8fff}
+.red {color: tomato;}
+.blue {color: blue;}
+.gray {color: gray;}
 </style>
 <script type="text/javascript">
     var m="{message}";
@@ -43,9 +69,11 @@
 <div class="col_center">
     <div class="head icon_head_visitors">{page_title}</div>
     <span id="add_group_user_link"></span>
-    <div class="cont" id="tableData"></div>
+
+    <div class="container" id="cardData"></div>
 </div>
 <script type="text/javascript">
+    siteTitle = '{page_title}';
     $(function(){
         // set active color
         var groupUsersLink = document.querySelector('a[href="./group_users"]');
@@ -56,10 +84,10 @@
         const previllage = gadmin_previllage.split(",");
 
         if(previllage[0] == 1) // add
-            $("#add_group_user_link").html(`<a href="{main_url}add_user" class="groupLink">{l_add_group_user}</a>`)
+            $("#add_group_user_link").html(`<a href="{main_url}add_user" class="groupLink"><i class="fa fa-user-plus"></i> {l_add_group_user}</a>`)
 
         // preloader
-        $("#tableData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
+        $("#cardData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
         
         $.ajax({
             url: 'group_users',
@@ -68,49 +96,44 @@
             data:{ "cmd": "get_group_user_data", "cmd_ajax": 1},
             success:function(response){
                 if(response.length) {
-                    var tableData = `<table class="groupTable">
-                        <thead>
-                            <tr>
-                                <th>{l_action}</th>
-                                <th>{l_name}</th>
-                                <th>{l_email_address}</th>
-                                <th>{l_orientation}</th>
-                                <th>{l_age}</th>
-                                <th class="text-right">{l_register}</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
+                    var cardData = ``;
 
 
                     for(var i=0; i < response.length; i++) {
                         var editTxt = delTxt = line = ""
                         if(previllage[1] == 1) // edit
-                            editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}">Edit</a>`
+                            editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}" title="{l_edit}" class="blue"><i class="fa fa-edit"></i></a>`
 
                         if(previllage[1] == 1 && previllage[2] == 1)
                             line = ` | `
 
                         if(previllage[2] == 1) // delete
-                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" style="color: #f00">Delete</a>`
+                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="red" title="{l_delete}"><i class="fa fa-trash"></i></a>`
                         
-                        var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;">${response[i].banData}</a>`;
+                        var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" class="gray">${response[i].banData}</a>`;
 
-                        tableData+= '<tr><td style="white-space: nowrap">'+editTxt+line+delTxt+banTxt+'</td>';
-                        tableData += `
-                            <td><a href="{url_main}${response[i].name_seo}">${response[i].name}</a></td>
-                            <td>${response[i].mail}</td>
-                            <td>${response[i].gender}</td>
-                            <td>${response[i].age}</td>
-                            <td class="text-right">${response[i].register}</td>
-                        </tr>`
-                    }                        
+                        cardData += `
+                            <div class="card">
+                            <div class="card-header">
+                                <a href="{url_main}${response[i].name_seo}"><img src="{url_main}_files/photo/${response[i].user_id}_${response[i].photo}_r.jpg" alt="Photo"></a>
+                                <a href="{url_main}${response[i].name_seo}" style="padding-top: 10px">${response[i].name}</a>
+                            </div>
+                            <div class="card-content">
+                                <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
+                                <p><i class="fa fa-envelope"></i> ${response[i].mail}</p>
+                                <p><i class="fa fa-user"></i> ${response[i].gender}</p>
+                                <p><i class="fa fa-calendar"></i> ${response[i].register}</p>
+                        `;
 
-                    tableData += `</tbody></table>`;
+                        cardData+= '<p class="p_action">'+editTxt+line+delTxt+banTxt+'</div>';
+                        cardData+= `</div></div>`;
+                    }
 
-                    $("#tableData").html(tableData)
+
+                    $("#cardData").html(cardData)
 
                 } else
-                    $("#tableData").html(`<div id="im_list_users_empty" style="display: block;"><div class="dialog pp_message_user_info"><div class="bl"><img src="{url_tmpl_main}images/icon_upgrade_profile_visitors.png" width="239" height="207" alt="No users"><div class="bl_txt_msg_empty"><span>You have no users yet.</span></div></div></div></div>`)
+                    $("#cardData").html(`<div id="im_list_users_empty" style="display: block;"><div class="dialog pp_message_user_info"><div class="bl"><img src="{url_tmpl_main}images/icon_upgrade_profile_visitors.png" width="239" height="207" alt="No users"><div class="bl_txt_msg_empty"><span>You have no users yet.</span></div></div></div></div>`)
             }
         })
     })
