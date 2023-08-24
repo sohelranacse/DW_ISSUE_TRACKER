@@ -676,9 +676,14 @@ var CProfilePhoto = function(uid) {
         }
         $this.photoInfo[pid].active=true;
         var el=$('#'+pid),$item=$('#'+pid),frame=el.closest('.profile_photo_frame');
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
         $.ajax({type: 'POST',
                 url: $this.url_ajax+'?cmd=set_photo_access',
-                data: {id: pid},
+                data: {id: pid, e_user_id:e_user_id},
                 beforeSend: function(){
                     $this.showLoaderAction($item);
                 },
@@ -753,9 +758,14 @@ var CProfilePhoto = function(uid) {
 		} else {
 			status = $this.photoInfo[pid].status;
 		}
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
         $.ajax({type:'POST',
                 url:$this.url_ajax,
-                data:{cmd:'delete_photo',id:pid},
+                data:{cmd:'delete_photo',id:pid, e_user_id:e_user_id},
                 beforeSend: function(){
                     $this.showLoaderAction($el);
                 },
@@ -2286,9 +2296,14 @@ var CProfilePhoto = function(uid) {
                         fnShowBtn(pid,angle);
                         alertCustom($this.langParts['server_error_try_again'],true,ALERT_HTML_ALERT);
                     };
+
+                var e_user_id = 0
+                if($("#ua_user_id").val())
+                    e_user_id = $("#ua_user_id").val()
+
                 $.ajax({url:$this.url_ajax+'?cmd=photo_rotate',
                         type:'POST',
-                        data:{photo_id:pid, angle:90},
+                        data:{photo_id:pid, angle:90, e_user_id:e_user_id},
                         beforeSend: function(){
                             //$loader.show();
                         },

@@ -433,13 +433,21 @@ if ($cmd == 'login') {
     }
 /* Interest */
 } elseif ($cmd == 'photo_rotate') {
-    $responseData = CProfilePhoto::photoRotate();
+
+    $e_user_id = get_param('e_user_id', 0);
+    $responseData = CProfilePhoto::photoRotate($e_user_id);
 } elseif ($cmd == 'set_photo_access') {
     $id = get_param('id');
-    $responseData = CProfilePhoto::setPhotoPrivate($id);//error checking
+
+    $e_user_id = get_param('e_user_id', 0);
+    $responseData = CProfilePhoto::setPhotoPrivate($id, false, $e_user_id);
 } elseif ($cmd == 'delete_photo') {
     $id = get_param('id');
-    $responseData = CProfilePhoto::deletePhoto($id);
+    $e_user_id = get_param('e_user_id', 0);
+    if($e_user_id)
+        $responseData = CProfilePhoto::deletePhoto($id, false, $e_user_id);
+    else
+        $responseData = CProfilePhoto::deletePhoto($id);
 /* Gallery */
 } elseif ($cmd == 'send_request_private_access') {
     $responseData = CIm::sendRequestPrivateAccess();
