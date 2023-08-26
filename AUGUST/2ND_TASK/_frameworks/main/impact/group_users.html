@@ -41,6 +41,7 @@
     line-height: 10px;
     display: block;
     padding-bottom: 15px;
+    transition: .5s;
 }
 .card-content .p_action {
     text-align: center;
@@ -48,9 +49,45 @@
     padding: 10px 0 0;
     border-top: 1px solid #eee;
 }
-.red {color: tomato;}
-.blue {color: blue;}
-.gray {color: gray;}
+.card-content .p_action > a {
+    padding: 3px 6px;
+    color: #fff;
+    border-radius: 3px;
+    transition: 0.5s;
+}
+.editBtn {
+    border: 1px solid #142D69;
+    background: #142D69;
+}
+.deleteBtn {
+    border: 1px solid #E50000;
+    background: #E50000;
+}
+.card-content .p_action > .editBtn:hover {
+    border: 1px solid #010f30;
+    background: #010f30;
+}
+.card-content .p_action > .deleteBtn:hover {
+    border: 1px solid #bb0303;
+    background: #bb0303;
+}
+
+.disableBtn {
+    border: 1px solid gray;
+    background: gray;
+}
+.card-content .p_action > .disableBtn:hover {
+    border: 1px solid #40c7db;
+    background: #40c7db;
+}
+.enableBtn {
+    border: 1px solid #40c7db;
+    background: #40c7db;
+}
+.card-content .p_action > .enableBtn:hover {
+    border: 1px solid gray;
+    background: gray;
+}
 </style>
 <script type="text/javascript">
     var m="{message}";
@@ -99,17 +136,20 @@
 
 
                     for(var i=0; i < response.length; i++) {
-                        var editTxt = delTxt = line = ""
+                        var editTxt = delTxt = line = banTxt = ""
                         if(previllage[1] == 1) // edit
-                            editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}" title="{l_edit}" class="blue"><i class="fa fa-edit"></i></a>`
+                            editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}" title="{l_edit}" class="editBtn"><i class="fa fa-edit"></i></a>`
 
                         if(previllage[1] == 1 && previllage[2] == 1)
                             line = ` | `
 
                         if(previllage[2] == 1) // delete
-                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="red" title="{l_delete}"><i class="fa fa-trash"></i></a>`
+                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
                         
-                        var banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" class="gray">${response[i].banData}</a>`;
+                        if(response[i].ban_global == 1) // disabled
+                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" class="disableBtn">{l_disabled}</a>`;
+                        else
+                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" class="enableBtn">{l_enabled}</a>`;
 
                         cardData += `
                             <div class="card">

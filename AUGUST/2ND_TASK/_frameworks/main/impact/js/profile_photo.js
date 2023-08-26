@@ -515,9 +515,14 @@ var CProfilePhoto = function(uid) {
     this.publishPhotos = function() {
         var type=$this.type;
         if(!type)return;
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
         $.ajax({url:$this.url_ajax,
                 type:'POST',
-                data:{cmd:'publish_photos_gallery',type:type, photos:$this.uploadFileData[type]},
+                data:{cmd:'publish_photos_gallery',type:type, photos:$this.uploadFileData[type], e_user_id:e_user_id},
                 beforeSend: function(){
                     for(var key in $this.uploadFileData[type]) {
                         $this.prepareAddPhotoToList(type, $this.uploadFileData[type][key]['id']);

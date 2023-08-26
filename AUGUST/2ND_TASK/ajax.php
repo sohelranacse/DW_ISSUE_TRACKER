@@ -453,8 +453,9 @@ if ($cmd == 'login') {
     $responseData = CIm::sendRequestPrivateAccess();
 } elseif ($cmd == 'publish_photos_gallery') {
 	$responseData = false;
+    $e_user_id = get_param('e_user_id', 0);
     if ($isAuth) {
-        $responseData = CProfilePhoto::publishPhotos();//error checking
+        $responseData = CProfilePhoto::publishPhotos(null,null,null,$e_user_id);//error checking
     }
 } elseif ($cmd == 'delete_pending_photos') {
     $responseData = false;

@@ -4997,4 +4997,5 @@ $l['all']['created_success'] = "User added successfully.";
 $l['all']['create_user'] = "Create";
 $l['all']['processing'] = "Processing...";
 $l['search_results.php']['user'] = "User";
+$l['all']['enabled'] = "Enabled";
 ?>

@@ -1910,13 +1910,15 @@ class CProfilePhoto extends CHtmlBlock
     }
 
 
-    static function publishPhotos($photos = null, $type = null, $groupId = null)
+    static function publishPhotos($photos = null, $type = null, $groupId = null, $e_user_id=0)
     {
         global $g;
-        global $g_user;
-
         $templateName = Common::getTmplName();
-        $guid = guid();
+
+        if($e_user_id)
+            $guid = $e_user_id;
+        else
+            $guid = guid();
 
         if ($type === null) {
             $type = get_param('type');
@@ -1963,7 +1965,7 @@ class CProfilePhoto extends CHtmlBlock
 		}
 
         $uploadLimitPhotoCount = Common::getOption('upload_limit_photo_count');
-        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql($g_user['user_id'], 'Number'));
+        $currentCountPhotos = DB::count('photo', '`visible` <> "P" AND `user_id` = ' . to_sql($guid, 'Number'));
         $isNudityPhoto = false;
 
         if (!empty($photos) && $type != '') {
@@ -2004,7 +2006,7 @@ class CProfilePhoto extends CHtmlBlock
                         $wallId = Wall::addGroupAccess('photo', $access, $wallId, $pid, $groupId);
                     }
                 }
-                Wall::addItemForUser($photo['id'], 'photo', $g_user['user_id'], false, $groupId);
+                Wall::addItemForUser($photo['id'], 'photo', $guid, false, $groupId);
 
                 $groupPage = 0;
                 $groupPrivate = 'N';
@@ -2033,7 +2035,7 @@ class CProfilePhoto extends CHtmlBlock
                     $wallParams = DB::count('photo', '`visible` = "Y" AND `wall_id` = ' . to_sql($wallId) . $whereGroup);
                 } else {
                     if (!$groupId) {
-                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql($g_user['user_id'], 'Number'));
+                        DB::execute("UPDATE user SET is_photo = 'Y' WHERE user_id = " . to_sql($guid, 'Number'));
                     }
                     $wallParams = 1;
                 }
@@ -2054,14 +2056,14 @@ class CProfilePhoto extends CHtmlBlock
 
             if ($uploadCount && (Common::isOptionActive('photo_approval') || $isNudityPhoto) && Common::isEnabledAutoMail('approve_image_admin')){
                 $vars = array(
-                    'name'  => User::getInfoBasic($g_user['user_id'],'name'),
+                    'name'  => User::getInfoBasic($guid,'name'),
                 );
                 Common::sendAutomail(Common::getOption('administration', 'lang_value'), Common::getOption('info_mail', 'main'), 'approve_image_admin', $vars);
             }
         }
 
 		self::deleteOldPendingPhotos($type);
-		self::preparePhotoList($g_user['user_id'], '`photo_id` ASC', '', '', false, false, false, $groupId);
+		self::preparePhotoList($guid, '`photo_id` ASC', '', '', false, false, false, $groupId);
 
         if ($templateName == 'edge') {
             $vidsList = CProfileVideo::getVideosList('', '', $guid, false, true, 0, '', $groupId);
@@ -2081,7 +2083,7 @@ class CProfilePhoto extends CHtmlBlock
         }
 
 
-        self::prepareVideoList($g_user['user_id'], '`id` ASC');
+        self::prepareVideoList($guid, '`id` ASC');
 
 		$response = self::$allPhotoInfo + self::$allVideoInfo;
 

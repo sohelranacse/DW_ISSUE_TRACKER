@@ -24,9 +24,9 @@ class CGroupUsers extends CHtmlBlock
 				SELECT a.user_id, a.name, a.name_seo, a.mail, a.phone, a.register,
 				(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(a.birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(a.birth, '00-%m-%d'))
 				) AS age,
-				(SELECT title FROM const_orientation WHERE id = a.orientation) AS gender, IF(a.ban_global=1, '".l('Unban')."', '".l('Ban')."') AS banData,
+				(SELECT title FROM const_orientation WHERE id = a.orientation) AS gender, a.ban_global,
 				(SELECT photo_id FROM photo WHERE user_id = a.user_id LIMIT 1) AS photo
-                FROM user a WHERE a.under_admin = '".$group_admin_id."' ORDER BY a.register
+                FROM user a WHERE a.under_admin = '".$group_admin_id."' ORDER BY a.register DESC
             ");
 			echo json_encode($result);
             die();
