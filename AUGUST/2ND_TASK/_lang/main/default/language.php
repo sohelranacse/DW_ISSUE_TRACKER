@@ -4998,4 +4998,8 @@ $l['all']['create_user'] = "Create";
 $l['all']['processing'] = "Processing...";
 $l['search_results.php']['user'] = "User";
 $l['all']['enabled'] = "Enabled";
+
+$l['all']['link_social_login'] = "Link social login";
+$l['all']['age_ranges'] = "Age Ranges";
+$l['all']['a_group_user'] = "A Group User";
 ?>

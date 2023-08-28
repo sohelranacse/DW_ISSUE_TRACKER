@@ -939,7 +939,8 @@ class CUsers extends CHtmlList {
                 }
                 $html->setvar('url_profile_params', http_build_query($paramsLink));
             }
-            $html->setvar('url_profile', User::url($row['user_id'], $row));
+            // $html->setvar('url_profile', User::url($row['user_id'], $row));
+            $html->setvar('url_profile', $row['name_seo']); // added by sohel
         }
 
         // PDF FILE
@@ -953,6 +954,8 @@ class CUsers extends CHtmlList {
             $html->setvar("uploaded_btn_style", "");
             $html->setvar("view_pdf_class", "no_profile_pdf");
         }
+        if(!$this->c_user_id)
+            $html->setvar("uploaded_btn_style", "display:none");
 
         if ($html->blockExists('users_list_item_hide') && get_param('upload_search_page')) {
             $html->parse('users_list_item_hide', false);
@@ -1012,6 +1015,15 @@ class CUsers extends CHtmlList {
                 $html->clean($block);
             }
         }
+
+        $block = 'group_user_icon';
+        if ($html->blockExists($block)) {
+            if($row['under_admin'])
+                $html->parse($block, false);
+            else
+                $html->clean($block);
+        }
+
 
         parent::onItem($html, $row, $i, $last);
     }

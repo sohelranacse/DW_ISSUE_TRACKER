@@ -1,9 +1,9 @@
 <script type="text/javascript" src="{url_tmpl_main}js/search_filter.js{cache_version_param}"></script>
 <style type="text/css">
     .name_search{
-        margin-top: 11px;
         width: 125px;
         height: 25px;
+        font-size: 12px;
     }
 </style>
 <!-- filter -->
@@ -35,32 +35,22 @@
     <!-- Part1 -->
     <div class="part1 filter_main to_hide">
         <!-- begin_i_am_here_to -->
-        <div class="bl bl_here field_i_am_here <!--begin_am_here_to_center-->am_here_to_center<!--end_am_here_to_center-->">
-            <h4>{l_i_m_here_to}:</h4>
-            <!-- begin_i_am_here_to_item -->
-            <div class="rb <!-- begin_i_am_here_to_selected -->selected<!-- end_i_am_here_to_selected -->">
-                <input style="opacity:0;" class="niceRadio" id="rb_{id}" name="{name}" value="{id}" type="radio" {checked} />
-                <label for="rb_{id}" class="{i_am_here_to_class} rb_label">{title}</label>
+        <div class="bl bl_here field_i_am_here">
+            <h4>{l_search}:</h4>
+            <div style="padding-left: 0;height: unset;" class="bl_search bl">
+                <select id="user_type" name="user_type" style="opacity:0;" class="styler">
+                    <option value="0">{l_search_show_all_impact}</option>
+                    <option value="user">{l_user}</option>
+                    <option value="group_user">{l_group_users}</option>
+                </select>
             </div>
-            <!-- end_i_am_here_to_item -->
+            <input type="text" name="name_search" id="name_search" placeholder="Type {l_name}" class="name_search" />
         </div>
         <!-- end_i_am_here_to -->
 
         <!-- begin_orientations_and_age -->
         <div class="bl bl_who <!-- begin_field_i_am_here_to_off -->who_not_border<!-- end_field_i_am_here_to_off -->">
-            <h4>{l_with_who}:</h4>
-            <!-- begin_p_orientations -->
-            <div class="ch" <!-- begin_p_orientations_hide -->style="display:none;"<!-- end_p_orientations_hide -->>
-                <!-- begin_p_orientation -->
-                <input style="opacity:0;" class="niceCheck" data-label="{title}" id="p_orientation_{id}" name="p_orientation[]" value="{id}" type="checkbox" {checked} />
-                <!-- end_p_orientation -->
-            </div>
-            <!-- end_p_orientations -->
-            <!-- begin_looking_your_orientation -->
-            <div class="ch cl_looking_your_orientation">
-                {name}
-            </div>
-            <!-- end_looking_your_orientation -->
+            <h4>{l_age_ranges}:</h4>
             <!-- begin_age_range -->
             <div>
                 <select style="opacity:0;" id="p_age_from" name="p_age_from" class="styler">
@@ -73,11 +63,12 @@
             </div>
             <!-- end_age_range -->
 
-            <input type="text" name="name_search" id="name_search" placeholder="name" class="name_search" />
+            
         </div>
         <!-- end_orientations_and_age -->
-        <div class="bl slider <!--begin_slider_center-->slider_center<!--end_slider_center-->" >
-            <div class="bl_slider">
+        <div class="bl slider <!--begin_slider_center-->slider_center<!--end_slider_center-->" style="padding-top: 0">
+            <h4 style="margin-top: -4px">{l_location}:</h4>
+            <div class="bl_slider" style="display: none;">
                 <div class="slider_bg slider_bg_init">
                     <div id="radius_slider" class="slider_range" >
                         <div class="count display_none">
@@ -87,29 +78,20 @@
                     </div>
                 </div>
             </div>
+
             <div class="link_choose_city">
-                <strong id="filter_module_location_title">{city_title}</strong>
+                <strong id="filter_module_location_title" style="display: inherit;font-weight: normal;">{city_title}</strong>
                 <span class="profile_city_choose">{l_choose_another_city}</span>
             </div>
 
-            <div style="width: 125px;padding-top: 10px;padding-left: 0;height: unset;" class="bl_search bl">
-                <select id="user_type" name="user_type" style="opacity:0;" class="styler">
-                    <option value="0">{l_search_show_all_impact}</option>
-                    <option value="user">{l_user}</option>
-                    <option value="group_admin">{l_group_admin}</option>
-                </select>
-            </div>
-
         </div>
-        <div class="bl bl_search">
+        <div class="bl bl_search" style="height: unset;">
             <select id="search_status" data-placeholder="" style="opacity:0;" class="styler">
                 <option value="0" <!-- begin_module_search_status_all -->selected="selected"<!-- end_module_search_status_all -->>{l_search_show_all_impact}</option>
                 <option value="new" <!-- begin_module_search_status_new -->selected="selected"<!-- end_module_search_status_new -->>{l_search_show_new_impact}</option>
                 <option value="online" <!-- begin_module_search_status_online -->selected="selected"<!-- end_module_search_status_online -->>{l_search_show_online_impact}</option>
             </select>
-            <div class="module_search_with_photo" class="ch" title="{a_only_with_photos}">
-                <input style="opacity:0;" class="niceCheck" data-label="{a_only_with_photos}" id="module_search_with_photo" type="checkbox" <!-- begin_module_search_with_photo -->checked<!-- end_module_search_with_photo -->/>
-            </div>
+
             <button id="link_filter_extended" class="btn small lblue btn_filter_extended">
                 <span class="to_down">{l_extended_search}</span>
             </button>
@@ -119,86 +101,86 @@
         </div>
     </div>
     <!-- Part1 -->
-                                <div id="filter_extended" class="part2 filter_extended">
+        <div id="filter_extended" class="part2 filter_extended">
 
-                                    <div class="bl l filter_module_1">
-                                        <select style="opacity:0;" id="filter_module_1" class="styler field_filter_disabled">
-                                            <option value="0">{l_the_1st_filter}</option>
-                                            {filter_options}
-                                        </select>
-                                    </div>
+            <div class="bl l filter_module_1">
+                <select style="opacity:0;" id="filter_module_1" class="styler field_filter_disabled">
+                    <option value="0">{l_the_1st_filter}</option>
+                    {filter_options}
+                </select>
+            </div>
 
-                                    <div class="bl c filter_module_2">
-                                        <select style="opacity:0;" id="filter_module_2" class="styler field_filter_disabled">
-                                            <option value="0">{l_the_2nd_filter}</option>
-                                            {filter_options}
-                                        </select>
-                                    </div>
+            <div class="bl c filter_module_2">
+                <select style="opacity:0;" id="filter_module_2" class="styler field_filter_disabled">
+                    <option value="0">{l_the_2nd_filter}</option>
+                    {filter_options}
+                </select>
+            </div>
 
-                                    <div class="bl r filter_module_3">
-                                        <select style="opacity:0;" id="filter_module_3" class="styler field_filter_disabled">
-                                            <option value="0">{l_the_3d_filter}</option>
-                                            {filter_options}
-                                        </select>
-                                    </div>
+            <div class="bl r filter_module_3">
+                <select style="opacity:0;" id="filter_module_3" class="styler field_filter_disabled">
+                    <option value="0">{l_the_3d_filter}</option>
+                    {filter_options}
+                </select>
+            </div>
 
-                                    <div class="filter_fields_set" style="display:none;">
-                                        <!-- begin_fields_checks -->
-                                        <div class="filter_field" id="filter_field_{name}">
-                                            <!-- begin_checks -->
-                                            <div class="ch ch_rb_list">
-                                                <!-- begin_check -->
-                                                <div>
-                                                    <input style="opacity:0;" class="fieldItem niceCheck"  data-label="{title}" disabled name="{name}[]" {checked} type="checkbox" id="{name}_{id}" value="{id}"/>
-                                                </div>
-                                                <!-- end_check -->
-                                            </div>
-                                            <!-- end_checks -->
+            <div class="filter_fields_set" style="display:none;">
+                <!-- begin_fields_checks -->
+                <div class="filter_field" id="filter_field_{name}">
+                    <!-- begin_checks -->
+                    <div class="ch ch_rb_list">
+                        <!-- begin_check -->
+                        <div>
+                            <input style="opacity:0;" class="fieldItem niceCheck"  data-label="{title}" disabled name="{name}[]" {checked} type="checkbox" id="{name}_{id}" value="{id}"/>
+                        </div>
+                        <!-- end_check -->
+                    </div>
+                    <!-- end_checks -->
 
-                                            <!-- begin_int -->
-                                            <div class="ch_rb_list">
-                                                <!-- begin_int -->
-                                                <div>
-                                                    <input style="opacity:0;" class="fieldItem niceCheck" disabled name="{name}[]" {checked} type="checkbox" id="{name}_{id}" value="{id}"/>
-                                                </div>
-                                                <!-- end_int -->
-                                            </div>
-                                            <!-- end_int -->
+                    <!-- begin_int -->
+                    <div class="ch_rb_list">
+                        <!-- begin_int -->
+                        <div>
+                            <input style="opacity:0;" class="fieldItem niceCheck" disabled name="{name}[]" {checked} type="checkbox" id="{name}_{id}" value="{id}"/>
+                        </div>
+                        <!-- end_int -->
+                    </div>
+                    <!-- end_int -->
 
-                                            <!-- begin_checkbox -->
-                                            <div class="sel_checkbox">
-                                                <!-- begin_checkbox_item -->
-                                                <select data-placeholder="{l_choose_a_value}" class="fieldItem styler" disabled style="opacity:0; margin:20px 0px 10px 0px;" id="chk_{name}_{num}" data-checkbox="{name}" name="{name}[]">
-                                                    <option selected value="">{l_choose_a_value}</option>
-                                                    {options}
-                                                </select>
-                                                <!-- end_checkbox_item -->
-                                                <div id="link_add_{name}" data-type-add="{name}" class="field link_add" style="display:{display_add};" >
-                                                    <div class="add_field"><span>{l_add_value_field}</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- end_checkbox -->
+                    <!-- begin_checkbox -->
+                    <div class="sel_checkbox">
+                        <!-- begin_checkbox_item -->
+                        <select data-placeholder="{l_choose_a_value}" class="fieldItem styler" disabled style="opacity:0; margin:20px 0px 10px 0px;" id="chk_{name}_{num}" data-checkbox="{name}" name="{name}[]">
+                            <option selected value="">{l_choose_a_value}</option>
+                            {options}
+                        </select>
+                        <!-- end_checkbox_item -->
+                        <div id="link_add_{name}" data-type-add="{name}" class="field link_add" style="display:{display_add};" >
+                            <div class="add_field"><span>{l_add_value_field}</span></div>
+                        </div>
+                    </div>
+                    <!-- end_checkbox -->
 
-                                            <!-- begin_p_from_to -->
-                                            <div class="bl_select_value sel_height">
-                                                <select data-placeholder="{l_choose_a_value}" disabled name="{name_from}" class="fieldItem styler">
-                                                    <option selected  value="">{l_choose_a_value}</option>
-                                                    {from_options}
-                                                </select>
-                                                <span>-</span>
-                                                <select disabled data-placeholder="{l_choose_a_value}" name="{name_to}" class="fieldItem styler">
-                                                    <option selected  value="">{l_choose_a_value}</option>
-                                                    {to_options}
-                                                </select>
-                                            </div>
-                                            <!-- end_p_from_to -->
-                                        </div>
-                                        <!-- end_fields_checks -->
-                                    </div>
-                                </div>
-                            <div class="cl"></div>
-                            </div>
-<!-- /filter -->
+                    <!-- begin_p_from_to -->
+                    <div class="bl_select_value sel_height">
+                        <select data-placeholder="{l_choose_a_value}" disabled name="{name_from}" class="fieldItem styler">
+                            <option selected  value="">{l_choose_a_value}</option>
+                            {from_options}
+                        </select>
+                        <span>-</span>
+                        <select disabled data-placeholder="{l_choose_a_value}" name="{name_to}" class="fieldItem styler">
+                            <option selected  value="">{l_choose_a_value}</option>
+                            {to_options}
+                        </select>
+                    </div>
+                    <!-- end_p_from_to -->
+                </div>
+                <!-- end_fields_checks -->
+            </div>
+        </div>
+        <div class="cl"></div>
+        </div>
+    <!-- /filter -->
 
 <script>
 var isSuperPowers = '{is_super_powers}'*1;

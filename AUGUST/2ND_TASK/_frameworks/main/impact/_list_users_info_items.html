@@ -1,0 +1,64 @@
+<style type="text/css">
+    .icons_info_left {
+        position: absolute;
+        top: 6px;
+        left: 3px;
+        width: 16px;
+    }
+    .group_user_icon {
+        width: 16px;
+        height: 16px;
+        background-color: #3498db;
+        border-radius: 16px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+</style>
+<div class="filter_result" style="display:none">
+<!-- begin_users_list_item -->
+<div class="item search_results <!-- begin_users_list_item_hide -->to_hide<!-- end_users_list_item_hide -->">
+    <a title="{name}, {age}, {city}" href="{url_main}{url_profile}" onclick="goLink('{url_main}{url_profile}', '{url_profile_params}'); return false;">
+        <img class="photo" onload="$(this).fadeTo(600,1,function(){$(this).addClass('to_trans')})" src="{url_files}{photo_m}" alt="{name}" width="126" height="140" />
+        <span class="date">
+            <span class="name">{name_one_letter_short}</span>
+            <span class="age">, {age}</span>
+        </span>
+    </a>
+    <div class="icons_info_left">
+        <!-- begin_group_user_icon -->
+        <div class="group_user_icon" title="{l_a_group_user}"></div>
+        <!-- end_group_user_icon -->
+    </div>
+
+    <div class="icons_info">
+    <!-- begin_status_online -->
+	<div class="status_online to_show"></div>
+	<!-- end_status_online -->
+    <!-- begin_profile_verification_icon -->
+    <div class="status_verification"></div>
+    <!-- end_profile_verification_icon -->
+    </div>
+    <div class="foot">
+        <button title="{mutual_attraction_active_title}" class="btn like_frame small <!-- begin_mutual_attraction_active -->active<!-- end_mutual_attraction_active -->" onclick="sendLike('{user_id}',$(this)); event.stopPropagation();">
+            <span class="bl">
+                <span class="like"></span>
+                <span class="like_hover"></span>
+            </span>
+        </button>
+    </div>
+</div>
+<!-- end_users_list_item -->
+<!-- begin_users_list_noitems -->
+<div class="bl_no_one">
+    <div class="icon"></div>
+	<div class="txt">{l_sorry_we_couldn_t_find_anyone_who_fits_your_criteria}</div>
+</div>
+<!-- end_users_list_noitems -->
+<!--<div class="cl"></div>-->
+</div>
+
+<script>
+$('.item.to_hide', '.filter_result:hidden').toggleClass('to_hide to_show');
+$('.filter_result:hidden').fadeIn(300);
+$('.module_filter_result').height(Math.max(200, $('.filter_result:last').height()))
+counterTitle = '{counter_title}';
+</script>

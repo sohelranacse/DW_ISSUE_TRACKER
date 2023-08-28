@@ -327,7 +327,7 @@ if ($optionSet == 'urban' && ($display == '' || $display == 'encounters' || $dis
 $where = "";
 $whereCore = "1=1 ";
 $userSearchFilters = array();
-
+/*
 $user['i_am_here_to'] = (int) get_param('i_am_here_to', '');
 if ($user['i_am_here_to'])
 {
@@ -355,19 +355,24 @@ $user["p_relation"] = (int) get_checks_param("p_relation");
 if ($user["p_relation"] != "0")
 {
 	$where .= " AND " . $user["p_relation"] . " & (1 << (cast(u.relation AS signed) - 1))";
-}
+}*/
+
+// comment => I'm here to, With who Orientation
 
 $user['name'] = get_param("name_search", ""); // added by sohel
 if ($user['name'] != '')
 {
     $where .= " AND u.name LIKE '%" . to_sql($user['name'], "Plain") . "%'";
-    // $where .= " OR u.name_seo LIKE '%" . to_sql($user['name'], "Plain") . "%'";
+    $where .= " OR u.name_seo LIKE '%" . to_sql($user['name'], "Plain") . "%'";
 }
 $user['user_type'] = get_param("user_type", ""); // added by sohel
 
 if ($user['user_type'] != '' && $user['user_type'] !== '0')
 {
-    $where .= " AND u.role ='" . to_sql($user['user_type'], "Plain") . "'";
+    if($user['user_type'] == 'group_user')
+        $where .= " AND u.under_admin IS NOT NULL";
+    else
+        $where .= " AND u.under_admin IS NULL";
 }
 
 $user['name'] = get_param("name", "");

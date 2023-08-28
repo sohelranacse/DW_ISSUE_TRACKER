@@ -265,20 +265,10 @@
                     {l_boost_profile}</button>
                     <!-- end_footer_member_increase -->
 
-                    <button class="btn small turquoise" onclick="Profile.redirectToUploadPhoto('{url_main}{url_profile}#upload_photo');">
-                    <img src="{url_tmpl_main}images/icon_add_photo.png" width="16" height="16" alt="" />
-                    {l_add_photos}</button>
-                    <script>Profile.alignWidthBtnRightColum();</script>
-
                     <!-- begin_profile_verification_unverified_my -->
-                    <button class="btn small yellow {pdf_button_class}">
-                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                        {pdf_button_text}
-                    </button>
-
                     <button class="btn small btn_secondary_3 {profile_verification_off_class} profile_verification_show">
                         <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                        {l_verify_account}
+                        {l_link_social_login}
                     </button>
                     <!-- end_profile_verification_unverified_my -->
                 </div>
@@ -522,7 +512,7 @@
         <a class="icon_close" onclick="Profile.closePopupEditor('pp_profile_verification'); return false;" href="#">
             <span class="close_hover"></span>
         </a>
-        <div class="head">{l_verify_your_account_now}</div>
+        <div class="head">{l_link_social_login}</div>
         <div class="cont verify_account_system">
             <div class="bl_frm">
                 <div class="field">

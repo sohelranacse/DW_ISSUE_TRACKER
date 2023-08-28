@@ -30,7 +30,7 @@
   line-height: 1.4;
 }
 
-.card-header a {display: inline-block;color: blue}
+.card-header a {display: block;color: blue}
 .card-header img{
     height: 80px;
     width: 80px;
@@ -147,9 +147,9 @@
                             delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
                         
                         if(response[i].ban_global == 1) // disabled
-                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" class="disableBtn">{l_disabled}</a>`;
+                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_enable}" class="disableBtn">{l_disabled}</a>`;
                         else
-                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" class="enableBtn">{l_enabled}</a>`;
+                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_disable}" class="enableBtn">{l_enabled}</a>`;
 
                         cardData += `
                             <div class="card">
@@ -159,7 +159,6 @@
                             </div>
                             <div class="card-content">
                                 <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
-                                <p><i class="fa fa-envelope"></i> ${response[i].mail}</p>
                                 <p><i class="fa fa-user"></i> ${response[i].gender}</p>
                                 <p><i class="fa fa-calendar"></i> ${response[i].register}</p>
                         `;
