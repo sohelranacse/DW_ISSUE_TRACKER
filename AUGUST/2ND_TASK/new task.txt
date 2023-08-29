@@ -38,3 +38,4 @@ NOTED
 
 MY DRAFT
 ===========
+Right Side => Recently visited

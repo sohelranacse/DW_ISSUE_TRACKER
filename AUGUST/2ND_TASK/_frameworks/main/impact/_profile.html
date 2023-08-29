@@ -442,26 +442,33 @@ var positionTabWall='{position_tab_wall}';
                     </div>
                     <!-- end_profile_send_message_btn -->
                     
+                    <!-- begin_upload_my_pdf -->
                     <button class="btn small yellow user_profile_upload_pdf" style="line-height: unset;{uploaded_btn_style}">
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         {l_upload_pdf}
                     </button>
+                    <!-- end_upload_my_pdf -->
+
                     <ul class="pdf_user_div">
                         <li class="view_pdf view_pdf_menu {view_pdf_class}">
                             <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View PDF</a>
                         </li>
+                        <!-- begin_delete_my_pdf -->
                         <li class="view_pdf view_pdf_menu {view_pdf_class}">
                             <button class="profile_delete_pdf" id="profile_delete_pdf" value="{user_id}">
                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 Delete PDF
                             </button>
                         </li>
+                        <!-- end_delete_my_pdf -->
                     </ul>
 
-                    <!-- <button class="btn small pink {profile_verification_off_class} profile_verification_show">
+                    <!-- begin_verify_social_login -->
+                    <button class="btn small pink {profile_verification_off_class} profile_verification_show">
                         <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                         {l_link_social_login}
-                    </button> -->
+                    </button>
+                    <!-- end_verify_social_login -->
                 </div>
             </div>
             <!-- /tab_about -->

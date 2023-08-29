@@ -259,18 +259,29 @@
                     </script>
                 </div>
                 <div class="profile_sign">
+                    <div class="txt">
+                        {user_name}<br/>
+                        <span style="color: #ddd;font-weight: normal;font-size: 12px">{phone}</span><br/>
+                        <span style="color: #eee;font-weight: normal;font-size: 12px" id="show_role"></span>
+                        <script type="text/javascript">var role = '{role}';
+                            if(role == "group_admin")
+                                $("#show_role").html('Group Admin')
+                        </script>
+                    </div>
+
                     <div class="txt">{l_increase_your_visibility}</div>
                     <!-- begin_footer_member_increase -->
                     <button class="btn small pink" onclick="upgrade.requestIncreasePopularity();"><img src="{url_tmpl_main}images/icon_boost_profile.png" width="16" height="16" alt="" />
                     {l_boost_profile}</button>
                     <!-- end_footer_member_increase -->
 
-                    <!-- begin_profile_verification_unverified_my -->
-                    <button class="btn small btn_secondary_3 {profile_verification_off_class} profile_verification_show">
-                        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                        {l_link_social_login}
-                    </button>
-                    <!-- end_profile_verification_unverified_my -->
+                    <!-- dont remove this comment -->
+                        <!-- begin_profile_verification_unverified_my -->
+                            <!-- <button class="btn small btn_secondary_3 {profile_verification_off_class} profile_verification_show">
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                {l_link_social_login}
+                            </button> -->
+                        <!-- end_profile_verification_unverified_my -->
                 </div>
                 <!-- begin_banner_right_column_list -->
                 <div class="bl_banner_r bl_banner bl_banner_right_column">
@@ -668,6 +679,5 @@ $(function(){
     })
 </script>
 <!-- end_gdpr_cookie_popup -->
-
 </body>
 </html>

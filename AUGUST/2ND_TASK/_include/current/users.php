@@ -950,12 +950,34 @@ class CUsers extends CHtmlList {
 
             $html->setvar("view_pdf_class", "yes_profile_pdf");
             $html->setvar("pdf_file_name", $row_user['profile_pdf']);
+
+            if($row_user['user_id'] == guid() || $this->c_user_id)
+                $html->parse('delete_my_pdf', false);
         } else {
             $html->setvar("uploaded_btn_style", "");
             $html->setvar("view_pdf_class", "no_profile_pdf");
+
+            if($row_user['user_id'] == guid() || $this->c_user_id)
+                $html->parse('upload_my_pdf', false);
         }
-        if(!$this->c_user_id)
-            $html->setvar("uploaded_btn_style", "display:none");
+
+        if($row_user['user_id'] == guid() && ($row_user['facebook_id'] == '' || $row_user['google_plus_id'] == '' || $row_user['linkedin_id'] == '')) { // personal profile
+            $html->parse('verify_social_login', false);
+        }
+
+        // comment by sohel => draft
+        /*$blFooterMember = 'footer_member';
+        if ($html->blockExists($blFooterMember)) {
+
+            User::parseProfileVerification($html, null, 'profile_verification_unverified_my');
+
+            //$html->parse('banner_footer_bl', false);
+            CBanner::getBlock($html, 'right_column');
+            if (Common::isCreditsEnabled()) {
+                $html->parse($blFooterMember . '_increase');
+            }
+            $html->parse($blFooterMember, false);
+        }*/
 
         if ($html->blockExists('users_list_item_hide') && get_param('upload_search_page')) {
             $html->parse('users_list_item_hide', false);
