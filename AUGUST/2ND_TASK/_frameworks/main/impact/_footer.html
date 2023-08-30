@@ -1,3 +1,14 @@
+<style type="text/css">
+    .column_main .col .bl_visited_photo ul.list_photo li img {height: 38px; border-radius: 100%}
+    .bl_visited_photo strong {text-align: center;margin-left: -15px !important}
+    .profile_sign {
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        background-position: 1000px 1000px;
+        word-wrap: break-word;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+</style>
 <!-- begin_footer_visitor -->
 <script>
     function setPageBackgroundHeight() {
@@ -207,18 +218,6 @@
             </ul>
             <!-- end_narrow_menu -->
             <!-- end_left_menu -->
-
-            <!-- begin_left_recently_visited -->
-                <div class="bl_visited_photo">
-                    <strong>{l_left_recently_visited}</strong>
-                    <ul class="list_photo">
-                        <!-- begin_left_recently_visited_item -->
-                        <li><a title="{left_recently_visited_name}" href="{left_recently_visited_url}"><img src="{url_files}{left_recently_visited_photo}" alt="" /></a></li>
-                         <!-- end_left_recently_visited_item -->
-                    </ul>
-                <div class="cl"></div>
-                </div>
-            <!-- end_left_recently_visited -->
 			<!-- begin_left_banner -->
             <!-- begin_banner_left_column_list -->
             <div class="bl_banner_l bl_banner bl_banner_left_column">
@@ -245,75 +244,75 @@
 	<!-- begin_footer_member_right -->
     <!-- col right -->
     <div id="colfix_r_bl" class="col right">
-            <div class="logo"></div>
-            <div id="colfix_r" class="cont col_fix">
-                <div class="colfix_r_bg_head"></div>
-                <div class="colfix_r_bg">
-                <div class="profile_pic">
-                    <button id="photo_right_column" onclick="redirectUrl('{url_page_profile_view}');" class="photo_right_column to_hide" data-main-photo="{user_photo_default_id}" data-photo-size="m" style="background-image: url({url_files}{user_photo_default_url});" title=""></button>
-                    <script>
-                        $('<img>').load(function(){
-                            stylizeMainPhoto();
-                            $('#photo_right_column').removeClass('to_hide');
-                        })[0].src='{url_files}{user_photo_default_url}';
-                    </script>
-                </div>
-                <div class="profile_sign">
-                    <div class="txt">
-                        {user_name}<br/>
-                        <span style="color: #ddd;font-weight: normal;font-size: 12px">{phone}</span><br/>
-                        <span style="color: #eee;font-weight: normal;font-size: 12px" id="show_role"></span>
-                        <script type="text/javascript">var role = '{role}';
-                            if(role == "group_admin")
-                                $("#show_role").html('Group Admin')
-                        </script>
-                    </div>
+        <div class="logo"></div>
+        <div id="colfix_r" class="cont col_fix">
+            <div class="colfix_r_bg_head"></div>
+            <div class="colfix_r_bg">
 
-                    <div class="txt">{l_increase_your_visibility}</div>
-                    <!-- begin_footer_member_increase -->
-                    <button class="btn small pink" onclick="upgrade.requestIncreasePopularity();"><img src="{url_tmpl_main}images/icon_boost_profile.png" width="16" height="16" alt="" />
-                    {l_boost_profile}</button>
-                    <!-- end_footer_member_increase -->
-
-                    <!-- dont remove this comment -->
-                        <!-- begin_profile_verification_unverified_my -->
-                            <!-- <button class="btn small btn_secondary_3 {profile_verification_off_class} profile_verification_show">
-                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                {l_link_social_login}
-                            </button> -->
-                        <!-- end_profile_verification_unverified_my -->
-                </div>
-                <!-- begin_banner_right_column_list -->
-                <div class="bl_banner_r bl_banner bl_banner_right_column">
-                <div class="bl_ads" <!-- begin_banner_right_column_list_hide -->style="display:none;"<!-- end_banner_right_column_list_hide -->>
-                    <!-- begin_banner_right_column -->
-                    {banner_right_column}
-                    <!-- end_banner_right_column -->
-                </div>
-                <div class="link">
-                    <!-- begin_banner_right_column_list_action -->
-                    <a class="link_show_banner <!-- begin_banner_right_column_show -->action_show<!-- end_banner_right_column_show -->" href="" onclick="Profile.visibleBanners($(this), 'right_column'); return false;">{banner_right_column_title}</a>
-                    <!-- end_banner_right_column_list_action -->
-                </div>
-                </div>
-                <!-- end_banner_right_column_list -->
-                <div id="bl_banner_r_empty" class="bl_banner_empty"></div>
-                </div>
-                <!-- begin_column_narow_select_lang -->
-                <div class="column_lang_bl">
-                    <div id="column_lang" class="column_lang">
-                        <a class="language" href="" onclick="return false;">{language_current}</a>
-                        <div class="lang_item" id="column_lang_item">
-                            <ul class="pp_small">
-                                <!-- begin_language -->
-                                <li><a href="#" onclick="siteSetLanguage('{language_value}'); return false;"><span class="{language_class}">{language_title}</span></a></li>
-                                <!-- end_language -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- end_column_narow_select_lang -->
+            <div class="profile_pic">
+                <button id="photo_right_column" onclick="redirectUrl('{url_page_profile_view}');" class="photo_right_column to_hide" data-main-photo="{user_photo_default_id}" data-photo-size="m" style="background-image: url({url_files}{user_photo_default_url});" title=""></button>
+                <script>
+                    $('<img>').load(function(){
+                        stylizeMainPhoto();
+                        $('#photo_right_column').removeClass('to_hide');
+                    })[0].src='{url_files}{user_photo_default_url}';
+                </script>
             </div>
+            <div class="profile_sign">
+                <div class="txt">
+                    {user_name}<br/>
+                    <span style="color: #ddd;font-weight: normal;font-size: 12px">{phone}</span><br/>
+                    <span style="color: #eee;font-weight: normal;font-size: 12px" id="show_role"></span>
+                </div>
+            </div>
+
+            <!-- dont remove this comment -->
+
+
+            <!-- begin_right_recently_visited -->
+                <div class="bl_visited_photo">
+                    <strong>{l_left_recently_visited}</strong>
+                    <ul class="list_photo">
+                        <!-- begin_right_recently_visited_item -->
+                        <li><a title="{right_recently_visited_name}" href="{right_recently_visited_url}"><img src="{url_files}{right_recently_visited_photo}" alt="" /></a></li>
+                         <!-- end_right_recently_visited_item -->
+                    </ul>
+                <div class="cl"></div>
+                </div>
+            <!-- end_right_recently_visited -->
+
+
+            <!-- begin_banner_right_column_list -->
+            <div class="bl_banner_r bl_banner bl_banner_right_column">
+            <div class="bl_ads" <!-- begin_banner_right_column_list_hide -->style="display:none;"<!-- end_banner_right_column_list_hide -->>
+                <!-- begin_banner_right_column -->
+                {banner_right_column}
+                <!-- end_banner_right_column -->
+            </div>
+            <div class="link">
+                <!-- begin_banner_right_column_list_action -->
+                <a class="link_show_banner <!-- begin_banner_right_column_show -->action_show<!-- end_banner_right_column_show -->" href="" onclick="Profile.visibleBanners($(this), 'right_column'); return false;">{banner_right_column_title}</a>
+                <!-- end_banner_right_column_list_action -->
+            </div>
+            </div>
+            <!-- end_banner_right_column_list -->
+            <div id="bl_banner_r_empty" class="bl_banner_empty"></div>
+            </div>
+            <!-- begin_column_narow_select_lang -->
+            <div class="column_lang_bl">
+                <div id="column_lang" class="column_lang">
+                    <a class="language" href="" onclick="return false;">{language_current}</a>
+                    <div class="lang_item" id="column_lang_item">
+                        <ul class="pp_small">
+                            <!-- begin_language -->
+                            <li><a href="#" onclick="siteSetLanguage('{language_value}'); return false;"><span class="{language_class}">{language_title}</span></a></li>
+                            <!-- end_language -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end_column_narow_select_lang -->
+        </div>
     </div>
     <!-- /col right -->
     <script>prepareBannerColumns();</script>
@@ -518,6 +517,9 @@
 </div>
 <!-- Auxiliary interface elements -->
 
+
+<!-- begin_profile_verification_unverified_my -->
+<!-- end_profile_verification_unverified_my -->
 <div id="pp_profile_verification" class="pp_edit_info pp_profile_verification" style="display: none;">
     <div class="frame">
         <a class="icon_close" onclick="Profile.closePopupEditor('pp_profile_verification'); return false;" href="#">
@@ -527,6 +529,7 @@
         <div class="cont verify_account_system">
             <div class="bl_frm">
                 <div class="field">
+            
                     <select name="profile_verification_system" class="select_main item_system">
                         {profile_verification_system_options}
                     </select>
@@ -543,12 +546,13 @@
     </div>
 </div>
 
+<!-- resume -->
 <div id="pp_profile_upload_pdf" class="pp_edit_info pp_profile_upload_pdf" style="display: none;">
     <div class="frame">
         <a class="icon_close" onclick="Profile.closePopupEditor('pp_profile_upload_pdf'); return false;" href="#">
             <span class="close_hover"></span>
         </a>
-        <div class="head">{l_upload_pdf_file_into_your_profile}</div>
+        <div class="head">{l_upload_cv_file_into_your_profile}</div>
         <div class="cont verify_account_system">
 
             <form id="profile_pdf_upload_form" action="" method="POST" enctype="multipart/form-data"></form>
@@ -563,6 +567,34 @@
             <div class="fl_right bl_btn to_show">
                 <button class="btn small white_frame" onclick="Profile.closePopupEditor('pp_profile_upload_pdf'); return false;">{l_cancel}</button>
                 <button id="btn_upload_pdf" class="btn small turquoise" onclick="Profile.uploadPDF();"><span>{a_upload}</span></button>
+            </div>
+            <div class="cl"></div>
+            <div id="upload_pdf_msg" style="text-align: right; display: none; margin-top: 15px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- nid -->
+<div id="pp_profile_upload_nid" class="pp_edit_info pp_profile_upload_nid" style="display: none;">
+    <div class="frame">
+        <a class="icon_close" onclick="Profile.closePopupEditor('pp_profile_upload_nid'); return false;" href="#">
+            <span class="close_hover"></span>
+        </a>
+        <div class="head">{l_upload_nid_file_into_your_profile}</div>
+        <div class="cont verify_account_system">
+
+            <form id="profile_pdf_upload_form" action="" method="POST" enctype="multipart/form-data"></form>
+            <div class="bl_frm">
+                <div class="field">
+                    <input type="file" class="custom-file-input" id="input_profile_nid" name="input_profile_nid" accept=".pdf">
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="foot">
+            <div class="fl_right bl_btn to_show">
+                <button class="btn small white_frame" onclick="Profile.closePopupEditor('pp_profile_upload_pdf'); return false;">{l_cancel}</button>
+                <button id="btn_upload_nid" class="btn small turquoise" onclick="Profile.uploadNID();"><span>{a_upload}</span></button>
             </div>
             <div class="cl"></div>
             <div id="upload_pdf_msg" style="text-align: right; display: none; margin-top: 15px;"></div>

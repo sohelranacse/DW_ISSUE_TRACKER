@@ -137,10 +137,10 @@
 
                     for(var i=0; i < response.length; i++) {
                         var editTxt = delTxt = line = banTxt = ""
-                        if(previllage[1] == 1) // edit
+                        if(previllage[1] == 1 && response[i].ban_global == 0) // edit
                             editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}" title="{l_edit}" class="editBtn"><i class="fa fa-edit"></i></a>`
 
-                        if(previllage[1] == 1 && previllage[2] == 1)
+                        if(previllage[1] == 1 && previllage[2] == 1 && response[i].ban_global == 0)
                             line = ` | `
 
                         if(previllage[2] == 1) // delete

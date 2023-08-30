@@ -947,6 +947,7 @@ class CUsers extends CHtmlList {
         $row_user = User::getInfoFull($row['user_id'], 2);
         if($row_user['profile_pdf']){
             $html->setvar("uploaded_btn_style", "display:none");
+            $html->parse('view_pdf', false);
 
             $html->setvar("view_pdf_class", "yes_profile_pdf");
             $html->setvar("pdf_file_name", $row_user['profile_pdf']);
@@ -961,23 +962,52 @@ class CUsers extends CHtmlList {
                 $html->parse('upload_my_pdf', false);
         }
 
-        if($row_user['user_id'] == guid() && ($row_user['facebook_id'] == '' || $row_user['google_plus_id'] == '' || $row_user['linkedin_id'] == '')) { // personal profile
+        /*if($row_user['user_id'] == guid() && ($row_user['facebook_id'] == '' || $row_user['google_plus_id'] == '' || $row_user['linkedin_id'] == '')) { // personal profile
             $html->parse('verify_social_login', false);
-        }
-
-        // comment by sohel => draft
-        /*$blFooterMember = 'footer_member';
-        if ($html->blockExists($blFooterMember)) {
-
-            User::parseProfileVerification($html, null, 'profile_verification_unverified_my');
-
-            //$html->parse('banner_footer_bl', false);
-            CBanner::getBlock($html, 'right_column');
-            if (Common::isCreditsEnabled()) {
-                $html->parse($blFooterMember . '_increase');
-            }
-            $html->parse($blFooterMember, false);
         }*/
+
+        // added by sohel
+
+        if($row_user['user_id'] == guid() || $this->c_user_id) {
+            $blFooterMember = 'footer_member';
+            if ($html->blockExists($blFooterMember)) {
+                if($row_user['user_id'] == guid())
+                    User::parseProfileVerification($html, null, 'profile_verification_unverified_my');
+
+                if($row_user['user_id'] == guid() || $this->c_user_id)
+                    if (Common::isCreditsEnabled())
+                        $html->parse($blFooterMember . '_increase');
+
+                // nid
+                if($row_user['nid_verify_status'] == 0) { // default
+                    $html->setvar('nid_verify_text', "");
+                    $html->parse('nid_upload_button', false);
+                }
+
+                elseif($row_user['nid_verify_status'] == 1) { // verified
+                    $html->setvar('nid_verify_text', l('verified'));
+                    $html->setvar('nid_data', $row_user['nid_data']);
+                    $html->parse('view_verified_nid', false);
+                }
+
+                elseif($row_user['nid_verify_status'] == 2 || $row_user['nid_verify_status'] == 3) { // uploaded, reuploaded
+                    $html->setvar('nid_verify_text', "<span style='color: red'>".l('verification_under_review')."</span>");
+                    $html->setvar('nid_src', $row_user['nid_data']);
+                    $html->parse('uploaded_nid', false);
+                }
+
+                elseif($row_user['nid_verify_status'] == 4) { // rejeted, then can reupload
+                    $html->setvar('nid_data', $row_user['nid_data']);
+                    $html->setvar('nid_verify_text', "<span style='color: red'>".l('verification_failed')."</span>");
+                    $html->parse('rejected_nid', false);
+                }
+
+                    
+                $html->parse($blFooterMember, false);
+            }
+        }
+        // added by sohel => end
+
 
         if ($html->blockExists('users_list_item_hide') && get_param('upload_search_page')) {
             $html->parse('users_list_item_hide', false);

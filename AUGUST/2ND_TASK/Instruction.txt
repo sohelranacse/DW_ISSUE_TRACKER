@@ -12,8 +12,16 @@ ALTER TABLE `user` ADD `under_admin` INT NULL DEFAULT NULL COMMENT 'default=NULL
 
 ALTER TABLE `user` ADD `gadmin_previllage` VARCHAR(5) NOT NULL DEFAULT '0,0,0' COMMENT 'add,edit,delete' AFTER `live_now_status`;
 
+
+ALTER TABLE `user` ADD `nid_verify_status` INT(1) NOT NULL DEFAULT '0' COMMENT '0=default,1=verified,2=uploaded,3=reuploaded,4=rejected' AFTER `gadmin_previllage`, ADD `nid_verify_requested_on` DATETIME NULL AFTER `nid_verify_status`, ADD `nid_verify_approved_on` DATETIME NULL AFTER `nid_verify_requested_on`;
+
+ALTER TABLE `user` ADD `nid_data` VARCHAR(255) NULL COMMENT '/_files/nid/' AFTER `nid_verify_status`;
+
 3. .htaccess -> add line no. 29
 
 RewriteRule ^group_users$ group_users.php [L,QSA]
 RewriteRule ^add_user$ group_users_add.php [L,QSA]
 RewriteRule ^edit_user$ group_users_edit.php?name=$1 [L,QSA]
+
+
+4. Create directory in: /_files/nid/

@@ -1049,6 +1049,30 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         return false;
     }
 
+    this.openPopupEditorUploadNID = function(){
+        var id='pp_profile_upload_nid';
+        if(typeof cacheJq[id] == 'undefined'){
+            var css = {zIndex: 1001, margin: '25px 3px'};
+            cacheJq[id]=getCacheJq('#pp_profile_upload_nid')
+            .modalPopup({css:css,shCss:{}, wrCss:{}, wrClass:'wrapper_custom', shClass:'pp_shadow_white'});
+        }
+        var $pp=cacheJq[id];
+        if($pp.data('isOpen')){
+            $pp.open();
+            return true;
+        } else {
+            $('.select_main',$pp).styler({singleSelectzIndex: '11',
+                selectAutoWidth : false,
+                selectAppearsNativeToIOS: false,
+                selectAnimation: true
+            })
+        }
+
+        $pp.data('isOpen',true);
+        $pp.open();
+        return false;
+    }
+
     this.verifyAccount = function() {
         var url = $('select[name="profile_verification_system"]').val();
         if(url) {
@@ -1093,6 +1117,49 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                 }
                 $('#btn_upload_pdf').prop('disabled', false);
                 $('#btn_upload_pdf').text('Uploaded');
+            }
+ 
+        });
+        return false;
+    }
+
+    // nid
+    this.uploadNID = function(e) {
+        var pdf = new FormData();
+        pdf.append('file', input_profile_nid.files[0]);
+
+        var validExtensions = ["pdf"]
+        var file = $('#input_profile_nid').val().split('.').pop();
+        if (validExtensions.indexOf(file) == -1) {
+            alert("Only formats are allowed : "+validExtensions.join(', '));
+            $("#input_profile_nid").val('');
+            return false;
+        }
+        $('#btn_upload_nid').prop('disabled', true);
+        $('#btn_upload_nid').text('Uploading');
+
+
+        if($("#btn_upload_nid").val())
+            pdf.append('e_user_id', $("#btn_upload_nid").val());
+
+        // due the work here for create a php file and upload nid.
+        $.ajax({
+            url: 'profile_upload_nid.php',
+            type: 'POST',
+            data: pdf,
+            processData: false,
+            contentType: false,
+ 
+            success:function(data){
+                if(data){
+                    //$('#upload_pdf_msg').css({'color': 'green'}).text('PDF uploaded successfully!').show();
+                    alert('Your NID is successfully uploaded!');
+                    location.reload();
+                } else{
+                    $('#upload_pdf_msg').css({'color': 'red'}).text('There is some error in uploading, try again!').show();
+                }
+                $('#btn_upload_nid').prop('disabled', false);
+                $('#btn_upload_nid').text('Uploaded');
             }
  
         });
@@ -1187,15 +1254,24 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             return false;
         });
 
+        // pdf - personal
         $('.profile_upload_pdf').click(function(){
             $this.openPopupEditorUploadPDF();
             $("#btn_upload_pdf").val('')
             return false;
         });
 
+        // edit user
         $('.user_profile_upload_pdf').click(function(){
             $this.openPopupEditorUploadPDF();
             $("#btn_upload_pdf").val($("#ua_user_id").val())
+            return false;
+        });
+
+        // nid - personal
+        $('.user_profile_upload_nid').click(function(){
+            $this.openPopupEditorUploadNID();
+            $("#btn_upload_nid").val($("#ua_user_id").val())
             return false;
         });
 

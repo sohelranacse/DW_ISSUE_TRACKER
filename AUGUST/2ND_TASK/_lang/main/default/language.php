@@ -4999,7 +4999,19 @@ $l['all']['processing'] = "Processing...";
 $l['search_results.php']['user'] = "User";
 $l['all']['enabled'] = "Enabled";
 
-$l['all']['link_social_login'] = "Link social login";
+$l['all']['link'] = "Link";
+$l['all']['link_social_login'] = "Link Social Login";
 $l['all']['age_ranges'] = "Age Ranges";
 $l['all']['a_group_user'] = "A Group User";
+
+$l['all']['nid_verify_title'] = "Verify National Identity Card";
+$l['all']['upload_nid'] = "Upload NID";
+$l['all']['re_upload_nid'] = "Re Upload NID";
+$l['all']['upload_cv'] = "Upload CV";
+$l['all']['upload_cv_file_into_your_profile'] = "Upload CV File into your Profile!";
+$l['all']['upload_nid_file_into_your_profile'] = "Upload NID File into your Profile!";
+
+$l['all']['verified'] = "Verified";
+$l['all']['verification_under_review'] = "Verification Under Review!";
+$l['all']['verification_failed'] = "Verification Failed!";
 ?>

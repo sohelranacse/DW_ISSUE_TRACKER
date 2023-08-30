@@ -538,6 +538,10 @@ class CHeader extends CHtmlBlock {
             if ($html->blockExists('column_narow_item')) {
                 CProfileNarowBox::parseItems($html);
             }
+            if ($html->blockExists('right_recently_visited'))
+                CProfileNarowBox::Right_recently_visited($html);
+            
+
             /* Response payment system */
             $type = get_param('type');
             $blockPaymentShow = 'payment_pop_show_' . $type;
