@@ -1128,7 +1128,9 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         var pdf = new FormData();
         pdf.append('file', input_profile_nid.files[0]);
 
-        var validExtensions = ["pdf"]
+        pdf.append('cmd', 'upload_nid');
+
+        var validExtensions = ["pdf","jpg","jpeg","png"]
         var file = $('#input_profile_nid').val().split('.').pop();
         if (validExtensions.indexOf(file) == -1) {
             alert("Only formats are allowed : "+validExtensions.join(', '));
@@ -1144,7 +1146,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
 
         // due the work here for create a php file and upload nid.
         $.ajax({
-            url: 'profile_upload_nid.php',
+            url: 'profile_document.php',
             type: 'POST',
             data: pdf,
             processData: false,
@@ -1152,7 +1154,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
  
             success:function(data){
                 if(data){
-                    //$('#upload_pdf_msg').css({'color': 'green'}).text('PDF uploaded successfully!').show();
+                    // $('#upload_pdf_msg').css({'color': 'green'}).text('PDF uploaded successfully!').show();
                     alert('Your NID is successfully uploaded!');
                     location.reload();
                 } else{

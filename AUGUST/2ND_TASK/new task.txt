@@ -34,8 +34,3 @@ NOTED
 
 8. FB APP Test account like using graph, get fb user more data.
 9. Techical documentation
-
-
-MY DRAFT
-===========
-Right Side => Recently visited

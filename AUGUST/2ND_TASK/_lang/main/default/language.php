@@ -5013,5 +5013,6 @@ $l['all']['upload_nid_file_into_your_profile'] = "Upload NID File into your Prof
 
 $l['all']['verified'] = "Verified";
 $l['all']['verification_under_review'] = "Verification Under Review!";
+$l['all']['verification_pending'] = "Verification Pending!";
 $l['all']['verification_failed'] = "Verification Failed!";
 ?>

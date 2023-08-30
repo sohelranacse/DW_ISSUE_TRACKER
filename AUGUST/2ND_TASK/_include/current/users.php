@@ -946,14 +946,17 @@ class CUsers extends CHtmlList {
         // PDF FILE
         $row_user = User::getInfoFull($row['user_id'], 2);
         if($row_user['profile_pdf']){
+
+            if($row_user['user_id'] == guid() || $this->c_user_id)
+                $html->parse('delete_my_pdf', false);
+
+            
             $html->setvar("uploaded_btn_style", "display:none");
-            $html->parse('view_pdf', false);
 
             $html->setvar("view_pdf_class", "yes_profile_pdf");
             $html->setvar("pdf_file_name", $row_user['profile_pdf']);
 
-            if($row_user['user_id'] == guid() || $this->c_user_id)
-                $html->parse('delete_my_pdf', false);
+            $html->parse('view_pdf', false);
         } else {
             $html->setvar("uploaded_btn_style", "");
             $html->setvar("view_pdf_class", "no_profile_pdf");
@@ -991,8 +994,8 @@ class CUsers extends CHtmlList {
                 }
 
                 elseif($row_user['nid_verify_status'] == 2 || $row_user['nid_verify_status'] == 3) { // uploaded, reuploaded
-                    $html->setvar('nid_verify_text', "<span style='color: red'>".l('verification_under_review')."</span>");
-                    $html->setvar('nid_src', $row_user['nid_data']);
+                    $html->setvar('nid_verify_text', "<span>".l('verification_pending')."</span>");
+                    $html->setvar('nid_data', $row_user['nid_data']);
                     $html->parse('uploaded_nid', false);
                 }
 
