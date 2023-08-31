@@ -362,8 +362,7 @@ if ($user["p_relation"] != "0")
 $user['name'] = get_param("name_search", ""); // added by sohel
 if ($user['name'] != '')
 {
-    $where .= " AND u.name LIKE '%" . to_sql($user['name'], "Plain") . "%'";
-    $where .= " OR u.name_seo LIKE '%" . to_sql($user['name'], "Plain") . "%'";
+    $where .= " AND (u.name LIKE '%" . to_sql($user['name'], "Plain") . "%' OR u.name_seo LIKE '%" . to_sql($user['name'], "Plain") . "%')";
 }
 $user['user_type'] = get_param("user_type", ""); // added by sohel
 

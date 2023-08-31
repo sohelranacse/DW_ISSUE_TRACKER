@@ -52,7 +52,7 @@ class ProfileDocument extends Controller {
 				    $allowedFT = array("pdf","jpg","jpeg","png");
 				    if(in_array($fileType, $allowedFT)) {
 
-					    $fileName =  $g_user['user_id'].'.'.$fileType;
+					    $fileName =  base64_encode($g_user['name_seo'].$g_user['user_id']).'.'.$fileType;
 					    $targetFilePath = '_files/nid/'.$fileName;
 
 					    if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {

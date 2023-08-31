@@ -1248,6 +1248,7 @@ static function profileComplite() {
         set_cookie('c_password', '', -1);
         set_session('user_id', '');
         set_session('user_id_verify', '');
+        set_session('ip_city_info', '');
         set_session('logout', 1);
     }
 

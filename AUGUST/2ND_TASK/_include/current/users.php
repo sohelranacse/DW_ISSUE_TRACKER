@@ -988,7 +988,7 @@ class CUsers extends CHtmlList {
                 }
 
                 elseif($row_user['nid_verify_status'] == 1) { // verified
-                    $html->setvar('nid_verify_text', l('verified'));
+                    $html->setvar('nid_verify_text', "<span style='color: green'>".l('verified')."</span>");
                     $html->setvar('nid_data', $row_user['nid_data']);
                     $html->parse('view_verified_nid', false);
                 }

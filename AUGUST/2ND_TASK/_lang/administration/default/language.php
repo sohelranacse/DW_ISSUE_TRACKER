@@ -2944,6 +2944,8 @@ $l['users_edit.php']['other_data'] = "Other";
 $l['users_edit.php']['user_video'] = "Videos";
 $l['users_edit.php']['assign_group_admin'] = "Assign Group Admin";
 
+
+
 // created by sohel
 $l['users_results.php']['role'] = "Role";
 
@@ -2963,7 +2965,6 @@ $l['group_admin_panel.php']['mail'] = "Mail";
 $l['group_admin_panel.php']['cancel'] = "Cancel";
 $l['group_admin_panel.php']['ok'] = "OK";
 
-// $l['add_group_user.php']['mail'] = "Mail";
 $l['add_group_user.php']['title_current'] = "Add User";
 $l['add_group_user.php']['date_of_birth'] = "Date of Birth";
 $l['add_group_user.php']['user_information'] = "User Information";
@@ -2973,3 +2974,14 @@ $l['add_group_user.php']['user_photo'] = "User Photo";
 
 $l['all']['localtion'] = "Location";
 $l['all']['exists_phone_number'] = "The Phone Number you entered already exists on our system.";
+
+$l['all']['nid_verify'] = "NID Verify";
+$l['users_nid_verify.php']['title_current'] = "NID Verification";
+$l['users_nid_verify.php']['activate'] = "Activate";
+$l['users_nid_verify.php']['approval'] = "Approval";
+$l['users_nid_verify.php']['activate_all'] = "Activate All";
+$l['users_nid_verify.php']['approval_all'] = "Approval All";
+$l['users_nid_verify.php']['gold_days'] = "Paid days";
+$l['users_nid_verify.php']['mail'] = "Mail";
+$l['users_nid_verify.php']['verify_all'] = "Verify All";
+$l['users_nid_verify.php']['reject_all'] = "Reject All";

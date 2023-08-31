@@ -1,0 +1,240 @@
+{header}
+
+<div class="content-header row">
+	<div class="content-header-left col-md-4 col-12 mb-2">
+		<h3 class="content-header-title">{l_title_current}</h3>
+	</div>
+	<div class="content-header-right col-md-8 col-12">
+		<div class="breadcrumbs-top float-md-right">
+			<div class="breadcrumb-wrapper mr-1">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{url_main}administration/users_results.php">{l_mmenu_users}</a>
+					</li>
+					<li class="breadcrumb-item active">
+						{l_title_current}
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+{menu_page}
+
+<script type="text/javascript">
+	$('#page_menu_users_verify').addClass('active');
+
+    var m="{message}";
+    if (m != "") {
+		alertCustom("{message}");
+    }
+    $(function(){
+        var CBoxNote = function (ch, chkbox){
+            if(ch.is(':checked')) {
+                chkbox.prop("checked", true).iCheck('update');
+            }else{
+                chkbox.prop("checked", false).iCheck('update');
+            }
+        }
+        $('#all').change(function(){
+            CBoxNote($(this), $('[id ^= chk_]'))
+        });
+
+    });
+    function reject_all() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var user = StrID.slice(0, -1);
+        if(user)
+        	redirectUrl('{url_page}?reject='+user);
+        else
+        	alertCustom('Please select atleast a User.')
+    }
+    function verify_all() {
+        var StrID = '';
+        $('[id ^= chk_]:checked').each(function(){
+            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
+        })
+        var user = StrID.slice(0, -1);
+        if(user)
+        	redirectUrl('{url_page}?verify='+user);
+        else
+        	alertCustom('Please select atleast a User.')
+    }
+    function verify_user(link) {
+    	redirectUrl(link)
+    }
+</script>
+
+<div class="content-body">
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">{l_title_current}</h4>
+                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        </ul>
+                    </div>
+				</div>
+				<div class="card-content collapse show">
+					<div class="card-body">
+						<!-- begin_main_pages -->
+						<div class="a_c mb-2">
+							<p class="num_total">{num_total} {l_count_users}</p>
+
+							<ul class="pagination justify-content-center">
+
+								<!-- begin_main_first_page -->
+								<li class="page-item first">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_page_1}</a>
+								</li>
+								<!-- end_main_first_page -->
+								<!-- begin_main_prev_page -->
+								<li class="page-item prev">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_prev}</a>
+								</li>
+								<!-- end_main_prev_page -->
+								<!-- begin_main_prev_page_off -->
+								<li class="page-item prev disabled">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_prev}</a>
+								</li>
+								<!-- end_main_prev_page_off -->
+								<!-- begin_main_prev_pages -->
+								<li class="page-item">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">&lt;&lt;</a>
+								</li>
+								<!-- end_main_prev_pages -->
+								<!-- begin_main_page -->
+								<!-- begin_main_link_page -->
+								<li class="page-item">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{page}</a>
+								</li>
+								<!-- end_main_link_page -->
+								<!-- begin_main_this_page -->
+								<li class="page-item active">
+									<a href="" onclick="return false;" class="page-link">{page}</a>
+								</li>
+								<!-- end_main_this_page -->
+								<!-- end_main_page -->
+								<!-- begin_main_next_pages -->
+								<li class="page-item">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">&gt;&gt;</a>
+								</li>
+								<!-- end_main_next_pages -->
+								<!-- begin_main_next_page -->
+								<li class="page-item next">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_next}</a>
+								</li>
+								<!-- end_main_next_page -->
+								<!-- begin_main_next_page_off -->
+								<li class="page-item next disabled">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{l_next}</a>
+								</li>
+								<!-- end_main_next_page_off -->
+								<!-- begin_main_last_page -->
+								<li class="page-item last">
+									<a href="{url_page}?offset={offset}{params}" class="page-link">{num_pages}</a>
+								</li>
+								<!-- end_main_last_page -->
+							</ul>
+						</div>
+						<!-- end_main_pages -->
+						<!-- begin_main_items -->
+						<div class="table-responsive mb-2 mt-0">
+
+							<table class="table table-striped table-hover mb-0 skin skin-flat table_nw table_f_sm">
+								<thead class="bg-primary white">
+									<th class="status_menu">
+										<input class="status form-check-input i_checkbox" type="checkbox" id="all">
+									</th>
+									<th>{l_action}</th>
+									<th>
+										<!-- begin_params_none_name --><a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_none_name -->
+										<!-- begin_params_asc_name -->&uarr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_asc_name -->
+										<!-- begin_params_desc_name -->&darr;<a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_desc_name -->
+									</th>
+									<th>{l_file}</th>
+									<th>{l_status}</th>
+									<th>
+										<!-- begin_params_none_gold_days --><a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_none_gold_days -->
+										<!-- begin_params_asc_gold_days -->&uarr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_asc_gold_days -->
+										<!-- begin_params_desc_gold_days -->&darr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_desc_gold_days -->
+									</th>
+									<th>
+										<!-- begin_params_none_mail --><a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_none_mail -->
+										<!-- begin_params_asc_mail -->&uarr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_asc_mail -->
+										<!-- begin_params_desc_mail -->&darr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_desc_mail -->
+									</th>
+									<th>
+										<!-- begin_params_none_orientation --><a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_none_orientation -->
+										<!-- begin_params_asc_orientation -->&uarr;<a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_asc_orientation -->
+										<!-- begin_params_desc_orientation -->&darr;<a href="{url_page}?{params_current}">{l_orientation}</a><!-- end_params_desc_orientation -->
+									</th>
+									<th class="a_c">
+										<!-- begin_params_none_age --><a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_none_age -->
+										<!-- begin_params_asc_age -->&uarr;<a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_asc_age -->
+										<!-- begin_params_desc_age -->&darr;<a href="{url_page}?{params_current}">{l_age}</a><!-- end_params_desc_age -->
+									</th>
+									<th>
+										<!-- begin_params_none_last_ip --><a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_none_last_ip -->
+										<!-- begin_params_asc_last_ip -->&uarr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_asc_last_ip -->
+										<!-- begin_params_desc_last_ip -->&darr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_desc_last_ip -->
+									</th>
+									<th  class="a_c">
+										<!-- begin_params_none_register --><a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_none_register -->
+										<!-- begin_params_asc_register -->&uarr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_asc_register -->
+										<!-- begin_params_desc_register -->&darr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_desc_register -->
+									</th>
+								</thead>
+								<tbody>
+								<!-- begin_main_item -->
+								<tr class="{class}">
+									<td  class="status_menu a_c">
+										<input class="status form-check-input i_checkbox" type="checkbox" id="chk_{user_id}">
+									</td>
+									<td>
+										<a href="{url_main}administration/users_edit.php?id={user_id}">{l_edit}</a>
+										|
+										<a onclick="confirmCustom('{j_are_you_sure}',function(){verify_user('{url_page}?verify={user_id}')}); return false">{l_verify}</a>
+									</td>
+									<td><a target="_blank" href="../{url_profile}">{name}</a></td>
+									<td class="a_c"><a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a></td>
+									<td class="a_c">{upload_status}</td>
+									<td>{gold_days}</td>
+									<td>{mail}</td>
+									<td>{orientation}</td>
+									<td class="a_c">{age}</td>
+									<td>{last_ip}</td>
+									<td class="a_c">{register}</td>
+								</tr>
+								<!-- end_main_item -->
+								</tbody>
+							</table>
+						</div>
+						<!-- end_main_items -->
+						<!-- begin_no_delete -->
+						<fieldset class="form-group">
+							<button class="btn btn-danger mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){reject_all()}); return false;">{l_reject_all}</button>
+							<button class="btn btn-primary mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){verify_all()}); return false; ">{l_verify_all}</button>
+						</fieldset>
+						<!-- end_no_delete -->
+
+						<!-- begin_main_noitems -->
+						<div class="alert alert-light mb-2 alert-info-1" role="alert">
+                            {l_no_users}
+                        </div>
+						<!-- end_main_noitems -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{footer}

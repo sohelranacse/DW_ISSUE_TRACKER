@@ -5,6 +5,21 @@
         height: 25px;
         font-size: 12px;
     }
+    #link_filter_extended_part {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        line-height: 10px;
+        float: right;
+        margin-top: 4px;
+        color: #eee;
+        transition: 0.5s;
+        background: #999;
+    }
+    #link_filter_extended_part:hover {
+        background: #888;
+        color: #ddd;
+    }
 </style>
 <!-- filter -->
 <input type="hidden" id="filter_offset" name="offset" value="{offset}">
@@ -14,7 +29,7 @@
 <input type="hidden" id="filter_state" name="state" value="{state}">
 <input type="hidden" id="filter_city" name="city" value="{city}">
 <input type="hidden" id="radius" name="radius" value="{radius}">
-<input type="hidden" id="global_search_by_username" name="global_search_by_username" value="">
+<!-- <input type="hidden" id="global_search_by_username" name="global_search_by_username" value=""> -->
 <input type="hidden" id="filter_people_nearby" name="people_nearby" value="{people_nearby}"/>
 <div id="filter_part_all" class="filter select_var3 to_up">
     <div id="filter_part_title" class="part">
@@ -92,12 +107,13 @@
                 <option value="online" <!-- begin_module_search_status_online -->selected="selected"<!-- end_module_search_status_online -->>{l_search_show_online_impact}</option>
             </select>
 
-            <button id="link_filter_extended" class="btn small lblue btn_filter_extended">
+            <button id="link_filter_extended" class="btn small lblue btn_filter_extended" style="position: unset;">
                 <span class="to_down">{l_extended_search}</span>
             </button>
-            <div id="link_filter_extended_part" class="icon_filter_extended_hide" style="display:none;">
-                <!--<img src="{url_tmpl_main}images/icon_filter_extended_hide.png" width="32" height="32" alt="" />-->
-            </div>
+
+            <button id="link_filter_extended_part" class="btn small">
+                <i class="fa fa-arrow-up"></i>
+            </button>
         </div>
     </div>
     <!-- Part1 -->
