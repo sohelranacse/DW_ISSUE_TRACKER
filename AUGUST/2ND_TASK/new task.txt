@@ -22,15 +22,19 @@ v. Search with new field (Name, Role)
 NOTED
 ======
 1. Ban/Unban => Enable/Disable in group user page => Done
+2. Search Page:
+	-> Search by Location(mobile version) -> indecision => Show all the location.
+	-> Group admin show korbe na. But group user show korbe. And user er info te group admin icon/name thkbe.
+	-> Overall search functionally will be different.
+	
+3. Group admin login korle right side dekhte pabe na. Translation option left side a ashbe.
 
-2. Edit user -> Right side option will be hide.
-3. Search by Location(mobile version) -> indecision => Show all the location.
+4. Upload pdf, Verify account profile edit page a thakbe.
 
-4. Search page : Group admin show korbe na. But group user show korbe. And user er info te group admin icon/name thkbe.
-5. Group admin login korle right side dekhte pabe na.
+5. FB APP Test account like using graph, get fb user more data.
+6. Techical documentation
 
-6. Upload pdf, Verify account user edit page a thakbe. Translation option left side a ashbe.
-7. Overall search functionally will be different.
 
-8. FB APP Test account like using graph, get fb user more data.
-9. Techical documentation
+
+
+

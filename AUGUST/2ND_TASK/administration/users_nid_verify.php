@@ -12,7 +12,7 @@ class CUsersNIDverify extends CHtmlList
         $redirect = '';
 		if ($reject != 0)
 		{
-            $user =  explode(',', $reject);dd($user);
+            $user =  explode(',', $reject);
             foreach ($user as $userId) {
                 $data = array('nid_verify_status' => 4, 'nid_verify_approved_on' => date("Y-m-d H:i:s"));
                 DB::update('user', $data, '`user_id` = ' . to_sql($userId, 'Number'));
@@ -41,7 +41,7 @@ class CUsersNIDverify extends CHtmlList
 			SELECT u.user_id, u.mail, u.type, u.orientation, u.password, u.gold_days, u.name, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d'))
             ) AS age, u.last_visit,
 			u.is_photo,
-			u.city_id, u.state_id, u.country_id, u.last_ip, u.register, IF(u.nid_verify_status=2, 'New Upload', 'Re Upload') AS upload_status, u.nid_data
+			u.city_id, u.state_id, u.country_id, u.last_ip, u.register, IF(u.nid_verify_status=2, 'New Uploaded', 'Reuploaded') AS upload_status, u.nid_data
 			FROM user AS u
 			" . $this->m_sql_from_add;
 

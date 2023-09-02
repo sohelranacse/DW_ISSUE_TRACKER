@@ -204,7 +204,7 @@
 										<a onclick="confirmCustom('{j_are_you_sure}',function(){verify_user('{url_page}?verify={user_id}')}); return false">{l_verify}</a>
 									</td>
 									<td><a target="_blank" href="../{url_profile}">{name}</a></td>
-									<td class="a_c"><a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a></td>
+									<td class="a_c"><a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> {l_view_nid}</a></td>
 									<td class="a_c">{upload_status}</td>
 									<td>{gold_days}</td>
 									<td>{mail}</td>
@@ -220,8 +220,8 @@
 						<!-- end_main_items -->
 						<!-- begin_no_delete -->
 						<fieldset class="form-group">
-							<button class="btn btn-danger mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){reject_all()}); return false;">{l_reject_all}</button>
-							<button class="btn btn-primary mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){verify_all()}); return false; ">{l_verify_all}</button>
+							<button class="btn btn-danger mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){reject_all()}); return false;">{l_reject}</button>
+							<button class="btn btn-primary mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){verify_all()}); return false; ">{l_verify}</button>
 						</fieldset>
 						<!-- end_no_delete -->
 

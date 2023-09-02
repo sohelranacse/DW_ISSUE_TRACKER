@@ -2983,5 +2983,4 @@ $l['users_nid_verify.php']['activate_all'] = "Activate All";
 $l['users_nid_verify.php']['approval_all'] = "Approval All";
 $l['users_nid_verify.php']['gold_days'] = "Paid days";
 $l['users_nid_verify.php']['mail'] = "Mail";
-$l['users_nid_verify.php']['verify_all'] = "Verify All";
-$l['users_nid_verify.php']['reject_all'] = "Reject All";
+$l['users_nid_verify.php']['view_nid'] = "View NID";
