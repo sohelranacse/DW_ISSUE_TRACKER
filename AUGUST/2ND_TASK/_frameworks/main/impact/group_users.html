@@ -88,6 +88,11 @@
     border: 1px solid gray;
     background: gray;
 }
+.isDisabled1 {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.isDisabled1 .card-header a {pointer-events: none}
 </style>
 <script type="text/javascript">
     var m="{message}";
@@ -152,7 +157,7 @@
                             banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_disable}" class="enableBtn">{l_enabled}</a>`;
 
                         cardData += `
-                            <div class="card">
+                            <div class="card isDisabled${response[i].ban_global}">
                             <div class="card-header">
                                 <a href="{url_main}${response[i].name_seo}"><img src="{url_main}_files/photo/${response[i].user_id}_${response[i].photo}_r.jpg" alt="Photo"></a>
                                 <a href="{url_main}${response[i].name_seo}" style="padding-top: 10px">${response[i].name}</a>
