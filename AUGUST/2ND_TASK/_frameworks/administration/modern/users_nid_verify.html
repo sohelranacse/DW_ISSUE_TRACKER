@@ -29,42 +29,10 @@
     if (m != "") {
 		alertCustom("{message}");
     }
-    $(function(){
-        var CBoxNote = function (ch, chkbox){
-            if(ch.is(':checked')) {
-                chkbox.prop("checked", true).iCheck('update');
-            }else{
-                chkbox.prop("checked", false).iCheck('update');
-            }
-        }
-        $('#all').change(function(){
-            CBoxNote($(this), $('[id ^= chk_]'))
-        });
-
-    });
-    function reject_all() {
-        var StrID = '';
-        $('[id ^= chk_]:checked').each(function(){
-            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
-        })
-        var user = StrID.slice(0, -1);
-        if(user)
-        	redirectUrl('{url_page}?reject='+user);
-        else
-        	alertCustom('Please select atleast a User.')
-    }
-    function verify_all() {
-        var StrID = '';
-        $('[id ^= chk_]:checked').each(function(){
-            StrID += ($(this).attr("id").replace(/chk_/g, '')+',')
-        })
-        var user = StrID.slice(0, -1);
-        if(user)
-        	redirectUrl('{url_page}?verify='+user);
-        else
-        	alertCustom('Please select atleast a User.')
-    }
     function verify_user(link) {
+    	redirectUrl(link)
+    }
+    function reject_user(link) {
     	redirectUrl(link)
     }
 </script>
@@ -74,7 +42,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title">{l_title_current}</h4>
+					<h4 class="card-title">{l_pending} {l_title_current}</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -150,9 +118,6 @@
 
 							<table class="table table-striped table-hover mb-0 skin skin-flat table_nw table_f_sm">
 								<thead class="bg-primary white">
-									<th class="status_menu">
-										<input class="status form-check-input i_checkbox" type="checkbox" id="all">
-									</th>
 									<th>{l_action}</th>
 									<th>
 										<!-- begin_params_none_name --><a href="{url_page}?{params_current}">{l_username}</a><!-- end_params_none_name -->
@@ -161,11 +126,6 @@
 									</th>
 									<th>{l_file}</th>
 									<th>{l_status}</th>
-									<th>
-										<!-- begin_params_none_gold_days --><a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_none_gold_days -->
-										<!-- begin_params_asc_gold_days -->&uarr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_asc_gold_days -->
-										<!-- begin_params_desc_gold_days -->&darr;<a href="{url_page}?{params_current}">{l_gold_days}</a><!-- end_params_desc_gold_days -->
-									</th>
 									<th>
 										<!-- begin_params_none_mail --><a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_none_mail -->
 										<!-- begin_params_asc_mail -->&uarr;<a href="{url_page}?{params_current}">{l_mail}</a><!-- end_params_asc_mail -->
@@ -186,44 +146,27 @@
 										<!-- begin_params_asc_last_ip -->&uarr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_asc_last_ip -->
 										<!-- begin_params_desc_last_ip -->&darr;<a href="{url_plast_ip}?{params_current}">{l_last_ip}</a><!-- end_params_desc_last_ip -->
 									</th>
-									<th  class="a_c">
-										<!-- begin_params_none_register --><a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_none_register -->
-										<!-- begin_params_asc_register -->&uarr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_asc_register -->
-										<!-- begin_params_desc_register -->&darr;<a href="{url_pregister}?{params_current}">{l_register}</a><!-- end_params_desc_register -->
-									</th>
 								</thead>
 								<tbody>
 								<!-- begin_main_item -->
 								<tr class="{class}">
-									<td  class="status_menu a_c">
-										<input class="status form-check-input i_checkbox" type="checkbox" id="chk_{user_id}">
-									</td>
 									<td>
-										<a href="{url_main}administration/users_edit.php?id={user_id}">{l_edit}</a>
-										|
-										<a onclick="confirmCustom('{j_are_you_sure}',function(){verify_user('{url_page}?verify={user_id}')}); return false">{l_verify}</a>
+										<a class="btn btn-sm btn-outline-primary" onclick="confirmCustom('{j_are_you_sure}',function(){verify_user('{url_page}?verify={user_id}')}); return false">{l_verify}</a>
+										<a class="btn btn-sm btn-outline-danger" onclick="confirmCustom('{j_are_you_sure}',function(){reject_user('{url_page}?reject={user_id}')}); return false">{l_reject}</a>
 									</td>
 									<td><a target="_blank" href="../{url_profile}">{name}</a></td>
 									<td class="a_c"><a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> {l_view_nid}</a></td>
 									<td class="a_c">{upload_status}</td>
-									<td>{gold_days}</td>
 									<td>{mail}</td>
 									<td>{orientation}</td>
 									<td class="a_c">{age}</td>
 									<td>{last_ip}</td>
-									<td class="a_c">{register}</td>
 								</tr>
 								<!-- end_main_item -->
 								</tbody>
 							</table>
 						</div>
 						<!-- end_main_items -->
-						<!-- begin_no_delete -->
-						<fieldset class="form-group">
-							<button class="btn btn-danger mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){reject_all()}); return false;">{l_reject}</button>
-							<button class="btn btn-primary mt-1 mr-1" onclick="confirmCustom('{j_are_you_sure}',function(){verify_all()}); return false; ">{l_verify}</button>
-						</fieldset>
-						<!-- end_no_delete -->
 
 						<!-- begin_main_noitems -->
 						<div class="alert alert-light mb-2 alert-info-1" role="alert">

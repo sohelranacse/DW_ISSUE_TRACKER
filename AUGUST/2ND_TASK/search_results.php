@@ -364,15 +364,15 @@ if ($user['name'] != '')
 {
     $where .= " AND (u.name LIKE '%" . to_sql($user['name'], "Plain") . "%' OR u.name_seo LIKE '%" . to_sql($user['name'], "Plain") . "%')";
 }
-$user['user_type'] = get_param("user_type", ""); // added by sohel
+// $user['user_type'] = get_param("user_type", ""); // added by sohel
 
-if ($user['user_type'] != '' && $user['user_type'] !== '0')
+/*if ($user['user_type'] != '' && $user['user_type'] !== '0')
 {
     if($user['user_type'] == 'group_user')
         $where .= " AND u.under_admin IS NOT NULL";
     else
         $where .= " AND u.under_admin IS NULL";
-}
+}*/
 
 $user['name'] = get_param("name", "");
 if ($user['name'] != "")
@@ -555,6 +555,7 @@ if($day && $month && $year) {
 
 // IF active distance search, then exclude others
 // DISTANCE
+$searchCountry = (int) get_param('searchCountry', 0);
 $distance = (int) get_param('radius', 0);
 $user['city'] = (int) get_param("city", 0);
 $user['state'] = (int) get_param("state", 0);
@@ -568,6 +569,13 @@ $notActiveLocationFilterSocial = $isFilterSocial && !$isActiveLocation;
 if ($notActiveLocationFilterSocial) {
     $peopleNearby = 0;
 }
+
+// addedd by sohel
+if(!$searchCountry) {
+    // $data = array('nid_verify_status' => 1, 'nid_verify_approved_on' => date("Y-m-d H:i:s"));
+    // DB::update('user', $data, '`user_id` = ' . to_sql($verify, 'Number'));
+}
+
 if ($peopleNearby) {
     $userLocation = array('country' => 0, 'state' => 0, 'city' => 0);
     if ($guid) {
@@ -742,7 +750,7 @@ if($user['i_am_here_to']) {
     Common::prepareSearchWhereOrderByIAmHereTo($where, $order, $user['i_am_here_to']);
 }
 
-if ($optionSet == 'urban') {
+if ($optionSet == 'urban') { // sohel
     if ($display == '') {
         $order .= ($isFreeSite) ? $orderNear . ' user_id DESC' : 'date_search DESC, ' . $orderNear . ' user_id DESC';
     }
@@ -1067,6 +1075,7 @@ if ($optionTmplName == 'edge') {
         $order = 'BL.id DESC, is_photo DESC,  near DESC,  user_id DESC';
     }
 }
+// dd($where);
 $page = Users_List::show($where, $order, $from_add, '', $from_group,$redirectIfSingle);
 
 include("./_include/core/main_close.php");

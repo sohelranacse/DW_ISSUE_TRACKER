@@ -10,22 +10,23 @@ class CUsersNIDverify extends CHtmlList
 		$reject = get_param('reject', 0);
         $verify = get_param('verify', 0);
         $redirect = '';
-		if ($reject != 0)
+		if ($reject)
 		{
-            $user =  explode(',', $reject);
-            foreach ($user as $userId) {
-                $data = array('nid_verify_status' => 4, 'nid_verify_approved_on' => date("Y-m-d H:i:s"));
-                DB::update('user', $data, '`user_id` = ' . to_sql($userId, 'Number'));
-            }
+            $data = array('nid_verify_status' => 4, 'nid_verify_approved_on' => date("Y-m-d H:i:s"));
+            DB::update('user', $data, '`user_id` = ' . to_sql($reject, 'Number'));
+
 			redirect("{$p}{$redirect}");
 		} elseif ($verify) {
-            $user =  explode(',', $verify);
+            /*$user =  explode(',', $verify);
             if (is_array($user)) {
                 foreach ($user as $userId) {
                     $data = array('nid_verify_status' => 1, 'nid_verify_approved_on' => date("Y-m-d H:i:s"));
                     DB::update('user', $data, '`user_id` = ' . to_sql($userId, 'Number'));
                 }
-            }
+            }*/ // backup
+
+            $data = array('nid_verify_status' => 1, 'nid_verify_approved_on' => date("Y-m-d H:i:s"));
+            DB::update('user', $data, '`user_id` = ' . to_sql($verify, 'Number'));
 			redirect("{$p}{$redirect}");
         }
 	}
@@ -63,7 +64,7 @@ class CUsersNIDverify extends CHtmlList
 		$this->m_field['upload_status'] = array("upload_status", null);
 		$this->m_field['nid_data'] = array("nid_data", null);
 
-        $where = " AND `nid_verify_status` IN (2,3)";
+        $where = " AND `nid_verify_status` IN (2,3) AND ban_global = 0";
 
 
 		#$this->m_debug = "Y";
@@ -165,7 +166,7 @@ class CUsersNIDverify extends CHtmlList
 		}
 
 		$this->m_sql_where = "1" . $where;
-		$this->m_sql_order = "user_id";
+		$this->m_sql_order = "nid_verify_requested_on DESC";
 		$this->m_sql_from_add = "";
 	}
 	function parseBlock(&$html)

@@ -6,19 +6,18 @@
         font-size: 12px;
     }
     #link_filter_extended_part {
-        width: 20px;
-        height: 20px;
-        font-size: 10px;
-        line-height: 10px;
+        width: 22px;
+        height: 18px;
+        font-size: 12px;
+        line-height: 12px;
         float: right;
-        margin-top: 4px;
-        color: #eee;
         transition: 0.5s;
-        background: #999;
+        background: #6dc9ff;
+        margin-top: -17px;
+        margin-right: -20px;
     }
     #link_filter_extended_part:hover {
-        background: #888;
-        color: #ddd;
+        background: #2faae0;
     }
 </style>
 <!-- filter -->
@@ -29,6 +28,7 @@
 <input type="hidden" id="filter_state" name="state" value="{state}">
 <input type="hidden" id="filter_city" name="city" value="{city}">
 <input type="hidden" id="radius" name="radius" value="{radius}">
+<input type="hidden" name="searchCountry" value="1">
 <!-- <input type="hidden" id="global_search_by_username" name="global_search_by_username" value=""> -->
 <input type="hidden" id="filter_people_nearby" name="people_nearby" value="{people_nearby}"/>
 <div id="filter_part_all" class="filter select_var3 to_up">
@@ -52,14 +52,14 @@
         <!-- begin_i_am_here_to -->
         <div class="bl bl_here field_i_am_here">
             <h4>{l_search}:</h4>
-            <div style="padding-left: 0;height: unset;" class="bl_search bl">
+            <!-- <div style="padding-left: 0;height: unset;" class="bl_search bl">
                 <select id="user_type" name="user_type" style="opacity:0;" class="styler">
                     <option value="0">{l_search_show_all_impact}</option>
                     <option value="user">{l_user}</option>
                     <option value="group_user">{l_group_users}</option>
                 </select>
-            </div>
-            <input type="text" name="name_search" id="name_search" placeholder="Type {l_name}" class="name_search" />
+            </div> -->
+            <input type="text" name="name_search" id="name_search" placeholder="Type {l_name}" class="name_search" autocomplete="off" />
         </div>
         <!-- end_i_am_here_to -->
 
@@ -101,6 +101,9 @@
 
         </div>
         <div class="bl bl_search" style="height: unset;">
+            <button id="link_filter_extended_part" class="btn small">
+                <i class="fa fa-angle-up"></i>
+            </button>
             <select id="search_status" data-placeholder="" style="opacity:0;" class="styler">
                 <option value="0" <!-- begin_module_search_status_all -->selected="selected"<!-- end_module_search_status_all -->>{l_search_show_all_impact}</option>
                 <option value="new" <!-- begin_module_search_status_new -->selected="selected"<!-- end_module_search_status_new -->>{l_search_show_new_impact}</option>
@@ -109,10 +112,6 @@
 
             <button id="link_filter_extended" class="btn small lblue btn_filter_extended" style="position: unset;">
                 <span class="to_down">{l_extended_search}</span>
-            </button>
-
-            <button id="link_filter_extended_part" class="btn small">
-                <i class="fa fa-arrow-up"></i>
             </button>
         </div>
     </div>
