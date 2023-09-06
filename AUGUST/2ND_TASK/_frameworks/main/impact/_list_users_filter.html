@@ -3,7 +3,7 @@
     .name_search{
         width: 125px;
         height: 25px;
-        font-size: 12px;
+        font-size: 11px;
     }
     #link_filter_extended_part {
         width: 22px;
@@ -299,9 +299,9 @@ function searchResultsLoad() {
         customParams = '';
 
     searchParams += filterParamStatusStart;
-    if (!isEncounters && !isRatePeople) {
+    /*if (!isEncounters && !isRatePeople) {
         searchParams += 'with_photo=' + $('#module_search_with_photo').prop('checked')*1;
-    }
+    }*/
 
 
     if(searchParamsValue == searchParams && !isEncounters && !isRatePeople) {

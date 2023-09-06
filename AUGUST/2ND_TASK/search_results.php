@@ -1,11 +1,4 @@
 <?php
-/* (C) Websplosion LLC, 2001-2021
-
-IMPORTANT: This is a commercial software product
-and any kind of using it must agree to the Websplosion's license agreement.
-It can be found at http://www.chameleonsocial.com/license.doc
-
-This notice may not be removed from the source code. */
 
 include("./_include/core/main_start.php");
 
@@ -38,7 +31,6 @@ if (!guid() && $optionTmplName == 'edge') {
 if (!get_param('join_search_page')){
     Common::checkAreaLogin();
 }
-
 
 if (in_array($display, array('encounters','rate_people'))) {
     if (guid()) {
@@ -115,85 +107,6 @@ if (guid()){
 			DB::execute("UPDATE search_save SET query=" . $query . " WHERE id=" . $id . "");
 		}
 	}
-
-    /*if(Common::getOption('set', 'template_options') == 'urban' && ($display == '' || $display == 'encounters' || $display == 'rate_people')) {
-        if(!get_param('set_filter')) {
-            global $g_user;
-            $userinfo = User::getInfoFull($g_user['user_id']);
-            $g_user['user_search_filters'] = $userinfo['user_search_filters'];
-            $g_user['state_filter_search'] = $userinfo['state_filter_search'];
-            $filters = $userinfo['user_search_filters'];
-            if($filters) {
-                $filtersInfo = json_decode($filters, true);
-                //var_dump($filtersInfo);
-                foreach($filtersInfo as $filterInfoKey => $filterInfoValue) {
-                    if(isset($filterInfoValue['values'])) {
-                        foreach($filterInfoValue['values'] as $key => $value) {
-                            $_GET[$key] = $value;
-                        }
-                    } else {
-                        $_GET[$filterInfoKey] = $filterInfoValue['value'];
-                    }
-                }
-            }
-
-            $_GET['country'] = get_param('country', $g_user['country_id']);
-            $_GET['state'] = get_param('state', $g_user['state_id']);
-            $_GET['city'] = get_param('city', $g_user['city_id']);
-
-            if (UserFields::isActive('age_range')) {
-                $_GET['p_age_from'] = get_param('p_age_from', $g_user['p_age_from']);
-                $_GET['p_age_to'] = get_param('p_age_to', $g_user['p_age_to']);
-            }
-            if (UserFields::isActive('i_am_here_to')) {
-                $_GET['i_am_here_to'] = get_param('i_am_here_to', $g_user['i_am_here_to']);
-            }
-            if(UserFields::isActive('orientation')) {
-                $_GET['p_orientation'] = UserFields::checksToParamsArray('const_orientation', $g_user['p_orientation']);
-            }
-
-        } else {
-            // save some fields to profile
-            // i_am_here_to
-            // p_orientation
-            // p_age_from
-            // p_age_to
-            // location
-            // distance
-            $data = array();
-            $fields = array(
-                'i_am_here_to',
-                'p_orientation',
-                'p_age_from',
-                'p_age_to',
-            );
-            $fieldsActive = array(
-                'i_am_here_to' => 'i_am_here_to',
-                'p_orientation' => 'orientation',
-                'p_age_from' => 'age_range',
-                'p_age_to' => 'age_range',
-            );
-            foreach($fields as $field) {
-                if (!UserFields::isActive($fieldsActive[$field])) {
-                    continue;
-                }
-                $fieldValue = get_param($field);
-                if($field == 'p_orientation') {
-                    $fieldValue = get_checks_param($field);
-                }
-                if(guser($field) != $fieldValue) {
-                    $data[$field] = $fieldValue;
-                }
-            }
-
-            if($data) {
-                //var_dump($data);
-                User::update($data);
-            }
-        }
-        set_session('search_offset', get_param('offset', 1));
-        $userSearchFiltersUpdate = true;
-    }*/
 }
 if ($optionSet == 'urban' && ($display == '' || $display == 'encounters' || $display == 'rate_people')) {
     if (guid()) {
@@ -205,45 +118,6 @@ if ($optionSet == 'urban' && ($display == '' || $display == 'encounters' || $dis
         $g_user['state_filter_search'] = $userinfo['state_filter_search'];
         if(!get_param('set_filter') || get_param('set_filter_interest')) {
             User::setGetParamsFilter('user_search_filters', $userinfo);
-            /*$filters = $userinfo['user_search_filters'];
-            if($filters) {
-                $filtersInfo = json_decode($filters, true);
-                //var_dump($filtersInfo);
-                foreach($filtersInfo as $filterInfoKey => $filterInfoValue) {
-                    if(isset($filterInfoValue['values'])) {
-                        foreach($filterInfoValue['values'] as $key => $value) {
-                            $_GET[$key] = $value;
-                        }
-                    } else {
-                        $_GET[$filterInfoKey] = $filterInfoValue['value'];
-
-//                        if (is_array($filterInfoValue['value'])) {
-//                            foreach ($filterInfoValue['value'] as $key => $item) {
-//                                foreach ($item as $k => $value) {
-//                                    $_GET[$filterInfoKey][] = $value;
-//                                }
-//                            }
-//                        } else {
-//                            $_GET[$filterInfoKey] = $filterInfoValue['value'];
-//                        }
-                    }
-                }
-            }
-
-            $_GET['country'] = get_param('country', $g_user['country_id']);
-            $_GET['state'] = get_param('state', $g_user['state_id']);
-            $_GET['city'] = get_param('city', $g_user['city_id']);
-
-            if (UserFields::isActive('age_range')) {
-                $_GET['p_age_from'] = get_param('p_age_from', $g_user['p_age_from']);
-                $_GET['p_age_to'] = get_param('p_age_to', $g_user['p_age_to']);
-            }
-            if (UserFields::isActive('i_am_here_to')) {
-                $_GET['i_am_here_to'] = get_param('i_am_here_to', $g_user['i_am_here_to']);
-            }
-            if(UserFields::isActive('orientation')) {
-                $_GET['p_orientation'] = UserFields::checksToParamsArray('const_orientation', $g_user['p_orientation']);
-            }*/
             $_GET['with_photo'] = get_param('with_photo', 1);
             if (get_param('set_filter_interest')) {
                 $userSearchFiltersUpdate = true;
@@ -251,43 +125,6 @@ if ($optionSet == 'urban' && ($display == '' || $display == 'encounters' || $dis
         } else {
             $g_user['user_search_filters'] = User::getParamsFilter('user_search_filters', $userinfo['user_search_filters']);
             User::updateParamsFilterUser();
-            // save some fields to profile
-            // i_am_here_to
-            // p_orientation
-            // p_age_from
-            // p_age_to
-            // location
-            // distance
-            /*$data = array();
-            $fields = array(
-                'i_am_here_to',
-                'p_orientation',
-                'p_age_from',
-                'p_age_to',
-            );
-            $fieldsActive = array(
-                'i_am_here_to' => 'i_am_here_to',
-                'p_orientation' => 'orientation',
-                'p_age_from' => 'age_range',
-                'p_age_to' => 'age_range',
-            );
-            foreach($fields as $field) {
-                if (!UserFields::isActive($fieldsActive[$field])) {
-                    continue;
-                }
-                $fieldValue = get_param($field);
-                if($field == 'p_orientation') {
-                    $fieldValue = get_checks_param($field);
-                }
-                if(guser($field) != $fieldValue) {
-                    $data[$field] = $fieldValue;
-                }
-            }
-
-            if($data) {
-                //var_dump($data);
-                User::update($data);
-            }*/
         }
         $userSearchFiltersUpdate = true;
     } else {
@@ -309,16 +146,6 @@ if ($optionSet == 'urban' && ($display == '' || $display == 'encounters' || $dis
                 $_GET['i_am_here_to'] = $iAmHereTo;
             }
         }
-            /*$geoInfo = getDemoCapitalCountry();//IP::geoInfoCity();
-            $_GET['country'] = get_param('country', $geoInfo['country_id']);
-            $_GET['state'] = get_param('state', $geoInfo['state_id']);
-            $_GET['city'] = get_param('city', $geoInfo['city_id']);
-            $_GET['with_photo'] = get_param('with_photo', 1);
-            //UsersFilter::setSettingsNotLogged();
-        }/* else {
-            $userSearchFiltersUpdate = true;
-            set_session('search_offset', get_param('offset', 1));
-        }*/
     }
 }
 
@@ -327,37 +154,6 @@ if ($optionSet == 'urban' && ($display == '' || $display == 'encounters' || $dis
 $where = "";
 $whereCore = "1=1 ";
 $userSearchFilters = array();
-/*
-$user['i_am_here_to'] = (int) get_param('i_am_here_to', '');
-if ($user['i_am_here_to'])
-{
-    $where .= " AND u.i_am_here_to = " . to_sql($user['i_am_here_to']);
-}
-
-$user["horoscope"] = (int) get_checks_param("p_star_sign");
-if ($user["horoscope"])
-{
-	$where .= " AND " . $user["horoscope"] . " & (1 << (cast(u.horoscope AS signed) - 1))";
-}
-
-$pOrientationSearch = intval(get_param('p_orientation_search'));
-if ($pOrientationSearch) {
-    $user["p_orientation"] = $pOrientationSearch;
-} else {
-    $user["p_orientation"] = (int) get_checks_param("p_orientation");
-}
-
-if ($user["p_orientation"] > 0)
-{
-	$where .= " AND " . $user["p_orientation"] . " & (1 << (cast(u.orientation AS signed) - 1))";
-}
-$user["p_relation"] = (int) get_checks_param("p_relation");
-if ($user["p_relation"] != "0")
-{
-	$where .= " AND " . $user["p_relation"] . " & (1 << (cast(u.relation AS signed) - 1))";
-}*/
-
-// comment => I'm here to, With who Orientation
 
 $user['name'] = get_param("name_search", ""); // added by sohel
 if ($user['name'] != '')
@@ -421,15 +217,6 @@ foreach ($g['user_var'] as $k => $v)
 
             $fieldTo = substr($k, 0, strlen($k) - 4) . 'to';
             $valFieldTo = intval($user[$fieldTo]);
-
-//            if($user[$k]) {
-//                $first = DB::result("SELECT id FROM " . $v[2] . " ORDER BY id ASC LIMIT 1");
-//                if ($first == $user[$k]){
-//                    //$user[$k] = 0;
-//                }
-//            } else {
-//                $valFieldFrom = '';
-//            }
 
             if ($valFieldTo) {
                 $where .= ' AND i.' . $key . '<=' . $valFieldTo;
@@ -576,7 +363,7 @@ if(!$searchCountry) {
     // DB::update('user', $data, '`user_id` = ' . to_sql($verify, 'Number'));
 }
 
-if ($peopleNearby) {
+if ($peopleNearby) { // false
     $userLocation = array('country' => 0, 'state' => 0, 'city' => 0);
     if ($guid) {
         $gUserCountryId = guser('geo_position_country_id');
@@ -593,8 +380,8 @@ if ($peopleNearby) {
     } else {
         $whereLocation = getInRadiusWhere($distance);
     }
-} else {
-    if($distance > $maxDistance && $user['city']>0) {
+} else { // true
+    /*if($distance > $maxDistance && $user['city']>0) { // false
         $user['city'] = 0;
         $user['state'] = 0;
     }
@@ -615,10 +402,12 @@ if ($peopleNearby) {
         // find MAX geo values
         $whereLocation = inradius($user['city'], $distance);
         $from_add .= " LEFT JOIN geo_city AS gc ON gc.city_id = u.city_id";
-    } else {
+    } else { // true
         $whereLocation = Common::getWhereSearchLocation($user);
-    }
+    }*/
 }
+
+$whereLocation = Common::getWhereSearchLocation($user);
 
 $from_add .= " LEFT JOIN userinfo AS i ON u.user_id=i.user_id ";
            //. " LEFT JOIN geo_city AS gc ON gc.city_id = u.city_id";
@@ -742,20 +531,16 @@ $order = '';
 
 $orderNear = Common::getSearchOrderNear();
 
-if ($withPhoto && $display != 'encounters' && $display != 'rate_people') {
-    $order = "is_photo DESC, ";
-}
-
 if($user['i_am_here_to']) {
     Common::prepareSearchWhereOrderByIAmHereTo($where, $order, $user['i_am_here_to']);
 }
 
 if ($optionSet == 'urban') { // sohel
     if ($display == '') {
-        $order .= ($isFreeSite) ? $orderNear . ' user_id DESC' : 'date_search DESC, ' . $orderNear . ' user_id DESC';
+        $order .= ($isFreeSite) ? $orderNear . ' name' : 'date_search DESC, ' . $orderNear . ' name';
     }
 } else {
-    $order .= $orderNear . ' user_id DESC';
+    $order .= $orderNear . ' name';
 }
 
 if ($isCustomShowList) {
@@ -786,6 +571,8 @@ if ($g_user['user_id']) {
             $whereCore.=' AND ubl1.id IS NULL AND ubl2.id IS NULL';
         }
     }
+
+    // false
     if ($display == 'encounters') {
         //$uidEnc = get_param('uid');
         /*$where .=" AND u.is_photo_public = 'Y'
@@ -823,7 +610,7 @@ if ($g_user['user_id']) {
             $order = '';
         }
 
-    }elseif ($display == 'rate_people') {
+    }elseif ($display == 'rate_people') { // false
         /*$where .=" AND u.is_photo_public = 'Y'
                    AND u.user_id != " . $guidSql .
                  ' AND ubl.id IS NULL
@@ -844,110 +631,13 @@ if ($g_user['user_id']) {
     /*** Ускоряем выборку для большого кол-ва записей *************************************/
         if(!$paramUid){
             if(Users_List::isBigBase()){
-                /*
-                $sql='CREATE TEMPORARY TABLE IF NOT EXISTS tmp_users(
-                    `user_id` int(11) unsigned,
-                    `i_am_here_to` tinyint(11) NOT NULL,
-                    PRIMARY KEY (`user_id`)
-                )';
-                DB::execute($sql);
-                */
-                /*$sql='
-                INSERT INTO tmp_users
-                SELECT DISTINCT u.user_id, u.i_am_here_to
-                 FROM user AS u '.$from_add. ' WHERE '.$where.' '.$whereLocation ;
-                DB::execute($sql);
-                $sql='
-                    SELECT u.user_id, SUM(votes) AS votes, u.i_am_here_to
-                    FROM tmp_users u
-                    LEFT JOIN photo AS up ON u.user_id = up.user_id AND up.private = "N"
-                    GROUP BY '.$from_group.'
-                    ORDER BY '.$order.' LIMIT 0,1
-                 ';*/
-
-                //Внимание!!! Все поля, которые могут попасть в $order необходимо добавить в SELECT
-
-/* TOO SLOW ON BIG DATABASE
-                $sql='
-                    SELECT u.user_id, SUM(votes) AS votes, u.i_am_here_to
-                    FROM (SELECT DISTINCT u.user_id, u.i_am_here_to
-                        FROM user AS u '.$from_add. ' WHERE '.$where.' '.$whereLocation.') u
-                    LEFT JOIN photo AS up ON u.user_id = up.user_id AND up.private = "N" ' . CProfilePhoto::wherePhotoIsVisible('up') . '
-                    GROUP BY '.$from_group.'
-                    ORDER BY '.$order.' LIMIT 0,1';
-*/
+                
                 $where = User::getRatePhotoWhereOnBigBase($where, $from_add, $user, $whereLocation, $order);
                 $addWhereLocation = false;
-
-//                $whereRate = $where;
-//                $whereIAmHereTo = false;
-//
-//                if($user['i_am_here_to']) {
-//                    $whereRate .= ' AND i_am_here_to = ' . to_sql($user['i_am_here_to'], 'Number') . ' ';
-//                    $whereIAmHereTo = true;
-//                }
-//
-//                $sql = 'SELECT DISTINCT u.user_id
-//                    FROM user AS u ' . $from_add . '
-//                    WHERE ' . $whereRate . ' ' . $whereLocation . '
-//                    LIMIT 100';
-//
-//                $users = DB::rows($sql);
-//
-//                if(!$users && $whereIAmHereTo) {
-//                    $sql = 'SELECT DISTINCT u.user_id
-//                        FROM user AS u ' . $from_add . '
-//                        WHERE ' . $where . ' ' . $whereLocation . '
-//                        LIMIT 100';
-//                    $users = DB::rows($sql);
-//                }
-//
-//                if($users) {
-//                    shuffle($users);
-//                }
-//
-//                $whereUid = isset($users[0]['user_id']) ? $users[0]['user_id'] : 0;
-//                $where = ' u.user_id = ' . $whereUid . '
-//                    AND upr.photo_id IS NULL';
                 $order = '';
             }
         }
-    /****************************************************/
     }
-
-    /*$locations = array('country', 'state', 'city');
-    foreach($locations as $location) {
-        $userSearchFilters[$location] = array(
-            'field' => $location,
-            'value' => get_param($location),
-        );
-    }
-
-    $userSearchFilters['radius'] = array(
-        'field' => 'radius',
-        'value' => get_param('radius'),
-    );
-
-    if($userSearchFiltersUpdate && $userSearchFilters) {
-        $userSearchFiltersOrdered = array();
-        // add filters order as param
-        // TODO: move it to JS
-        foreach($_GET as $key => $value) {
-            if(isset($userSearchFilters[$key])) {
-                $userSearchFiltersOrdered[$key] = $userSearchFilters[$key];
-            }
-        }
-
-        $filter = json_encode($userSearchFiltersOrdered);
-        //echo '<br><br>FILTER>' . $filter . '<br><br>';
-        // update if new only
-        if(guser('user_search_filters') != $filter) {
-            $data = array(
-                'user_search_filters' => $filter
-            );
-            User::update($data, guid(), 'userinfo');
-        }
-    }*/
 }
 
 /* Reset filter country */
@@ -987,7 +677,7 @@ if ($g_user['user_id']) {
     foreach($locations as $location) {
         $userSearchFilters[$location] = array(
             'field' => $location,
-            'value' => get_param($location),
+            'value' => $searchCountry ? get_param($location) : 0,
         );
         $userSearchFiltersMobile[$location] = $userSearchFilters[$location];
     }
@@ -1040,21 +730,7 @@ if ($g_user['user_id']) {
             if (guser('user_search_filters_mobile') != $userSearchFiltersMobile) {
                 User::updateParamsFilter('user_search_filters_mobile', $userSearchFiltersMobile);
             }
-            /*$data = array(
-                'user_search_filters' => $filter
-            );
-            $userSearchFiltersMobile = json_encode($userSearchFiltersMobile);
-            if (guser('user_search_filters_mobile') != $userSearchFiltersMobile) {
-                $data['user_search_filters_mobile'] = $userSearchFiltersMobile;
-            }
-
-            User::update($data, guid(), 'userinfo');*/
         }
-
-        /*if(get_cookie('settings_filter_search') != $filter) {
-            set_cookie('settings_filter_search', $filter);
-        }
-        #echo get_cookie('settings_filter_search');*/
     }
 }
 
@@ -1065,7 +741,7 @@ if(trim($global_username_search)!=''){
     $redirectIfSingle=true;
 }
 
-if ($optionTmplName == 'edge') {
+/*if ($optionTmplName == 'edge') {
     if ($show == 'wall_shared' || $show == 'wall_liked') {
         $order = 'wl.id DESC, is_photo DESC,  near DESC,  user_id DESC';
     } elseif ($show == 'wall_liked_comment' || $show == 'photo_liked_comment'
@@ -1074,7 +750,8 @@ if ($optionTmplName == 'edge') {
     } elseif ($show == 'blogs_post_liked') {
         $order = 'BL.id DESC, is_photo DESC,  near DESC,  user_id DESC';
     }
-}
+}*/
+$order = "name";
 // dd($where);
 $page = Users_List::show($where, $order, $from_add, '', $from_group,$redirectIfSingle);
 
