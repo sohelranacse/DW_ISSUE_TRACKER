@@ -737,7 +737,8 @@ if ($g_user['user_id']) {
 $global_username_search=get_param('global_search_by_username');
 $redirectIfSingle=false;
 if(trim($global_username_search)!=''){
-    $where=$whereCore.' AND u.name LIKE "%'.to_sql($global_username_search,'Plain').'%"';
+    // $where=$whereCore.' AND u.name LIKE "%'.to_sql($global_username_search,'Plain').'%"';
+    $where=$whereCore. " AND (u.name LIKE '%" . to_sql($global_username_search, "Plain") . "%' OR u.name_seo LIKE '%" . to_sql($global_username_search, "Plain") . "%')";
     $redirectIfSingle=true;
 }
 

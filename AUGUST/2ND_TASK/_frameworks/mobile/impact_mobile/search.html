@@ -1,0 +1,96 @@
+<div>
+<div class="head">
+    <span class="title"><i class="fa fa-filter" aria-hidden="true"></i> {l_filter_data}</span>
+</div>
+<div class="wrap_cont_filter">
+<form id="frm_filter" name="filter" method="POST" action="{url_main}search_results.php">
+<input name="set_filter" value="1" type="hidden"/>
+<input name="display" value="{display_params}" type="hidden"/>
+<input name="ajax_page" value="1" type="hidden"/>
+<input id="people_nearby" name="people_nearby" value="{people_nearby}" type="hidden"/>
+
+<div class="bl_frm">
+    <div class="bl">
+        <label>{l_search_by_username}</label>
+        <div class="field">
+            <input id="filter_name_key" type="text" name="global_search_by_username" autocomplete="off">
+        </div>
+    </div>
+</div>
+
+<!-- begin_age_range -->
+<div class="bl_frm">
+    <div class="bl">
+        <label>{l_field_ages}</label>
+        <div class="field age">
+            <div class="from">
+                <select id="p_age_from" name="p_age_from">
+                {p_age_from_options}
+                </select>
+            </div>
+            <span class="def">&dash;</span>
+            <div class="to">
+                <select id="p_age_to" name="p_age_to">
+                {p_age_to_options}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end_age_range -->
+<div class="bl_frm color">
+    <div class="bl">
+        <label>{l_location}</label>
+        <div class="field">
+            <select name="country" id="country" data-location="geo_states" class="location">
+                <option value="people_nearby">{l_filter_people_nearby}</option>
+                <option value="0">{l_select_all}</option>
+                {country_options}
+            </select>
+        </div>
+    </div>
+    <div class="bl">
+        <div class="field">
+            <select name="state" id="state" data-location="geo_cities" class="location">
+                <option value="0">{l_select_all}</option>
+                {state_options}
+            </select>
+        </div>
+    </div>
+    <div class="bl">
+        <div class="field">
+            <select name="city" id="city" class="location">
+                <option value="0">{l_select_all}</option>
+ 				{city_options}
+            </select>
+        </div>
+    </div>
+    <div id="radius_bl" class="bl">
+		<div class="bl form_resize bl_slider">
+			<div id="radius_slider">
+				<input id="radius" name="radius" type="range" min="0" max="{radius_max}" step="1" value="{radius}">
+                <div  class="count">
+                    <div id="count_cont" class="count_cont"></div>
+                </div>
+				<div class="count_decor"></div>
+            </div>
+		</div>
+	</div>
+</div>
+<div class="bl_frm">
+    <div class="bl">
+        <label>{l_show}</label>
+        <div class="field">
+            <select name="status">
+            {status_options}
+            </select>
+        </div>
+    </div>
+</div>
+<div class="frm_btn">
+    <button id="perform_action_search" class="btn large pink">{l_btn_perform_action}</button>
+</div>
+</form>
+<script>clSearch.initFilter('{slider_within}','{radius_max}','{max_filter_distance_country}');</script>
+</div>
+</div>
