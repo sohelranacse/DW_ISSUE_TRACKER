@@ -1,0 +1,255 @@
+<!-- begin_demo -->
+<script>
+$(function(){
+	$('#form_login_user').val('{login_user}');
+	$('#form_login_pass').val('{login_password}');
+});
+</script>
+<!-- end_demo -->
+<!-- begin_footer_visitor -->
+                </div>
+                <!-- /page_content -->
+            </div>
+            <!-- /wrap_cont -->
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /wrapper -->
+</div>
+<!-- end_footer_visitor -->
+
+<!-- begin_footer_member -->
+</div>
+    <!-- /content -->
+</div>
+<!-- /wrapper -->
+<!-- begin_banner_footer_mobile_user_list -->
+<div class="banner_footer_mobile_user {banner_footer_mobile_user_class}">
+    <div class="banner_footer_mobile_user_content <!-- begin_banner_footer_mobile_user_list_hide -->to_hide<!-- end_banner_footer_mobile_user_list_hide -->">
+        <!-- begin_banner_footer_mobile_user -->
+        <div class="bl_ads">{banner_footer_mobile_user}</div>
+        <!-- end_banner_footer_mobile_user -->
+    </div>
+    <!-- begin_banner_footer_mobile_user_list_action -->
+    <div class="link">
+        <a href="" onclick="clProfile.showBanner($(this), 'footer_mobile'); return false;">
+            <i class="fa fa-eye<!-- begin_banner_footer_mobile_user_icon_hide -->-slash<!-- end_banner_footer_mobile_user_icon_hide -->" aria-hidden="true"></i>
+            <span>{banner_footer_mobile_user_title}</span>
+        </a>
+    </div>
+    <!-- end_banner_footer_mobile_user_list_action -->
+</div>
+<!-- end_banner_footer_mobile_user_list -->
+<!-- footer -->
+<div id="footer" class="footer">
+    <div class="top">
+        <div class="figure"></div>
+        <!-- begin_footer_member_more_menu -->
+        <div class="bl_options">
+            <span class="wrap_more_options" id="footer_more_menu_show"><i class="fa fa-caret-up" aria-hidden="true"></i>{l_profile_menu_more_options}
+            <span class="pp_info_bl">
+            <span id="footer_more_menu_popup" class="pp_info to_hide">
+                <ul class="list">
+                    <!-- begin_footer_member_more_menu_videochat -->
+                    <li data-cl-loader="loader_more_menu" onclick="videoChat.checkInvite($(this))" class="btn_rtc">
+                        <span><i class="fa fa-video-camera" aria-hidden="true"></i>{l_user_more_menu_video_chat}{request_user_name}</span>
+                    </li>
+                    <!-- end_footer_member_more_menu_videochat -->
+                    <!-- begin_footer_member_more_menu_audiochat -->
+                    <li data-cl-loader="loader_more_menu" onclick="audioChat.checkInvite($(this))" class="btn_rtc">
+                        <span><i class="fa fa-phone" aria-hidden="true"></i>{l_user_more_menu_call_now}{request_user_name}</span>
+                    </li>
+                    <!-- end_footer_member_more_menu_audiochat -->
+                    <!-- begin_footer_member_more_menu_street_chat -->
+                    <li data-cl-loader="loader_more_menu" onclick="cityStreetChat.invite($(this))">
+                        <span><i class="fa fa-street-view" aria-hidden="true"></i>{l_user_more_menu_street_chat}</span>
+                    </li>
+                    <!-- end_footer_member_more_menu_street_chat -->
+                    <!-- begin_footer_member_more_menu_contact_blocking -->
+                    <li onclick="clProfile.confirmBlockUser()">
+                        <span>
+                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                            <span id="footer_more_menu_block" class="span_empty"></span>
+                        </span>
+                    </li>
+                    <!-- end_footer_member_more_menu_contact_blocking -->
+                    <!-- begin_footer_member_more_menu_disallow_private_photo -->
+                    <li id="footer_more_menu_disallow_private_photo" onclick="clProfile.confirmDisallowPrivatePhoto();">
+                        <span><i class="fa fa-times" aria-hidden="true"></i>{l_hide_private}</span>
+                    </li>
+                    <!-- end_footer_member_more_menu_disallow_private_photo -->
+                    <li id="footer_more_menu_report_user" onclick="clCommon.openReport()">
+                        <span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{l_user_more_menu_report_user}</span>
+                    </li>
+                </ul>
+                <script>if(!checkWebrtc())$('.btn_rtc').remove();</script>
+            </span>
+            </span>
+            </span>
+        </div>
+        <!-- end_footer_member_more_menu -->
+    </div>
+    <div class="bot">
+        <div class="info">
+            <div class="td">
+                <!-- begin_contact_on -->
+                <i onclick="clCommon.openContact(); return false;" class="fa fa-envelope" aria-hidden="true"></i>
+                <a onclick="clCommon.openContact(); return false;" href="">{l_contact_us}</a> |
+                <!-- end_contact_on -->{l_footer_c}{title_orig} {year}
+            </div>
+        </div>
+        <div id="toTop" class="arrow-up"><i class="fa fa-arrow-up" aria-hidden="true"></i></div>
+    </div>
+</div>
+<!-- /footer -->
+<script>
+    clCommon.init();
+    try {initServer()}catch(e){};
+</script>
+</div>
+
+<!-- begin_footer_verification_system_options -->
+<div id="pp_profile_verification" style="display: none;">
+    <div class="bl_frm bl_frm_profile_verification">
+        <div class="field">
+            <select name="profile_verification_system" class="profile_verification_system">
+                {footer_verification_system_options}
+            </select>
+        </div>
+    </div>
+</div>
+<!-- end_footer_verification_system_options -->
+
+<!-- end_footer_member -->
+</div><!-- /main_wrap -->
+<div id="page_shadow_empty" class="page_shadow_empty"></div>
+<div id="layer_block_page" class="layer_block_page to_hide">
+    <div id="loader_layer_block_page" class="frame_loader_search_list">
+    <div class="css_loader loader_layer_block_page hidden">
+		<div class="spinner center">
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+		</div>
+	</div>
+    </div>
+</div>
+<div id="update_server">
+    <script id="script_replace_footer">
+        setPageData('{js_title}','{js_description}','{js_keywords}');
+        commonInitPage();
+        var requestUserId = '{request_user_id_mobile}'*1;
+        var requestUserOnline = '{request_user_online}'*1;
+    </script>
+    <script class="default_values">
+        var urlFiles='{url_files}';
+        var urlTmplMobileImages='{url_tmpl_mobile}images/';
+        var appTitle = '{js_title}';
+        var imMessagesCount = '{number_messages}';
+        var isInAppPurchaseEnabled = '{is_in_app_purchase_enabled}'*1;
+        var appVibrationDuration = '{app_vibration_duration}'*1000;
+        {footer_custom_js}
+    </script>
+</div>
+<!-- begin_mobile_app -->
+<div class="page-preloader">
+    <div class="wrapper">
+        <div class="content">
+            <div class="block_map_index">
+                <div class="header-loader" style="opacity: 1; transition: 0.7s linear; -webkit-transition: 0.7s linear;">
+                    <img class="header-loader-logo" src="{header_url_logo_mobile}" alt="{title}" title="{title}">
+                </div>
+                <div class="css_loader loader_layer_block_page">
+                    <div class="spinner center">
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{url_tmpl_common_apps}mobileapp.js{cache_version_param}"></script>
+
+<script class="always_run_after_loading">
+appCityLastMsgId = '{city_last_msg_id}';
+mobileAppLoaded = true;
+// global for access from all scripts
+adMobBannerConfig = false;
+
+MobileApp.isTokenUpdateRequired = {mobileAppIsTokenUpdateRequired};
+
+<!-- begin_in_app_purchase_products -->
+inAppPurchaseProducts = {};
+<!-- begin_in_app_purchase_product -->
+inAppPurchaseProducts[{in_app_purchase_item}] = {
+    id: '{in_app_purchase_product_id}',
+    type: '{in_app_purchase_product_type}'
+};
+<!-- end_in_app_purchase_product -->
+<!-- end_in_app_purchase_products -->
+
+<!-- begin_banner_admob_top -->
+adMobBannerConfig = {
+    id: '{banner_admob_top}',
+    bannerAtTop: true,
+};
+<!-- end_banner_admob_top -->
+<!-- begin_banner_admob_bottom -->
+adMobBannerConfig = {
+    id: '{banner_admob_bottom}',
+    bannerAtTop: false,
+};
+<!-- end_banner_admob_bottom -->
+
+MobileApp.init('{user_id}');
+</script>
+<!-- end_mobile_app -->
+
+<!-- begin_mobile_app_android -->
+<script src="{url_tmpl_common_apps}android/cordova.js{cache_version_param}"></script>
+<!-- end_mobile_app_android -->
+
+<!-- begin_mobile_app_ios -->
+<script src="{url_tmpl_common_apps}ios/cordova.js{cache_version_param}"></script>
+<!-- end_mobile_app_ios -->
+
+<!-- begin_gdpr_cookie_popup -->
+<script>
+    $(function(){
+        //document.cookie = 'cookiesAccepted=; path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        var options = {
+            title: '{j_cookies_accept_title}',
+            text: '{cookies_accept_text}',
+            acceptButtonText: '{j_cookies_accept_accept_button_text}',
+            theme: 'dark',
+            learnMore: false,
+            position: 'bottom'
+        };
+        $.acceptCookies(options);
+    })
+</script>
+<!-- end_gdpr_cookie_popup -->
+</body>
+</html>

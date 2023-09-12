@@ -106,7 +106,7 @@ class CJoinPage extends CHtmlBlock {
             }
 
             if ($this->message == '') {
-                if($role == 'group_admin')
+                if(isset($role) && $role == 'group_admin')
                     $this->message = '#js:logged:group_users';
                 else
                     $this->message = '#js:logged:' . Common::getHomePage();

@@ -12,7 +12,6 @@ class CGroupUsersMobile extends CHtmlBlock
 
         $del = get_param('delete');
         $banned = intval(get_param('ban'));
-        $isRedirect = false;
 
         $gadmin_previllage = explode(',', $g_user['gadmin_previllage']); // add, edit, delete
 
@@ -40,18 +39,18 @@ class CGroupUsersMobile extends CHtmlBlock
                     );
                     Common::sendAutomail($row['lang'], $row['mail'], 'admin_delete', $vars);
                 }
+                echo json_encode('success');
                 delete_user($del);
             }
-            $isRedirect = true;
+            die();
         } elseif ($banned) {
             if(Common::validateField('user_id', $banned)) {
                 $sql='UPDATE user SET ban_global=1-ban_global WHERE under_admin = '.guid().' AND user_id='. to_sql($banned, 'Number');
                 DB::execute($sql);
+                echo json_encode('success');
             }
-            $isRedirect = true;
+            die();
         }
-        if ($isRedirect)
-            redirect('group_users');
     }
     function parseBlock(&$html)
     {

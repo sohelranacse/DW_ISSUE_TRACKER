@@ -799,7 +799,16 @@ class CHeader extends CHtmlBlock {
         $display = get_param('display');
         $cmd = get_param('cmd');
         $paramUid = User::getParamUid($guid, 'user_id');
-        $html->setvar('request_user_id_mobile', User::getRequestUserId('user_id'));
+
+        $html->setvar('request_user_name', '');
+        $the_user_info = User::getInfoFull($paramUid);
+        if(isset($the_user_info['under_admin'])) { // added by sohel
+            $paramUid = $the_user_info['under_admin'];
+            $ua_info = User::getInfoFull($paramUid);
+            $html->setvar('request_user_name', ' ('.$ua_info['name'].')'); // group admin name
+        }
+
+        $html->setvar('request_user_id_mobile', $paramUid);
         $isUserOnline = intval(User::isOnline($paramUid, null, true));
         $html->setvar('request_user_online', $isUserOnline);
         if (Common::isAppAndroid() && $html->blockExists('app_android_style')) {

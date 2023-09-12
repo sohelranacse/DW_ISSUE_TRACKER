@@ -33,6 +33,7 @@
 .card-content {
   font-size: 14px;
   line-height: 1.4;
+  text-align: center;
 }
 
 .card-header a {display: block;color: blue}
@@ -106,11 +107,31 @@
         alertCustom("{message}");
     }
     function ban(uid) {
-        redirectUrl('group_users?ban='+uid);
+        $.ajax({
+            url: 'group_users',
+            type: "post",
+            data:{ "ban": uid },
+            dataType: "json",
+            success:function(data){
+                console.log(data)
+                load_users_list();
+            }
+        })
     }
 
-    function one_delete(uid) {
-        redirectUrl('group_users?delete='+uid);
+    function delete_user(uid) {
+        $("#cardData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
+        
+        $.ajax({
+            url: 'group_users',
+            type: "post",
+            data:{ "delete": uid },
+            dataType: "json",
+            success:function(data){
+                console.log(data)
+                load_users_list();
+            }
+        })
     }
 </script>
 <div class="col_center">
@@ -125,20 +146,23 @@
     <div class="container" id="cardData"></div>
 </div>
 <script type="text/javascript">
+    // previllage
+    const gadmin_previllage = '{gadmin_previllage}';
+    const previllage = gadmin_previllage.split(",");
+
     $(function(){
         // set active color
-        $('.icon_msg .fa-users').css('color', '#fff');
-
-        // previllage
-        const gadmin_previllage = '{gadmin_previllage}';
-        const previllage = gadmin_previllage.split(",");
+        $('.icon_msg .fa-users').css('color', '#fff');        
 
         if(previllage[0] == 1) // add
             $("#add_group_user_link").html(`<a class="go_to_page" data-type-loader="fade_btn" href="{main_url}add_user" class="groupLink"><i class="fa fa-user-plus"></i> {l_add_group_user}</a>`)
 
-        // preloader
         $("#cardData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
-        
+
+        load_users_list();
+    })
+    function load_users_list() {
+
         $.ajax({
             url: 'group_users',
             type: "POST",
@@ -159,7 +183,7 @@
                             line = ` | `
 
                         if(previllage[2] == 1) // delete
-                            delTxt = `<a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="go_to_page deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
+                            delTxt = `<a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){delete_user(${response[i].user_id})}); return false;" class="go_to_page deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
                         
                         if(response[i].ban_global == 1) // disabled
                             banTxt = ` | <a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_enable}" class="go_to_page disableBtn">{l_disabled}</a>`;
@@ -173,8 +197,8 @@
                                 <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter" href="{url_main}profile_view?user_id=${response[i].user_id}" style="padding-top: 10px">${response[i].name}</a>
                             </div>
                             <div class="card-content isDisabled${response[i].ban_global}">
-                                <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
                                 <p><i class="fa fa-user"></i> ${response[i].gender}</p>
+                                <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
                                 <p><i class="fa fa-calendar"></i> ${response[i].register}</p>
                             </div>
                         `;
@@ -189,7 +213,7 @@
                 } else
                     $("#cardData").html(`<div id="im_list_users_empty" style="display: block;"><div class="dialog pp_message_user_info"><div class="bl"><img src="{url_tmpl_main}images/icon_upgrade_profile_visitors.png" width="239" height="207" alt="No users"><div class="bl_txt_msg_empty"><span>You have no users yet.</span></div></div></div></div>`)
             }
-        })
-    })
+        })    
+    }
 </script>
 {footer}
