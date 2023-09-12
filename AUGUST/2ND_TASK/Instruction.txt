@@ -23,5 +23,7 @@ RewriteRule ^group_users$ group_users.php [L,QSA]
 RewriteRule ^add_user$ group_users_add.php [L,QSA]
 RewriteRule ^edit_user$ group_users_edit.php?name=$1 [L,QSA]
 
+RewriteRule ^m/group_users$ m/group_users.php [L,QSA]
+RewriteRule ^m/add_user$ m/group_users_add.php [L,QSA]
 
 4. Create directory in: /_files/nid/

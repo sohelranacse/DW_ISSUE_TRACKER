@@ -1,0 +1,143 @@
+#php_flag register_globals off
+#php_value upload_max_filesize 30M
+#php_value post_max_size 30M
+
+DirectoryIndex index.php index.html index.htm
+
+Options -MultiViews
+Options -Indexes
+
+RewriteEngine on
+
+### Uncomment if error 404/500
+#RewriteBase /
+
+### Redirect site.com to www.site.com
+#RewriteCond %{HTTP_HOST} !^www\.
+#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L,QSA]
+
+### Redirect HTTP to HTTPS
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,QSA]
+
+RewriteRule ^(.*/)*\.svn/ / [F,L]
+
+# For old mobile app to check internet connection
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^_files/favicon.ico _files/favicon_all.ico [L,QSA]
+
+RewriteRule ^group_users$ group_users.php [L,QSA]
+RewriteRule ^add_user$ group_users_add.php [L,QSA]
+RewriteRule ^edit_user$ group_users_edit.php?name=$1 [L,QSA]
+
+
+RewriteRule ^m/join$ m/join.php [L,QSA]
+RewriteRule ^m/login$ m/join.php?cmd=please_login [L,QSA]
+RewriteRule ^m/index$ m/index.php [L,QSA]
+RewriteRule ^m/games$ m/games.php [L,QSA]
+RewriteRule ^m/terms$ m/info.php?page=term_cond [L,QSA]
+RewriteRule ^m/privacy_policy$ m/info.php?page=priv_policy [L,QSA]
+RewriteRule ^m/forgot_password$ m/forgot_password.php [L,QSA]
+RewriteRule ^m/profile_view$ m/profile_view.php [L,QSA]
+RewriteRule ^m/search_results$ m/search_results.php [L,QSA]
+RewriteRule ^m/upgrade$ m/upgrade.php [L,QSA]
+RewriteRule ^m/profile_boost$ m/upgrade.php?action=refill_credits&service=search [L,QSA]
+RewriteRule ^m/refill_credits$ m/upgrade.php?action=refill_credits [L,QSA]
+RewriteRule ^m/audiochat$ m/audiochat.php [L,QSA]
+RewriteRule ^m/videochat$ m/videochat.php [L,QSA]
+RewriteRule ^m/users_viewed_me$ m/users_viewed_me.php [L,QSA]
+RewriteRule ^m/profile_settings$ m/profile_settings.php [L,QSA]
+RewriteRule ^m/messages$ m/messages.php [L,QSA]
+RewriteRule ^m/hot_or_not$ m/search_results.php?display=encounters [L,QSA]
+RewriteRule ^m/private_photo_access$ m/my_friends.php [L,QSA]
+RewriteRule ^m/my_friends$ m/my_friends.php [L,QSA]
+RewriteRule ^m/who_likes_you$ m/mutual_attractions.php?display=who_likes_you [L,QSA]
+RewriteRule ^m/whom_you_like$ m/mutual_attractions.php?display=whom_you_like [L,QSA]
+RewriteRule ^m/mutual_likes$ m/mutual_attractions.php [L,QSA]
+
+RewriteRule ^m/group_users$ m/group_users.php [L,QSA]
+RewriteRule ^m/add_user$ m/group_users_add.php [L,QSA]
+
+RewriteRule ^m/live_list$ m/live_list.php [L,QSA]
+RewriteRule ^m/live$ m/live_streaming.php [L,QSA]
+RewriteRule ^m/live_$ m/live_streaming.php?stream=1 [L,QSA]
+RewriteRule ^m/live_list_finished$ m/live_list_finished.php [L,QSA]
+
+RewriteRule ^street_chat_([a-z0-9_-]+)$ city.php?place=$1 [L,QSA]
+RewriteRule ^3d/([a-z0-9_-]+)$ _server/city_js/index.php?seo_url=1&place=$1 [L,QSA]
+RewriteRule ^m/3d/([a-z0-9_-]+)$ _server/city_js/index.php?view=mobile&place=$1 [L,QSA]
+
+
+#RewriteRule ^(.*)/photos_my_pages$ router.php?router_page=photos_list&base_seo_url=1&view_list=group_page&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/photos_my_pages/$ router.php?router_page=photos_list&base_seo_url=2&view_list=group_page&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/photos_my_pages/([0-9]+)$ router.php?router_page=photos_list&base_seo_url=2&view_list=group_page&name_seo=$1&page=$2 [L,QSA]
+
+#RewriteRule ^(.*)/photos_my_groups$ router.php?router_page=photos_list&base_seo_url=1&view_list=group&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/photos_my_groups/$ router.php?router_page=photos_list&base_seo_url=2&view_list=group&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/photos_my_groups/([0-9]+)$ router.php?router_page=photos_list&base_seo_url=2&view_list=group&name_seo=$1&page=$2 [L,QSA]
+
+#RewriteRule ^(.*)/songs_my_pages$ router.php?router_page=songs_list&base_seo_url=1&view_list=group_page&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/songs_my_pages/$ router.php?router_page=songs_list&base_seo_url=2&view_list=group_page&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/songs_my_pages/([0-9]+)$ router.php?router_page=songs_list&base_seo_url=2&view_list=group_page&name_seo=$1&page=$2 [L,QSA]
+
+#RewriteRule ^(.*)/songs_my_groups$ router.php?router_page=songs_list&base_seo_url=1&view_list=group&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/songs_my_groups/$ router.php?router_page=songs_list&base_seo_url=2&view_list=group&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/songs_my_groups/([0-9]+)$ router.php?router_page=songs_list&base_seo_url=2&view_list=group&name_seo=$1&page=$2 [L,QSA]
+
+#RewriteRule ^(.*)/vids_my_pages$ router.php?router_page=vids_list&base_seo_url=1&view_list=group_page&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/vids_my_pages/$ router.php?router_page=vids_list&base_seo_url=2&view_list=group_page&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/vids_my_pages/([0-9]+)$ router.php?router_page=vids_list&base_seo_url=2&view_list=group_page&name_seo=$1&page=$2 [L,QSA]
+
+#RewriteRule ^(.*)/vids_my_groups$ router.php?router_page=vids_list&base_seo_url=1&view_list=group&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/vids_my_groups/$ router.php?router_page=vids_list&base_seo_url=2&view_list=group&name_seo=$1&page=1 [L,QSA]
+#RewriteRule ^(.*)/vids_my_groups/([0-9]+)$ router.php?router_page=vids_list&base_seo_url=2&view_list=group&name_seo=$1&page=$2 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !error=404
+#RewriteRule ^(.*[^/])$ search_results.php?display=profile&name_seo=$1 [L,QSA]
+#RewriteRule ^(.*[^/])$ router.php?router_page=search_results&name_seo=$1 [L,QSA]
+RewriteRule ^(.*)$ router.php?name_seo=$1 [L,QSA]
+
+
+RewriteRule ^_files/photo/(.*)_src.jpg _files/photo/$1_b.jpg [L,QSA]
+
+AddType text/x-component .htc
+AddDefaultCharset utf-8
+
+<IfModule mod_deflate.c>
+	<filesMatch "(?<!^proxy)\.(js|css|html|php|txt|log|json|obj)$">
+        SetOutputFilter DEFLATE
+		<ifModule mod_headers.c>
+			# Proxy fix
+			Header append Vary User-Agent env=!dont-vary
+		</IfModule>
+    </filesMatch>
+    <ifModule mod_env.c>
+        <FilesMatch "\.mp4">
+            SetEnv no-gzip 1
+        </FilesMatch>
+        <FilesMatch "avatar_face_save">
+            SetEnv no-gzip 1
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+</IfModule>
+
+<FilesMatch "_files/photo/">
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresDefault "access plus 1 year"
+    </IfModule>
+</FilesMatch>
+
+# iOS app 5+
+<ifModule mod_headers.c>
+    Header add Access-Control-Allow-Origin "*"
+    Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+</IfModule>

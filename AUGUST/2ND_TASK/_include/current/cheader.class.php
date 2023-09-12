@@ -696,9 +696,11 @@ class CHeader extends CHtmlBlock {
 
     function parseBlockImpact_mobile(&$html)
     {
-        global $p;
+        global $p, $g_user;
 
         $guid = guid();
+        if($guid && $g_user['role'] == 'group_admin') // added by sohel
+            $html->parse('group_user', false);
 
         if($html->blockExists('color_scheme_styles')) {
             $colorSchemeOptions = array(

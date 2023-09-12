@@ -1,12 +1,17 @@
 {header}
 <style type="text/css">
-#add_group_user_link > a {color: blue;font-weight: bold;}
+#add_group_user_link > a {
+    color: #eee;
+    font-weight: bold;
+    margin: 10px 10px 0;
+    display: inline-block;
+}
 .container {
-    width: 750px;
-  margin: 0 auto;
-  padding: 10px 0;
-  display: flex;
-  flex-wrap: wrap;
+    margin-left: 8px;
+    margin-right: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -15,7 +20,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 15px 15px 0 0px;
     padding: 12px;
-    width: calc(25% - 15px);
+    width: calc(50% - 15px);
     box-sizing: border-box;
 }
 .card-header {
@@ -42,6 +47,7 @@
     display: block;
     padding-bottom: 15px;
     transition: .5s;
+    color: #000;
 }
 .card-footer .p_action {
     text-align: center;
@@ -108,24 +114,27 @@
     }
 </script>
 <div class="col_center">
-    <div class="head icon_head_visitors">{page_title}</div>
+    <div id="search_head" class="head filter_head">
+        <div class="info" style="width: 308px;"><div class="bl">{page_title}</div></div>
+        <div class="count" style="width: 37px;"><span id="total_guser">0 TOTAL</span></div>
+        <div class="cl"></div>
+    </div>
+
     <span id="add_group_user_link"></span>
 
     <div class="container" id="cardData"></div>
 </div>
 <script type="text/javascript">
-    siteTitle = '{page_title}';
     $(function(){
         // set active color
-        var groupUsersLink = document.querySelector('a[href="./group_users"]');
-        groupUsersLink.style.color = '#8ad4ff';
+        $('.icon_msg .fa-users').css('color', '#fff');
 
         // previllage
         const gadmin_previllage = '{gadmin_previllage}';
         const previllage = gadmin_previllage.split(",");
 
         if(previllage[0] == 1) // add
-            $("#add_group_user_link").html(`<a href="{main_url}add_user" class="groupLink"><i class="fa fa-user-plus"></i> {l_add_group_user}</a>`)
+            $("#add_group_user_link").html(`<a class="go_to_page" data-type-loader="fade_btn" href="{main_url}add_user" class="groupLink"><i class="fa fa-user-plus"></i> {l_add_group_user}</a>`)
 
         // preloader
         $("#cardData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
@@ -137,6 +146,7 @@
             data:{ "cmd": "get_group_user_data", "cmd_ajax": 1},
             success:function(response){
                 if(response.length) {
+                    $("#total_guser").text(`${response.length} Total`)
                     var cardData = ``;
 
 
@@ -149,18 +159,18 @@
                             line = ` | `
 
                         if(previllage[2] == 1) // delete
-                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
+                            delTxt = `<a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="go_to_page deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
                         
                         if(response[i].ban_global == 1) // disabled
-                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_enable}" class="disableBtn">{l_disabled}</a>`;
+                            banTxt = ` | <a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_enable}" class="go_to_page disableBtn">{l_disabled}</a>`;
                         else
-                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_disable}" class="enableBtn">{l_enabled}</a>`;
+                            banTxt = ` | <a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_disable}" class="go_to_page enableBtn">{l_enabled}</a>`;
 
                         cardData += `
                             <div class="card">
                             <div class="card-header isDisabled${response[i].ban_global}">
-                                <a href="{url_main}${response[i].name_seo}"><img src="{url_main}_files/photo/${response[i].user_id}_${response[i].photo}_r.jpg" alt="Photo"></a>
-                                <a href="{url_main}${response[i].name_seo}" style="padding-top: 10px">${response[i].name}</a>
+                                <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter" return false;" href="{url_main}profile_view?user_id=${response[i].user_id}"><img src="{url_files}/photo/${response[i].user_id}_${response[i].photo}_r.jpg" alt="Photo"></a>
+                                <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter" href="{url_main}profile_view?user_id=${response[i].user_id}" style="padding-top: 10px">${response[i].name}</a>
                             </div>
                             <div class="card-content isDisabled${response[i].ban_global}">
                                 <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
