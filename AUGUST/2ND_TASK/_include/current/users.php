@@ -1244,7 +1244,10 @@ class CUsersProfile extends CUsers {
 
     function action() {
 
-        global $g_user;
+        global $g_user, $g;
+
+        if(isset($g['c_user_id'])) // added by sohel
+            self::$guid = $g['c_user_id'];
 
         $cmd = get_param('cmd');
         if ($cmd == 'lang') {
@@ -1414,7 +1417,6 @@ class CUsersProfile extends CUsers {
             }
             $html->parse($block, false);
         }
-
         $this->onItemImpact($html, $row, $i, $last);
     }
 

@@ -61,11 +61,8 @@
 </style>
 <script type="text/javascript" src="../_server/jquery/jquery.autosize.js{cache_version_param}"></script>
 <script id="script_replace_page">
-    urlPageHistory='{url_page_profile_view}{url_get_params}';
+    urlPageHistory='edit_user?name={name_seo}';
     urlPageHistorySetHash=true;
-    <!-- begin_profile_content_load_ajax -->
-    urlPageHistorySetHash=false;
-    <!-- end_profile_content_load_ajax -->
 </script>
 <!-- begin_profile_custom_header_js -->
 <!-- end_profile_custom_header_js -->
@@ -95,7 +92,7 @@
         photosCount:'{profile_number_photos}'*1,
         maxFileSize_photo:'{max_photo_file_size_limit}',
         maxFileSize_video:'{max_video_file_size_limit}',
-		live_price: '{live_price}'*1
+        live_price: '{live_price}'*1
     });
 </script>
 <div id="main_content_block" class="bl_profile">
@@ -145,8 +142,6 @@
                 <!-- end_profile_verification_verified -->
             </div>
         </div>
-        {profile_user_menu}
-        {profile_charts}
     </div>
     <div class="bl_profile_info">
         <div class="top">
@@ -493,7 +488,7 @@
         },500);
         <!-- end_show_photo_js -->
 
-		<!-- begin_show_video_js -->
+        <!-- begin_show_video_js -->
         setTimeout(function(){
            // $('#link-albums').click();
             //clProfile.setFnTabsEnd(function(){
