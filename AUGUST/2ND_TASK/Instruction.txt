@@ -4,7 +4,7 @@
 
 	group_users = Group Users
 	
-2. Create column
+2. ADD ALL ALTER STATEMENT
 	
 ALTER TABLE `user` CHANGE `role` `role` ENUM('user','group_admin') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user';
 
