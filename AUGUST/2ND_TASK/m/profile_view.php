@@ -9,7 +9,7 @@ This notice may not be removed from the source code. */
 
 $area = "login";
 include("./_include/core/pony_start.php");
-if(get_param('user_id')) {
+if(get_param('user_id') || get_param('user_id') == "") {
 
     User::accessCheckToProfile();
 

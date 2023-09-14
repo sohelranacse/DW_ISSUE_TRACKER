@@ -57,7 +57,6 @@ RewriteRule ^m/mutual_likes$ m/mutual_attractions.php [L,QSA]
 
 RewriteRule ^m/group_users$ m/group_users.php [L,QSA]
 RewriteRule ^m/add_user$ m/group_users_add.php [L,QSA]
-RewriteRule ^m/edit_user$ m/group_users_edit.php?name=$1 [L,QSA]
 
 RewriteRule ^m/live_list$ m/live_list.php [L,QSA]
 RewriteRule ^m/live$ m/live_streaming.php [L,QSA]
