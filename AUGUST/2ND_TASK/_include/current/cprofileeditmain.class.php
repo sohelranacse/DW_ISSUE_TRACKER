@@ -280,7 +280,7 @@ class CProfileEditMain extends UserFields
             $html->setvar('users_age', Common::getOption('users_age'));
         }
 
-        if($this->typeParse == 'personal_edit_urban' || $this->typeParse == 'edit_looking_for_urban') { // added by sohel
+        if($this->typeParse == 'personal_edit_urban' || $this->typeParse == 'edit_looking_for_urban' || $this->typeParse == 'profile_about_urban') { // added by sohel
             $html->setvar('e_user_id', $g_user['user_id']);
         }
 

@@ -163,8 +163,13 @@ var CProfile = function(guid, sending_messages_per_day) {
         var val=$.trim($jq('#profile_status_edit').val());
         $this.hideStatusEditor(val);
         if(val!==$this.status_value){
+
+            var e_user_id = 0
+            if($("#ua_user_id").val())
+                e_user_id = $("#ua_user_id").val()
+
             $.ajax({type:'POST',
-                url:url_server+'?cmd=update_profile_status',
+                url:url_server+'?cmd=update_profile_status&id='+e_user_id,
                 data:{data:val},
                 beforeSend: function(){
                     $jq('#profile_status_editor_btn').addLoader();
@@ -784,7 +789,15 @@ var CProfile = function(guid, sending_messages_per_day) {
             $this.loadTabs(id);
             return;
         }
-        $.post(url_ajax+'?cmd='+cmd+'&view=mobile',data,function(res){
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+        console.log(`${url_ajax}?cmd=${cmd}&view=mobile&e_user_id=${e_user_id}`);
+
+        // 1. profile edit main - name, location - pp_profile_edit_main
+        // 2. about - pp_profile_about_edit
+        $.post(`${url_ajax}?cmd=${cmd}&view=mobile&e_user_id=${e_user_id}`,data,function(res){
             var data=checkDataAjax(res);
             if(data!==false){
                 $this.setFnTabsEnd(function(){$el[0]&&$el.removeLoader()});

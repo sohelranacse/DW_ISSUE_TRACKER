@@ -1,0 +1,330 @@
+<div id="pp_profile_edit_main" class="pp_popup_editor visible">
+<form id="frm_profile_edit_main" name="frm_profile_edit_main"  method="post" action="../ajax.php?cmd=profile_edit_main_save&view=mobile">
+<input type="hidden" name="ajax" class="ajax" value="0"/>
+<input type="hidden" name="e_user_id" value="{e_user_id}" />
+<input id="profile_edit_main_geo_position_lat" type="hidden" name="geo_position[lat]" class="ajax" value=""/>
+<input id="profile_edit_main_geo_position_long" type="hidden" name="geo_position[long]" class="ajax" value=""/>
+<div class="bl arrow">
+    <div class="title">{l_edit_profile}
+    <div class="cl"></div>
+    </div>
+</div>
+<div class="bl_frm">
+    <div class="bl">
+        <label>{l_name_or_nickname}</label>
+        <div id="profile_edit_main_nickname_error" class="field">
+            <!-- begin_name_edit_on -->
+            <input id="profile_edit_main_nickname" class="inp nickname" name="nickname" type="text" value="{nickname}" title="{nickname_title}"/>
+            <!-- end_name_edit_on -->
+            <!-- begin_name_edit_off -->
+            <input class="inp nickname disabled" name="nickname_o" type="text" value="{nickname}" disabled/>
+            <!--<div class="info">{nickname}</div>-->
+            <!-- end_name_edit_off -->
+        </div>
+    </div>
+    <!-- begin_field_orientation_edit_bl -->
+    <div class="bl">
+        <label>{l_i_am}</label>
+        <div class="field">
+            <!-- begin_field_orientation_edit_on -->
+            <select id="profile_edit_main_orientation" name="orientation">
+            {orientation_options}
+            </select>
+            <!-- end_field_orientation_edit_on -->
+            <!-- begin_field_orientation_edit_off -->
+            <div class="info">{field_orientation_value}</div>
+            <!-- end_field_orientation_edit_off -->
+        </div>
+    </div>
+    <!-- end_field_orientation_edit_bl -->
+    <div class="bl">
+        <label>{l_birthday}</label>
+        <div id="profile_edit_main_birthday_error" class="field">
+            <select id="profile_edit_main_day" name="day" class="select_pad birthday">
+            {day_options}
+            </select>
+            <select id="profile_edit_main_month" name="month" class="select_pad birthday" onChange="updateDay('month','frm_profile_edit_main','year','month','day')">
+            {month_options}
+            </select>
+            <select id="profile_edit_main_year" name="year" class="birthday" onChange="updateDay('year','frm_profile_edit_main','year','month','day')">
+            {year_options}
+            </select>
+        </div>
+    </div>
+    <!-- begin_location -->
+    <div class="bl">
+        <label>{l_location}</label>
+        <div id="profile_edit_main_location_error" class="field">
+            <select name="country" id="country" data-location="states" class="geo select_pad">
+            {country_options}
+            </select>
+            <select name="state" id="state" data-location="cities" class="geo select_pad">
+            {state_options}
+            </select>
+            <select name="city" id="city">
+            {city_options}
+            </select>
+        </div>
+    </div>
+    <!-- end_location -->
+</div>
+</form>
+<div class="frm_btn frm_edit">
+    <div class="double">
+        <span class="l">
+            <button class="btn small white_frame frm_editor_cancel">{l_cancel}</button>
+        </span>
+        <span class="r">
+            <button class="btn small pink frm_editor_save" disabled>{l_save}</button>
+        </span>
+    </div>
+</div>
+<script>
+    var pp_profile_edit_main=$('#pp_profile_edit_main'),
+        nick_profile_edit_main=$('#profile_edit_main_nickname', pp_profile_edit_main),
+        nick_profile_edit_main_error=$('#profile_edit_main_nickname_error', pp_profile_edit_main),
+        pp_profile_edit_main_frm=$('#frm_profile_edit_main', pp_profile_edit_main),
+        pp_profile_edit_main_btn_save=$('.frm_editor_save', pp_profile_edit_main),
+        pp_profile_edit_main_btn_cancel=$('.frm_editor_cancel', pp_profile_edit_main),
+        pp_profile_edit_main_birthday_error=$('#profile_edit_main_birthday_error', pp_profile_edit_main),
+        pp_profile_edit_main_birthday=$('.birthday',pp_profile_edit_main),
+        pp_profile_edit_main_month=$('#profile_edit_main_month'),
+        pp_profile_edit_main_state=$('#state', pp_profile_edit_main_frm),
+        pp_profile_edit_main_city=$('#city', pp_profile_edit_main_frm),
+        pp_profile_edit_main_location=$('#profile_edit_main_location_error', pp_profile_edit_main_frm),
+        pp_profile_edit_main_geo_position_lat=$('#profile_edit_main_geo_position_lat', pp_profile_edit_main_frm),
+        pp_profile_edit_main_geo_position_long=$('#profile_edit_main_geo_position_long', pp_profile_edit_main_frm),
+        ppEditMainInfo = {}, last_exists_username='#', isErrorEditMainInfo = false, minAge='{users_age}'*1;
+
+    $('.frm_editor_cancel', pp_profile_edit_main).click(function (){
+        if(!isModifiedMainInfo()){
+            clProfile.loadTabs('#tabs-1',resetEditMainInfo)
+        }else{
+            resetEditMainInfo()
+        }
+        return false;
+    })
+
+    $('#profile_edit_main_orientation').on('change', setDisabledSaveEditMain)
+
+    pp_profile_edit_main_birthday=$('.birthday',pp_profile_edit_main).on('change', function(){
+        if(birthDateToAge()){
+            resetError(pp_profile_edit_main_birthday_error)
+        }else{
+            showErrorFrm(pp_profile_edit_main_birthday_error,'{j_incorrect_date}')
+        }
+        setDisabledSaveEditMain();
+    }).focus(function(){
+        showErrorWrongFrm(pp_profile_edit_main_birthday_error)
+    }).blur(function(){
+        hideError(pp_profile_edit_main_birthday_error);
+    })
+
+    $('.geo', pp_profile_edit_main_frm).change(function() {
+        var cmd=$(this).data('location');
+        $.ajax({type: 'POST',
+                url: url_main+'tools_ajax.php',
+                data: { cmd:cmd,
+                        select_id:this.value},
+                        beforeSend: function(){
+                            $('.geo, #city', pp_profile_edit_main_frm).prop('disabled', true);
+                        },
+                        success: function(res){
+                            var data=checkDataAjax(res);
+                            if (data) {
+                                var option='<option value="0">{j_choose_a_city}</option>';
+                                if (cmd == 'states') {
+                                    pp_profile_edit_main_state.html('<option value="0">{j_choose_a_state}</option>' + data.list);
+                                    pp_profile_edit_main_city.html(option);
+                                } else {
+                                    pp_profile_edit_main_city.html(option + data.list);
+                                }
+                            }
+                            $('.geo, #city', pp_profile_edit_main_frm).prop('disabled', false);
+                            hideErrorEditMain(pp_profile_edit_main_location);
+                        }
+                    })
+        return false;
+    }).focus(function(){
+        showErrorWrongFrm(pp_profile_edit_main_location)
+    }).blur(function(){
+        hideError(pp_profile_edit_main_location);
+    })
+
+    pp_profile_edit_main_city.change(function() {
+        hideErrorEditMain(pp_profile_edit_main_location)
+    }).focus(function(){
+        showErrorWrongFrm(pp_profile_edit_main_location)
+    }).blur(function(){
+        hideError(pp_profile_edit_main_location);
+    })
+
+    nick_profile_edit_main.on('change propertychange input', function(){
+        var val=this.value, l=$.trim(val).length;
+        isErrorEditMainInfo = true;
+        if (/[#&'"\/\\<]/.test(val)){
+            showErrorFrm(nick_profile_edit_main.focus(),'{j_invalid_username}');
+        } else if (l<'{minLength}'*1||l>'{maxLength}'*1){
+            showErrorFrm(nick_profile_edit_main.focus(),this.title)
+        } else if (last_exists_username.search('#'+val+'#')+1){
+            showErrorFrm(nick_profile_edit_main.focus(),'{j_exists_username}')
+        } else {
+            isErrorEditMainInfo = false;
+            resetError(nick_profile_edit_main);
+        }
+        setDisabledSaveEditMain();
+    }).focus(function(){
+        showErrorWrongFrm(nick_profile_edit_main);
+    }).blur(function(){
+        hideError(nick_profile_edit_main);
+    })
+
+    function isModifiedMainInfo() {
+        var is=0;
+        $('input:not(.ajax):not(.disabled), select', pp_profile_edit_main_frm).each(function(){
+            is|=(this.value!=ppEditMainInfo[this.name])
+        })
+        return is;
+    }
+
+    function showErrorEditMain($el,msg){
+        var $vis=$('.custom_tooltip:visible'),$tip=$('#tip_'+$el[0].id);
+        if($vis[0]&&$tip[0]&&$vis[0]!=$tip[0])
+        hideErrorEl($('.custom_tooltip:visible'));
+        showErrorFrm($el,msg);
+        setDisabledSaveEditMain();
+    }
+
+    function hideErrorEditMain($el){
+        resetError($el);
+        setDisabledSaveEditMain();
+    }
+
+    function setDisabledSaveEditMain() {
+        if (isModifiedMainInfo()){
+            pp_profile_edit_main_btn_cancel.text('{j_reset}');
+            var isLocation=true;
+            if(pp_profile_edit_main_state[0]){
+                isLocation=(pp_profile_edit_main_state.val()*1)&&(pp_profile_edit_main_city.val()*1);
+            }
+            if(!isErrorEditMainInfo&&isLocation&&birthDateToAge()){
+                pp_profile_edit_main_btn_save.prop('disabled',false);
+            }else{
+                pp_profile_edit_main_btn_save.prop('disabled', true);
+            }
+        } else {
+            pp_profile_edit_main_btn_cancel.text('{j_cancel}');
+            pp_profile_edit_main_btn_save.prop('disabled', true);
+        }
+    }
+
+    function disabledProfileEditMain(is){
+        if(is){
+            pp_profile_edit_main_btn_save.html(getLoader('btn_action_loader',false,true)).prop('disabled',is);
+        }else{
+            pp_profile_edit_main_btn_save.text('{j_save}').prop('disabled', true);
+            pp_profile_edit_main_btn_cancel.text('{j_reset}');
+        }
+        $('input:not(.ajax):not(.disabled), select', pp_profile_edit_main_frm).prop('disabled',is);
+        pp_profile_edit_main_btn_cancel.prop('disabled',is);
+    }
+
+    function setEditMainInfo() {
+        $('input:not(.ajax):not(.disabled), select', pp_profile_edit_main_frm).each(function(){
+            ppEditMainInfo[this.name]=this.value;
+            var $el=$(this);
+            if($el.is('.geo')||this.name=='city'){
+                ppEditMainInfo[this.name+'_html']=$el.html();
+            }
+        })
+    }
+    setEditMainInfo();
+
+    function resetEditMainInfo() {
+        $('input:not(.ajax):not(.disabled), select', pp_profile_edit_main_frm).each(function(){
+            var $el=$(this);
+            if($el.is('.geo')||this.name=='city'){
+                $el.html(ppEditMainInfo[this.name+'_html']);
+            }else{
+                this.value=ppEditMainInfo[this.name];
+                this.name=='month'&&pp_profile_edit_main_month.change();
+            }
+            $el.closest('.wrong').removeClass('wrong')
+        })
+        isErrorEditMainInfo=false;
+        resetAllError()
+    }
+
+    function birthDateToAge() {
+        var birth=new Date($('#profile_edit_main_year').val(), $('#profile_edit_main_month').val()-1, $('#profile_edit_main_day').val()),
+            now = new Date(),
+            age = now.getFullYear() - birth.getFullYear();
+            age = now.setFullYear(1972) < birth.setFullYear(1972) ? age - 1 : age;
+        return age>=minAge;
+    }
+
+    pp_profile_edit_main_btn_save.click(function(){
+        pp_profile_edit_main_frm.submit();
+    })
+
+    pp_profile_edit_main_frm.submit(function(){
+        nick_profile_edit_main.val($.trim(nick_profile_edit_main.val()));
+        if (!isModifiedMainInfo()) return false;
+        pp_profile_edit_main_geo_position_lat.val(geoPoint.lat);
+        pp_profile_edit_main_geo_position_long.val(geoPoint.long);
+        this.ajax.value=1;
+        $(this).ajaxSubmit({success: profile_edit_main_response});
+        this.ajax.value=0;
+        disabledProfileEditMain(true);
+        return false;
+    })
+
+    function profile_edit_main_response(data) {
+        var data=checkDataAjax(data);
+        if(data!==false){
+            var $data=$(data);
+            if ($data.is('error')) {
+                disabledProfileEditMain(false);
+                var nick=nick_profile_edit_main.val();
+                var is=true;
+                $('span',$data).each(function(){
+                    var msg=$(this).text(),idError='#profile_edit_main_'+this.id+'_error';
+                    if(this.id=='nickname')idError='#profile_edit_main_'+this.id;
+                    showErrorFrm($(idError),msg,is&&$('#pp_profile_edit_main').is(':visible'));
+                    if(this.id=='nickname'&&msg=='{j_exists_username}'&&last_exists_username.search('#'+nick+'#')<0){
+                        last_exists_username+=nick+'#';
+                    }
+                    is=false;
+                    pp_profile_edit_main_btn_save.prop('disabled', true);
+                })
+            } else {
+                updateSiteSeo(data.seo);
+                clPhoto.replacePhotoMainChangeGander(data.gender);
+                if(data.star_sign!=''){$('#personal_info_value_star_sign').html(data.star_sign)}
+                $('#profile_name > span').text(data.title_name).css('font-size','');
+                clProfile.prepareProfileName();
+                data.city&&$('#profile_city').text(data.city);
+                if($('#pp_profile_edit_main').is(':visible')){
+                    showAlert(l('changes_saved'), function(){
+                        clProfile.loadTabs('#tabs-1',function(){
+                            setEditMainInfo();
+                            disabledProfileEditMain(false);
+                            setDisabledSaveEditMain();
+                        })
+                    })
+                }else{
+                    setEditMainInfo();
+                    disabledProfileEditMain(false);
+                }
+            }
+        }else{
+            if($('#pp_profile_edit_main').is(':visible')){
+                serverError();
+            }
+            disabledProfileEditMain(false);
+            resetAllError();
+            resetEditMainInfo();
+        }
+    }
+</script>
+</div>

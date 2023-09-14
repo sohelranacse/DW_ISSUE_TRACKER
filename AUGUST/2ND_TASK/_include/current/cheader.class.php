@@ -802,18 +802,17 @@ class CHeader extends CHtmlBlock {
 
         $html->setvar('request_user_name', '');
         $the_user_info = User::getInfoFull($paramUid);
-        if(isset($the_user_info['under_admin'])) { // added by sohel
+        if(isset($the_user_info['under_admin']) && !isset($g['c_user_id'])) { // added by sohel => if he under the group admin
             $paramUid = $the_user_info['under_admin'];
             $ua_info = User::getInfoFull($paramUid);
             $html->setvar('request_user_name', ' ('.$ua_info['name'].')'); // group admin name
         }
 
-        if(isset($g['c_user_id'])) 
+        if(isset($g['c_user_id'])) // edit page
             $html->setvar('request_user_id_mobile', $g['c_user_id']);
         else 
             $html->setvar('request_user_id_mobile', $paramUid);
         
-
         $isUserOnline = intval(User::isOnline($paramUid, null, true));
         $html->setvar('request_user_online', $isUserOnline);
 

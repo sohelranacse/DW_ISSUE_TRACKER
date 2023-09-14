@@ -1571,6 +1571,9 @@ class CUsersProfile extends CUsers {
 
         parent::onItem($html, $row, $i, $last);
 
+        if(isset($g['c_user_id']))
+            $g_user['user_id'] = $g['c_user_id'];
+
         $optionTmplSet = Common::getOption('set', 'template_options');
         $optionTmplName = Common::getOption('name', 'template_options');
         $guid = self::$guid;

@@ -378,6 +378,10 @@ if ($cmd == 'login') {
 } elseif ($cmd == 'pp_profile_about_edit' || $cmd == 'update_about_field') {
     $responsePage = false;
     if ($isAuth) {
+        
+        if(get_param('e_user_id'))
+            $guid = get_param('e_user_id', 0);
+
         $tmpl = "{$dirTmpl}_pp_profile_edit_about.html";
         if (Common::isOptionActive('profile_basic_fields_edit_to_page', 'template_options')) {
             $tmpl = null;
