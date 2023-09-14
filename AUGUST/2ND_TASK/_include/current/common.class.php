@@ -3650,7 +3650,11 @@ JS;
 
             $url = $mobile . $p . ( $queryString != '' ? '?' . $queryString : '' );
 
-            $uid = guid();
+            if(isset($g['c_user_id'])) // added by sohel
+                $uid = $g['c_user_id'];
+            else
+                $uid = guid();
+
             $groupId = false;
             $groupId = Groups::getParamId();
 
@@ -3660,7 +3664,7 @@ JS;
             } elseif (($p == 'search_results.php' && get_param('display') == 'profile')
                 || $p == 'profile_view.php') {
                 $url = 'profile';
-                if ($mobile) {
+                if ($mobile && !isset($g['c_user_id'])) {
                     $uid = get_param('user_id', guid());
                 } elseif ($p == 'search_results.php') {
                     $uid = User::getRequestUserId();

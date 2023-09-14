@@ -61,8 +61,11 @@
 </style>
 <script type="text/javascript" src="../_server/jquery/jquery.autosize.js{cache_version_param}"></script>
 <script id="script_replace_page">
-    urlPageHistory='edit_user?name={name_seo}';
+    urlPageHistory='{url_page_profile_view}{url_get_params}';
     urlPageHistorySetHash=true;
+    <!-- begin_profile_content_load_ajax -->
+    urlPageHistorySetHash=false;
+    <!-- end_profile_content_load_ajax -->
 </script>
 <!-- begin_profile_custom_header_js -->
 <!-- end_profile_custom_header_js -->
@@ -142,6 +145,7 @@
                 <!-- end_profile_verification_verified -->
             </div>
         </div>
+        
     </div>
     <div class="bl_profile_info">
         <div class="top">

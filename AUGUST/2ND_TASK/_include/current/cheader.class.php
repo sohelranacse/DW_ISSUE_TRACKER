@@ -696,7 +696,7 @@ class CHeader extends CHtmlBlock {
 
     function parseBlockImpact_mobile(&$html)
     {
-        global $p, $g_user;
+        global $p, $g_user, $g;
 
         $guid = guid();
         if($guid && $g_user['role'] == 'group_admin') // added by sohel
@@ -808,9 +808,15 @@ class CHeader extends CHtmlBlock {
             $html->setvar('request_user_name', ' ('.$ua_info['name'].')'); // group admin name
         }
 
-        $html->setvar('request_user_id_mobile', $paramUid);
+        if(isset($g['c_user_id'])) 
+            $html->setvar('request_user_id_mobile', $g['c_user_id']);
+        else 
+            $html->setvar('request_user_id_mobile', $paramUid);
+        
+
         $isUserOnline = intval(User::isOnline($paramUid, null, true));
         $html->setvar('request_user_online', $isUserOnline);
+
         if (Common::isAppAndroid() && $html->blockExists('app_android_style')) {
             if (Common::getOption('lang_loaded_rtl', 'main')) {
                 $html->parse('app_android_style_rtl', false);

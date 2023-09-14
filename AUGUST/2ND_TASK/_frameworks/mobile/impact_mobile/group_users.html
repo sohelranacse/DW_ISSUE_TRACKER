@@ -134,6 +134,11 @@
         })
     }
 </script>
+<script id="script_replace_page">
+    urlPageHistory='group_users';
+    
+    urlPageHistorySetHash=true;    
+</script>
 <div class="col_center">
     <div id="search_head" class="head filter_head">
         <div class="info" style="width: 308px;"><div class="bl">{page_title}</div></div>
@@ -177,7 +182,7 @@
                     for(var i=0; i < response.length; i++) {
                         var editTxt = delTxt = line = banTxt = ""
                         if(previllage[1] == 1 && response[i].ban_global == 0) // edit
-                            editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}" title="{l_edit}" class="editBtn"><i class="fa fa-edit"></i></a>`
+                            editTxt = `<a data-type-loader="fade_btn" href="{url_main}profile_view?name=${response[i].name_seo}" title="{l_edit}" class="editBtn go_to_page"><i class="fa fa-edit"></i></a>`
 
                         if(previllage[1] == 1 && previllage[2] == 1 && response[i].ban_global == 0)
                             line = ` | `
