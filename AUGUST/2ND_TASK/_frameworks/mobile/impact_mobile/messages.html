@@ -1,0 +1,47 @@
+{header}
+<script id="script_replace_page">
+    urlPageHistory='{url_page_messages}';
+</script>
+<script>messages.clearCacheAll();</script>
+
+<div class="head filter_head">
+    <div class="info"><div class="bl">Recent Chats</div></div>
+    <div class="cl"></div>
+</div>
+
+<div class="no_one_found to_hide">
+    <span>{you_have_no_messages_yet}</span>
+</div>
+<div id="messages_box" class="message_list">
+    {users_list}
+</div>
+<div id="loader_general" class="css_loader loader_general_chat">
+    <div class="spinner spinnerw center">
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+    </div>
+</div>
+<script>
+    messages.setData({
+        imHistoryMessages : '{im_history_messages}'*1,
+    });
+    messages.setLastId('{last_id}');
+    messages.initGeneral();
+
+
+    $(function(){
+        // set active color
+        $('.icon_msg .fa-comment').css('color', '#fff');
+    })
+</script>
+{footer}
