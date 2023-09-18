@@ -3460,12 +3460,15 @@ static function profileComplite() {
 
     static public function getLookingForImpact(&$html, $uid, $row = null)
     {
-        global $g_user;
+        global $g_user, $g;
 
         $guid = $g_user['user_id'];
 
         if(EUsers_List::$c_user_id) // added by sohel
             $guid = EUsers_List::$c_user_id;
+
+        // edit for mobile version
+        $guid = isset($g['c_user_id']) ? $g['c_user_id'] : $guid;
 
         if ($row == null) {
             $row = User::getInfoBasic($uid);

@@ -98,7 +98,6 @@
         live_price: '{live_price}'*1
     });
 </script>
-<input type="hidden" id="ua_user_id" value="{user_id}" />
 <div id="main_content_block" class="bl_profile">
     <div id="main_content_block_info" class=""><!-- accel -->
     <div class="bl_profile_pic">
@@ -148,6 +147,7 @@
         </div>
         
     </div>
+    <input type="hidden" id="ua_user_id" value="{user_id}" />
     <div class="bl_profile_info">
         <div class="top">
             <div class="figure"></div>
@@ -342,7 +342,7 @@
         <div id="albums_switch" class="profile_info_content profile_info_content_photo">
         <!-- begin_photo_public_block -->
         <div id="albums-public_to_scroll" class="list_photos_public list_photos">
-            <!-- begin_photo_public_add -->
+
             <div id="photo_add_public" class="item add_photo">
                 <div class="add_file_icon" onclick="return clPhoto.checkUploadLimit();">
                     <form  onsubmit="clPhoto.submitUpload($(this)); return false;" data-type="public" class="form_add_photo" method="post" enctype="multipart/form-data" action="{url_main}profile_photo.php?type=public">
@@ -352,7 +352,7 @@
                     </form>
                 </div>
             </div>
-            <!-- end_photo_public_add -->
+
             <!-- begin_photo_public -->
             <div id="photo_item_{photo_public_id}" class="item">
                 <div class="item_cont loader" onclick="clPhoto.openGalleryId('{photo_public_id}', $(this), event);">
@@ -363,13 +363,12 @@
                 <!-- begin_photo_public_not_checked -->
                 <div class="not_checked_photo"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
                 <!-- end_photo_public_not_checked -->
-                <!-- begin_photo_public_action -->
+
                 <div class="icons_photo">
                     <span class="icon_background" onclick="clPhoto.confirmPhotoDelete('{photo_public_id}');"><span class="icon cancel"></span></span>
-                    <span class="icon_background" onclick="clPhoto.photoAccess('{photo_public_id}');"><span class="icon lock icon_status"></span></span>
+                    <!-- <span class="icon_background" onclick="clPhoto.photoAccess('{photo_public_id}');"><span class="icon lock icon_status"></span></span> -->
                     <span class="icon_background" onclick="clPhoto.photoRotate('{photo_public_id}');"><span class="icon rotate"></span></span>
                 </div>
-                <!-- end_photo_public_action -->
                 </div>
             </div>
             <!-- end_photo_public -->

@@ -61,19 +61,21 @@ class CProfilePhoto extends CHtmlBlock
     {
         global $g, $g_user;
 
+        $guid = get_param('e_user_id') ? get_param('e_user_id') : $g_user['user_id'];
+
 
         $type = get_param('type', 'public');
         $isPrivate = ($type == 'private') ? true : false;
         $pending = get_param('pending', 'P');
 
-        $id = uploadphoto($g_user['user_id'], '', '', $pending, $dir, false, $inputFile, $isPrivate, true, $isCity);
+        $id = uploadphoto($guid, '', '', $pending, $dir, false, $inputFile, $isPrivate, true, $isCity);
 
         CStatsTools::count('photos_uploaded');
         $response = array();
 		$photo = array();
 
 		$photo['photo_id'] = $id;
-		$photo['user_id'] = $g_user['user_id'];
+		$photo['user_id'] = $guid;
 		$photo['private'] = ($type == 'private') ? 'Y' : 'N';
 		$photo['version'] = 0;
 		$photo['visible'] = $pending;

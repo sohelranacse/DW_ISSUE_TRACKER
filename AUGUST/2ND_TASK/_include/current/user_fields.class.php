@@ -107,6 +107,7 @@ class UserFields extends CHtmlBlock
 
     function __construct($name, $html_path, $isTextTemplate = false, $textTemplate = false, $noTemplate = false, $typeParse = false, $uid = false, $update_id = 0)
     {
+        global $g;
         $this->typeParse = $typeParse;
         $this->userId = $uid;//(empty($uid)) ? guid() : $uid;
         $this->paramDisplay = get_param('display');
@@ -119,6 +120,9 @@ class UserFields extends CHtmlBlock
         $this->c_user_id = EUsers_List::$c_user_id;
         if($this->c_user_id)
             self::$guid = $this->c_user_id;
+
+        // edit for mobile version
+        self::$guid = isset($g['c_user_id']) ? $g['c_user_id'] : self::$guid;
 
         if($update_id) // for update user info
             self::$guid = $update_id;

@@ -1496,6 +1496,11 @@ class CUsersProfile extends CUsers {
                 $imReplyOnNewContactRateLevel = CIm::replyOnNewContactRateLevel($row);
                 $html->setvar('im_reply_rate_class', $imReplyOnNewContactRateLevel);
                 $html->setvar('im_reply_rate_title', toAttrL('im_reply_rate_' . $imReplyOnNewContactRateLevel));
+
+                // if group admin visit his user profile, then not showing message option
+                if(self::$guid !== $row['under_admin'])
+                    $html->parse('not_group_admin_of_the_user', false);
+
                 if ($html->blockExists('profile_im_reply_rate')) {
                     $html->parse('profile_im_reply_rate', false);
                 }
@@ -1571,8 +1576,8 @@ class CUsersProfile extends CUsers {
 
         parent::onItem($html, $row, $i, $last);
 
-        if(isset($g['c_user_id']))
-            $g_user['user_id'] = $g['c_user_id'];
+        // mobile version profile edit purpose
+        $g_user['c_user_id'] = isset($g['c_user_id']) ? $g['c_user_id'] : 0;
 
         $optionTmplSet = Common::getOption('set', 'template_options');
         $optionTmplName = Common::getOption('name', 'template_options');
@@ -1614,7 +1619,7 @@ class CUsersProfile extends CUsers {
                     $html->parse("{$blockStatus}_visitor");
                 }
                 if (self::$tmplName != 'impact_mobile'
-                    || (self::$tmplName == 'impact_mobile' && $row['user_id'] == $g_user['user_id'])){
+                    || (self::$tmplName == 'impact_mobile' && ($row['user_id'] == $g_user['user_id'] || $row['user_id'] == $g_user['c_user_id']))){
                     $html->parse($blockStatus);
                 }
             } elseif ($this->m_is_me) {
@@ -1633,7 +1638,7 @@ class CUsersProfile extends CUsers {
         $blockLookingFor = 'profile_looking_for';
         if ($html->varExists($blockLookingFor)
             && (UserFields::isActive('i_am_here_to') || UserFields::isActive('orientation') || UserFields::isActive('age_range'))) {
-            if ($row['user_id'] == $g_user['user_id']) {
+            if ($row['user_id'] == $g_user['user_id'] || $row['user_id'] == $g_user['c_user_id']) {
                 $html->setvar($blockLookingFor . '_class', 'edit');
                 $html->parse($blockLookingFor . '_edit');
             }

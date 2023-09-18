@@ -232,12 +232,14 @@ var positionTabWall='{position_tab_wall}';
                         </div>
                     </div>
                     <div class="bl_btn">
+                        <!-- begin_not_group_admin_of_the_user -->
                         <button title="{im_reply_rate_title}" data-cl-loader="loader_profile_to_open_chat" data-type-loader="fade_btn" class="btn dgrey small btn_open_im_top" onclick="Profile.toOpenIm('{ua_user_id}', $(this));">
                             <div class="decor">
                                 {l_profile_message}
                                 <div class="border_decor im_reply_rate_{im_reply_rate_class}"></div>
                             </div>
                         </button>
+                        <!-- end_not_group_admin_of_the_user -->
                         <button id="btn_send_like" title="{mutual_attraction_active_title}" class="btn like_frame small <!-- begin_mutual_attraction_active -->active<!-- end_mutual_attraction_active -->" onclick="Profile.sendLikeProfile('{user_id}',$(this));">
                             <span class="bl">
                                 <span class="like"></span>

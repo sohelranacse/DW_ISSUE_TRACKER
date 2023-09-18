@@ -182,6 +182,8 @@
             <!-- end_profile_status -->
             <!-- begin_profile_im_reply_rate -->
             <div class="bl_profile_btn">
+
+                <!-- begin_not_group_admin_of_the_user -->
                 <div class="bl">
                     <button data-cl-loader="btn_profile_to_message_one" data-type-loader="fade_btn" data-id="{ua_user_id}" data-url="{url_main}{url_page_messages}?display=one_chat&user_id={user_id}" onclick="clProfile.openProfileMsg($(this));" class="profile_btn_messages btn dgrey small">
                         <div class="decor">
@@ -190,6 +192,7 @@
                         </div>
                     </button>
                 </div>
+                <!-- end_not_group_admin_of_the_user -->
                 <div class="bl">
                     <div id="btn_send_like" class="icon <!-- begin_mutual_attraction_active -->selected<!-- end_mutual_attraction_active -->" onclick="clProfile.sendLikeProfile('{user_id}',$(this));">
                         <i class="fa fa-star" aria-hidden="true"></i>
