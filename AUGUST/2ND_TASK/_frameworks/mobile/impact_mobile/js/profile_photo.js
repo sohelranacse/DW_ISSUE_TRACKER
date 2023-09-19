@@ -161,8 +161,13 @@ var CProfilePhoto = function(uid) {
         var pid=$this.pid;
         if($this.isAction(pid))return;
         var $el=$('#photo_item_'+pid),pidD=$this.getPhotoDefaultId();
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
         $.ajax({type:'POST',
-                url:url_main+'profile_photo.php?cmd=photo_delete',
+                url:url_main+'profile_photo.php?cmd=photo_delete&e_user_id='+e_user_id,
                 data:{ajax:1,photo_id:pid,get_photo_id:0},
                 beforeSend: function(){
                     $this.showLoaderAction($el);
@@ -270,7 +275,11 @@ var CProfilePhoto = function(uid) {
                 fnShowBtn(pid,angle);
                 $this.serverActionError($el,pid);
             };
-        $.ajax({url:url_main+'profile_photo.php?cmd=photo_rotate',
+
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+        $.ajax({url:url_main+'profile_photo.php?cmd=photo_rotate&e_user_id='+e_user_id,
                 type:'POST',
                 data:{ajax:1,photo_id:pid,angle:90},
                 beforeSend: function(){
@@ -399,7 +408,12 @@ var CProfilePhoto = function(uid) {
         if ($this.$contextUploadFile[data.id_upload] && pid) {
             var src = url_files+data.src_r,
                 $cnt = $this.$contextUploadFile[data.id_upload];
-            $.post(url_main+'profile_photo.php?cmd=publish_one_photo',{ajax:1,photo_id:pid,get_photo_info:1},
+
+            var e_user_id = 0
+            if($("#ua_user_id").val())
+                e_user_id = $("#ua_user_id").val()
+
+            $.post(url_main+'profile_photo.php?cmd=publish_one_photo',{ajax:1,photo_id:pid,get_photo_info:1,e_user_id},
                 function(res){
                     var data=checkDataAjax(res);
                     if (data!==false){

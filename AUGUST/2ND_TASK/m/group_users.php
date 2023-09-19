@@ -68,8 +68,8 @@ $page = new CGroupUsersMobile("", "{$dirTmpl}group_users.html");
 $header = new CHeader('header', "{$dirTmpl}_header.html");
 $page->add($header);
 
-$footer = new CFooter("footer", "{$dirTmpl}_footer.html");
-$page->add($footer);
+// $footer = new CFooter("footer", "{$dirTmpl}_footer.html");
+// $page->add($footer);
 
 loadPageContentAjax($page);
 

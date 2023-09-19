@@ -30,11 +30,12 @@ class CPhoto extends CHtmlBlock
         if ($isAjaxRequest && $cmd != 'insert') {
             $responseData = false;
             if ($cmd == 'publish_one_photo') {
+                $guid = get_param('e_user_id') ? get_param('e_user_id') : $g_user['user_id'];
                 $pid = get_param('photo_id');
                 if ($g_user['user_id'] && $pid) {
                     $responseData = CProfilePhoto::publishOnePhoto($pid);
                     if (get_param('get_photo_info')) {
-                        $responseData = CProfilePhoto::preparePhotoList($g_user['user_id'], '`photo_id` ASC') + CProfilePhoto::prepareVideoList($g_user['user_id']);
+                        $responseData = CProfilePhoto::preparePhotoList($guid, '`photo_id` ASC') + CProfilePhoto::prepareVideoList($guid);
                         if ($responseData && $optionTmplName == 'impact_mobile') {
                             $responseData = array(
                                 'gallery_info' => $responseData,
@@ -59,8 +60,9 @@ class CPhoto extends CHtmlBlock
             }elseif ($cmd == "set_photo_private"){
                 $responseData = CProfilePhoto::setPhotoPrivate(get_param('photo_id'));
             }elseif ($cmd == "photo_delete"){
+                $guid = get_param('e_user_id') ? get_param('e_user_id') : $g_user['user_id'];
                 $getPhotoDefaultId = intval(get_param('get_photo_id', 1));
-                $responseData = CProfilePhoto::deletePhoto(get_param('photo_id'), $getPhotoDefaultId);
+                $responseData = CProfilePhoto::deletePhoto(get_param('photo_id'), $getPhotoDefaultId, $guid);
                 if ($responseData && $optionTmplName == 'impact_mobile') {
                     $responseData = array(
                         'gallery_info' => $responseData,
@@ -68,7 +70,8 @@ class CPhoto extends CHtmlBlock
                     );
                 }
             }elseif ($cmd == "photo_rotate"){
-                $responseData = CProfilePhoto::photoRotate();
+                $guid = get_param('e_user_id') ? get_param('e_user_id') : $g_user['user_id'];
+                $responseData = CProfilePhoto::photoRotate($guid);
             }
             die(getResponseDataAjaxByAuth($responseData));
         }
