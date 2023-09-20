@@ -947,7 +947,7 @@ class CUsers extends CHtmlList {
         $row_user = User::getInfoFull($row['user_id'], 2);
         if($row_user['profile_pdf']){
 
-            if($row_user['user_id'] == guid() || $this->c_user_id)
+            if($row_user['user_id'] == self::$guid || $this->c_user_id)
                 $html->parse('delete_my_pdf', false);
 
             
@@ -961,23 +961,23 @@ class CUsers extends CHtmlList {
             $html->setvar("uploaded_btn_style", "");
             $html->setvar("view_pdf_class", "no_profile_pdf");
 
-            if($row_user['user_id'] == guid() || $this->c_user_id)
+            if($row_user['user_id'] == self::$guid || $this->c_user_id)
                 $html->parse('upload_my_pdf', false);
         }
 
-        /*if($row_user['user_id'] == guid() && ($row_user['facebook_id'] == '' || $row_user['google_plus_id'] == '' || $row_user['linkedin_id'] == '')) { // personal profile
+        /*if($row_user['user_id'] == self::$guid && ($row_user['facebook_id'] == '' || $row_user['google_plus_id'] == '' || $row_user['linkedin_id'] == '')) { // personal profile
             $html->parse('verify_social_login', false);
         }*/
 
         // added by sohel
 
-        if($row_user['user_id'] == guid() || $this->c_user_id) {
+        if($row_user['user_id'] == self::$guid || $this->c_user_id) {
             $blFooterMember = 'footer_member';
             if ($html->blockExists($blFooterMember)) {
-                if($row_user['user_id'] == guid())
+                if($row_user['user_id'] == self::$guid)
                     User::parseProfileVerification($html, null, 'profile_verification_unverified_my');
 
-                if($row_user['user_id'] == guid() || $this->c_user_id)
+                if($row_user['user_id'] == self::$guid || $this->c_user_id)
                     if (Common::isCreditsEnabled())
                         $html->parse($blFooterMember . '_increase');
 

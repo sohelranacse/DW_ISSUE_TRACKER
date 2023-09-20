@@ -18,27 +18,24 @@
 .pdf_user_div {
     display: flex;
     justify-content: space-between;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(255,255,255,0.2);
     padding: 5px 10px;
     border-radius: 3px;
 }
 .pdf_user_div li button {
     border: none;
     color: tomato;
-    font-weight: 500;
+    font-weight: bold;
     background: transparent;
     font-size: 15px;
     line-height: 33px;
 }
 
 .user_info_button {
-    padding: 15px 0;
+    padding: 20px 0 10px
 }
 .user_info_button div {
-    border: 1px solid #ddd;
-    padding: 5px 10px;
     border-radius: 3px;
-    margin: 15px 0;
 }
 .user_info_button > div p {
     font-weight: 600;
@@ -51,13 +48,15 @@
 .nid_div {
     font-size: 12px;
     font-weight: 600;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid rgba(255,255,255,0.2);
     border-left: unset;border-right: unset;border-bottom: unset;
     padding: 10px 0;
 }
 .nid_div a {
-    color: blue;
+    color: #fff;
 }
+.yes_profile_pdf a, .nid_div a { color: #fff;line-height:33px }
+.user_info_button .txt { padding-bottom:10px }
 </style>
 <script type="text/javascript" src="../_server/jquery/jquery.autosize.js{cache_version_param}"></script>
 <script id="script_replace_page">
@@ -332,6 +331,95 @@
             </ul>
         </div>
         <!-- end_looking_for -->
+
+        <!-- begin_upload_my_pdf -->
+            <p style="padding-bottom: 10px;font-weight: 600;font-size: 13px;">{l_upload_cv}</p>
+            <button class="btn small turquoise user_profile_upload_pdf" style="line-height: unset;{uploaded_btn_style}">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                {l_upload_cv}
+            </button>
+        <!-- end_upload_my_pdf -->
+        <!-- begin_view_pdf -->
+            <ul class="pdf_user_div">
+                <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                    <a href="{url_files}pdf/{pdf_file_name}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View CV</a>
+                </li>
+                <!-- begin_delete_my_pdf -->
+                <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                    <button class="profile_delete_pdf" id="profile_delete_pdf" value="{user_id}">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        Delete CV
+                    </button>
+                </li>
+                <!-- end_delete_my_pdf -->
+            </ul>
+        <!-- end_view_pdf -->
+        <!-- begin_footer_member -->
+            <div class="user_info_button">
+                
+                <div>
+                    <!-- begin_nid_upload_button -->
+                        <p class="txt">{l_nid_verify_title}</p>
+                        <button class="btn small turquoise user_profile_upload_nid">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            {l_upload_nid}
+                        </button>
+                    <!-- end_nid_upload_button -->
+
+                    <!-- begin_view_verified_nid -->
+                        <p class="txt">{l_nid_verify_title}</p>
+                        <ul class="pdf_user_div nid_div">
+                            <li>
+                                <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                            </li>
+                            <li>
+                                {nid_verify_text}
+                            </li>
+                        </ul>
+                    <!-- end_view_verified_nid -->
+
+                    <!-- begin_uploaded_nid -->
+                        <p class="txt">{l_nid_verify_title}</p>
+
+                        <ul class="pdf_user_div nid_div">
+                            <li>
+                                <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                            </li>
+                            <li style="color: #ddd;">
+                                {nid_verify_text}
+                            </li>
+                        </ul>
+                    <!-- end_uploaded_nid -->
+
+                    <!-- begin_rejected_nid -->
+                        <p class="txt">{l_nid_verify_title}</p>
+                        <button class="btn small turquoise user_profile_upload_nid" style="margin-bottom: 0;">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            {l_re_upload_nid}
+                        </button>
+                        <ul class="pdf_user_div nid_div">
+                            <li>
+                                <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                            </li>
+                            <li>
+                                {nid_verify_text}
+                            </li>
+                        </ul>
+                    <!-- end_rejected_nid -->
+                </div>
+
+                <!-- begin_profile_verification_unverified_my -->
+                <div>
+                    <p class="txt">{l_link_social_login}</p>
+                    <button class="btn small turquoise {profile_verification_off_class} profile_verification_show">
+                        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                        {l_link}
+                    </button>
+                </div>
+                <!-- end_profile_verification_unverified_my -->
+            </div>
+        <!-- end_footer_member -->
+
         <!-- begin_browse_invisibly -->
         <div class="bl">
             <a class="btn_browse_invisibly lblue go_to_page" data-type-loader="fade_btn" onclick="clProfile.setBrowseInvisibly($(this),'{browse_invisibly_param}'); return false;" href="">
