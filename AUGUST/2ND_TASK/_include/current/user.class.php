@@ -3616,8 +3616,12 @@ static function profileComplite() {
         }
          */
 
-        $sql = 'SELECT COUNT(*) AS counter, MAX(`new`) AS is_new FROM `users_view`
-            WHERE `user_to` = ' . to_sql(guid());
+        $user_id = guid();
+
+        // $sql = 'SELECT COUNT(*) AS counter, MAX(`new`) AS is_new FROM `users_view` WHERE `user_to` = ' . to_sql(guid());
+
+        $sql = "SELECT COUNT(*) AS counter, MAX(`new`) AS is_new FROM user AS u JOIN users_view AS v ON (u.user_id=v.user_from AND (v.user_to= {$user_id} OR v.user_to IN (SELECT user_id FROM user WHERE under_admin = {$user_id}))) WHERE u.user_id != {$user_id} GROUP BY v.user_to";
+
         $row = DB::row($sql);
         if($row) {
             $count = $row['counter'];

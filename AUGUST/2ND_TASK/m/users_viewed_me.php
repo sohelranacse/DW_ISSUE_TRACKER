@@ -125,6 +125,7 @@ $user_id = $g_user['user_id'];
 
 $list->m_sql_where = "u.user_id != {$user_id}";
 $list->m_sql_order = "v.id DESC";
+$list->m_sql_group = "u.user_id";
 $list->m_sql_select_add = ", v.*";
 $list->m_last_visit_only_online = true;
 #$list->m_field['created_at'] = array("created_at", null);
