@@ -14,16 +14,19 @@ global $g_user;
 $_data = 0;
 
 if(!empty($_POST)){
+	$user_id = $g_user['user_id'];
+
 	$e_user_id = get_param('e_user_id', 0);
     if($e_user_id)
-        $g_user['user_id'] = $e_user_id;
+        $user_id = $e_user_id;
     
-    $targetFilePath = '_files/pdf/'.$g_user['user_id'].'.pdf';
+    $targetFilePath = '_files/pdf/'.md5($user_id).'.pdf';
 
-	$sql = "UPDATE userinfo SET profile_pdf = '' WHERE user_id = ".$g_user['user_id'];
+	$sql = "UPDATE userinfo SET profile_pdf = '' WHERE user_id = ".$user_id;
 	DB::execute($sql);
 
-    unlink($targetFilePath);
+	if (file_exists($targetFilePath))
+    	unlink($targetFilePath);
 	$_data = 1;
 }
 

@@ -330,8 +330,9 @@
         <!-- end_looking_for -->
 
 
+        <input type="file" id="UploadCV" accept=".pdf" style="display: none;">
         <p style="padding-bottom: 10px;font-weight: 600;font-size: 13px;{uploaded_btn_style}">{l_upload_cv}</p>
-        <button class="btn small turquoise user_profile_upload_pdf" style="line-height: unset;{uploaded_btn_style}">
+        <button class="btn small turquoise" id="cv_upload" data-url="{url_main}{url_page_profile_view}{url_get_params}" onclick="clProfile.uploadCV($(this));" style="line-height: unset;{uploaded_btn_style}">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
             {l_upload_pdf}
         </button>
@@ -341,7 +342,7 @@
                     <a href="{url_files}pdf/{pdf_file_name}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View CV</a>
                 </li>
                 <li class="view_pdf view_pdf_menu {view_pdf_class}">
-                    <button class="profile_delete_pdf" id="profile_delete_pdf" value="{user_id}">
+                    <button class="profile_delete_pdf" data-url="{url_main}{url_page_profile_view}{url_get_params}" onclick="clProfile.deleteCV($(this));">
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         {l_delete} CV
                     </button>
@@ -354,7 +355,8 @@
                 <div>
                     <!-- begin_nid_upload_button -->
                         <p class="txt">{l_nid_verify_title}</p>
-                        <button class="btn small turquoise user_profile_upload_nid">
+                        <input type="file" id="UploadNID" accept=".pdf, .png, .jpeg, .jpg" style="display: none;">
+                        <button class="btn small turquoise" id="nid_upload" data-url="{url_main}{url_page_profile_view}{url_get_params}" onclick="clProfile.uploadNID($(this));">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                             {l_upload_nid}
                         </button>
@@ -379,7 +381,7 @@
                             <li>
                                 <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
                             </li>
-                            <li style="color: #ddd;">
+                            <li style="color: #eee;">
                                 {nid_verify_text}
                             </li>
                         </ul>
@@ -387,7 +389,8 @@
 
                     <!-- begin_rejected_nid -->
                         <p class="txt">{l_nid_verify_title}</p>
-                        <button class="btn small turquoise user_profile_upload_nid" style="margin-bottom: 0;">
+                        <input type="file" id="UploadNID" accept=".pdf, .png, .jpeg, .jpg" style="display: none;">
+                        <button class="btn small turquoise" id="nid_upload" data-url="{url_main}{url_page_profile_view}{url_get_params}" onclick="clProfile.uploadNID($(this));" style="margin-bottom: 0;">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                             {l_re_upload_nid}
                         </button>
@@ -395,7 +398,7 @@
                             <li>
                                 <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
                             </li>
-                            <li>
+                            <li style="color: tomato;">
                                 {nid_verify_text}
                             </li>
                         </ul>

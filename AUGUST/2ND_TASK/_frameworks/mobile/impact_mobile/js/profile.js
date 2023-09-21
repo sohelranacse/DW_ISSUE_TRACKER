@@ -1073,5 +1073,111 @@ var CProfile = function(guid, sending_messages_per_day) {
         })
     })
 
+    this.deleteCV = function($btn){
+        var user_id = 0
+        if(this.uid)
+            user_id = this.uid;
+        
+        showConfirm(l('are_you_sure'), function() {            
+            $.ajax({
+                url: url_ajax,
+                data: { "cmd": "deleteCV", user_id },
+                type: 'POST',    
+                dataType: "json",    
+                success:function(data){                   
+
+                    if(data)
+                        goToPage($btn)
+                    else
+                        alert('There is someting wrong, Please try again!');
+                }
+    
+            });
+        });
+    }
+
+    this.uploadCV = function($btn){
+        var user_id = 0
+        if(this.uid)
+            user_id = this.uid;
+
+        $("#UploadCV").trigger("click")
+        
+
+        $("#UploadCV").change(function() {
+            var fileName = $(this).val();
+
+            if (fileName) {
+                $("#cv_upload").html(`<i class="fa fa-cog fa-spin"></i>`).prop("disabled", true).css("background-color", "gray")
+
+                var pdf = new FormData();
+                pdf.append('file', this.files[0]);
+                pdf.append('e_user_id', user_id);
+                pdf.append('cmd', 'uploadCV');
+
+                $.ajax({
+                    url: url_ajax,
+                    type: 'POST',
+                    data: pdf,
+                    processData: false,
+                    contentType: false,
+         
+                    success:function(data){
+                        if(data == 1)
+                            goToPage($btn)
+                        else
+                            $("#cv_upload").html(`<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Upload CV`).prop("disabled", false).css("background-color", "#40c7db")
+                        return false
+                    }
+                });
+
+            } else {
+                $("#cv_upload").html(`<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Upload CV`).prop("disabled", false).css("background-color", "#40c7db")
+                return false
+            }
+        });
+    }
+    this.uploadNID = function($btn){
+        var user_id = 0
+        if(this.uid)
+            user_id = this.uid;
+
+        $("#UploadNID").trigger("click")
+        
+
+        $("#UploadNID").change(function() {
+            var fileName = $(this).val();
+
+            if (fileName) {
+                $("#nid_upload").html(`<i class="fa fa-cog fa-spin"></i>`).prop("disabled", true).css("background-color", "gray")
+
+                var pdf = new FormData();
+                pdf.append('file', this.files[0]);
+                pdf.append('e_user_id', user_id);
+                pdf.append('cmd', 'upload_nid');
+
+                $.ajax({
+                    url: url_ajax,
+                    type: 'POST',
+                    data: pdf,
+                    processData: false,
+                    contentType: false,
+         
+                    success:function(data){
+                        if(data == 1)
+                            goToPage($btn)
+                        else
+                            $("#nid_upload").html(`<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Upload NID`).prop("disabled", false).css("background-color", "#40c7db")
+                        return false
+                    }
+                });
+
+            } else {
+                $("#nid_upload").html(`<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Upload NID`).prop("disabled", false).css("background-color", "#40c7db")
+                return false
+            }
+        });
+    }
+
     return this;
 }

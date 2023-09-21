@@ -988,7 +988,7 @@ class CUsers extends CHtmlList {
                 }
 
                 elseif($row_user['nid_verify_status'] == 1) { // verified
-                    $html->setvar('nid_verify_text', "<span style='color: green'>".l('verified')."</span>");
+                    $html->setvar('nid_verify_text', "<span>".l('verified')."</span>");
                     $html->setvar('nid_data', $row_user['nid_data']);
                     $html->parse('view_verified_nid', false);
                 }
@@ -1001,7 +1001,7 @@ class CUsers extends CHtmlList {
 
                 elseif($row_user['nid_verify_status'] == 4) { // rejeted, then can reupload
                     $html->setvar('nid_data', $row_user['nid_data']);
-                    $html->setvar('nid_verify_text', "<span style='color: red'>".l('verification_failed')."</span>");
+                    $html->setvar('nid_verify_text', "<span>".l('verification_failed')."</span>");
                     $html->parse('rejected_nid', false);
                 }
 

@@ -40,7 +40,7 @@ $upload = get_param('type_upload');
 $id = get_param('id');
 $isAuth = ($guid) ? true : false;
 
-if ($file != '') {
+if ($file != '' && $cmd !== "uploadCV" && $cmd !== "upload_nid") {
     include('./_include/current/fileupload.class.php');
     $file = sanitize_upload_name_all($file);
     $upload_dir = Common::getOption('dir_files', 'path');
@@ -1268,6 +1268,79 @@ if ($cmd == 'login') {
     }
 } elseif($cmd=='dz_upload_file'){
     die('ok');
+} elseif($cmd == "deleteCV") {
+    $_data = 0;
+
+    if(!empty($_POST)){
+        $user_id = get_param('user_id', 0);
+        
+        $targetFilePath = '_files/pdf/'.md5($user_id).'.pdf';
+
+        $sql = "UPDATE userinfo SET profile_pdf = '' WHERE user_id = ".$user_id;
+        DB::execute($sql);
+
+        if (file_exists($targetFilePath))
+            unlink($targetFilePath);
+        $_data = 1;
+    }
+    echo $_data;
+} elseif($cmd == "uploadCV") {
+    $_data = 0;
+
+    if(!empty($_FILES["file"]["name"])){ 
+
+        $user_id = get_param('e_user_id', 0);
+
+        $fileType = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION); 
+        if($fileType == "pdf") {
+            $fileName =  md5($user_id).'.'.$fileType;
+            $targetFilePath = '_files/pdf/'.$fileName;
+
+            if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
+                $sql = "UPDATE userinfo SET profile_pdf = '".$fileName."' WHERE user_id = ".$user_id;
+                DB::execute($sql);
+                $_data = 1;
+            }
+        }
+    } 
+
+    echo $_data;
+} elseif($cmd == "upload_nid") {
+    $_data = 0;
+
+    if(!empty($_FILES["file"]["name"])){ 
+        $e_user_id = get_param('e_user_id', 0);
+        if($e_user_id)
+            $g_user = User::getInfoFull($e_user_id);
+
+        $fileType = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+        $allowedFT = array("pdf","jpg","jpeg","png");
+        if(in_array($fileType, $allowedFT)) {
+
+            $fileName =  base64_encode($g_user['name_seo'].$g_user['user_id']).'.'.$fileType;
+            $targetFilePath = '_files/nid/'.$fileName;
+            
+            if (!empty($g_user['nid_data']) && file_exists('_files/nid/' . $g_user['nid_data']))
+                unlink('_files/nid/' . $g_user['nid_data']);
+
+            if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
+
+                if($g_user['nid_verify_status'] == 4) // rejected
+                    $nid_verify_status = 3; // reuploaded
+                else
+                    $nid_verify_status = 2;
+
+                $data = array(
+                    'nid_data' => $fileName,
+                    'nid_verify_status' => $nid_verify_status,
+                    'nid_verify_requested_on' => date("Y-m-d H:i:s")
+                );
+                DB::update('user', $data, 'user_id = ' . to_sql($g_user['user_id'], 'Number'));
+                $_data = 1;
+            }
+        }
+    }
+    echo $_data;
 }
 
 
