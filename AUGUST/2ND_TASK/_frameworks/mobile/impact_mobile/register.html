@@ -1,0 +1,211 @@
+{header}
+<script type="text/javascript" src="{url_tmpl_mobile}js/join.js{cache_version_param}"></script>
+<script id="script_replace_page">
+    urlPageHistory='{url_page_join}';
+</script>
+<div class="page_content_inner txt_shadow">
+    <script>
+    var isIos = '{is_ios}'*1,
+        isRecaptcha=false,
+        minCahrPass='{password_length_min}'*1,
+        maxCahrPass='{password_length_max}'*1,
+        minCahrName='{username_length_min}'*1,
+        maxCahrName='{username_length}'*1,
+        minAge='{users_age}'*1,
+        lMaxMinLengthPassword='{max_min_length_password}',
+        lMaxMinLengthUsername='{max_min_length_username}';
+
+    <!-- begin_re_captcha_js -->
+    isRecaptcha=true;
+    var recaptchaWd,verifyCallback = function(response) {
+            resetError($('#recaptcha'));
+        };
+    var onloadCallback = function() {
+        setTimeout(function(){
+            clJoin.prepareReCaptcha();
+        },300);
+        recaptchaWd = grecaptcha.render('recaptcha', {
+            'sitekey' : '{re_captcha_sitekey}',
+            'callback' : verifyCallback,
+            'theme' : '{re_captcha_theme}'
+        });
+    };
+    <!-- end_re_captcha_js -->
+    var clJoin = new CJoin();
+    clJoin.initJoin();
+</script>
+<style type="text/css">
+    .iti__country-name, .iti__selected-dial-code { color: #000 }
+</style>
+<div id="form_box" class="bl_frm large_field">
+    <input type="hidden" name="cmd" class="ajax" value="register" />
+    <input type="hidden" name="ajax" class="ajax" value="1" />
+
+    <!-- begin_field_orientation -->
+    <div class="bl">
+        <label>{l_i_am}:</label>
+        <div class="field">
+            <select name="orientation" id="orientation">
+                {orientation_options}
+            </select>
+        </div>
+    </div>
+    <!-- end_field_orientation -->
+
+    <div class="bl">
+        <label>{l_name}{required_field_sign}:</label>
+        <input id="join_name" name="join_name" maxlength="100" class="inp register" type="text" value="{join_handle}"/>
+    </div>
+
+    <form id="form_birthday" name="frm_date" action="" autocomplete="off" class="form_birthday">
+        <div class="bl">
+            <label>{l_birthday}:</label>
+            <div class="field birthday">
+                <div class="item l">
+                <select name="day" id="day" class="s_birthday">
+                {day_options}
+                </select>
+                </div>
+                <div class="item c">
+                <select name="month" id="month" class="s_birthday">
+                {month_options}
+                </select>
+                </div>
+                <div class="item r">
+                <select name="year" id="year" class="s_birthday">
+                {year_options}
+                </select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="bl">
+        <label>{l_email}{required_field_sign}:</label>
+        <input id="email" name="email" class="inp register mail" type="text" value="{email}"/>
+    </div>
+    <div class="bl">
+        <label>{l_password}{required_field_sign}:</label>
+        <input id="password" name="join_password" class="inp register" type="password" value="{join_password}"/>
+    </div><!-- 
+    <div class="bl">
+        <label>{l_username}{required_field_sign}:</label>
+        <input id="user_name" maxlength="{username_length}" name="join_handle" maxlength="{username_length}" class="inp register" type="text" value="{join_handle}"/>
+    </div> -->
+
+    <!-- <div id="country_box" class="bl">
+        <label><span style="position:relative;">{l_i_am_from}:</span></label>
+        <div class="field">
+            <select name="country" id="country" data-location="states" class="location">
+            {country_options}
+            </select>
+        </div>
+    </div>
+    <div class="bl">
+        <div class="field">
+            <select name="state" id="state" data-location="cities" class="location">
+            {state_options}
+            </select>
+        </div>
+    </div>
+    <div class="bl">
+        <div class="field">
+            <select name="city" id="city" class="location">
+            {city_options}
+            </select>
+        </div>
+    </div> -->
+
+    <div class="bl">
+        <label>{l_phone_number}{required_field_sign}:</label>
+        <input id="join_phone_number" name="join_phone" class="inp placeholder" placeholder="{l_phone_number}" type="tel" value="{join_phone}"/>
+    </div>
+
+    <div class="bl">
+        <label>{l_signup_as}:</label>
+        <div class="field">
+            <select id="bl_join_signup_as" name="signup_as" class="i_am">
+                <option value="self">Self</option>
+                <option value="guardian">Guardian</option>
+                <option value="sibling">Sibling</option>
+                <option value="friend">Friend</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- begin_default_captcha -->
+    <div class="bl">
+        <label>{l_enter_code}{required_field_sign}:</label>
+        <div class="field bl_capcha">
+            <div class="item l capcha">
+                <img title="{l_refresh}" id="img_join_captcha" onclick="clJoin.refreshCaptcha();" src="../_server/securimage/securimage_show_custom.php?site_part_mobile=1&sid={sid}">
+            </div>
+            <div class="item c">
+                <img title="{l_refresh}" onclick="clJoin.refreshCaptcha();" src="{url_tmpl_mobile}images/icon_refresh.svg">
+            </div>
+            <div class="item r">
+                <input id="captcha" data-of=".bl_capcha" name="captcha" class="inp register" type="text" value=""/>
+            </div>
+        </div>
+    </div>
+    <!-- end_default_captcha -->
+    <!-- begin_re_captcha -->
+    <div class="bl">
+        <label>{l_enter_code}{required_field_sign}:</label>
+        <div id="recaptcha_bl" class="recaptcha_bl">
+            <div id="recaptcha" class="recaptcha"></div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <!-- end_re_captcha -->
+
+    <div class="bl">
+        <div class="info_txt small prev">
+            <div class="custom_checkbox no_hide">
+                <input id="agree" type="checkbox"/>
+                <label for="agree"><span></span>
+                    {l_i_agree_to_the}
+                    <a class="go_to_page link_info" data-cl-loader="loader_link_info" href="{url_main}{url_page_terms}">{l_terms}</a> {l_and}
+                    <a class="go_to_page link_info" data-cl-loader="loader_link_info" href="{url_main}{url_page_privacy_policy}">{l_privacy_policy}</a>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="bl bl_one">
+        <div class="frm_btn">
+            <button id="form_register_submit" class="btn large pink">{l_register}</button>
+        </div>
+    </div>
+
+    <div class="bl">
+        <div class="info_txt small next">
+            <a class="go_to_page link_info link_back_login" data-cl-loader="loader_link_info" href="{url_main}{url_page_index}">{l_go_to_login_page}</a>
+        </div>
+    </div>
+</div>
+<!-- begin_banner_footer_mobile_content -->
+<div class="banner_content_visitor {banner_footer_mobile_content_class}">
+    {banner_footer_mobile_content}
+</div>
+<!-- end_banner_footer_mobile_content -->
+<!-- begin_re_captcha_script -->
+<script src="//www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl={re_captcha_lang}" async defer></script>
+<!-- end_re_captcha_script -->
+</div>
+
+<script>
+    /* Phone Number country code */
+    var phone_number = window.intlTelInput(document.querySelector("#join_phone_number"), {
+        separateDialCode: true,
+        preferredCountries:["gb","us","sa","ae"],
+        hiddenInput: "full",
+        utilsScript: "//cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+    })
+
+    document.getElementById('join_phone_number').onchange = function(){
+        var full_number = phone_number.getNumber(intlTelInputUtils.numberFormat.E164);
+        //$("#join_phone_number").val(full_number);
+    }
+</script>
+{footer}
