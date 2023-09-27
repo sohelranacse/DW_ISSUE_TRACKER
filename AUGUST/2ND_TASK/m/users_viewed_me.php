@@ -1,11 +1,4 @@
 <?php
-/* (C) Websplosion LLC, 2001-2021
-
-IMPORTANT: This is a commercial software product
-and any kind of using it must agree to the Websplosion's license agreement.
-It can be found at http://www.chameleonsocial.com/license.doc
-
-This notice may not be removed from the source code. */
 
 $area = "login";
 include("./_include/core/pony_start.php");
@@ -15,12 +8,6 @@ if (!User::accessCheckFeatureSuperPowers('profile_visitors_paid')) {
 }
 
 $g['to_head'][] = '<link rel="stylesheet" href="'.$g['tmpl']['url_tmpl_mobile'].'css/online.css" type="text/css" media="all"/>';
-
-//if (defined('IS_DEMO')) {
-//	DB::query("SELECT * FROM im_open WHERE to_user=12 AND from_user=" . to_sql($g_user['user_id'], "Number") . "");
-//	if (DB::num_rows() == 0) DB::execute("INSERT INTO im_open SET to_user=12, from_user=" . to_sql($g_user['user_id'], "Number") . "");
-//}
-
 class CVisitors extends CUsers
 {
     function onItem(&$html, $row, $i, $last)
@@ -76,12 +63,11 @@ $isAjaxRequest = get_param('ajax', 0);
 $tmpl = 'users_viewed_me.html';
 $isUrban = $optionTmplSet == 'urban';
 if ($isUrban) {
-    $tmpl = 'search_results.html';
+    $tmpl = 'search_results_viewed.html'; // true
     if ($isAjaxRequest) {
         $tmpl = 'search_results_ajax.html';
     }
 }
-
 class CPage extends CHtmlBlock
 {
 	function parseBlock(&$html)
@@ -98,6 +84,7 @@ class CPage extends CHtmlBlock
 }
 
 $page = new CPage("", $g['tmpl']['dir_tmpl_mobile'] . $tmpl);
+// _frameworks/mobile/impact_mobile/search_results_viewed.html
 
 if (!$isAjaxRequest) {
     $header = new CHeader("header", $g['tmpl']['dir_tmpl_mobile'] . "_header.html");
@@ -110,8 +97,8 @@ if (!$isAjaxRequest) {
     $page->add($footer);
 }
 
-$type = get_param("display", "info");
-if ($isUrban) $list = new CVisitors("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_info.html");
+$type = get_param("display", "info"); // info - CUsersInfo
+/*if ($isUrban) $list = new CVisitors("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_info.html");
 elseif ($type == "info") $list = new CUsersInfo("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_info.html");
 elseif ($type == "gallery") $list = new CUsersGallery("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_gallery.html");
 elseif ($type == "list") $list = new CUsersList("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_list.html");
@@ -119,14 +106,18 @@ elseif ($type == "profile") $list = new CUsersProfile("users_list", $g['tmpl']['
 elseif ($type == "photo") $list = new CHtmlUsersPhoto("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_photo.html");
 else {
 	redirect("users_online.php");
-}
+}*/
+
+require_once('_include/current/myusers.php');
+$list = new MyUsersInfo("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_info.html");
+
 // by sohel
 $user_id = $g_user['user_id'];
 
 $list->m_sql_where = "u.user_id != {$user_id}";
-$list->m_sql_order = "v.id DESC";
+// $list->m_sql_order = "v.id DESC";
 $list->m_sql_group = "u.user_id";
-$list->m_sql_select_add = ", v.*";
+// $list->m_sql_select_add = ", v.*";
 $list->m_last_visit_only_online = true;
 #$list->m_field['created_at'] = array("created_at", null);
 
