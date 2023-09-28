@@ -1,0 +1,30 @@
+<!-- begin_users_list_last_load_item -->
+<script>isLastLoadBaseListItem=true;</script>
+<!-- end_users_list_last_load_item -->
+<!-- begin_users_list_last_id -->
+<script>lastIdBaseList='{last_id}';</script>
+<!-- end_users_list_last_id -->
+
+<!-- begin_users_list_item -->
+<a id="profile_item_{item_id}" href="{url_main}{user_profile_link}" class="item item_{user_id}" onclick="redirectToProfile(event,'{url_main}{user_profile_link}'); return false;">
+    <script>lastIdBaseListUsers='{item_id}';</script>
+    <span class="pic_info">
+        <span class="pic to_hide" style="width:126px; height:140px;">
+            <img src="{url_files}{photo_m}" alt="" onload="$(this).parent('.pic').removeClass('to_hide')"/>
+        </span>
+        <span class="info">
+            <span class="name">{name_one_letter_short} <sup style="font-size: 10px;color: gray">{view_to}</sup></span>
+            <span class="list">
+                {age} <span>•</span> {city}<span>•</span> {user_orientation}
+            </span>
+            <span class="time {item_time_ago_cl}">{item_time_ago}</span>
+        </span>
+    </span>
+    <!-- begin_users_list_item_block -->
+    <div class="block_btn not_redirect">
+        <button id="block_btn_{user_id}" onclick="Profile.confirmUnblockUser('{user_id}');" class="btn turquoise  not_redirect"><span>{l_unblock}</span></button>
+    </div>
+    <!-- end_users_list_item_block -->
+    {item_charts}
+</a>
+<!-- end_users_list_item -->

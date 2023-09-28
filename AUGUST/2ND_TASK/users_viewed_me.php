@@ -65,7 +65,7 @@ $templateTmpl = Common::getOptionTemplate('user_list_template');
 if ($templateTmpl) {
     $template =  $templateTmpl;
 }
-// $group = 'u.user_id';
+$group = 'u.user_id, user_to';
 $page = Users_List::show($where, $order, $from_add, $template);
 
 include("./_include/core/main_close.php");

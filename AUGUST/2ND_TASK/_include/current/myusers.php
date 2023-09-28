@@ -1,31 +1,12 @@
 <?php
 
 class MyUsers extends CHtmlList {
-
-
-
     var $m_on_page = 6;
-    var $imessage = "";
-    var $m_is_me = false;
-    var $m_field_default = array();
-    var $u_relations = array();
-    var $u_orientations = array();
-    var $u_iAmHereTo = array();
-    var $list_orientations = array('M' => false, 'F' => false);
-    var $locationDelimiter = ',<br>';
-    var $locationDelimiterOne = ', ';
-    var $locationDelimiterSecond = ', ';
     static $tmplName = '';
     static $tmplSet = '';
     static $parDisplay = '';
     static $parAjax = '';
-    static $first = true;
-    static $photoDefaultId = 0;
     static $guid = 0;
-    var $profileStatusValue = '';
-    var $profileStatusVarExists = false;
-    var $isParentUserChartsParserActive = true;
-    var $isEncounters = false;
 
     var $c_user_id = false;
 
@@ -34,8 +15,6 @@ class MyUsers extends CHtmlList {
         global $g;
         global $g_user;
         global $p;
-
-        // $this->m_debug = "Y";
 
         self::$tmplName = Common::getOption('name', 'template_options');
         self::$tmplSet = Common::getOption('set', 'template_options');
@@ -47,18 +26,20 @@ class MyUsers extends CHtmlList {
 
         $this->m_sql_count = "SELECT COUNT(u.user_id) FROM user AS u " . $this->m_sql_from_add . "";
         $this->m_sql = "
-	        SELECT *  FROM (
-				SELECT u.*, DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) AS age, v.user_to, (SELECT name FROM user WHERE user_id = v.user_to) AS view_to
+	        SELECT * FROM (
+				SELECT u.*, DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) AS age,
+                v.user_to, (SELECT name FROM user WHERE user_id = v.user_to) AS view_to
+                ".$this->m_sql_select_add."
 				FROM user AS u			
-				JOIN users_view AS v ON (u.user_id=v.user_from AND v.user_to= {$user_id})
-
-				UNION ALL
-
-				SELECT u.*, DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) AS age, v.user_to, (SELECT name FROM user WHERE user_id = v.user_to) AS view_to
-				FROM user AS u			
-				JOIN users_view AS v ON (u.user_id=v.user_from AND v.user_to IN (SELECT user_id FROM user WHERE under_admin = {$user_id}))
+				JOIN users_view AS v ON (u.user_id=v.user_from)
+                WHERE (
+                    v.user_to= {$user_id}
+                    OR v.user_to IN (SELECT user_id FROM user WHERE under_admin = {$user_id})
+                )
 			) u
 	    ";
+
+        // $this->m_debug = "Y";
 
         $this->m_field['user_id'] = array("user_id", null);
         $this->m_field['photo_id'] = array("photo", null);

@@ -47,7 +47,6 @@ class CUsers extends CHtmlList {
         global $g;
         global $g_user;
         global $p;
-        #$this->m_debug = "Y";
 
         self::$tmplName = Common::getOption('name', 'template_options');
         self::$tmplSet = Common::getOption('set', 'template_options');
@@ -96,15 +95,16 @@ class CUsers extends CHtmlList {
 
         $this->m_sql_count = "SELECT COUNT(u.user_id) FROM user AS u " . $this->m_sql_from_add . "";
         $this->m_sql = "
-      SELECT u.*, DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) AS age,
-      u.state AS state_title, u.country AS country_title, u.city AS city_title,
-      IF(u.city_id=" . to_sql($citySql) . ", 1, 0) +
-      IF(u.state_id=" . to_sql($stateSql) . ", 1, 0) +
-      IF(u.country_id=" . to_sql($countrySql) . ", 1, 0) AS near
-            " . to_sql($this->fieldsFromAdd, 'Plain') . "
-      FROM user AS u
-      " . $this->m_sql_from_add . "
-    ";
+          SELECT u.*, DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) AS age,
+          u.state AS state_title, u.country AS country_title, u.city AS city_title,
+          IF(u.city_id=" . to_sql($citySql) . ", 1, 0) +
+          IF(u.state_id=" . to_sql($stateSql) . ", 1, 0) +
+          IF(u.country_id=" . to_sql($countrySql) . ", 1, 0) AS near
+                " . to_sql($this->fieldsFromAdd, 'Plain') . "
+          FROM user AS u
+          " . $this->m_sql_from_add . "
+        ";
+        // $this->m_debug = "Y";
 
         $this->m_field['user_id'] = array("user_id", null);
         $this->m_field['photo_id'] = array("photo", null);
@@ -116,6 +116,8 @@ class CUsers extends CHtmlList {
         $this->m_field['state_title'] = array("state", null);
         $this->m_field['country_title'] = array("country", null);
         $this->m_field['rating'] = array("rating", null, "desc");
+        if($g_user['role'] == 'group_admin' && $p == 'users_viewed_me.php')
+            $this->m_field['view_to'] = array("view_to", null);
         $this->m_field_default = $this->m_field;
 
         if($this->isEncounters) {
