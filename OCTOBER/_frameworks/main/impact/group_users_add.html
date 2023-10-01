@@ -1,0 +1,622 @@
+{header}
+<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/modern/app-assets/vendors/css/vendors.min.css{cache_version_param}">
+<!-- file upload -->
+<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/modern/app-assets/vendors/css/file-uploaders/dropzone.min.css{cache_version_param}">
+<link rel="stylesheet" type="text/css" href="{url_main}_frameworks/administration/modern/app-assets/css/plugins/file-uploaders/dropzone.css{cache_version_param}">
+
+<!-- location -->
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.location.js{cache_version_param}"></script>
+
+<!-- phone number -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+
+<script>
+    var joinLangParts = {
+        choose_a_city : 'Select {l_city}',
+        choose_a_state : 'Select {l_state}'
+    };
+    nameLengthMin='{username_length_min}'*1;
+    nameLengthMax='{username_length}'*1;
+</script>
+<style type="text/css">
+.add_group_user_link {color: blue;font-weight: bold;display: inline-block;margin-bottom: 20px}
+
+/* Drop zone */
+.dropzone .dz-preview.dz-error .dz-info,
+.dropzone .dz-preview.dz-error .dz-details,
+.dropzone .dz-preview.dz-error .dz-image img,
+.dropzone .dz-preview.dz-error .dz-progress,
+.dropzone .dz-preview.dz-error .dz-converting,
+.dropzone .dz-preview.dz-error .dz-converting-complete{
+    opacity: 0!important;
+    transition: opacity .25s linear, visibility 0s .25s;
+    visibility: hidden;
+}
+
+.dropzone .dz-preview.dz-error .dz-error-message {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+}
+
+/* Single icon */
+.dpz-upload-single-icon.dropzone{
+    min-height: auto;
+    height: 145px;
+    width: 205px;
+    position: relative;
+    border: 1px dashed #7b7a7a;
+    background: #fbfbfb;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 0.25rem;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview.dz-error .dz-error-message {
+    font-size: 11px;
+    top: 85px;
+    width: calc(100% - 10px);
+    margin-left: 5px;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span{
+    padding: 0.4em;
+    border-radius: 4px;
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dpz-upload-single-icon.dropzone .dz-message{
+    height: 145px;
+    margin: 0;
+    top: 0;
+    font-size: 12px;
+    color: #9b9a9a;
+    transition: color .3s;
+}
+
+.dpz-upload-single-icon.dropzone .dz-message:before{
+    font: normal normal normal 16px/1 LineAwesome;
+    content: "\f194";
+    color: #9b9a9a;
+    font-size: 34px;
+    position: absolute;
+    top: 50px;
+    width: 34px;
+    height: 34px;
+    left: 50%;
+    margin-left: -17px;
+    transition: color .3s;
+}
+
+.dpz-upload-single-icon.dropzone .dz-message:hover,
+.dpz-upload-single-icon.dropzone .dz-message:hover:before{
+    color: #7a7979;
+}
+
+.dpz-upload-single-icon.dropzone .dz-default.dz-message span{
+    /*display: none;*/
+    position: absolute;
+    top: 110px;
+    width: 100%;
+    margin: 0;
+    left: 0;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview {
+    min-height: 195px;
+    height: 195px;
+    overflow: hidden;
+    margin: 4px;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-image {
+    border-radius: 0px;
+    width: 195px;
+    height: 195px;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-image img{
+    width: 195px;
+    height: 195px;
+    object-fit: contain;
+}
+
+.dpz-upload-single-icon.dropzone  .dz-preview.dz-image-preview {
+    background: #8c94a2;
+}
+
+.dropzone .dz-preview .dz-details{
+    top: 60px;
+}
+
+@media (max-width: 414.98px){
+    .dpz-upload-single-icon.dropzone{
+        margin: 0 auto;
+    }
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-remove{
+    line-height: 1;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 21;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-remove:before {
+    content: "\e9e4";
+    font-family: 'feather';
+    color: #ffffff;
+    opacity: .8;
+    font-size: 16px;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview.dz-error .dz-remove:before {
+    color: #7b7a7a;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-details .dz-size {
+    display: none;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-details .dz-filename {
+    font-size: 11px;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-progress {
+    height: 8px;
+    margin-top: 4px;
+    width: 60px;
+    margin-left: -30px;
+    border-radius: 4px;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-success-mark,
+.dpz-upload-single-icon.dropzone .dz-preview .dz-error-mark {
+    margin-left: -12px;
+    margin-top: -12px;
+}
+
+.dpz-upload-single-icon.dropzone .dz-preview .dz-success-mark svg,
+.dpz-upload-single-icon.dropzone .dz-preview .dz-error-mark svg {
+    width: 24px;
+    height: 24px;
+}
+
+/*form css*/
+.bl_form_registration{ display: flex; }
+.bl_form_registration .part{ width: 317px; float: left; padding: 0 0 20px 40px; position: relative; }
+
+.bl_form_registration .part .or{ position: absolute; top: 130px; right: -25px; font-size: 18px; line-height: 46px; color: #fff; border: 1px solid rgba(225, 225, 225, 0.40); width: 48px; height: 48px; border-radius: 50%; }
+
+.bl_form_registration .part .bl{ text-align: left; margin: 0 0 18px; position: relative; display: block; padding: 0; }
+.bl_form_registration .part .bl label{ display: block; margin: 0 0 10px; }
+.bl_form_registration .part .bl input.inp{ height: 34px; margin: 0; padding: 0 21px 0 11px; }
+.bl_form_registration .part .bl input.inp.city{ width: 317px; }
+.bl_form_registration .part .bl input.inp.email{ width: 317px; }
+.bl_form_registration .part .bl input.inp.name{ width: 317px; }
+.bl_form_registration .part .bl input.inp.phone{ width: 317px; }
+.bl_form_registration .part .bl input.inp.username{ width: 317px; }
+.bl_form_registration .part .bl .bl_city{ float: right; position: relative; }
+
+.bl_form_registration button.btn img{ position: absolute; top: 16px; left: 18px; }
+.bl_form_registration .part.br{ padding: 81px 40px 0 0; height: 290px; display: table-cell; vertical-align: middle; }
+.bl_form_registration .part.br .btn{ margin: 8px 0 12px; }
+.bl_form_registration .part.center{ margin: 0 auto; float: none; padding: 0; }
+.bl_form_registration .jq-selectbox__select{ width: 317px; box-sizing: border-box; padding: 0 11px; margin: 0 9px 0 0; }
+.bl_form_registration .jq-selectbox__dropdown{ width: 317px; margin: -4px 0; /*padding: 8px 0 0;*/ }
+.bl_form_registration .inp_birth{ float: left; position: relative; opacity:0;}
+.bl_form_registration .inp_birth.to_show{opacity:1; transition:opacity .35s linear;}
+.bl_form_registration .part .bl .inp_birth .icon_check{ z-index: 12; right: 17px; }
+.bl_form_registration .inp_birth.dd .jq-selectbox.birthday{ margin: 0 13px 0 0; }
+.bl_form_registration .inp_birth.mm .jq-selectbox.birthday{ margin: 0 13px 0 0; }
+.bl_form_registration .jq-selectbox.birthday .jq-selectbox__select{ width: 97px; margin: 0; }
+.bl_form_registration .jq-selectbox.birthday .jq-selectbox__dropdown{ width: 97px; top: 34px; overflow: hidden; }
+.bl_form_registration .jq-selectbox.birthday .jq-selectbox__dropdown ul{ max-height: 300px; }
+
+.bl_location{margin: 10px 0}
+
+form .btn{
+    text-align: center;
+    width: 200px;
+    font-size: 18px;
+    margin: 0 auto;
+    display: block;
+    font-weight: normal;
+    height: 46px;
+}
+
+/*alert*/
+.alert {
+    padding: 8px 20px;
+    border-radius: 4px;
+    position: relative;
+    line-height: 24px;
+    font-size: 12px;
+}
+
+.closebtn {
+    margin-right: -10px;
+    color: #e7495c;
+    font-weight: bold;
+    float: right;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid #e7495c;
+    border-radius: 100%;
+    background: #fff;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+
+.closebtn:hover {
+  color: #6c1c20;
+}
+.alert-warning {
+    background-color: #f8d7da;
+    color: #f00;
+}
+.alert-success {
+    background-color: #5abd58;
+    color: #FFFFFF;
+}
+.alert-warning, .alert-success {
+  margin: 0 auto 20px
+}
+
+</style>
+<div class="col_center">
+    <div class="head icon_head_visitors">{page_title}</div>
+    <a href="{main_url}group_users" class="add_group_user_link"><i class="fa fa-users"></i> {l_group_users}</a>
+
+    <div class="alert alert-warning" id="warAlert" style="display: none;"></div>
+    <div class="alert alert-success" id="sucAlert" style="display: none;"></div>
+    
+    <form id="frm_users_add" method="POST" action="#" name="add_user" autocomplete="off">  
+        <div class="bl_form_registration"> 
+
+            <div class="part" style="padding-left: 0;">
+                <div class="bl">
+                    <div id="dpz-upload-single-icon" data-name="photo_file" class="dropzone dropzone-area dpz-upload-single-icon">
+                        <input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file">
+                    </div> 
+                </div> 
+
+                <div class="bl">
+                    <label>{l_orientation}</label>
+                    <div class="bl_select">
+                        <select id="bl_join_done_orientation" name="orientation" class="i_am">
+                            {orientation_options}
+                        </select>
+                    </div>
+                </div>      
+
+                <div class="bl">
+                    <label>{l_name}</label>
+                    <div class="to_show">
+                        <input id="username" class="inp name placeholder" name="username" maxlength="100" type="text" placeholder="{l_name}" />
+                    </div>
+                </div>
+
+                <div class="bl">
+                    <label>{l_phone_number}</label>
+                    <div class="to_show">
+                        <input type="tel" id="join_phone_number" class="inp phone" maxlength="10">
+                        <input type="hidden" name="phone" id="full_phone_number"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="part">
+
+                <div class="bl">
+                    <label>{l_email}</label>
+                    <div class="to_show">
+                        <input id="email" name="email" class="inp email placeholder" type="text" placeholder="{l_email}" />
+                    </div>
+                </div>
+                
+
+                <div class="bl">
+                    <label>{l_date_birth}</label>
+                    <div class="inp_birth dd">
+                        <select name="day" id="day" class="birthday">
+                            {day_options}
+                        </select>
+                    </div>
+                    <div class="inp_birth mm">
+                        <select name="month" id="month" class="birthday">
+                            {month_options}
+                        </select>
+                    </div>
+                    <div class="inp_birth yy">
+                        <select name="year" id="year" class="birthday">
+                            {year_options}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bl" style="margin-top: 15px;display: inline-block;">
+                    <label>{l_country}</label>
+                    <div class="bl_location">
+                        <select class="location" name="country"  id="country" data-type="geo_states">
+                            <option value="0">- {l_country} -</option>
+                            {country_options}
+                        </select>
+                    </div>
+                </div>
+                <div class="bl">
+                    <label>{l_state}</label>
+                    <div class="bl_location">
+                        <select class="location" name="state" id="state" data-type="geo_cities">
+                            <option value="0">- {l_state} -</option>
+                            {state_options}
+                        </select>
+                    </div>
+                </div>
+                <div class="bl">
+                    <label>{l_city}</label>
+                    <div class="bl_location">
+                        <select class="location" name="city" id="city">
+                            <option value="0">- {l_city} -</option>
+                            {city_options}
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <input type="hidden" name="cmd" value="insert">
+        <input type="hidden" name="cmd_ajax" value="1">
+        <button id="submit" type="submit" class="btn pink">{l_create_user}</button>
+    </form>
+
+</div>
+
+<script type="text/javascript">
+    siteTitle = '{page_title}';
+    
+    var _dzThumbnailWidth = 195,
+        _dzThumbnailHeight = 195;
+    $(function(){
+
+        // set active color
+        var groupUsersLink = document.querySelector('a[href="./group_users"]');
+        groupUsersLink.style.color = '#8ad4ff';
+
+        // phone number
+        var phone_number = window.intlTelInput(document.querySelector("#join_phone_number"), {
+            separateDialCode: true,
+            preferredCountries:["bd","us","gb","sa","ae"],
+            hiddenInput: "full",
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+        })
+        document.getElementById('join_phone_number').onkeyup = function(){
+            var full_number = phone_number.getNumber(intlTelInputUtils.numberFormat.E164);
+            $("#full_phone_number").val(full_number);
+        }
+
+        /* Birth */
+        $jq('.birthday').styler({singleSelectzIndex: '12',
+            selectAutoWidth : false,
+            selectAnimation: true,
+            selectAppearsNativeToIOS: false,
+            onFormStyled: function(){
+                $jq('.inp_birth').addClass('to_show');
+            }
+        })
+        /* Birth */
+
+        $('.i_am').styler({
+            singleSelectzIndex: '11',
+            selectAutoWidth: false,
+            selectAnimation: true,
+            selectAppearsNativeToIOS: false,
+            onFormStyled: function(){
+                $jq('.bl_select').addClass('to_show');
+            }
+        })
+        $jq('.location').styler({singleSelectzIndex: '12',
+            selectAutoWidth : false,
+            selectAnimation: true,
+            selectAppearsNativeToIOS: false,
+            onFormStyled: function(){
+                $jq('.bl_location').addClass('to_show');
+            }
+        })
+
+
+        // location
+        // $('#country').location({first_option_state: '- {j_state_province} -', first_option_city: '- {j_city} -', location: 'add_user'});
+        // $('#state').location({method: 'cities', first_option_city: '- {j_city} -', location: 'add_user'});
+
+
+        $('#country, #state').change(function() {
+            var type=$(this).data('type');
+            $.ajax({
+                type: 'POST',
+                url: '{url_main}ajax.php',
+                data: {
+                    cmd:type,
+                    select_id:this.value,
+                    filter:'1',
+                    list: 0
+                },
+                beforeSend: function(){
+                    $jq('#css_loader_location').removeClass('hidden');
+                    $jq('.location').prop('disabled', true).trigger('refresh');
+                },
+                success: function(res){
+                    var data=checkDataAjax(res);
+                    if (data) {
+                        var option='<option value="0">'+joinLangParts.choose_a_city+'</option>';
+                        switch (type) {
+                            case 'geo_states':
+                                $jq('#state').html('<option value="0">'+joinLangParts.choose_a_state+'</option>' + data.list).trigger('refresh');
+                                $jq('#city').html(option).trigger('refresh');
+                                break
+                            case 'geo_cities':
+                                $jq('#city').html(option + data.list).trigger('refresh');
+                                break
+                        }
+                    }
+                    $jq('#css_loader_location').addClass('hidden');
+                    $jq('.location').prop('disabled', false).trigger('refresh');
+                }
+            });
+            return false;
+        })
+
+
+        // submit form
+
+        $('#frm_users_add').submit(function(event) {
+            event.preventDefault();         
+            let email = $("#email").val()
+            let username = $("#username").val()
+            let full_phone_number = $("#full_phone_number").val()
+
+            let country = $("#country").val()
+            let state = $("#state").val()
+            let city = $("#city").val()
+            
+            // dpz-upload-single-icon
+            let photo_file = $('#dpz-upload-single-icon')[0].dropzone.getAcceptedFiles()[0]
+
+            let elementOffset = document.getElementById("frm_users_add").offsetTop;
+
+            var submitButton = $("#submit")
+
+            if(email == "" || username == "" || full_phone_number == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
+                var msg = `<span class="closebtn">&times;</span>`
+                if(email == "")
+                    msg += "Email Required!<br>"
+                if(username == "")
+                    msg += "Username Required!<br>"
+                if(full_phone_number == "")
+                    msg += "Phone Number Required!<br>"
+                if(country == 0 || state == 0 || city == 0)
+                    msg += "Location Required!<br>"
+                if(photo_file == undefined)
+                    msg += "User Photo Required!<br>"
+
+                $("#sucAlert").hide()
+                $("#warAlert").html(msg).show()
+                
+            } else {        
+                submitButton.attr("disabled", "disabled")
+                submitButton.html(`<div class="css_loader css_loader_login_form">
+                    <div class="spinner center spinnerw">
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                    </div>
+                </div>`)
+
+                var formData = new FormData(this);
+                formData.append('photo_file', photo_file)
+
+                $.ajax({
+                    url: 'add_user',
+                    type: "post",
+                    data:formData,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
+                    success:function(data){
+                        console.log(data)
+                        if(data == "success") {
+
+                            $("#warAlert").empty().hide()
+                            $("#sucAlert").html('<span class="closebtn">&times;</span>'+'{l_created_success}').show()
+                            
+                            $("#email").val("")
+                            $("#username").val("")
+                            $("#full_phone_number").val("")
+                            $("#join_phone_number").val("")
+
+                            $("#country").val(0)
+                            $("#state").val(0)
+                            $("#city").val(0)
+                            $('#dpz-upload-single-icon').html(`<input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file"><div class="dz-default dz-message"><span>Drop here or click to upload</span></div>`)
+                            
+                            setTimeout(function() {
+                                alert("Successfylly Added");
+                                redirectUrl('group_users');
+                            }, 2000)
+                        } else {
+                            $("#sucAlert").hide()
+                            $("#warAlert").html('<span class="closebtn">&times;</span>'+data).show()
+                        }
+
+                        // load alert js
+                        $(document).ready(function() {
+                            var alertBox = $(".alert");
+                            var closeBtn = alertBox.find(".closebtn");
+
+                            closeBtn.on("click", function() {
+                                alertBox.slideUp();
+                            });
+                        });
+
+                        submitButton.attr("disabled", false)
+                        submitButton.html(`{l_create_user}`)
+                        
+                    }
+                })
+            }
+            window.scrollTo({ top: (elementOffset-10), behavior: 'smooth' })
+
+            $(document).ready(function() {
+                var alertBox = $(".alert");
+                var closeBtn = alertBox.find(".closebtn");
+
+                closeBtn.on("click", function() {
+                    alertBox.slideUp();
+                });
+            });
+        });
+
+    })
+
+    /*$(document).ready(function() {
+        var alertBox = $(".alert");
+        setTimeout(function() {
+            alertBox.slideUp();
+        }, 5000);
+    });*/
+
+</script>
+
+<script src="{url_main}_frameworks/administration/modern/app-assets/vendors/js/extensions/dropzone.min.js{cache_version_param}" type="text/javascript"></script>
+<script src="{url_main}_frameworks/administration/modern/js/dropzone.js{cache_version_param}" type="text/javascript"></script>
+{footer}

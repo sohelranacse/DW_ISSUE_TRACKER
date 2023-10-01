@@ -1,0 +1,62 @@
+<div id="search_head" class="head filter_head">
+    <div class="info"><div class="bl">Visitors</div></div>
+    <div class="count"><span>Total {num_total}</span></div>
+    <div class="cl"></div>
+</div>
+<script>clSearch.prepareHeaderDataFilter();</script>
+<style type="text/css">
+    .bl_list_photo ul li .name { bottom: 16px }
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 10px;
+        line-height: 14px;
+        color: gray;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        text-align: right;
+        line-height: 16px;
+    }
+</style>
+<h5 style="text-align: center;margin-top: 5px;">{user_name}</h5>
+<div class="bl_list_photo">
+    <!-- begin_users_list_items -->
+    <div id="bl_search_users_list" class="list_photos">
+        <ul id="search_users_list" class="search_users_list initial"><!-- begin_users_list_item --><li id="users_list_item_{user_id}" class="item users_list_item sliding">
+            <!-- <div class="hidden all"> -->
+            <a onclick="clSearch.toProfileUser(this); return false;" data-not-loader="true" href="{url_main}profile_view.php?user_id={user_id}&from={from_page}{ref_link}">
+                <img src="{url_files}{photo_mm}" alt="" class="user_photo to_hide" onerror="showLoadPhoto($(this))" onload="showLoadPhoto($(this))" />
+                <!-- <span class="shadow"></span> -->
+                <!-- begin_status_online -->
+                <span class="status online"></span>
+                <!-- end_status_online -->
+                <!-- begin_friend_approve -->
+                <span class="friend_pending"></span>
+                <!-- end_friend_approve -->
+                <span class="name">{name}, {age}</span>
+                <span class="overlay">{view_to}</span>
+            </a>
+            <!-- </div> -->
+        </li><!-- end_users_list_item --></ul>
+        <script>
+		clSearch.total=+'{num_total}';
+        <!-- begin_users_list_on_page -->
+		clSearch.onPage=+'{on_page}';
+        clSearch.setOffset('{offset_real}');
+        <!-- end_users_list_on_page -->
+        </script>
+        <!-- begin_users_list_loader -->
+        <!-- end_users_list_loader -->
+    </div>
+    <!-- end_users_list_items -->
+    <!-- begin_users_list_noitems -->
+    <div class="no_one_found to_hide"><span>{found_no_one}</span></div>
+    <script>
+    clSearch.showNoOneFound();
+    </script>
+    <!-- end_users_list_noitems -->
+</div>

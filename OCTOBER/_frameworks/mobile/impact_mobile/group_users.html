@@ -1,0 +1,262 @@
+{header}
+<style type="text/css">
+#add_group_user_link > a {
+    color: #eee;
+    font-weight: bold;
+    margin: 10px 10px 0;
+    display: inline-block;
+}
+.container {
+    margin-left: 8px;
+    margin-right: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px 15px 0 0px;
+    padding: 12px;
+    width: calc(50% - 15px);
+    box-sizing: border-box;
+    position: relative;
+}
+.card-header {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.card-content {
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.card-header a {display: block;color: blue}
+.card-header img{
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+}
+.card-content p, .card-footer p {
+    font-size: 12px;
+    line-height: 10px;
+    display: block;
+    padding-bottom: 15px;
+    transition: .5s;
+    color: #000;
+}
+.card-footer .p_action {
+    text-align: center;
+    display: block;
+    padding: 10px 0 0;
+    border-top: 1px solid #eee;
+}
+.card-footer .p_action > a {
+    padding: 3px 6px;
+    color: #fff;
+    border-radius: 3px;
+    transition: 0.5s;
+}
+.editBtn {
+    border: 1px solid #142D69;
+    background: #142D69;
+}
+.deleteBtn {
+    border: 1px solid #E50000;
+    background: #E50000;
+}
+.card-footer .p_action > .editBtn:hover {
+    border: 1px solid #010f30;
+    background: #010f30;
+}
+.card-footer .p_action > .deleteBtn:hover {
+    border: 1px solid #bb0303;
+    background: #bb0303;
+}
+
+.disableBtn {
+    border: 1px solid gray;
+    background: gray;
+}
+.card-footer .p_action > .disableBtn:hover {
+    border: 1px solid #40c7db;
+    background: #40c7db;
+}
+.enableBtn {
+    border: 1px solid #40c7db;
+    background: #40c7db;
+}
+.card-footer .p_action > .enableBtn:hover {
+    border: 1px solid gray;
+    background: gray;
+}
+.isDisabled1 {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.isDisabled1 a {pointer-events: none; color: gray}
+.visitors {
+    color: #fff !important;
+    font-size: 10px;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: tomato;
+    height: 22px;
+    width: 22px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: normal;
+    transition: 0.5s;
+}
+.visitors:hover {
+    background: #142d69;
+}
+.total_visitors {
+    color: #f15d75;
+    font-weight: bold;
+    margin: 10px 10px 0;
+    display: inline-block;
+}
+.total_visitors> i {
+    letter-spacing: -5px;
+}
+.page_sub_head {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+</style>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+        alertCustom("{message}");
+    }
+    function ban(uid) {
+        $.ajax({
+            url: 'group_users',
+            type: "post",
+            data:{ "ban": uid },
+            dataType: "json",
+            success:function(data){
+                console.log(data)
+                load_users_list();
+            }
+        })
+    }
+
+    function delete_user(uid) {
+        $("#cardData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
+        
+        $.ajax({
+            url: 'group_users',
+            type: "post",
+            data:{ "delete": uid },
+            dataType: "json",
+            success:function(data){
+                console.log(data)
+                load_users_list();
+            }
+        })
+    }
+</script>
+<script id="script_replace_page">
+    urlPageHistory='group_users';
+    
+    urlPageHistorySetHash=true;    
+</script>
+<div class="col_center">
+    <div id="search_head" class="head filter_head">
+        <div class="info" style="width: 308px;"><div class="bl">{page_title}</div></div>
+        <div class="count" style="width: 37px;"><span id="total_guser">0 TOTAL</span></div>
+        <div class="cl"></div>
+    </div>
+
+    <div class="page_sub_head">
+        <span id="add_group_user_link"></span>
+        <a class="total_visitors go_to_page" data-type-loader="fade_btn" href="{url_main}users_viewed_me">{total_visitors}</a>
+    </div>
+
+    <div class="container" id="cardData"></div>
+</div>
+<script type="text/javascript">
+    // previllage
+    const gadmin_previllage = '{gadmin_previllage}';
+    const previllage = gadmin_previllage.split(",");
+
+    $(function(){
+        // set active color
+        $('.icon_msg .fa-users').css('color', '#fff');        
+
+        if(previllage[0] == 1) // add
+            $("#add_group_user_link").html(`<a class="go_to_page" data-type-loader="fade_btn" href="{main_url}add_user" class="groupLink"><i class="fa fa-user-plus"></i> {l_add_group_user}</a>`)
+
+        $("#cardData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
+
+        load_users_list();
+    })
+    function load_users_list() {
+
+        $.ajax({
+            url: 'group_users',
+            type: "POST",
+            dataType: "json",
+            data:{ "cmd": "get_group_user_data", "cmd_ajax": 1},
+            success:function(response){
+                if(response.length) {
+                    $("#total_guser").text(`${response.length} Total`)
+                    var cardData = ``;
+
+
+                    for(var i=0; i < response.length; i++) {
+                        var editTxt = delTxt = line = banTxt = ""
+                        if(previllage[1] == 1 && response[i].ban_global == 0) // edit
+                            editTxt = `<a data-type-loader="fade_btn" href="{url_main}profile_view?name=${response[i].name_seo}" title="{l_edit}" class="editBtn go_to_page"><i class="fa fa-edit"></i></a>`
+
+                        if(previllage[1] == 1 && previllage[2] == 1 && response[i].ban_global == 0)
+                            line = ` | `
+
+                        if(previllage[2] == 1) // delete
+                            delTxt = `<a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){delete_user(${response[i].user_id})}); return false;" class="go_to_page deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
+                        
+                        if(response[i].ban_global == 1) // disabled
+                            banTxt = ` | <a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_enable}" class="go_to_page disableBtn">{l_disabled}</a>`;
+                        else
+                            banTxt = ` | <a href="" data-type-loader="fade_btn" onclick="showConfirm('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_disable}" class="go_to_page enableBtn">{l_enabled}</a>`;
+
+                        cardData += `
+                            <div class="card">
+                            <div class="card-header isDisabled${response[i].ban_global}">
+                                <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter" return false;" href="{url_main}profile_view?user_id=${response[i].user_id}"><img src="{url_files}/photo/${response[i].user_id}_${response[i].photo}_r.jpg" alt="Photo"></a>
+                                <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter" href="{url_main}profile_view?user_id=${response[i].user_id}" style="padding-top: 10px">${response[i].name}</a>
+
+                                ${response[i].total_visitors > 0 ? `<a href="{url_main}visitors?name=${response[i].name_seo}" class="visitors go_to_page" title="Visitors" data-type-loader="fade_btn">${response[i].total_visitors}</a>` : ''}
+                            </div>
+                            <div class="card-content isDisabled${response[i].ban_global}">
+                                <p><i class="fa fa-user"></i> ${response[i].gender}</p>
+                                <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
+                                <p><i class="fa fa-calendar"></i> ${response[i].register}</p>
+                            </div>
+                        `;
+
+                        cardData+= '<div class="card-footer"><p class="p_action">'+editTxt+line+delTxt+banTxt+'</div>';
+                        cardData+= `</div></div>`;
+                    }
+
+
+                    $("#cardData").html(cardData)
+
+                } else
+                    $("#cardData").html(`<div id="im_list_users_empty" style="display: block;"><div class="dialog pp_message_user_info"><div class="bl"><img src="{url_tmpl_main}images/icon_upgrade_profile_visitors.png" width="239" height="207" alt="No users"><div class="bl_txt_msg_empty"><span>You have no users yet.</span></div></div></div></div>`)
+            }
+        })    
+    }
+</script>
+{footer}

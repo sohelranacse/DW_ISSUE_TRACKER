@@ -1,0 +1,248 @@
+{header}
+
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.location.js{cache_version_param}"></script>
+
+<div class="content-header row">
+	<div class="content-header-left col-md-4 col-12 mb-2">
+		<h3 class="content-header-title">{l_title_current}</h3>
+	</div>
+	<div class="content-header-right col-md-8 col-12">
+		<div class="breadcrumbs-top float-md-right">
+			<div class="breadcrumb-wrapper mr-1">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{url_main}administration/users_results.php">{l_mmenu_users}</a>
+					</li>
+					<li class="breadcrumb-item active">
+						{l_title_current}
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+{menu_page}
+
+<div class="content-body">
+	<form id="frm_users_add" method="POST" action="{url_main}administration/add_group_user.php?cmd=insert" name="EditProfileBasicForm" autocomplete="off">
+		<div id="user-profile">
+			
+			<div class="alert alert-success border-0 alert-dismissible mb-2-1" role="alert" id="sucAlert">{l_changes_save}</div>
+			<div class="alert alert-danger alert-dismissible mb-2-1" role="alert" id="warAlert">{message}</div>
+
+
+        	<div class="row">
+            	<div class="col-xl-4 col-lg-5 col-md-12">
+					<div class="card">
+						<div class="card-header pb-0">
+			                <div class="card-title-wrap bar-primary">
+			                    <h4 class="card-title"><i class="fa fa-id-card-o"></i> {l_user_information}</h4>
+			                    <hr>
+			                </div>
+						</div>
+						<div class="card-content">
+		                	<div class="card-body pt-0 pb-1">
+
+								<fieldset class="form-group">
+									<label>{l_name}:</label>
+									<input type="text" id="username" maxlength="{username_length}" name="username" class="form-control" required>
+								</fieldset>
+								<fieldset class="form-group">
+									<label>{l_email_address}:</label>
+									<input type="email" id="email" name="email" class="form-control" required="1">
+								</fieldset>
+
+								<fieldset class="form-group">
+									<label class="full_phone_label">{l_phone_number}:</label>
+									<input type="tel" id="join_phone_number" class="form-control" maxlength="10">
+									<input type="hidden" name="phone" id="full_phone_number"/>
+								</fieldset>
+
+								<!-- begin_const -->
+								<fieldset class="form-group">
+									<label>{field}:</label>
+									<select class="form-control" name="{name}">
+									{options}
+									</select>
+								</fieldset>
+								<!-- end_const -->
+
+								<!-- begin_field_birthday_bl -->
+								<fieldset class="form-group">
+									<label>{l_date_of_birth}:</label>
+									<select name="day" class="form-control">
+									{day_options}
+									</select>
+
+									<select name="month" class="form-control mt-1" onChange="updateDay('month','EditProfileBasicForm','year','month','day')">
+									{month_options}
+									</select>
+
+									<select name="year" class="form-control mt-1" onChange="updateDay('year','EditProfileBasicForm','year','month','day')">
+									{year_options}
+									</select>
+								</fieldset>
+								<!-- end_field_birthday_bl -->
+			                </div>
+		                </div>
+					</div>
+		        </div>
+				<div class="col-xl-8 col-lg-7 col-md-12">
+					<div class="card">
+	                    <div class="card-header pb-0">
+	                        <div class="card-title-wrap bar-primary">
+								<h4 class="card-title"><i class="fa fa-picture-o" aria-hidden="true"></i> {l_user_photo}</h4>
+								<hr>
+							</div>
+						</div>
+						<div class="card-body pt-0">
+
+							<fieldset class="form-group upload-single-file">
+								<div id="dpz-upload-single-icon" data-name="photo_file" class="dropzone dropzone-area dpz-upload-single-icon">
+									<input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file">
+								</div>
+							</fieldset>
+
+						</div>
+                	</div>
+
+                	<div class="card">
+	                    <div class="card-header pb-0">
+	                        <div class="card-title-wrap bar-primary">
+								<h4 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> {l_location}</h4>
+								<hr>
+							</div>
+						</div>
+						<div class="card-body pt-0">
+
+							<fieldset class="form-group">
+								<label>{l_location}:</label>
+								<select class="form-control" name="country"  id="country">
+								<option value="0">- {l_localtion} -</option>
+								{country_options}
+								</select>
+								<select class="form-control mt-1" name="state" id="state">
+								<option value="0">- {l_state_province} -</option>
+								{state_options}
+								</select>
+								<select class="form-control mt-1" name="city" id="city">
+								<option value="0">- {l_city} -</option>
+								{city_options}
+								</select>
+							</fieldset>
+
+						</div>
+					</div>
+
+					<fieldset class="form-group">
+						<input type="hidden" name="cmd" value="insert">
+						<input type="hidden" name="cmd_ajax" value="1">
+						<button class="btn btn-primary btn_submit" type="submit">{l_create_user}</button>
+					</fieldset>
+
+		    	</div>
+		    </div>
+		</div>
+	</form>
+
+	</div>
+	</div>
+</div>
+
+<script>
+	$(function(){
+
+		// phone number
+		var phone_number = window.intlTelInput(document.querySelector("#join_phone_number"), {
+            separateDialCode: true,
+            preferredCountries:["bd","us","gb","sa","ae"],
+            hiddenInput: "full",
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+        })
+        document.getElementById('join_phone_number').onkeyup = function(){
+            var full_number = phone_number.getNumber(intlTelInputUtils.numberFormat.E164);
+            $("#full_phone_number").val(full_number);
+        }
+
+
+        // location
+		$('#country').location({first_option_state: '- {j_state_province} -', first_option_city: '- {j_city} -', location: 'add_group_user.php'});
+		$('#state').location({method: 'cities', first_option_city: '- {j_city} -', location: 'add_group_user.php'});
+
+		partnerCheckboxCheckUncheckAdmin();
+
+		$('.select_multiple').select2({
+			placeholder: '{j_please_choose}',
+			allowClear: true,
+			dropdownAutoWidth: true
+		})
+	})
+
+	$(function(){
+		$('#frm_users_add').submit(function(event) {
+			event.preventDefault();			
+			let email = $("#email").val()
+			let username = $("#username").val()
+			let full_phone_number = $("#full_phone_number").val()
+
+			let country = $("#country").val()
+			let state = $("#state").val()
+			let city = $("#city").val()
+			
+			// dpz-upload-single-icon
+			let photo_file = $('#dpz-upload-single-icon')[0].dropzone.getAcceptedFiles()[0]
+
+			let elementOffset = document.getElementById("frm_users_add").offsetTop;
+			if(email == "" || username == "" || full_phone_number == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
+				var msg = ""
+				if(email == "")
+					msg += "Email Required!<br>"
+				if(username == "")
+					msg += "Username Required!<br>"
+				if(full_phone_number == "")
+					msg += "Phone Number Required!<br>"
+				if(country == 0 || state == 0 || city == 0)
+					msg += "Location Required!<br>"
+				if(photo_file == undefined)
+					msg += "User Photo Required!<br>"
+
+				$("#warAlert").html(msg)
+			} else {				
+				var formData = new FormData(this);
+				formData.append('photo_file', photo_file)
+
+				$.ajax({
+		            url: 'add_group_user.php',
+		            type: "post",
+                    data:formData,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
+		            success:function(data){
+		            	if(data == "success") {
+		            		$("#warAlert").empty()
+		            		$("#sucAlert").html("{l_created_success}")
+		            		
+		            		$("#email").val("")
+							$("#username").val("")
+							$("#full_phone_number").val("")
+							$("#join_phone_number").val("")
+
+							$("#country").val(0)
+							$("#state").val(0)
+							$("#city").val(0)
+							$('#dpz-upload-single-icon').html(`<input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file"><div class="dz-default dz-message"><span>Drop here or click to upload</span></div>`)
+		            	} else {
+		            		$("#warAlert").html(data)
+		            	}
+		            	
+		            }
+		        })
+			}
+			window.scrollTo({ top: (elementOffset-10), behavior: 'smooth' })
+		});
+	})
+</script>
+<style type="text/css">footer {margin-left: 0 !important}.full_phone_label{display: block;padding-bottom: 10px}</style>
+{footer}

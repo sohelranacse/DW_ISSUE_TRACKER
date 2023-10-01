@@ -1,0 +1,212 @@
+{header}
+<style type="text/css">
+#add_group_user_link > a {color: blue;font-weight: bold;}
+.container {
+    width: 750px;
+  margin: 0 auto;
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px 15px 0 0px;
+    padding: 12px;
+    width: calc(25% - 15px);
+    box-sizing: border-box;
+    position: relative;
+}
+.card-header {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.card-content {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.card-header a {display: block;color: blue}
+.card-header img{
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+}
+.card-content p, .card-footer p {
+    font-size: 12px;
+    line-height: 10px;
+    display: block;
+    padding-bottom: 15px;
+    transition: .5s;
+}
+.card-footer .p_action {
+    text-align: center;
+    display: block;
+    padding: 10px 0 0;
+    border-top: 1px solid #eee;
+}
+.card-footer .p_action > a {
+    padding: 3px 6px;
+    color: #fff;
+    border-radius: 3px;
+    transition: 0.5s;
+}
+.editBtn {
+    border: 1px solid #142D69;
+    background: #142D69;
+}
+.deleteBtn {
+    border: 1px solid #E50000;
+    background: #E50000;
+}
+.card-footer .p_action > .editBtn:hover {
+    border: 1px solid #010f30;
+    background: #010f30;
+}
+.card-footer .p_action > .deleteBtn:hover {
+    border: 1px solid #bb0303;
+    background: #bb0303;
+}
+
+.disableBtn {
+    border: 1px solid gray;
+    background: gray;
+}
+.card-footer .p_action > .disableBtn:hover {
+    border: 1px solid #40c7db;
+    background: #40c7db;
+}
+.enableBtn {
+    border: 1px solid #40c7db;
+    background: #40c7db;
+}
+.card-footer .p_action > .enableBtn:hover {
+    border: 1px solid gray;
+    background: gray;
+}
+.isDisabled1 {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.isDisabled1 a {pointer-events: none; color: gray}
+.visitors {
+    color: #fff !important;
+    font-size: 10px;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: tomato;
+    height: 22px;
+    width: 22px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: normal;
+    transition: 0.5s;
+}
+.visitors:hover {
+    background: #142d69;
+}
+.total_visitors { float:right; color:tomato;transition:0.5s }
+.total_visitors:hover { color: #142d69 }
+.total_visitors> i {
+    letter-spacing: -5px;
+}
+</style>
+<script type="text/javascript">
+    var m="{message}";
+    if (m != "") {
+        alertCustom("{message}");
+    }
+    function ban(uid) {
+        redirectUrl('group_users?ban='+uid);
+    }
+
+    function one_delete(uid) {
+        redirectUrl('group_users?delete='+uid);
+    }
+</script>
+<div class="col_center">
+    <div class="head icon_head_visitors">{page_title}</div>
+    <span id="add_group_user_link"></span>
+    <a class="total_visitors" href="{url_main}users_viewed_me" title="Total Visitors">{total_visitors}</a>
+
+    <div class="container" id="cardData"></div>
+</div>
+<script type="text/javascript">
+    siteTitle = '{page_title}';
+    $(function(){
+        // set active color
+        var groupUsersLink = document.querySelector('a[href="./group_users"]');
+        groupUsersLink.style.color = '#8ad4ff';
+
+        // previllage
+        const gadmin_previllage = '{gadmin_previllage}';
+        const previllage = gadmin_previllage.split(",");
+
+        if(previllage[0] == 1) // add
+            $("#add_group_user_link").html(`<a href="{main_url}add_user" class="groupLink"><i class="fa fa-user-plus"></i> {l_add_group_user}</a>`)
+
+        // preloader
+        $("#cardData").html(`<div id="loader_messages" class="css_loader loader_messages"><div class="spinner center"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`)
+        
+        $.ajax({
+            url: 'group_users',
+            type: "POST",
+            dataType: "json",
+            data:{ "cmd": "get_group_user_data", "cmd_ajax": 1},
+            success:function(response){
+                if(response.length) {
+                    var cardData = ``;
+
+
+                    for(var i=0; i < response.length; i++) {
+                        var editTxt = delTxt = line = banTxt = ""
+                        if(previllage[1] == 1 && response[i].ban_global == 0) // edit
+                            editTxt = `<a href="{url_main}edit_user?name=${response[i].name_seo}" title="{l_edit}" class="editBtn"><i class="fa fa-edit"></i></a>`
+
+                        if(previllage[1] == 1 && previllage[2] == 1 && response[i].ban_global == 0)
+                            line = ` | `
+
+                        if(previllage[2] == 1) // delete
+                            delTxt = `<a href="" onclick="confirmCustom('{j_are_you_sure}',function(){one_delete(${response[i].user_id})}); return false;" class="deleteBtn" title="{l_delete}"><i class="fa fa-trash"></i></a>`
+                        
+                        if(response[i].ban_global == 1) // disabled
+                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_enable}" class="disableBtn">{l_disabled}</a>`;
+                        else
+                            banTxt = ` | <a href="" onclick="confirmCustom('{j_are_you_sure}',function(){ban(${response[i].user_id})}); return false;" title="Make {l_disable}" class="enableBtn">{l_enabled}</a>`;
+
+                        cardData += `
+                            <div class="card">
+                            <div class="card-header isDisabled${response[i].ban_global}">
+                                <a href="{url_main}${response[i].name_seo}"><img src="{url_main}_files/photo/${response[i].user_id}_${response[i].photo}_r.jpg" alt="Photo"></a>
+                                <a href="{url_main}${response[i].name_seo}" style="padding-top: 10px">${response[i].name}</a>
+
+                                ${response[i].total_visitors > 0 ? `<a href="{url_main}visitors/name=${response[i].name_seo}" class="visitors" title="Visitors">${response[i].total_visitors}</a>` : ''}
+                            </div>
+                            <div class="card-content isDisabled${response[i].ban_global}">
+                                <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
+                                <p><i class="fa fa-user"></i> ${response[i].gender}</p>
+                                <p><i class="fa fa-calendar"></i> ${response[i].register}</p>
+                            </div>
+                        `;
+
+                        cardData+= '<div class="card-footer"><p class="p_action">'+editTxt+line+delTxt+banTxt+'</div>';
+                        cardData+= `</div></div>`;
+                    }
+
+
+                    $("#cardData").html(cardData)
+
+                } else
+                    $("#cardData").html(`<div id="im_list_users_empty" style="display: block;"><div class="dialog pp_message_user_info"><div class="bl"><img src="{url_tmpl_main}images/icon_upgrade_profile_visitors.png" width="239" height="207" alt="No users"><div class="bl_txt_msg_empty"><span>You have no users yet.</span></div></div></div></div>`)
+            }
+        })
+    })
+</script>
+{footer}
