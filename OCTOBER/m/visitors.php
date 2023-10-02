@@ -104,15 +104,6 @@ if (!$isAjaxRequest) {
 }
 
 $type = get_param("display", "info"); // info - CUsersInfo
-/*if ($isUrban) $list = new CVisitors("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_info.html");
-elseif ($type == "info") $list = new CUsersInfo("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_info.html");
-elseif ($type == "gallery") $list = new CUsersGallery("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_gallery.html");
-elseif ($type == "list") $list = new CUsersList("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_list.html");
-elseif ($type == "profile") $list = new CUsersProfile("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_profile.html");
-elseif ($type == "photo") $list = new CHtmlUsersPhoto("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_photo.html");
-else {
-	redirect("users_online.php");
-}*/
 
 require_once('_include/current/myusers.php');
 $list = new MyUsersInfo("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_users_info.html");
@@ -120,6 +111,7 @@ $list = new MyUsersInfo("users_list", $g['tmpl']['dir_tmpl_mobile'] . "_list_use
 // by sohel
 $user_id = $g_user['user_id'];
 
+$list->c_user_id = $c_user_id;
 $list->m_sql_where = "u.user_id != {$user_id}";
 $list->m_sql_select_add = ', v.id';
 $list->m_sql_order = "id DESC";

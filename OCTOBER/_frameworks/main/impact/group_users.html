@@ -187,7 +187,7 @@
                                 <a href="{url_main}${response[i].name_seo}"><img src="{url_main}_files/photo/${response[i].user_id}_${response[i].photo}_r.jpg" alt="Photo"></a>
                                 <a href="{url_main}${response[i].name_seo}" style="padding-top: 10px">${response[i].name}</a>
 
-                                ${response[i].total_visitors > 0 ? `<a href="{url_main}visitors/name=${response[i].name_seo}" class="visitors" title="Visitors">${response[i].total_visitors}</a>` : ''}
+                                ${response[i].total_visitors > 0 ? `<a href="{url_main}visitors?name=${response[i].name_seo}" class="visitors" title="Visitors">${response[i].total_visitors}</a>` : ''}
                             </div>
                             <div class="card-content isDisabled${response[i].ban_global}">
                                 <p><i class="fa fa-phone"></i> ${response[i].phone}</p>

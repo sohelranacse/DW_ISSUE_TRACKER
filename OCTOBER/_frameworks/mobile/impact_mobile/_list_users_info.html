@@ -21,8 +21,18 @@
         text-align: right;
         line-height: 16px;
     }
+    .visitor_of {
+        text-align: center;
+        border-bottom: 1px solid #6481b3;
+        width: 250px;
+        margin: 0 auto;
+        padding: 10px 0 5px;
+    }
+    .visitor_of > .go_to_page { color:#8ccd00 }
 </style>
-<h5 style="text-align: center;margin-top: 5px;">{user_name}</h5>
+<!-- begin_visitor_of -->
+    <h5 class="visitor_of">Visitors of <a class="go_to_page" data-type-loader="fade_btn" href="{url_main}profile_view?name={visitor_of_name_seo}">{visitor_of}</a></h5>
+<!-- end_visitor_of -->
 <div class="bl_list_photo">
     <!-- begin_users_list_items -->
     <div id="bl_search_users_list" class="list_photos">

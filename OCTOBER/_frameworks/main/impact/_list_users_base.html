@@ -1,0 +1,82 @@
+{header}
+<script type="text/javascript" src="{url_main}_server/js/chart.bundle.min.js{cache_version_param}"></script>
+
+<script>
+$(function(){
+    $jq('.main').scroll(function(){
+        if($jq('.main').scrollTop()>($('.column_main').height()-$jq('.main').height()-1000)){
+            loadBaseListUsers();
+        }
+    })
+})
+var isLoadBaseListUsers=false, lastIdBaseListUsers, onPageDefault='{on_page}';
+function loadBaseListUsers(){
+    if(offset=='no'||isLoadBaseListUsers)return;
+    var page=activePage;
+    $.ajax({type:'POST', url:'{url_main}'+page, data:{ajax:1,on_page:onPageDefault,id:lastIdBaseListUsers},
+            beforeSend:function(){
+                isLoadBaseListUsers=true;
+                $jq('#loader_base_page').removeClass('hidden');
+            },
+            success:function(data){
+                $jq('#loader_base_page').addClass('hidden');
+                if(page=='user_block_list.php'){
+                    var data=checkDataAjax(data);
+                    if(data===false)return;
+                }
+                var list=$(trim(data)),users,t=200,i=0;
+                    list.filter('.pages').appendTo('#page_list_users');
+                    users=list.filter('.items').find('.item').hide();
+                    (function fu(){
+                        var item=users.eq(i);
+                        if(!item[0]){
+                            isLoadBaseListUsers=false;
+                            return;
+                        }
+                        if(!$('#'+item.attr('id'))[0]){
+                            item.appendTo('#page_list_users').slideDown(t*=.8, function(){
+                                $(this).removeAttr('style');
+                                i++; fu();
+                            })
+                        }else if(item[0]){
+                            i++; fu();
+                        }
+                    })()
+            }
+    })
+}
+</script>
+
+<div class="col_center">
+    <div class="head icon_head_{page_class}"><!-- begin_total_visitors -->Total {total_visitors} <!-- end_total_visitors --> {l_page_title} <!-- begin_visitor_of --> <a style="color:#7d7cc2" href="{url_main}edit_user?name={visitor_of_name_seo}">{visitor_of}</a><!-- end_visitor_of --></div>
+    <div class="cont">
+        <div id="page_list_users" class="block_statistics {page_class}">
+            {items}
+            {pages}
+        </div>
+        <div id="loader_base_page" class="css_loader loader_base_page hidden">
+            <div class="spinner center">
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+            </div>
+        </div>
+        <!-- begin_users_list_noitems -->
+        <div class="bl_no_one">
+            <div class="icon"></div>
+            <div class="txt">{l_no_one_here_yet}</div>
+        </div>
+        <!-- end_users_list_noitems -->
+        <div class="cl"></div>
+    </div>
+</div>
+{footer}

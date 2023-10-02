@@ -26,7 +26,7 @@ class MyUsers extends CHtmlList {
 
         $this->m_sql_count = "SELECT COUNT(u.user_id) FROM user AS u " . $this->m_sql_from_add . "";
 
-        if($p == 'users_viewed_me') {
+        if($p == 'users_viewed_me.php') {
             $this->m_sql = "
     	        SELECT * FROM (
     				SELECT u.*, DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) AS age,
@@ -49,6 +49,7 @@ class MyUsers extends CHtmlList {
                 $this->m_field['view_to'] = array("view_to", null);
             $this->m_field_default = $this->m_field;
         } else {
+            $this->c_user_id = $this->c_user_id;
             $this->m_sql = "
                 SELECT * FROM (
                     SELECT u.*, DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birth, '00-%m-%d')) AS age,
@@ -71,10 +72,6 @@ class MyUsers extends CHtmlList {
     }
 
     function onItem(&$html, $row, $i, $last) {
-        global $g;
-        global $l;
-        global $g_user;
-        global $status_style;
         global $p;
 
         $guid = self::$guid;
@@ -106,7 +103,14 @@ class MyUsers extends CHtmlList {
     }
     function parseBlock(&$html)
     {
-        $html->setvar('user_name', 'Sohel Rana Khan');
+        global $p;
+
+        if($p !== 'users_viewed_me.php') {
+            $c_user_id_info = User::getInfoFull($this->c_user_id);
+            $html->setvar('visitor_of', $c_user_id_info['name']);
+            $html->setvar('visitor_of_name_seo', $c_user_id_info['name_seo']);
+            $html->parse('visitor_of', false);
+        }
         parent::parseBlock($html);
     }
 
