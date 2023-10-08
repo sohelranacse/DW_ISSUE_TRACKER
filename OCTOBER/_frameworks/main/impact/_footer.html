@@ -1,0 +1,718 @@
+<style type="text/css">
+    .column_main .col .bl_visited_photo ul.list_photo li img {height: 38px; border-radius: 100%}
+    .bl_visited_photo strong {text-align: center;margin-left: -15px !important}
+    .profile_sign {
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        background-position: 1000px 1000px;
+        word-wrap: break-word;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+</style>
+<!-- begin_footer_visitor -->
+<script>
+    function setPageBackgroundHeight() {
+        if($('.bl_join_done').height()) {
+            return;
+        }
+
+        var isLoginPage = $('.bl_form_registration').height();
+        var contentHeight = $('.bl_logo').outerHeight(true) + parseInt($('.wrap_header_cont .bl').css('paddingTop'));
+        if(isLoginPage) {
+            contentHeight += $('.slogan').outerHeight(true) + $('.bl_form_registration').outerHeight(true);
+        } else {
+            contentHeight += $('#step-1').outerHeight(true);
+        }
+
+        $('.header, .cover, #bg_shadow').height(Math.max(contentHeight, $(window).height()));
+    }
+</script>
+    <!-- not page join2-->
+    </div>
+    <!-- header_cont_bl -->
+    </div>
+    <!-- /header_cont  -->
+    <div class="header">
+        <!-- begin_main_page_image_content_js -->
+        <div id="bg_cover" class="cover" style="background-image: url({main_page_image});"></div>
+        <!-- begin_main_page_image_content_js_join -->
+        <div class="bg_shadow"></div>
+        <!-- end_main_page_image_content_js_join -->
+        <script>
+        var ready;
+        function bgReady() {
+            var $bgCover=$('#bg_cover');
+            if(ready){
+                if(!$bgCover.is('.show'))$bgCover.addClass('to_show')
+            }else if(document.cookie.indexOf('bgImpactMain={main_page_image}')>=0) $bgCover.addClass('show');
+            document.cookie='bgImpactMain={main_page_image}';
+            ready=1
+        }
+        bgReady();
+        var imgCover=new Image();
+        imgCover.onload = bgReady;
+        imgCover.src='{main_page_image}';
+        </script>
+        <!-- end_main_page_image_content_js -->
+
+        <!-- begin_main_page_video_index -->
+        <div id="bg_video_tumb" class="bg_video tumb"></div>
+        <div class="bg_video" id="bg_video"></div>
+        <div class="bg_video_overlay"></div>
+        <div class="bg_shadow"></div>
+        <script>
+            pageBackgroundVideoInit();
+        </script>
+        <!-- end_main_page_video_index -->
+
+        <script>
+            setPageBackgroundHeight();
+            $(window).on('resize', setPageBackgroundHeight);
+        </script>
+    </div>
+
+	<!-- begin_footer_visitor_info -->
+    <!-- content -->
+    <div class="content">
+        <div class="cont_w">
+            <div class="bl_main_info">
+                <div class="item">
+                    <div class="pic">
+                        <img src="{url_tmpl_main}images/pic_clock.png" width="128" height="128" alt="" />
+                    </div>
+                    <p>{l_signing_up_takes_two_minutes_and_is_totally_free}</p>
+                </div>
+                <div class="item">
+                    <div class="pic">
+                        <img src="{url_tmpl_main}images/pic_heart.png" width="128" height="104" alt="" />
+                    </div>
+                    <p>{l_our_matching_algorhythm_helps_to_find_the_right_people}</p>
+                </div>
+                <div class="item">
+                    <div class="pic">
+                        <img src="{url_tmpl_main}images/pic_chat.png" width="128" height="112" alt="" />
+                    </div>
+                    <p>{l_you_can_chat_see_photos_have_fun_and_even_meet}</p>
+                </div>
+            </div>
+            <div class="cl"></div>
+        </div>
+    </div>
+    <!-- /content -->
+	<!-- end_footer_visitor_info -->
+	</div>
+	<!-- /wrapper -->
+	<!-- footer -->
+    <div class="footer">
+        <div class="footer_w">
+            <!-- begin_bottom_visitor_menu -->
+            <ul class="nav">
+                <!-- begin_bottom_visitor_menu_item -->
+                <li>
+                    <!-- begin_bottom_visitor_menu_item_stick -->
+                    <span>|</span>
+                    <!-- end_bottom_visitor_menu_item_stick -->
+                    <a <!-- begin_bottom_visitor_menu_item_target -->target="_blank"<!-- end_bottom_visitor_menu_item_target --> href="{url_main}{bottom_visitor_menu_item_url}">{bottom_visitor_menu_item_title}</a>
+                </li>
+                <!-- end_bottom_visitor_menu_item -->
+            </ul>
+            <!-- end_bottom_visitor_menu -->
+            <span class="title_orig">{l_footer_c}{title_orig} {year}</span>
+        </div>
+        <div class="footer-ssl-seal">{ssl_seal_html}</div>
+	</div>
+	<!-- /footer -->
+	<div style="display:none;">
+
+    <!-- begin_form_sign_in -->
+    <div id="pp_sign_in" class="popup pp_sign">
+        <div class="head">
+            {l_sign_in}
+            <a id="pp_sign_in_close" class="icon_close" href="">
+                <span class="close_hover"></span>
+            </a>
+        </div>
+        <div class="cont">
+            <div class="bl">
+                <form id="form_login" class="form_login" method="post" autocomplete="on" action="{url_main}ajax.php">
+                    <input id="form_login_cmd" type="hidden" name="cmd" value="login" />
+                    <input type="hidden" name="ajax" class="ajax" value="1" />
+                    <input id="form_login_user" type="text" name="user" class="inp placeholder" placeholder="{a_your_email_or_username}" />
+                    <div class="error"></div>
+                    <input id="form_login_pass"  type="password" name="password" class="inp placeholder" placeholder="{a_password}" />
+                    <div class="bl_remember custom_checkbox">
+                        <input id="form_login_remember" name="remember" value="1" type="checkbox" checked="checked"/>
+                        <label for="form_login_remember"><span></span>{l_remember_me}</label>
+                    </div>
+                    <button id="form_login_submit" type="submit" class="btn pink">{l_sign_in}</button>
+                </form>
+                <a id="pp_forgot_pass_open" class="link" href="">{l_forgot_password}</a>
+                <!-- begin_social_login -->
+                <div class="line"></div>
+                <div class="or"><span>{l_or}</span></div>
+                <ul class="bl_social_buttons">
+                    <!-- begin_social_login_item -->
+                    <li class="login_{social_login_item_type}"><a href="{social_login_item_url}">&nbsp;</a></li>
+                    <!-- end_social_login_item -->
+                </ul>
+                <!-- end_social_login -->
+                <!-- begin_social_login_no_class -->
+				<div class="cl" style="margin-bottom: -30px;"></div>
+                <!-- end_social_login_no_class -->
+				<!--<a class="link link_close_login" onclick="$('#pp_sign_in').close(); return false;" href="">{l_no_account_register_now}</a>-->
+            </div>
+        </div>
+    </div>
+    <!-- end_form_sign_in -->
+
+
+    <div id="pp_resend_password" class="popup">
+        <div class="head">
+            {l_forgot_password}
+            <a class="icon_close pp_forgot_pass_close" href="">
+                <span class="close_hover"></span>
+            </a>
+        </div>
+        <div class="cont">
+            <div class="bl">
+                <input id="pp_resend_password_email" type="text" class="inp placeholder" placeholder="{a_your_email}" />
+                <div id="pp_resend_password_error" class="error">&nbsp;</div>
+                <div class="successful">&nbsp;</div>
+                <button id="pp_resend_password_submit" class="btn turquoise" disabled>{l_send_password}</button>
+                {l_forgot_password_or} <a class="link turquoise pp_forgot_pass_close" href="">{l_try_logging_in_again}</a>
+            </div>
+        </div>
+    </div>
+
+	</div>
+</div>
+<!-- /main -->
+<!-- end_footer_visitor -->
+<!-- begin_footer_member -->
+<!-- col left -->
+	<!-- begin_footer_member_left -->
+	<div id="colfix_l_bl" class="col left" >
+        <div class="bl_logo">
+            <a href="{url_main}{url_logo}" class="logo">
+                <img src="{header_url_logo_inner}" <!-- begin_logo_inner_params -->style="max-width:183px; max-height: 60px;"<!-- end_logo_inner_params --> alt="" /> <!--{logo_inner_height}-->
+            </a>
+        </div>
+		<div id="colfix_l" class="cont col_fix">
+            <!-- begin_column_narow_item -->
+            <!-- begin_left_menu -->
+            <!-- begin_narrow_menu -->
+            <ul class="nav">
+            <!-- begin_narrow_menu_item -->
+            <li>
+                <a id="{narrow_menu_item_link_id}" href="{url_main}{narrow_menu_item_url}" class="{narrow_menu_item_class}">
+                    <span class="icon"></span>{narrow_menu_item_title}
+					<!-- begin_narrow_menu_item_status -->
+                    <span class="status"></span>
+                    <!-- end_narrow_menu_item_status -->
+                    <!-- begin_narrow_menu_item_count -->
+                    <span id="{narrow_menu_item_count_id}" class="count <!-- begin_narrow_menu_item_decor -->decor<!-- end_narrow_menu_item_decor -->">{narrow_menu_item_count}</span>
+                    <!-- end_narrow_menu_item_count -->
+                </a>
+            </li>
+            <!-- end_narrow_menu_item -->
+            </ul>
+            <!-- end_narrow_menu -->
+            <!-- end_left_menu -->
+			<!-- begin_left_banner -->
+            <!-- begin_banner_left_column_list -->
+            <div class="bl_banner_l bl_banner bl_banner_left_column">
+                <div class="bl_ads" <!-- begin_banner_left_column_list_hide -->style="display:none;"<!-- end_banner_left_column_list_hide -->>
+                    <!-- begin_banner_left_column -->
+                    {banner_left_column}
+                    <!-- end_banner_left_column -->
+                </div>
+                <div class="link">
+                <!-- begin_banner_left_column_list_action -->
+                <a class="link_show_banner <!-- begin_banner_left_column_show -->action_show<!-- end_banner_left_column_show -->" href="" onclick="Profile.visibleBanners($(this), 'left_column'); return false;">{banner_left_column_title}</a>
+                <!-- end_banner_left_column_list_action -->
+                </div>
+            </div>
+            <!-- end_banner_left_column_list -->
+            <!-- end_left_banner -->
+            <!-- end_column_narow_item -->
+            <div id="bl_banner_l_empty" class="bl_banner_empty"></div>
+        </div>
+    </div>
+	<!-- end_footer_member_left -->
+    <!-- /col left -->
+
+	<!-- begin_footer_member_right -->
+    <!-- col right -->
+    <div id="colfix_r_bl" class="col right">
+        <div class="logo"></div>
+        <div id="colfix_r" class="cont col_fix">
+            <div class="colfix_r_bg_head"></div>
+            <div class="colfix_r_bg">
+
+            <div class="profile_pic">
+                <button id="photo_right_column" onclick="redirectUrl('{url_page_profile_view}');" class="photo_right_column to_hide" data-main-photo="{user_photo_default_id}" data-photo-size="m" style="background-image: url({url_files}{user_photo_default_url});" title=""></button>
+                <script>
+                    $('<img>').load(function(){
+                        stylizeMainPhoto();
+                        $('#photo_right_column').removeClass('to_hide');
+                    })[0].src='{url_files}{user_photo_default_url}';
+                </script>
+            </div>
+            <div class="profile_sign">
+                <div class="txt">
+                    {user_name}<br/>
+                    <span style="color: #ddd;font-weight: normal;font-size: 12px">{phone}</span><br/>
+                    <span style="color: #eee;font-weight: normal;font-size: 12px" id="show_role"></span>
+                </div>
+            </div>
+
+            <!-- dont remove this comment -->
+
+
+            <!-- begin_right_recently_visited -->
+                <div class="bl_visited_photo">
+                    <strong>{l_left_recently_visited}</strong>
+                    <ul class="list_photo">
+                        <!-- begin_right_recently_visited_item -->
+                        <li><a title="{right_recently_visited_name}" href="{right_recently_visited_url}"><img src="{url_files}{right_recently_visited_photo}" alt="" /></a></li>
+                         <!-- end_right_recently_visited_item -->
+                    </ul>
+                <div class="cl"></div>
+                </div>
+            <!-- end_right_recently_visited -->
+
+
+            <!-- begin_banner_right_column_list -->
+            <div class="bl_banner_r bl_banner bl_banner_right_column">
+            <div class="bl_ads" <!-- begin_banner_right_column_list_hide -->style="display:none;"<!-- end_banner_right_column_list_hide -->>
+                <!-- begin_banner_right_column -->
+                {banner_right_column}
+                <!-- end_banner_right_column -->
+            </div>
+            <div class="link">
+                <!-- begin_banner_right_column_list_action -->
+                <a class="link_show_banner <!-- begin_banner_right_column_show -->action_show<!-- end_banner_right_column_show -->" href="" onclick="Profile.visibleBanners($(this), 'right_column'); return false;">{banner_right_column_title}</a>
+                <!-- end_banner_right_column_list_action -->
+            </div>
+            </div>
+            <!-- end_banner_right_column_list -->
+            <div id="bl_banner_r_empty" class="bl_banner_empty"></div>
+            </div>
+            <!-- begin_column_narow_select_lang -->
+            <div class="column_lang_bl">
+                <div id="column_lang" class="column_lang">
+                    <a class="language" href="" onclick="return false;">{language_current}</a>
+                    <div class="lang_item" id="column_lang_item">
+                        <ul class="pp_small">
+                            <!-- begin_language -->
+                            <li><a href="#" onclick="siteSetLanguage('{language_value}'); return false;"><span class="{language_class}">{language_title}</span></a></li>
+                            <!-- end_language -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end_column_narow_select_lang -->
+        </div>
+    </div>
+    <!-- /col right -->
+    <script>prepareBannerColumns();</script>
+	<!-- end_footer_member_right -->
+            </div>
+            <div class="cl"></div>
+        </div>
+	</div>
+	<!-- /content -->
+	</div>
+
+    <!-- begin_banner_footer_bl -->
+    <div class="banner_footer_bl {banner_footer_class}">
+    <!-- begin_banner_footer -->
+    <div class="banner_footer <!-- begin_banner_footer_list_hide -->banner_hidden<!-- end_banner_footer_list_hide -->">
+        {banner_footer}
+    </div>
+    <!-- end_banner_footer -->
+    <!-- begin_banner_footer_list_action -->
+    <div class="banner_footer_remove link">
+    <a class="link_show_banner <!-- begin_banner_footer_show -->action_show<!-- end_banner_footer_show -->" href="" onclick="Profile.visibleBanners($(this), 'content'); return false;">{banner_footer_title}</a>
+    </div>
+    <!-- end_banner_footer_list_action -->
+    </div>
+    <!-- end_banner_footer_bl -->
+	<!-- /wrapper -->
+
+	<!-- footer -->
+    <div class="footer">
+        <div class="footer_w">
+            <ul class="nav">
+                <!-- begin_bottom_menu -->
+                <!-- begin_bottom_menu_item -->
+                <li>
+                    <!-- begin_bottom_menu_item_stick -->
+                    <span>|</span>
+                    <!-- end_bottom_menu_item_stick -->
+                    <a <!-- begin_bottom_menu_item_target -->target="_blank"<!-- end_bottom_menu_item_target --> href="{url_main}{bottom_menu_item_url}">{bottom_menu_item_title}</a>
+                </li>
+                <!-- end_bottom_menu_item -->
+                <!-- end_bottom_menu -->
+            </ul>
+            <span class="title_orig">{l_footer_c}{title_orig} {year}</span>
+        </div>
+        <div class="footer-ssl-seal">{ssl_seal_html}</div>
+	</div>
+	<!-- /footer -->
+</div>
+<script>if(ajax_login_status)$('.main')[0].scrollTop=0;</script>
+
+
+<!-- Auxiliary interface elements -->
+<div style="display:none;">
+    <!-- pp_profile_info -->
+	<div id="pp_edit_info" class="pp_edit_info">
+            <div class="frame">
+
+            <a class="icon_close" href="#close">
+                <span class="close_hover"></span>
+            </a>
+
+            <div class="head"></div>
+            <div class="cont">
+                <div class="bl_frm bl_frm_editor"></div>
+                <div class="css_loader loader_edit_popup">
+                    <div class="spinner center">
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                        <div class="spinner-blade"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot">
+                <div class="fl_right bl_btn">
+                    <button class="btn small white_frame frm_editor_cancel">{l_cancel}</button>
+                    <button class="btn small turquoise frm_editor_save" disabled>{l_save}</button>
+                </div>
+                <div class="cl"></div>
+            </div>
+        </div>
+    </div>
+    <!-- pp_profile_info -->
+    <!-- pp_gallery -->
+    <div id="pp_gallery_photos_content" class="pp_photos pp_photos_empty" >
+    <div id="pp_gallery_photo_one_cont" class="cont">
+        <h2 class="fl_left">&nbsp;<span></span></h2>
+        <span onclick="Photo.closeGallery();" id="pp_gallery_photos_close" class="icon_close">
+            <span class="icon_close_pp_photo_one"></span>
+            <span class="icon_close_pp_photo_one_hover"></span>
+        </span>
+        <div class="cl"></div>
+        <div id="pp_photo_carousel_box" class="bl_carousel"></div>
+        <div class="bl_photo_one">
+            <a id="photo_show_prev" onclick="Photo.showGalleryPhotoOne('next_id'); return false;" href="#" class="arrows prev_p"></a>
+            <div class="bl_photo_one_cont">
+                <div id="request_private_title" class="request_access" class="txt_top"></div>
+                <div id="gallery_photo_one" class="vertica gallery_photo_one_box"><!---->
+                    <img oncontextmenu="return false;" id="gallery_photo_one_img" src="" alt="" />
+                    <div title="{a_report_photo}" id="report_photo_gallery" onclick="Photo.openReport(); return false;" class="report_photo_gallery"></div>
+                </div>
+                <div id="request_access_action" class="request_access txt_bottom"></div>
+            </div>
+            <div class="bl_video_one_cont">
+				<div id="video_loader" class="css_loader">
+					<div class="spinner center">
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+						<div class="spinner-blade"></div>
+					</div>
+				</div>
+                <div title="{a_report_video}" id="report_video_gallery" onclick="Photo.openReport('video'); return false;" class="report_photo_gallery"></div>
+            </div>
+            <a id="photo_show_next" onclick="Photo.showGalleryPhotoOne('prev_id'); return false;" href="#" class="arrows next_p"></a>
+        </div>
+    </div>
+    <div class="photo_funk"></div>
+    <div id="pp_gallery_photos_footer_empty" class="foot foot_empty">
+        <div class="comments_hidden"><img src="{url_tmpl_main}images/comment_visibility_off.png"/><div>{l_comments_hidden}</div></div>
+    </div>
+    </div>
+    <!-- pp_gallery -->
+    <!-- Report -->
+    <div id="pp_user_report" class="pp_edit_info">
+    <div class="frame">
+        <div class="head"></div>
+        <div class="cont">
+            <div class="bl_frm">
+                <textarea id="pp_user_report_msg" name="comment"></textarea>
+            </div>
+        </div>
+        <div class="foot">
+            <div class="fl_right bl_btn to_show">
+                <button id="pp_user_report_cancel" onclick="Profile.cancelReport(); return false;" class="btn small white_frame">{l_cancel}</button>
+                <button id="pp_user_report_send" onclick="Profile.sendReport(); return false;" class="btn small turquoise">{l_send}</button>
+            </div>
+        <div class="cl"></div>
+        </div>
+    </div>
+    </div>
+    <!-- Report -->
+    <!-- Boost -->
+    <div id="pp_boost_ajax" class="pp_upgraded pp_boost_ajax no_border">
+        <div class="cont">
+            <div class="frame_loader_search_list to_show">
+                <div class="css_loader loader_search_list">
+                <div class="spinner center">
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            <!-- begin_payment_pop_show_video_chat -->
+            videoChatInvite('{user_id}',true);
+            <!-- end_payment_pop_show_video_chat -->
+            <!-- begin_payment_pop_show_audio_chat -->
+            audioChatInvite('{user_id}',true);
+            <!-- end_payment_pop_show_audio_chat -->
+            <!-- begin_payment_pop_show_search -->
+            upgrade.requestIncreasePopularity();
+            <!-- end_payment_pop_show_search -->
+            <!-- begin_payment_pop_show_refill -->
+            alertCustom('{j_your_credits_have_been_refilled}', true, '{j_success}');
+            <!-- end_payment_pop_show_refill -->
+            <!-- begin_system_payment_error -->
+            alertCustom('{j_seems_there_problem_with_your_payment}', true, '{j_problem_with_the_payment}');
+            <!-- end_system_payment_error -->
+        })
+    </script>
+    <!-- Boost -->
+</div>
+<!-- Auxiliary interface elements -->
+
+
+<!-- begin_profile_verification_unverified_my -->
+<!-- end_profile_verification_unverified_my -->
+<div id="pp_profile_verification" class="pp_edit_info pp_profile_verification" style="display: none;">
+    <div class="frame">
+        <a class="icon_close" onclick="Profile.closePopupEditor('pp_profile_verification'); return false;" href="#">
+            <span class="close_hover"></span>
+        </a>
+        <div class="head">{l_link_social_login}</div>
+        <div class="cont verify_account_system">
+            <div class="bl_frm">
+                <div class="field">
+            
+                    <select name="profile_verification_system" class="select_main item_system">
+                        {profile_verification_system_options}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <div class="fl_right bl_btn to_show">
+                <button class="btn small white_frame" onclick="Profile.closePopupEditor('pp_profile_verification'); return false;">{l_cancel}</button>
+                <button id="btn_verify_account" class="btn small turquoise" onclick="Profile.verifyAccount();"><span>{a_verify}</span></button>
+            </div>
+            <div class="cl"></div>
+        </div>
+    </div>
+</div>
+
+<!-- resume -->
+<div id="pp_profile_upload_pdf" class="pp_edit_info pp_profile_upload_pdf" style="display: none;">
+    <div class="frame">
+        <a class="icon_close" onclick="Profile.closePopupEditor('pp_profile_upload_pdf'); return false;" href="#">
+            <span class="close_hover"></span>
+        </a>
+        <div class="head">{l_upload_cv_file_into_your_profile}</div>
+        <div class="cont verify_account_system">
+
+            <form id="profile_pdf_upload_form" action="" method="POST" enctype="multipart/form-data"></form>
+            <div class="bl_frm">
+                <div class="field">
+                    <input type="file" class="custom-file-input" id="input_profile_pdf" name="input_profile_pdf" accept=".pdf">
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="foot">
+            <div class="fl_right bl_btn to_show">
+                <button class="btn small white_frame" onclick="Profile.closePopupEditor('pp_profile_upload_pdf'); return false;">{l_cancel}</button>
+                <button id="btn_upload_pdf" class="btn small turquoise" onclick="Profile.uploadPDF();"><span>{a_upload}</span></button>
+            </div>
+            <div class="cl"></div>
+            <div id="upload_pdf_msg" style="text-align: right; display: none; margin-top: 15px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- nid -->
+<div id="pp_profile_upload_nid" class="pp_edit_info pp_profile_upload_nid" style="display: none;">
+    <div class="frame">
+        <a class="icon_close" onclick="Profile.closePopupEditor('pp_profile_upload_nid'); return false;" href="#">
+            <span class="close_hover"></span>
+        </a>
+        <div class="head">{l_upload_nid_file_into_your_profile}</div>
+        <div class="cont verify_account_system">
+
+            <form id="profile_pdf_upload_form" action="" method="POST" enctype="multipart/form-data"></form>
+            <div class="bl_frm">
+                <div class="field">
+                    <input type="file" class="custom-file-input" id="input_profile_nid" name="input_profile_nid" accept=".pdf, .jpg, .jpeg, .png">
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="foot">
+            <div class="fl_right bl_btn to_show">
+                <button class="btn small white_frame" onclick="Profile.closePopupEditor('pp_profile_upload_pdf'); return false;">{l_cancel}</button>
+                <button id="btn_upload_nid" class="btn small turquoise" onclick="Profile.uploadNID();"><span>{a_upload}</span></button>
+            </div>
+            <div class="cl"></div>
+            <div id="upload_pdf_msg" style="text-align: right; display: none; margin-top: 15px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- end_footer_member -->
+<div style="display:none;">
+    <div id="css_loader" class="css_loader">
+		<div class="spinner center">
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+            <div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+			<div class="spinner-blade"></div>
+		</div>
+	</div>
+    <div id="update_server"></div>
+</div>
+<script>
+    try {
+        imChats.initListIm();
+        initServer();
+    }
+    catch(e){};
+    {footer_custom_js}
+    <!-- begin_alert_after_page_loaded -->
+    $win.load(function(){
+        alertCustom('{alert_after_page_loaded_msg}',true,ALERT_HTML_SUCCESS);
+    })
+    <!-- end_alert_after_page_loaded -->
+</script>
+
+<script src="{url_main}_server/videojs/video.js{cache_version_param}"></script>
+<script>videojs.options.flash.swf="{url_main}_server/videojs/video-js.swf"</script>
+
+<!-- begin_facebook_invite -->
+<script src="https://connect.facebook.net/en_US/all.js"></script>
+<script type="text/javascript">
+    FB.init({
+        appId: '{facebook_appid}',
+        cookie: true,
+        status: true
+    });
+
+    var j_facebook_invite_message = '{j_facebook_invite_message}';
+</script>
+<!-- end_facebook_invite -->
+
+<!-- begin_demo -->
+<script>
+$(function(){
+	$('#form_login_user').val('{login_user}');
+	$('#form_login_pass').val('{login_password}');
+});
+</script>
+<!-- end_demo -->
+<!-- begin_info_page -->
+<div style="display:none;">
+	<div id="pp_terms" class="popup terms">
+		<div class="cont">
+			<div class="scroll-pane-terms scroll-info-terms">
+				<div class="title">{terms_title}</div>
+				<div class="bl_cont">
+					{terms_text}
+				</div>
+			</div>
+			<div class="bl_btn">
+				<button id="terms_close" class="btn lblue">{l_i_understand}</button>
+			</div>
+		</div>
+	</div>
+	<div id="pp_priv" class="popup terms">
+		<div class="cont">
+			<div class="scroll-pane-terms scroll-info-priv">
+				<div class="title">{priv_title}</div>
+				<div class="bl_cont">
+					{priv_text}
+				</div>
+			</div>
+			<div class="bl_btn">
+				<button id="priv_close" class="btn lblue">{l_i_understand}</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end_info_page -->
+
+<!-- begin_gdpr_cookie_popup -->
+<script>
+    $(function(){
+        //document.cookie = 'cookiesAccepted=; path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        var options = {
+            title: '{j_cookies_accept_title}',
+            text: '{cookies_accept_text}',
+            acceptButtonText: '{j_cookies_accept_accept_button_text}',
+            theme: 'dark',
+            learnMore: false,
+            position: 'bottom',
+            class: '{cookies_class}',
+            position: '{cookies_position}',
+            width: '{cookies_width}',
+            width_unit: '{cookies_width_unit}',
+        };
+        $.acceptCookies(options);
+    })
+</script>
+<!-- end_gdpr_cookie_popup -->
+<script type="text/javascript">
+    $(document).ready(function() { $('.combo').select2(); });
+</script>
+</body>
+</html>

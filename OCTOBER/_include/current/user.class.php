@@ -3622,12 +3622,29 @@ static function profileComplite() {
 
         /*$sql = "SELECT COUNT(*) AS counter, MAX(`new`) AS is_new FROM user AS u JOIN users_view AS v ON (u.user_id=v.user_from AND (v.user_to= {$user_id} OR v.user_to IN (SELECT user_id FROM user WHERE under_admin = {$user_id}))) WHERE u.user_id != {$user_id} GROUP BY v.user_to";*/
 
+        // COUNT ALL VIWERS
         $sql = "SELECT COUNT(*) AS counter, is_new FROM (SELECT COUNT(u.user_id), MAX(`new`) AS is_new FROM user AS u  JOIN users_view AS v ON (u.user_id=v.user_from AND (v.user_to= {$user_id} OR v.user_to IN (SELECT user_id FROM user WHERE under_admin = {$user_id}))) WHERE u.user_id != {$user_id} GROUP BY u.user_id, user_to) t";
+
+        // COUNT NEW VIEWES
+        /*$sql = "SELECT COUNT(*) AS counter FROM (
+            SELECT COUNT(u.user_id)
+            FROM user AS u 
+            JOIN users_view AS v ON (
+                u.user_id=v.user_from
+                AND (
+                    v.user_to= {$user_id}
+                    OR v.user_to IN (SELECT user_id FROM user WHERE under_admin = {$user_id})
+                )
+            ) WHERE u.user_id != {$user_id} AND v.new = 'Y'
+            GROUP BY u.user_id, v.user_to
+        ) t";*/
+
 
         $row = DB::row($sql);
         if($row) {
             $count = $row['counter'];
             $isNew = $row['is_new'] == 'Y' ? 1 : 0;
+            // $isNew = $row['is_new'] == 1; // COUNT NEW VIEWES
         } else {
             $count = 0;
             $isNew = 0;
