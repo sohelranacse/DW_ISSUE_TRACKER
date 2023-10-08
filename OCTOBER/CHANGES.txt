@@ -1,0 +1,11 @@
+Admin Panel
+-----------
+1. Add Language - English
+http://localhost/mymatch/administration/language.php
+	group_admin = Matchmaker
+	add_group_user = Add Candidate
+	group_users = My Candidate
+
+2. Countries
+http://localhost/mymatch/administration/users_fields_countries.php
+	Country order - Bangladesh, USA, UK, Saudi Arabia, UAE

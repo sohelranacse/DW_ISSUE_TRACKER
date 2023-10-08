@@ -19,15 +19,16 @@ class CGroupUsersMobile extends CHtmlBlock
         if ($cmd == 'get_group_user_data') {
             $group_admin_id = guid();
             $result = DB::all("
-                SELECT a.user_id, a.name, a.name_seo, a.mail, a.phone, a.register,
-                (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(a.birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(a.birth, '00-%m-%d'))
-                ) AS age,
-                (SELECT title FROM const_orientation WHERE id = a.orientation) AS gender, a.ban_global,
-                (SELECT photo_id FROM photo WHERE user_id = a.user_id AND `default` = 'Y') AS photo,
-                (SELECT COUNT(id) FROM users_view WHERE user_to = a.user_id AND user_from != {$group_admin_id}) AS total_visitors
-                FROM user a WHERE a.under_admin = '".$group_admin_id."' ORDER BY a.register DESC
+                SELECT * FROM (
+                    SELECT a.user_id, a.name, a.name_seo, a.mail, a.phone, a.register,
+                    (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(a.birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(a.birth, '00-%m-%d'))
+                    ) AS age,
+                    (SELECT title FROM const_orientation WHERE id = a.orientation) AS gender, a.ban_global,
+                    (SELECT photo_id FROM photo WHERE user_id = a.user_id AND `default` = 'Y') AS photo,
+                    (SELECT COUNT(id) FROM users_view WHERE user_to = a.user_id AND user_from != {$group_admin_id}) AS total_visitors
+                    FROM user a WHERE a.under_admin = '".$group_admin_id."'
+                ) x ORDER BY x.total_visitors DESC, x.register DESC
             ");
-            // dd($group_admin_id);exit();
             echo json_encode($result);
             die();
         } elseif ($del) {
