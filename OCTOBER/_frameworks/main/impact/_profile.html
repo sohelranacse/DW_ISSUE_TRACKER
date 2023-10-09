@@ -1,0 +1,879 @@
+<script type="text/javascript" src="{url_main}_server/js/chart.bundle.min.js{cache_version_param}"></script>
+<!-- begin_profile_custom_header_js -->
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload_last/load-image.all.min.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload_last/canvas-to-blob.min.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload_last/jquery.iframe-transport.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload_last/jquery.fileupload.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload_last/jquery.fileupload-process.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload_last/jquery.fileupload-image.js{cache_version_param}"></script>
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.fileupload_last/jquery.fileupload-validate.js{cache_version_param}"></script>
+
+<script type="text/javascript" src="{url_main}_server/jquery/jquery.editable.js{cache_version_param}"></script>
+<!-- end_profile_custom_header_js -->
+
+{profile_photos_init}
+
+<script language="javascript" type="text/javascript">
+var isSuperPowers = '{is_super_powers}'*1;
+var isFreeSite = '{is_free_site}'*1;
+var isPageProfile = true;
+Profile.setStatusOnline('{real_status_online}', '{user_status_online}');
+$(function(){
+    //$(window).load(function(){
+        <!-- begin_payment_thank -->
+        alertCustom('{j_payment_successfully_completed}',true,ALERT_HTML_SUCCESS);
+        <!-- end_payment_thank -->
+        <!-- begin_error_accessing_user -->
+        alertHtml('{error_accessing_user}',true,ALERT_HTML_ALERT);
+        <!-- end_error_accessing_user -->
+        <!-- begin_edit_field_on_start -->
+        Profile.editFieldOnStart('{name_field_on_start}');
+        <!-- end_edit_field_on_start -->
+
+        //(-)
+        <!-- begin_for_not_login_user_not_exist -->
+        alertCustomRedirect('{url_redirect}','{j_user_does_not_exist}',ALERT_HTML_ALERT);
+        setTimeout(function(){window.location.href=url_main+'{url_redirect}'},2500);
+        <!-- end_for_not_login_user_not_exist -->
+
+        <!-- begin_alert_email_confirmed -->
+        alertCustom('{j_email_confirmed}',true,'{j_alert_success}');
+        replaceUrl('{url_redirect_wait_approval}');
+        <!-- end_alert_email_confirmed -->
+
+        <!-- begin_show_gallery -->
+        //+/Photo.isShowGalleryPhoto=true;
+        Photo.openGallery($('[data-offset-id = {show_gallery_photo_id}]'));
+        <!-- end_show_gallery -->
+        <!-- begin_show_video_gallery -->
+        Photo.openGallery($('[data-offset-id = {show_video_gallery_id}]'));
+        <!-- end_show_video_gallery -->
+        <!-- begin_show_messages -->
+        $('.chat').first().click();
+        <!-- end_show_messages -->
+    //})
+    <!-- begin_profile_edit_js -->
+    <!-- end_profile_edit_js -->
+})
+
+var positionTabWall='{position_tab_wall}';
+
+</script>
+<!-- col_center -->
+<div class="col_center">
+    <div class="cont bl_profile">
+        <div class="bl_pic_info  <!-- begin_class_profile_my -->my_profile<!-- end_class_profile_my -->">
+            <div class="bl_pic">
+                <div class="pic">
+                    <div class="profile_pic_one">
+                        <div class="not_checked_main <!-- begin_photo_main_not_checked -->show<!-- end_photo_main_not_checked -->" title="{a_being_checked_by_moderators}"></div>
+                        <img onclick="Photo.openGalleryId('{photo_main_id}');" data-offset-id="{photo_main_id}"  class="photo show_photo_gallery" onload="Profile.onLoadMainPhoto($(this));" oncontextmenu="return false;" data-main-photo="{photo_main_id}" id="pic_main_img" src="{url_files}{photo_main}" title="{photo_main_title}" <!--begin_main_cursor_def-->style="cursor:default"<!--end_main_cursor_def-->/>
+
+                        <!-- begin_via_under_admin -->
+                            <a class="via_admin_link" href="{url_main}{ua_name_seo}">Via {l_group_admin} {ua_name}</a>
+                        <!-- end_via_under_admin -->
+
+                        <!-- begin_photo_main_upload -->
+                        <div id="add_photo_main_profile" class="add_photo" <!-- begin_photo_main_upload_btn -->style="display:block;"<!-- end_photo_main_upload_btn -->>
+                            <div class="file" id="add_photo_profile">
+                                <form>
+                                    <button class="btn small violet"><img width="16" height="16" alt="" src="{url_tmpl_main}images/icon_add_photo.png">{l_add_a_photo}</button>
+                                    <input title="" id="some_add_photo_main_public" type="file" multiple name="file_public[]" />
+                                    <input id="some_add_photo_main_public_reset" type="reset" value=""/>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- end_photo_main_upload -->
+
+                        <!-- begin_profile_user_blocked_bl -->
+                        <div id="bl_user_blocked" class="user_blocked <!-- begin_profile_user_blocked_bl_show -->to_show<!-- end_profile_user_blocked_bl_show -->">
+                            <strong>{l_user_blocked}</strong>
+                            <a data-cmd="user_unblock" onclick="confirmBlockUser('{user_id}'); return false;" href="">{l_unblock}</a>
+                        </div>
+                        <!-- end_profile_user_blocked_bl -->
+
+
+                    </div>
+
+                    <!-- begin_profile_verification_verified -->
+                    <div class="bl_profile_verification">
+                        <a class="btn_profile_verification profile_verification_link {profile_verification_off_class} {profile_verification_show_class}" href="#" title="{profile_verification_verified}">
+                            <svg viewBox="0 0 32 32">
+                                <path d="M1 14 L5 10 L13 18 L27 4 L31 8 L13 26 z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- end_profile_verification_verified -->
+
+                    <div id="profile_status_online" title="{status_online_profile_title}" class="status_online <!-- begin_status_online_profile -->to_show<!-- end_status_online_profile -->"></div>
+                </div>
+                    <!-- begin_go_referer_back -->
+                    <span class="icon_back" onclick="goLink('{url_main}{url_back}','{url_back_params}'); return false;"></span>
+                    <!-- end_go_referer_back -->
+            </div>
+
+            <!-- begin_profile_info_member -->
+            <div class="info">
+                <div class="name"><a id="profile_name" style="cursor:default;" class="edit_main_title" href="{url_main}{user_profile_link}" onclick="return false;">{user_name}</a>{icon_badge}</div>
+                <div class="bl_list_info">
+                    <ul class="list_info">
+                        <li><span id="list_info_age">{age}</span><span class="basic_info">•</span></li>
+                        <li id="list_info_location">{city} {country}</li>
+                        <li <!-- begin_user_orientation_hide_member -->class="to_hide"<!-- end_user_orientation_hide_member -->><span class="basic_info">•</span><span id="list_info_gender">{user_orientation}</span></li>
+                    </ul>
+                    <div class="icon_edit"><span onclick="Profile.showMainEditor();"></span></div>
+                </div>
+                <!-- begin_profile_status -->
+                <div class="status">
+                    <div id="profile_status" class="status_text">{profile_status}</div>
+                    <div id="profile_status_edit" class="icon_edit" onclick="Profile.showStatusEditor();"><span></span></div>
+                    <script>
+                        Profile.initSatusEditor();
+                    </script>
+                </div>
+                <!-- end_profile_status -->
+                <div class="title_interest">
+                    <strong>{l_i_am_looking_for}</strong>
+                    <div class="icon_edit"><span onclick="Profile.showLookingForEditor();"></span></div>
+                </div>
+                <ul class="list_interest">
+                    <!-- begin_looking_for_orientation -->
+                    <li><span class="basic_info">•</span><span id="info_looking_for_orientation">{looking_for_orientation}</span></li>
+                    <!-- end_looking_for_orientation -->
+                    <!-- begin_looking_for_ages -->
+                    <li><span class="basic_info">•</span><span id="info_looking_for_ages">{looking_for_ages}</span></li>
+                    <!-- end_looking_for_ages -->
+                    <li><span class="basic_info">•</span><span id="info_looking_for_near_me">{looking_for_near_me}</span></li>
+                    <!-- begin_looking_for_i_am_here_to -->
+                    <li><span class="basic_info">•</span><span id="info_looking_for_i_am_here_to">{looking_for_i_am_here_to}</span></li>
+                    <!-- end_looking_for_i_am_here_to -->
+                </ul>
+            </div>
+            <div class="cl"></div>
+        </div>
+        <!-- end_profile_info_member -->
+        <!-- begin_profile_info_visitor -->
+            <div class="info">
+                <div class="block_statistics">
+                    <div class="item">
+                        {profile_charts}
+                    </div>
+                </div>
+                <div class="name_info">
+                    <div class="bl_info">
+                        <div class="name">{user_name} {ua_text}</div>
+                        <div class="bl_list_info">
+                            <ul class="list_info">
+                                <li><span>{age}</span><span class="basic_info">•</span></li>
+                                <li>{city} {country}</li>
+                                <li <!-- begin_user_orientation_hide_visitor -->class="to_hide"<!-- end_user_orientation_hide_visitor -->><span class="basic_info">•</span><span>{user_orientation}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bl_btn">
+                        <!-- begin_not_group_admin_of_the_user -->
+                        <button title="{im_reply_rate_title}" data-cl-loader="loader_profile_to_open_chat" data-type-loader="fade_btn" class="btn dgrey small btn_open_im_top" onclick="Profile.toOpenIm('{ua_user_id}', $(this));">
+                            <div class="decor">
+                                {l_profile_message}
+                                <div class="border_decor im_reply_rate_{im_reply_rate_class}"></div>
+                            </div>
+                        </button>
+                        <!-- end_not_group_admin_of_the_user -->
+                        <button id="btn_send_like" title="{mutual_attraction_active_title}" class="btn like_frame small <!-- begin_mutual_attraction_active -->active<!-- end_mutual_attraction_active -->" onclick="Profile.sendLikeProfile('{user_id}',$(this));">
+                            <span class="bl">
+                                <span class="like"></span>
+                                <span class="like_hover"></span>
+                                <span id="like_title">{mutual_attraction_active_name}</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="cl"></div>
+        </div>
+        <!-- begin_profile_status_visitor -->
+        <div class="status status_visitor">{profile_status}</div>
+        <!-- end_profile_status_visitor -->
+        <!-- end_profile_info_visitor -->
+
+        <!-- tabs_profile -->
+        <div class="tabs_profile" >
+            <div id="tabs_profile">
+                <ul class="tab">
+                    <!-- begin_profile_tabs -->
+                    <!-- begin_profile_tabs_tab_profile_item -->
+                    <li id="tabs-1_switch" class="switch_tab">
+                        <a href="#tabs-1" title=""><span>{l_tab_profile}</span></a>
+                    </li>
+                    <!-- end_profile_tabs_tab_profile_item -->
+                    <!-- begin_profile_tabs_tab_photos_item -->
+                    <li id="tabs-2_switch" class="switch_tab">
+                        <a href="#tabs-2" title=""><span>{l_tab_photos}</span></a>
+                    </li>
+                    <!-- end_profile_tabs_tab_photos_item -->
+                    <!-- end_profile_tabs -->
+                </ul>
+                <!-- begin_profile_tabs_visitor -->
+                <div class="menu_func">
+                    <ul class="menu_list">
+                        <!-- <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                            <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View PDF</a>
+                        </li> -->
+                        <!-- begin_profile_tabs_visitor_video_chat -->
+                        <li class="video_chat video_chat_menu">
+                            <a href="" onclick="return false;">
+                                <span>{l_profile_menu_video_chat} {ua_name}</span>
+                                <!-- pp_info -->
+                                <div id="pp_video_chat">
+                                <div class="pp_info pp_media_chat">
+                                    <div class="cont">
+                                    <div class="title">{l_send_invitation}</div>
+                                    <div class="img_chat">
+                                        <img src="{url_tmpl_main}images/icon_pp_video_chat.png" width="58" height="40" alt="" />
+                                    </div>
+                                    <div class="double_btn">
+                                        <button class="btn small dgrey media_chat_cancel">{l_cancel}</button>
+                                        <button class="btn small marsh" onclick="videoChatInvite('{ua_user_id}'); return false;">{l_send}</button>
+                                    <div class="cl"></div>
+                                    </div>
+                                    </div>
+                                    <div class="cl"></div>
+                                </div>
+                                </div>
+                                <!-- /pp_info -->
+                            </a>
+                        </li>
+                        <!-- end_profile_tabs_visitor_video_chat -->
+                        <!-- begin_profile_tabs_visitor_audio_chat -->
+                        <li class="audio_chat audio_chat_menu">
+                            <a href="" onclick="return false;">
+                                <span>{l_profile_menu_audio_chat} {ua_name}</span>
+                                <!-- pp_info-->
+                                <div id="pp_audio_chat">
+                                <div class="pp_info pp_media_chat">
+                                    <div class="cont">
+                                        <div class="title">{l_send_invitation}</div>
+                                        <div class="img_chat">
+                                            <img src="{url_tmpl_main}images/icon_pp_audio_chat.png" width="36" height="52" alt="" />
+                                        </div>
+                                        <div class="double_btn">
+                                            <button class="btn small dgrey media_chat_cancel">{l_cancel}</button>
+                                            <button class="btn small marsh" onclick="audioChatInvite('{ua_user_id}'); return false;">{l_send}</button>
+                                            <div class="cl"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- /pp_info -->
+                            </a>
+                        </li>
+                        <!-- end_profile_tabs_visitor_audio_chat -->
+                        <li id="profile_menu_more_options" class="more">
+                            <span class="marker"><img src="{url_tmpl_main}images/icon_more_options.png" width="20" height="20" alt="" />{l_profile_menu_more_options}</span>
+                            <div id="profile_menu_more_options_items">
+                            <div class="pp_info_cont">
+                            <div class="pp_info pp_profile_menu_more">
+                                <!-- <div class="decor"></div> -->
+                                <ul class="list">
+                                    <!-- begin_profile_menu_street_chat -->
+                                    <li class="street_chat" onclick="cityStreetChat.invite('{user_id}');"><span>{l_profile_menu_street_chat}</span></li>
+                                    <!-- end_profile_menu_street_chat -->
+                                    <!-- begin_profile_menu_user_block -->
+                                    <li id="profile_menu_more_user_block_li" class="block_user" data-cmd="{block_user_cmd}" onclick="confirmBlockUser('{user_id}');"><span id="profile_menu_more_user_block">{profile_menu_user_block_title}</span></li>
+                                    <!-- end_profile_menu_user_block -->
+                                    <!-- begin_profile_menu_user_report -->
+                                    <li id="menu_additional_report_{user_id}" onclick="Profile.openReport('{user_id}');" class="report_user"><span>{l_profile_menu_report}</span></li>
+                                    <!-- end_profile_menu_user_report -->
+                                </ul>
+                            </div>
+                            </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end_profile_tabs_visitor -->
+            </div>
+
+            <div id="tabs_content" class="tabs_content">
+            <!-- tab_about -->
+            <a id="tabs-1" class="tab_a"></a>
+            <div class="tab_about tab_cont">
+                <div class="col_left">
+                    <!-- begin_module_fields_urban -->
+                    <!-- begin_basic -->
+                    <div class="bl">
+                        <div class="title">
+                            <div id="basic_anchor_{name}" class="title_icon_edit">{field}
+                                <!-- begin_basic_edit -->
+                                <span id="basic_pen_{name}" onclick="Profile.showBasicFieldEditor('{name}');"></span>
+                                <!-- end_basic_edit -->
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <!-- begin_basic_edit_field -->
+                        <!-- begin_basic_textarea -->
+                        <textarea id="basic_editor_text_{name}" data-desc="{field_description}" data-type="textarea" class="basic_textarea" maxlength="{maxlen}" disabled>{value_input}</textarea>
+                        <!-- end_basic_textarea -->
+                        <!-- begin_basic_text -->
+                        <input id="basic_editor_text_{name}" data-desc="{field_description}" class="basic_textarea" type="text" maxlength="{maxlen}" value="{value_input}" disabled/>
+                        <!-- end_basic_text -->
+                        <div id="basic_editor_{name}" class="frm_edit">
+                            <button id="basic_editor_save_{name}" class="btn small pink" onclick="Profile.saveBasicFieldEditor('{name}'); return false;" disabled>{l_save}</button>
+                            <button id="basic_editor_cancel_{name}" class="btn small white_frame" onclick="Profile.closeBasicFieldEditor('{name}'); return false;">{l_cancel}</button>
+                            <div class="cl"></div>
+                        </div>
+                        <!-- end_basic_edit_field -->
+                        <script>Profile.handlerBasicFieldEditor('{name}');</script>
+                        <!-- begin_basic_visitor_field -->
+                        <p id="basic_{name}">
+                            {value}
+                            <!-- begin_forced_show_more -->
+                            <a class="basic_more" href="" onclick="confirmCustomRedirect('{url_page_profile_view}?cmd=edit_field&field_name={field_name}', '{forced_phrase}',false,1);return false;">{l_show_more}</a>
+                            <!-- end_forced_show_more -->
+                            <!-- begin_basic_show_more -->
+                            <a href="{url_main}{url_page_login}">{l_show_more}</a>
+                            <!-- end_basic_show_more -->
+                        </p>
+                        <!-- end_basic_visitor_field -->
+                    </div>
+                    <!-- end_basic -->
+                    <!-- begin_private_note -->
+                    <div class="bl">
+                        <div class="title">
+                            <div id="field_anchor_{name}" class="title_icon_edit">{field}
+                                <span id="basic_pen_{name}" onclick="Profile.showBasicFieldEditor('{name}');"></span>
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+
+                        <textarea id="basic_editor_text_{name}" data-desc="{field_description}" data-type="textarea" class="basic_textarea" disabled>{value_input}</textarea>
+                        <div id="basic_editor_{name}" class="frm_edit">
+                            <button id="basic_editor_save_{name}" class="btn small pink" onclick="Profile.saveBasicFieldEditor('{name}', '{user_id}'); return false;" disabled>{l_save}</button>
+                            <button id="basic_editor_cancel_{name}" class="btn small white_frame" onclick="Profile.closeBasicFieldEditor('{name}'); return false;">{l_cancel}</button>
+                            <div class="cl"></div>
+                        </div>
+                    </div>
+                    <script>Profile.handlerBasicFieldEditor('{name}');</script>
+                    <!-- end_private_note -->
+                    <!-- end_module_fields_urban -->
+
+                    <div class="bl">
+                        <div class="title">
+                            <div class="title_icon_edit">Address                               
+                                <span id="address" onclick="Profile.showProfileModal('address');"></span>
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="address_result">
+                            <li><i class="fa fa-map-marker"></i> 1064/1, East Shewrapra, Dhaka-1216</li>
+                            <li><i class="fa fa-home"></i> Kishamoth Bakci, Kamarpara, Sadullahpur, Gaibandha, Rangpur</li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+                <div class="col_right">
+                    <!-- begin_browse_invisibly -->
+                    <div class="bl">
+                        <a class="btn_browse_invisibly" data-type-loader="fade_btn" onclick="Profile.setBrowseInvisibly($(this),'{browse_invisibly_param}'); return false;" href="">
+                            <span class="icon_browse_invisibly"></span>
+                            <span class="text_browse_invisibly">{l_browse_invisibly}</span>
+                        </a>
+                    </div>
+                    <!-- end_browse_invisibly -->
+
+                    <!-- begin_looking_for_visitor -->
+                    <div class="bl">
+                        <div class="title">{l_i_am_looking_for}</div>
+                        <ul class="list_interest">
+                            <!-- begin_looking_for_visitor_orientation -->
+                            <li><span class="basic_info">•</span><span>{looking_for_visitor_orientation}</span></li>
+                            <!-- end_looking_for_visitor_orientation -->
+                            <!-- begin_looking_for_visitor_ages -->
+                            <li><span class="basic_info">•</span><span>{looking_for_visitor_ages}</span></li>
+                            <!-- end_looking_for_visitor_ages -->
+                            <li><span class="basic_info">•</span><span>{looking_for_visitor_near_me}</span></li>
+                            <!-- begin_looking_for_visitor_i_am_here_to -->
+                            <li><span class="basic_info">•</span><span>{looking_for_visitor_i_am_here_to}</span></li>
+                            <!-- end_looking_for_visitor_i_am_here_to -->
+                        </ul>
+                    </div>
+                    <!-- end_looking_for_visitor -->
+                    <!-- begin_personal_impact -->
+                    <div class="bl">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_personal_info}
+                                <!-- begin_personal_edit -->
+                                <span id="personal_info_edit" onclick="Profile.showPersonalEditor();"></span>
+                                <!-- end_personal_edit -->
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <table id="personal_items">
+                            <!-- begin_personal_item -->
+                            <tr>
+                                <th>{field}</th>
+                                <td id="personal_info_value_{name}">
+                                    {value}
+                                    <!-- begin_int_1_show_more -->
+                                    <a href="{url_main}{url_page_login}">{l_show}</a>
+                                    <!-- end_int_1_show_more -->
+                                </td>
+                            </tr>
+                            <!-- end_personal_item -->
+                        </table>
+                    </div>
+                    <!-- end_personal_impact -->
+                    <!-- begin_profile_send_message_btn -->
+                    <div class="bl">
+                        <button data-type-loader="fade_btn" onclick="Profile.toOpenIm('{ua_user_id}', $(this));" class="btn large lblue btn_open_im_bottom"><span class="icon_message"></span><span>{l_send_a_message} {ua_name}</span></button>
+                    </div>
+                    <!-- end_profile_send_message_btn -->
+                    
+                    <!-- begin_upload_my_pdf -->
+                        <button class="btn small yellow user_profile_upload_pdf" style="line-height: unset;{uploaded_btn_style}">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            {l_upload_cv}
+                        </button>
+                    <!-- end_upload_my_pdf -->
+
+                    <!-- begin_view_pdf -->
+                    <ul class="pdf_user_div">
+                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                            <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View CV</a>
+                        </li>
+                        <!-- begin_delete_my_pdf -->
+                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
+                            <button class="profile_delete_pdf" id="profile_delete_pdf" value="{user_id}">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                Delete CV
+                            </button>
+                        </li>
+                        <!-- end_delete_my_pdf -->
+                    </ul>
+                    <!-- end_view_pdf -->
+
+                    <!-- begin_footer_member -->
+                    <div class="user_info_button">
+                        
+                        <div>
+                            <!-- begin_nid_upload_button -->
+                                <p class="txt">{l_nid_verify_title}</p>
+                                <button class="btn small btn_secondary_3 user_profile_upload_nid">
+                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    {l_upload_nid}
+                                </button>
+                            <!-- end_nid_upload_button -->
+
+                            <!-- begin_view_verified_nid -->
+                                <p class="txt">{l_nid_verify_title}</p>
+                                <ul class="pdf_user_div nid_div">
+                                    <li>
+                                        <a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                                    </li>
+                                    <li>
+                                        {nid_verify_text}
+                                    </li>
+                                </ul>
+                            <!-- end_view_verified_nid -->
+
+                            <!-- begin_uploaded_nid -->
+                                <p class="txt">{l_nid_verify_title}</p>
+
+                                <ul class="pdf_user_div nid_div">
+                                    <li>
+                                        <a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                                    </li>
+                                    <li>
+                                        {nid_verify_text}
+                                    </li>
+                                </ul>
+                            <!-- end_uploaded_nid -->
+
+                            <!-- begin_rejected_nid -->
+                                <p class="txt">{l_nid_verify_title}</p>
+                                <button class="btn small btn_secondary_3 user_profile_upload_nid" style="margin-bottom: 0;">
+                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    {l_re_upload_nid}
+                                </button>
+                                <ul class="pdf_user_div nid_div">
+                                    <li>
+                                        <a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                                    </li>
+                                    <li>
+                                        {nid_verify_text}
+                                    </li>
+                                </ul>
+                            <!-- end_rejected_nid -->
+                        </div>
+
+                        <!-- begin_profile_verification_unverified_my -->
+                        <div>
+                            <p class="txt">{l_link_social_login}</p>
+                            <button class="btn small turquoise {profile_verification_off_class} profile_verification_show">
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                {l_link}
+                            </button>
+                        </div>
+                        <!-- end_profile_verification_unverified_my -->
+
+                        <!-- begin_footer_member_increase -->
+                        <div>
+                            <p class="txt">{l_increase_your_visibility}</p>
+                            <button class="btn small pink" onclick="upgrade.requestIncreasePopularity();">
+                            <i class="fa fa-flash" aria-hidden="true"></i> {l_boost_profile}</button>
+                        </div>
+                        <!-- end_footer_member_increase -->
+                    </div>
+                    <!-- end_footer_member -->
+
+                </div>
+            </div>
+            <!-- /tab_about -->
+
+            <!-- tab_photos -->
+            <a id="tabs-2" class="tab_a"></a>
+            <div class="tab_photos tab_cont">
+                    <!-- begin_photo_public_block -->
+                    <div class="list_photos_public">
+                        <div class="list_photos_trans">
+                        <!-- begin_photo_public_add -->
+                        <div id="photo_add_public" class="item add_photo add_photo_public">
+
+                            <a href="#null"><img src="{url_tmpl_main}images/add_photo126x140.png" alt="" /></a>
+                            <form>
+                                <input id="some_add_photo_public" type="file" title="" multiple name="file_public[]" accept=".jpg, .jpeg, .png" />
+                                <input id="some_add_photo_public_reset" type="reset" value=""/>
+                            </form>
+                        </div>
+                        <!-- end_photo_public_add -->
+                        <!-- begin_photo_public -->
+                        <div id="{photo_public_id}"  class="item profile_photo_frame">
+                            <a onclick="Photo.openGalleryId('{photo_public_id}'); return false;" data-offset-id="{photo_public_id}" class="show_photo_gallery" style="opacity:0;" href="">
+                                <!-- begin_photo_public_not_checked -->
+                                <div class="not_checked_photo" title="{a_being_checked_by_moderators}"></div>
+                                <!-- end_photo_public_not_checked -->
+                                <img data-photo-id="{photo_public_id}" oncontextmenu="return false;" id="photo_{photo_public_id}" title="{photo_public_title}" class="photo lazy_deferred" data-src="{url_files}{url_photo_public}" alt="" />
+                            </a>
+                            <script>
+                            Photo.setPhotoInfo('{photo_public_id}', 'public', {gallery_photo_public_info});
+                            </script>
+                            <!-- begin_photo_public_action -->
+                            <span onclick="Photo.confirmPhotoDelete('{photo_public_id}');" title="{a_delete_photo}" class="icon_delete">
+                                <span class="icon_delete_photo"></span>
+                                <span class="icon_delete_photo_hover"></span>
+                            </span>
+                            <span onclick="Photo.setAccess('{photo_public_id}')" id="profile_photo_set_status_{photo_public_id}" title="{a_make_private}" class="icon_private">
+                                <span class="icon_private_photo"></span>
+                                <span class="icon_private_photo_hover"></span>
+                            </span>
+                            <span id="photo_rotate_{photo_public_id}" data-photo-id="{photo_public_id}" title="{a_rotate}" class="icon_rotate">
+                                <span class="icon_rotate_photo"></span>
+                                <span class="icon_rotate_photo_hover"></span>
+                            </span>
+                            <!-- end_photo_public_action -->
+                        </div>
+                        <!-- end_photo_public -->
+                        </div>
+                        <div class="cl"></div>
+                        <!-- begin_photo_public_more -->
+                        <span id="some_link_photo_counter_public" class="some_link_photo_counter"></span>
+                        <div class="some_link_add_photo">
+                            <div>
+                                <form>
+                                    <input id="some_link_photo_public" type="file" title="" multiple name="file_public[]" />
+                                    <input id="some_link_photo_public_reset" type='reset' value=''/>
+                                </form>
+                            </div>
+                            <a id="some_link_photo_more_public" onclick="return false;" href="#">{l_add_more_plus}</a>
+                        </div>
+                        <!-- end_photo_public_more -->
+                        <div class="cl"></div>
+                    </div>
+                    <!-- end_photo_public_block -->
+                    <!-- begin_photo_private_block -->
+                    <div class="title_private_photos">
+                        {l_private_photos}
+                    </div>
+                    <div class="list_photos_private">
+                        <div class="list_photos_trans">
+                        <!-- begin_photo_private_add -->
+                        <div id="photo_add_private" class="item add_photo add_photo_private">
+                            <a href="#null"><img src="{url_tmpl_main}images/add_photo126x140.png" alt="" /></a>
+                            <form>
+                                <input id="some_add_photo_private" type="file" title="" multiple name="file_private[]" />
+                                <input id="some_add_photo_private_reset" type='reset' value=''/>
+                            </form>
+                        </div>
+                        <!-- end_photo_private_add -->
+                        <!-- begin_photo_private -->
+                        <div id="{photo_private_id}"  class="item profile_photo_frame">
+                            <a onclick="Photo.openGalleryId('{photo_private_id}'); return false;" data-offset-id="{photo_private_id}" class="show_photo_gallery" style="opacity:0;"  href="">
+                                <!-- begin_photo_private_not_checked -->
+                                <div class="not_checked_photo" title="{a_being_checked_by_moderators}"></div>
+                                <!-- end_photo_private_not_checked -->
+                                <img data-photo-id="{photo_private_id}" oncontextmenu="return false;" id="photo_{photo_private_id}" title="{photo_private_title}" class="photo lazy_deferred" data-src="{url_files}{url_photo_private}" alt="" />
+                            </a>
+                            <script>
+                            Photo.setPhotoInfo('{photo_private_id}', 'private', {gallery_photo_private_info});
+                            </script>
+                            <!-- begin_photo_private_action -->
+                            <span onclick="Photo.confirmPhotoDelete('{photo_private_id}');" title="{a_delete_photo}" class="icon_delete">
+                                <span class="icon_delete_photo"></span>
+                                <span class="icon_delete_photo_hover"></span>
+                            </span>
+                            <span onclick="Photo.setAccess('{photo_private_id}')" id="profile_photo_set_status_{photo_private_id}" title="{a_make_public}" class="icon_public">
+                                <span class="icon_public_photo"></span>
+                                <span class="icon_public_photo_hover"></span>
+                            </span>
+                            <span id="photo_rotate_{photo_private_id}" data-photo-id="{photo_private_id}" title="{a_rotate}" class="icon_rotate">
+                                <span class="icon_rotate_photo"></span>
+                                <span class="icon_rotate_photo_hover"></span>
+                            </span>
+                            <!-- end_photo_private_action -->
+                        </div>
+                        <!-- end_photo_private -->
+                        </div>
+                        <div class="cl"></div>
+                        <!-- begin_photo_private_more -->
+                        <span id="some_link_photo_counter_private" class="some_link_photo_counter"></span>
+                        <div class="some_link_add_photo">
+                            <div>
+                                <form>
+                                    <input id="some_link_photo_private" type="file" title="" multiple name="file_private[]"/>
+                                    <input id="some_link_photo_private_reset" type='reset' value=''/>
+                                </form>
+                            </div>
+                            <a id="some_link_photo_more_private" onclick="return false;" href="#">{l_add_more_plus}</a>
+                        </div>
+                        <!-- end_photo_private_more -->
+
+                        <!-- begin_photo_private_can_view -->
+                        <div class="photo_private_can_view">{l_you_have_access_to_the_users_private_photos}</div>
+                        <!-- end_photo_private_can_view -->
+
+                        <!-- begin_request_access_private_photo -->
+                        <a class="request_access_private_photo" onclick="Photo.sendRequestPrivateAccess('0'); return false;" href="">{l_request_access}</a>
+                        <!-- end_request_access_private_photo -->
+                        <div class="cl"></div>
+                    </div>
+                    <!-- end_photo_private_block -->
+
+                    <!-- begin_video_public_block -->
+                    <div class="title_private_photos title_videos">
+                        {l_videos}
+                    </div>
+                    <div id="video" class="list_photos_trans list_videos">
+                        <div id="list_photos_public" class="list_photos_public">
+                            <!-- begin_video_public_add -->
+                            <div id="photo_add_video" class="item add_photo add_video_public item_video">
+                                <div class="some_add_photo">
+                                    <form>
+                                    <input id="some_add_photo_video" type="file" title="" multiple name="file_video[]" />
+                                    <input id="some_add_photo_video_reset" type='reset' value=''/>
+                                    </form>
+                                </div>
+                                <a class="add_photo" href="#" onclick="return false;">
+                                    <img id="photo_{video_public_id}" class="transparent is_video" onload="$(this).fadeTo(100,1);" src="{url_tmpl_main}images/add_video160x120.png">
+                                </a>
+                            </div>
+                            <!-- end_video_public_add -->
+
+                            <!-- begin_video_public -->
+                            <div id="{video_public_id}" class="item profile_photo_frame item_video">
+                                <a data-cl-children="no" onclick="Photo.openGalleryId('{video_public_id}',event); return false;" data-offset-id="{video_public_id}" class="show_video_gallery transparent" href="#">
+                                    <!-- begin_video_public_not_checked -->
+                                    <div class="not_checked_photo" title="{a_being_checked_by_moderators}"></div>
+                                    <!-- end_video_public_not_checked -->
+                                    <img data-photo-id="{video_public_id}" class="lazy_deferred is_video" oncontextmenu="return false;" id="video_{video_public_id}" title="{video_public_title}" class="lazy_deferred" data-src="{url_files}{url_video_public}">
+                                </a>
+                                <script>
+                                    Photo.setPhotoInfo('{video_public_id}', 'public', {gallery_video_public_info});
+                                </script>
+                                <!-- begin_video_public_action -->
+                                <span onclick="Photo.confirmPhotoDelete('{video_public_id}');" title="{a_delete_video}" class="icon_delete">
+                                    <span class="icon_delete_photo"></span>
+                                    <span class="icon_delete_photo_hover"></span>
+                                </span>
+                                <!-- end_video_public_action -->
+                                <div style="display:none;" class="icon_preloader_backgrounds" ></div>
+
+                            </div>
+                            <!-- end_video_public -->
+                        </div>
+                        <div class="cl"></div>
+                        <!-- begin_video_public_more -->
+                        <span id="some_link_photo_counter_video" class="some_link_photo_counter"></span>
+                        <div class="some_link_add_photo">
+                            <div>
+                                <form>
+                                    <input id="some_link_photo_video" type="file" title="" multiple name="file_video[]" />
+                                    <input id="some_link_photo_video_reset" type='reset' value=''/>
+                                </form>
+                            </div>
+                            <a id="some_link_photo_more_video" onclick="return false;" href="#">{l_add_more_plus}</a>
+                        </div>
+                        <!-- end_video_public_more -->
+                        <div class="cl"></div>
+                    </div>
+                    <!-- end_video_public_block -->
+
+            </div>
+            <!-- /tab_photos -->
+            <script>
+            <!-- begin_profile_tabs_tab_profile_item_selected_content -->
+            Profile.setTabs('#tabs-1');
+            <!-- end_profile_tabs_tab_profile_item_selected_content -->
+            <!-- begin_profile_tabs_tab_photos_item_selected_content -->
+            Profile.setTabs('#tabs-2');
+            <!-- end_profile_tabs_tab_photos_item_selected_content -->
+            $(location.hash).addClass('target');
+            </script>
+            </div>
+        </div>
+        <!-- /tabs_profile -->
+    <div class="cl"></div>
+    </div>
+</div>
+<!-- /col_center -->
+
+
+<!-- begin_profile_custom_member -->
+<!-- Auxiliary interface elements -->
+<div class="pp_add_photo" id="pp_add_photo_public" style="display: none;">
+    <div class="head">
+        <strong>{l_add_more_public_type_photos}</strong>
+        <span id="add_photo_close_public" class="icon_close">
+            <span class="icon_close_pp_add_photo"></span>
+            <span class="icon_close_pp_add_photo_hover"></span>
+        </span>
+    </div>
+    <div id="cont_files_public" class="cont">
+    </div>
+    <div class="foot">
+        <div class="pp_link_add_photo">
+            <form>
+            <input id="photo_file_public" type="file" multiple name="file_public[]" />
+            <input id="photo_file_public_reset" type='reset' value=''/>
+            </form>
+        </div>
+        <a id="photo_upload_more_public" class="link pp_add_more_photos" style="" href="#">{l_add_more_photos}</a>
+        <button id="add_photo_done_public" class="btn small turquoise" disabled>{l_add_photo_publish}</button>
+        <a id="add_photo_cancel_public" class="link" style="float:right; margin-right: 7px;" href="#">{l_cancel}</a>
+    <div class="cl"></div>
+    </div>
+</div>
+
+<div class="pp_add_photo" id="pp_add_photo_private" style="display: none;">
+    <div class="head">
+        <strong>{l_add_more_private_type_photos}</strong>
+        <span id="add_photo_close_private" class="icon_close">
+            <span class="icon_close_pp_add_photo"></span>
+            <span class="icon_close_pp_add_photo_hover"></span>
+        </span>
+    </div>
+    <div id="cont_files_private" class="cont"></div>
+    <div class="foot decor">
+        <div class="pp_link_add_photo">
+            <form>
+            <input id="photo_file_private" type="file" multiple name="file_private[]" />
+            <input id="photo_file_private_reset" type='reset' value=''/>
+            </form>
+        </div>
+        <a id="photo_upload_more_private" class="link pp_add_more_photos" style="" href="#">{l_add_more_photos}</a>
+        <button id="add_photo_done_private" class="btn small turquoise" disabled>{l_add_photo_publish}</button>
+        <a id="add_photo_cancel_private" class="link" style="float:right; margin-right: 7px;" href="#">{l_cancel}</a>
+    </div>
+</div>
+
+<div class="pp_add_photo" id="pp_add_photo_video" style="display: none;">
+    <div class="head">
+        <strong>{l_add_more_videos}</strong>
+        <span id="add_photo_close_video" class="icon_close">
+            <span class="icon_close_pp_add_photo"></span>
+            <span class="icon_close_pp_add_photo_hover"></span>
+        </span>
+    </div>
+    <div id="cont_files_video" class="cont"></div>
+    <div class="foot decor">
+        <div class="pp_link_add_photo">
+            <form>
+            <input id="photo_file_video" type="file" multiple name="file_video[]" />
+            <input id="photo_file_video_reset" type='reset' value=''/>
+            </form>
+        </div>
+        <a id="photo_upload_more_video" class="link pp_add_more_photos" style="" href="#">{l_add_more_videos}</a>
+        <button id="add_photo_done_video" class="btn small turquoise" disabled>{l_add_photo_publish}</button>
+        <a id="add_photo_cancel_video" class="link" style="float:right; margin-right: 7px;" href="#">{l_cancel}</a>
+    </div>
+</div>
+
+<div style="display:none;" id="tmpl_upload_photo" data-type-upload="" class="item">
+    <div class="pic"></div>
+    <div class="pic_cont">
+        <a class="link link_click add_desc text-overflow" href="#">{l_click_to_add_caption}</a>
+        <div style="display:none;" class="edit pen_desc description add_desc"></div>
+        <div style="display:none;" class="edit_handle pen_desc add_desc"><a class="icon_edit" href="#"></a></div>
+        <span class="icon_delete fl_right" title="{a_cancel_download}">
+            <span class="icon_delete_upload"></span>
+            <span class="icon_delete_upload_hover"></span>
+        </span>
+        <div style="display:none;" class="name_pic text-overflow"></div>
+        <div class="slider">
+            <div class="slider_bg">
+                <div style="width: 0px;" class="slider_range"></div>
+            </div>
+        </div>
+        <div style="display:none;" class="processing">
+            <div class="loader_processing">
+                <div class="spinner center">
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                </div>
+            </div>
+            {l_processing}
+        </div>
+        <div style="display:none;" class="uploaded">{l_uploaded}</div>
+        <div style="display:none;" class="error"></div>
+    </div>
+    <!-- edit description -->
+    <div class="frm frm_edit_desc add_desc" style="display:none;">
+        <input class="inp edit_desc_input" type="text" value=""/>
+        <button class="btn small pink edit_desc_save">{l_save}</button>
+        <button class="btn small grey edit_desc_cancel">{l_cancel}</button>
+    </div>
+    <!-- edit description -->
+    <div class="cl"></div>
+</div>
+
+<div id="tmpl_photo_add" class="item profile_photo_frame" style="display:none;">
+    <a class="show_photo_gallery"  href="#null">
+        <div class="not_checked_photo" title="{a_being_checked_by_moderators}" style="display:none;"></div>
+        <img style="opacity: 0;"  oncontextmenu="return false;" title="{photo_private_title}" class="photo" src="" alt="" />
+    </a>
+    <span title="{a_delete_photo}" class="icon_delete">
+        <span class="icon_delete_photo"></span>
+        <span class="icon_delete_photo_hover"></span>
+    </span>
+    <span class="icon_public">
+        <span class="icon_public_photo"></span>
+        <span class="icon_public_photo_hover"></span>
+    </span>
+    <span title="{a_rotate}" class="icon_rotate">
+        <span class="icon_rotate_photo"></span>
+        <span class="icon_rotate_photo_hover"></span>
+    </span>
+</div>
+<!-- Auxiliary interface elements -->
+<!-- end_profile_custom_member -->

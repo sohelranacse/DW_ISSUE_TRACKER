@@ -5423,3 +5423,75 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
 
 /*add by sohel*/
 .iti__country-list--dropup { z-index:13 !important }
+
+/*profile*/
+
+.profile_pic_one > .show_photo_gallery {position: relative;}
+.via_admin_link {
+    background: rgba(0,0,0,0.6);
+    color: #eee;
+    height: 32px;
+    bottom: 0;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    line-height: 32px;
+    font-size: 12px;
+    transition: 0.3s;
+}
+.via_admin_link:hover{
+    background: rgba(235, 96, 119, 0.5);
+}
+.pdf_user_div {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.pdf_user_div li button {
+    border: none;
+    color: tomato;
+    font-weight: 500;
+    background: transparent;
+    font-size: 15px;
+    line-height: 33px;
+}
+
+.user_info_button {
+    padding: 15px 0;
+}
+.user_info_button div {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin: 15px 0;
+}
+.user_info_button > div p {
+    font-weight: 600;
+    font-size: 13px;
+}
+.user_info_button > div button {
+    margin-bottom: 15px;
+    line-height: unset !important;
+}
+.nid_div {
+    font-size: 12px;
+    font-weight: 600;
+    border-top: 1px solid #ddd;
+    border-left: unset;border-right: unset;border-bottom: unset;
+    padding: 10px 0;
+}
+.nid_div a {
+    color: blue;
+}
+
+#address_result li {
+    line-height: 22px;
+    font-size: 13px;
+}
+#address_result li i{
+    font-weight: 600;
+    color: #142D69;
+    margin-right: 2px;
+}
