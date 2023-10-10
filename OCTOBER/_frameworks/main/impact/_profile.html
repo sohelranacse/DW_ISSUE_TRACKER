@@ -357,6 +357,7 @@ var positionTabWall='{position_tab_wall}';
                     <!-- end_private_note -->
                     <!-- end_module_fields_urban -->
 
+                    <!-- start_my -->
                     <div class="bl">
                         <div class="title">
                             <div class="title_icon_edit">Address                               
@@ -369,6 +370,19 @@ var positionTabWall='{position_tab_wall}';
                             <li><i class="fa fa-home"></i> Kishamoth Bakci, Kamarpara, Sadullahpur, Gaibandha, Rangpur</li>
                         </ul>
                     </div>
+                    <div class="bl">
+                        <div class="title">
+                            <div class="title_icon_edit">Fevorite/Unfevorite Regions
+                                <span class="showModal" id="address" title="Address"></span>
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="address_result">
+                            <li><i class="fa fa-thumbs-up"></i> Munshiganj, Dhaka-1216</li>
+                            <li><i class="fa fa-thumbs-down"></i> Munshiganj, Dhaka-1216</li>
+                        </ul>
+                    </div> 
+                    <!-- over_my -->
 
 
                 </div>
@@ -425,6 +439,49 @@ var positionTabWall='{position_tab_wall}';
                         </table>
                     </div>
                     <!-- end_personal_impact -->
+
+                    <!-- start_my -->
+                    <div class="bl">
+                        <div class="title">
+                            <div class="title_icon_edit">Section of Professions
+                                <span class="showModal" id="address" title="Address"></span>
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <table id="personal_items">
+                            
+                            <tbody>
+                                <tr>
+                                    <th>Government Service Holder:</th>
+                                    <td id="personal_info_value_interested_in">
+                                        Yes                                  
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Title</th>
+                                    <td id="personal_info_value_religion">Assistant Manager</td>
+                                </tr>
+                                <tr>
+                                    <th>Position</th>
+                                    <td id="personal_info_value_religion">Assistant Manager</td>
+                                </tr>
+                                <tr>
+                                    <th>Company</th>
+                                    <td id="personal_info_value_religion">Assistant Manager</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td id="personal_info_value_religion">Assistant Manager</td>
+                                </tr>
+                                <tr>
+                                    <th>Prefered Address</th>
+                                    <td id="personal_info_value_religion">Assistant Manager</td>
+                                </tr>                     
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- over_my -->
+
                     <!-- begin_profile_send_message_btn -->
                     <div class="bl">
                         <button data-type-loader="fade_btn" onclick="Profile.toOpenIm('{ua_user_id}', $(this));" class="btn large lblue btn_open_im_bottom"><span class="icon_message"></span><span>{l_send_a_message} {ua_name}</span></button>
