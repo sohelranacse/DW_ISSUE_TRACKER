@@ -1306,12 +1306,108 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
 
 
     /* Edit profile modal */
-    this.showProfileModal = function(parameter){
-        var id='edit_modal';
-        var title = "Address";
-        console.log(id,title,$this.hStub,$this.hStub,'wrapper_custom')
-        if($this.openPopupEditor(id,title,$this.hStub,$this.hStub,'wrapper_custom'))return;
+
+    this.loadAdressEdit = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        let data = `
+            <form id="frm_profile_edit_address" name="frm_profile_edit_address" method="POST" action="{url_main}ajax.php?cmd=update_address">                
+                <input class="ajax" type="hidden" name="ajax" value="1" />
+                <input type="hidden" name="e_user_id" value="${e_user_id}" />
+
+                <div class="formdiv">
+                    <h3><i class="fa fa-map-marker"></i> Current Address:</h3>
+
+                    <div class="form-group-inline">
+                        <label>Country: </label>
+                        <select class="combo" style="width: 160px">
+                            <option class="l1">Option 1</option>
+                            <option class="l2">Suboption 1</option>
+                            <option class="l3">Suboption 2</option>
+                            <option class="l2">Suboption 3</option>
+                            <option class="l1">Option 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>City: </label>
+                        <select class="combo" style="width: 160px">
+                            <option class="l1">Option 1</option>
+                            <option class="l2">Suboption 1</option>
+                            <option class="l3">Suboption 2</option>
+                            <option class="l2">Suboption 3</option>
+                            <option class="l1">Option 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>State: </label>
+                        <select class="combo" style="width: 160px">
+                            <option class="l1">Option 1</option>
+                            <option class="l2">Suboption 1</option>
+                            <option class="l3">Suboption 2</option>
+                            <option class="l2">Suboption 3</option>
+                            <option class="l1">Option 2</option>
+                        </select>
+                    </div>
+
+                    <h3 style="margin-top: 20px"><i class="fa fa-home"></i> Parmanent Address:</h3>
+
+                    <div class="form-group-inline">
+                        <label>Country: </label>
+                        <select class="combo" style="width: 160px">
+                            <option class="l1">Option 1</option>
+                            <option class="l2">Suboption 1</option>
+                            <option class="l3">Suboption 2</option>
+                            <option class="l2">Suboption 3</option>
+                            <option class="l1">Option 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>City: </label>
+                        <select class="combo" style="width: 160px">
+                            <option class="l1">Option 1</option>
+                            <option class="l2">Suboption 1</option>
+                            <option class="l3">Suboption 2</option>
+                            <option class="l2">Suboption 3</option>
+                            <option class="l1">Option 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>State: </label>
+                        <select class="combo" style="width: 160px">
+                            <option class="l1">Option 1</option>
+                            <option class="l2">Suboption 1</option>
+                            <option class="l3">Suboption 2</option>
+                            <option class="l2">Suboption 3</option>
+                            <option class="l1">Option 2</option>
+                        </select>
+                    </div>
+
+                </div>
+            </form>
+        `;
+
+        $(`#${id} .frm_editor_save`).attr('disabled', false)
+
+        $this.updatePopupEditor(id,data);
+        $('.combo').select2();
     }
+
+    $(function(){
+        $('.showModal').click(function(){
+            var id = this.id;
+
+            if($this.openPopupEditor(id,this.title,$this.hStub,$this.hStub,'wrapper_custom'))return;
+            $('.icon_close, .frm_editor_cancel').click(function (){
+                $this.closePopupEditor(id);
+                return false;
+            })
+
+            if(id == "address")
+                $this.loadAdressEdit(id)
+        })
+    })
     /*this.showProfileModal = function(){
         var id='pp_profile_personal_editor';
 

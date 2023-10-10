@@ -5486,6 +5486,7 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
     color: blue;
 }
 
+/*custom profile field*/
 #address_result li {
     line-height: 22px;
     font-size: 13px;
@@ -5494,4 +5495,27 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
     font-weight: 600;
     color: #142D69;
     margin-right: 2px;
+}
+/*form css*/
+.select2-selection--single {
+    border-radius: unset !important;
+}
+
+.formdiv { padding: 0 10px }
+.formdiv h3 {
+    font-size: 16px;
+    color: #777;
+}
+.formdiv .form-group {
+    padding: 0 5px 10px;
+}
+.formdiv .form-group label, .formdiv .form-group-inline label {
+    display: block;
+    padding: 0 0 10px;
+}
+
+.formdiv .form-group-inline {
+    padding: 0 5px 10px;
+    width: 160px;
+    display: inline-block;
 }
