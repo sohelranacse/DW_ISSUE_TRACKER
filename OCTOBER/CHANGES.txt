@@ -9,3 +9,6 @@ http://localhost/mymatch/administration/language.php
 2. Countries
 http://localhost/mymatch/administration/users_fields_countries.php
 	Country order - Bangladesh, USA, UK, Saudi Arabia, UAE
+
+3. ALTER STATEMENT IN user table
+ALTER TABLE `user` ADD `first_name` VARCHAR(100) NULL AFTER `name`, ADD `last_name` VARCHAR(100) NULL AFTER `first_name`, ADD INDEX `first_name` (`first_name`), ADD INDEX `last_name` (`last_name`);

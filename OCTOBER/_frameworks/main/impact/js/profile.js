@@ -1312,86 +1312,36 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         if($("#ua_user_id").val())
             e_user_id = $("#ua_user_id").val()
 
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "get_address_field",
+                e_user_id
+            },
+ 
+            success:function(data){
+                // console.log(data)
+                $this.updatePopupEditor(id,data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                // Handle errors here
+                console.log("Error: " + error);
+            }
+ 
+        });
+        /*return;
         let data = `
-            <form id="frm_profile_edit_address" name="frm_profile_edit_address" method="POST" action="{url_main}ajax.php?cmd=update_address">                
-                <input class="ajax" type="hidden" name="ajax" value="1" />
-                <input type="hidden" name="e_user_id" value="${e_user_id}" />
-
-                <div class="formdiv">
-                    <h3><i class="fa fa-map-marker"></i> Current Address:</h3>
-
-                    <div class="form-group-inline">
-                        <label>Country: </label>
-                        <select class="combo" style="width: 160px">
-                            <option class="l1">Option 1</option>
-                            <option class="l2">Suboption 1</option>
-                            <option class="l3">Suboption 2</option>
-                            <option class="l2">Suboption 3</option>
-                            <option class="l1">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group-inline">
-                        <label>City: </label>
-                        <select class="combo" style="width: 160px">
-                            <option class="l1">Option 1</option>
-                            <option class="l2">Suboption 1</option>
-                            <option class="l3">Suboption 2</option>
-                            <option class="l2">Suboption 3</option>
-                            <option class="l1">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group-inline">
-                        <label>State: </label>
-                        <select class="combo" style="width: 160px">
-                            <option class="l1">Option 1</option>
-                            <option class="l2">Suboption 1</option>
-                            <option class="l3">Suboption 2</option>
-                            <option class="l2">Suboption 3</option>
-                            <option class="l1">Option 2</option>
-                        </select>
-                    </div>
-
-                    <h3 style="margin-top: 20px"><i class="fa fa-home"></i> Parmanent Address:</h3>
-
-                    <div class="form-group-inline">
-                        <label>Country: </label>
-                        <select class="combo" style="width: 160px">
-                            <option class="l1">Option 1</option>
-                            <option class="l2">Suboption 1</option>
-                            <option class="l3">Suboption 2</option>
-                            <option class="l2">Suboption 3</option>
-                            <option class="l1">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group-inline">
-                        <label>City: </label>
-                        <select class="combo" style="width: 160px">
-                            <option class="l1">Option 1</option>
-                            <option class="l2">Suboption 1</option>
-                            <option class="l3">Suboption 2</option>
-                            <option class="l2">Suboption 3</option>
-                            <option class="l1">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group-inline">
-                        <label>State: </label>
-                        <select class="combo" style="width: 160px">
-                            <option class="l1">Option 1</option>
-                            <option class="l2">Suboption 1</option>
-                            <option class="l3">Suboption 2</option>
-                            <option class="l2">Suboption 3</option>
-                            <option class="l1">Option 2</option>
-                        </select>
-                    </div>
-
-                </div>
-            </form>
         `;
 
         $(`#${id} .frm_editor_save`).attr('disabled', false)
 
         $this.updatePopupEditor(id,data);
-        $('.combo').select2();
+        $('.combo').select2();*/
     }
 
     $(function(){
