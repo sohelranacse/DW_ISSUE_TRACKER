@@ -1010,8 +1010,54 @@ class CUsers extends CHtmlList {
                     
                 $html->parse($blFooterMember, false);
             }
+
+            // address
+            $address_info = DB::row('
+                SELECT a.current_street, a.permanent_street,
+                (SELECT country_title FROM geo_country WHERE country_id = a.current_country_id) AS current_country,
+                (SELECT state_title FROM geo_state WHERE state_id = a.current_state_id) AS current_state,
+                (SELECT city_title FROM geo_city WHERE city_id = a.current_city_id) AS current_city,
+                (SELECT country_title FROM geo_country WHERE country_id = a.permanent_country_id) AS permanent_country,
+                (SELECT state_title FROM geo_state WHERE state_id = a.permanent_state_id) AS permanent_state,
+                (SELECT city_title FROM geo_city WHERE city_id = a.permanent_city_id) AS permanent_city
+                FROM user a
+                WHERE a.user_id = '.to_sql(self::$guid)
+            );
+            if($address_info['current_street'] || $address_info['current_city']) {
+                $html->setvar('current_address', $address_info['current_street'].', '.$address_info['current_city'].', '.$address_info['current_state'].', '.$address_info['current_country']);
+                $html->parse('current_address', false);
+            }
+            if($address_info['permanent_street'] || $address_info['permanent_city']) {
+                $html->setvar('permanent_address', $address_info['permanent_street'].', '.$address_info['permanent_city'].', '.$address_info['permanent_state'].', '.$address_info['permanent_country']);
+                $html->parse('permanent_address', false);
+            }
+
+            $favorite_un_address_info = DB::row('
+                SELECT 
+                (SELECT country_title FROM geo_country WHERE country_id = a.favorite_country_id) AS favorite_country,
+                (SELECT state_title FROM geo_state WHERE state_id = a.favorite_state_id) AS favorite_state,
+                (SELECT city_title FROM geo_city WHERE city_id = a.favorite_city_id) AS favorite_city,
+                (SELECT country_title FROM geo_country WHERE country_id = a.unfavorite_country_id) AS unfavorite_country,
+                (SELECT state_title FROM geo_state WHERE state_id = a.unfavorite_state_id) AS unfavorite_state,
+                (SELECT city_title FROM geo_city WHERE city_id = a.unfavorite_city_id) AS unfavorite_city
+                FROM user a
+                WHERE a.user_id = '.to_sql(self::$guid)
+            );
+            if($favorite_un_address_info['favorite_city']) {
+                $html->setvar('favorite_address', $favorite_un_address_info['favorite_city'].', '.$favorite_un_address_info['favorite_state'].', '.$favorite_un_address_info['favorite_country']);
+                $html->parse('favorite_address', false);
+            }
+            if($favorite_un_address_info['unfavorite_city']) {
+                $html->setvar('unfavorite_address', $favorite_un_address_info['unfavorite_city'].', '.$favorite_un_address_info['unfavorite_state'].', '.$favorite_un_address_info['unfavorite_country']);
+                $html->parse('unfavorite_address', false);
+            }
+
+            $html->parse('edit_me_or_my_candidate', false);
         }
         // added by sohel => end
+
+        
+
 
 
         if ($html->blockExists('users_list_item_hide') && get_param('upload_search_page')) {

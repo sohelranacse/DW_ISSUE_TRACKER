@@ -1329,19 +1329,224 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                 $(`#${id} .frm_editor_save`).attr('disabled', false)
             },
             error: function(xhr, status, error) {
-                // Handle errors here
                 console.log("Error: " + error);
             }
  
         });
-        /*return;
-        let data = `
-        `;
+    }
 
-        $(`#${id} .frm_editor_save`).attr('disabled', false)
+    this.get_state = function(info) {
 
-        $this.updatePopupEditor(id,data);
-        $('.combo').select2();*/
+        if(info.id == "country_id_current")
+            $("#city_id_current").html(`<option value="">Select</option>`)
+        else
+            $("#city_id_permanent").html(`<option value="">Select</option>`)
+
+        if(info.value) {
+            $.ajax({
+                url: 'profile_ajax.php',
+                type: 'POST',
+                data: {
+                    "cmd": "get_state",
+                    country_id: info.value
+                },
+     
+                success:function(data){
+                    // console.log(data)
+                    if(info.id == "country_id_current")
+                        $("#state_id_current").html(data)
+                    else
+                        $("#state_id_permanent").html(data)
+
+                    $('.combo').select2();
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+     
+            });
+        } else {
+            if(info.id == "country_id_current")
+                $("#state_id_current").html(`<option value="">Select</option>`)
+            else
+                $("#state_id_permanent").html(`<option value="">Select</option>`)
+        }
+
+        
+    }
+
+    this.get_city = function(info) {
+
+        if(info.value) {
+            $.ajax({
+                url: 'profile_ajax.php',
+                type: 'POST',
+                data: {
+                    "cmd": "get_city",
+                    state_id: info.value
+                },
+     
+                success:function(data){
+                    // console.log(data)
+                    if(info.id == "state_id_current")
+                        $("#city_id_current").html(data)
+                    else
+                        $("#city_id_permanent").html(data)
+
+                    $('.combo').select2();
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+     
+            });
+        } else {
+            if(info.id == "state_id_current")
+                $("#city_id_current").html(`<option value="">Select</option>`)
+            else
+                $("#city_id_permanent").html(`<option value="">Select</option>`)
+        }
+    }
+    this.submit_frm_profile_edit_address = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        let country_id_current = $("#country_id_current").val()
+        let state_id_current = $("#state_id_current").val()
+        let city_id_current = $("#city_id_current").val()
+        let country_id_permanent = $("#country_id_permanent").val()
+        let state_id_permanent = $("#state_id_permanent").val()
+        let city_id_permanent = $("#city_id_permanent").val()
+
+        if(country_id_current == "") {
+            alertCustom('Please select current country!',true,'Information incomplete');
+            return true
+        }
+        if(state_id_current == "") {
+            alertCustom('Please select current state!',true,'Information incomplete');
+            return true
+        }
+        if(city_id_current == "") {
+            alertCustom('Please select current city!',true,'Information incomplete');
+            return true
+        }
+        if(country_id_permanent == "") {
+            alertCustom('Please select permanent country!',true,'Information incomplete');
+            return true
+        }
+        if(state_id_permanent == "") {
+            alertCustom('Please select permanent state!',true,'Information incomplete');
+            return true
+        }
+        if(city_id_permanent == "") {
+            alertCustom('Please select permanent city!',true,'Information incomplete');
+            return true
+        }
+
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+                if(data.msg == "success") {
+                    $("#current_address").html(`<i class="fa fa-map-marker"></i> ${data.current_address}`)
+                    $("#permanent_address").html(`<i class="fa fa-home"></i> ${data.permanent_address}`)
+                    $this.closePopupEditor("address");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+    // FAVORITE/UNFAVORITE REGIONS
+    this.loadFavoriteAddressEdit = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "loadFavoriteAddressEdit",
+                e_user_id
+            },
+ 
+            success:function(data){
+                // console.log(data)
+                $this.updatePopupEditor(id,data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    this.submit_fevorite_unfevorite_region = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        let country_id_current = $("#country_id_current").val()
+        let state_id_current = $("#state_id_current").val()
+        let city_id_current = $("#city_id_current").val()
+        let country_id_permanent = $("#country_id_permanent").val()
+        let state_id_permanent = $("#state_id_permanent").val()
+        let city_id_permanent = $("#city_id_permanent").val()
+
+        if(country_id_current == "") {
+            alertCustom('Please select favorite country!',true,'Information incomplete');
+            return true
+        }
+        if(state_id_current == "") {
+            alertCustom('Please select favorite state!',true,'Information incomplete');
+            return true
+        }
+        if(city_id_current == "") {
+            alertCustom('Please select favorite city!',true,'Information incomplete');
+            return true
+        }
+        if(country_id_permanent == "") {
+            alertCustom('Please select unfavorite country!',true,'Information incomplete');
+            return true
+        }
+        if(state_id_permanent == "") {
+            alertCustom('Please select unfavorite state!',true,'Information incomplete');
+            return true
+        }
+        if(city_id_permanent == "") {
+            alertCustom('Please select unfavorite city!',true,'Information incomplete');
+            return true
+        }
+
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+                if(data.msg == "success") {
+                    $("#favorite_address").html(`<i class="fa fa-thumbs-up"></i> ${data.favorite_address}`)
+                    $("#unfavorite_address").html(`<i class="fa fa-thumbs-down"></i> ${data.unfavorite_address}`)
+                    $this.closePopupEditor("favorite_unfavorite_address");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
     }
 
     $(function(){
@@ -1354,10 +1559,29 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                 return false;
             })
 
-            if(id == "address")
+
+
+            if(id == "address") {
+                $('#address .frm_editor_save').click(function (){
+                    $("#frm_profile_edit_address").submit()
+                    return false;
+                })
                 $this.loadAdressEdit(id)
+            }
+            else if(id == "favorite_unfavorite_address") {
+                $('#favorite_unfavorite_address .frm_editor_save').click(function (){
+                    $("#frm_profile_edit_favorite_unfavorite_address").submit()
+                    return false;
+                })
+                $this.loadFavoriteAddressEdit(id)
+            }
         })
     })
+
+    
+
+
+
     /*this.showProfileModal = function(){
         var id='pp_profile_personal_editor';
 
@@ -1376,14 +1600,6 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             }
         })
     }*/
-
-
-
-
-
-
-
-
 
 
 

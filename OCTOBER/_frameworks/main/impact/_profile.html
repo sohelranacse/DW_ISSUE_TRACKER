@@ -358,6 +358,7 @@ var positionTabWall='{position_tab_wall}';
                     <!-- end_module_fields_urban -->
 
                     <!-- start_my -->
+                    <!-- begin_edit_me_or_my_candidate -->
                     <div class="bl">
                         <div class="title">
                             <div class="title_icon_edit">Address                               
@@ -365,23 +366,24 @@ var positionTabWall='{position_tab_wall}';
                             </div>
                             <div class="cl"></div>
                         </div>
-                        <ul id="address_result">
-                            <li><i class="fa fa-map-marker"></i> 1064/1, East Shewrapra, Dhaka-1216</li>
-                            <li><i class="fa fa-home"></i> Kishamoth Bakci, Kamarpara, Sadullahpur, Gaibandha, Rangpur</li>
+                        <ul id="ul_list">
+                            <li id="current_address"><!-- begin_current_address --><i class="fa fa-map-marker"></i> {current_address}<!-- end_current_address --></li>
+                            <li id="permanent_address"><!-- begin_permanent_address --><i class="fa fa-home"></i> {permanent_address}<!-- end_permanent_address --></li>
                         </ul>
                     </div>
                     <div class="bl">
                         <div class="title">
                             <div class="title_icon_edit">Fevorite/Unfevorite Regions
-                                <span class="showModal" id="address" title="Address"></span>
+                                <span class="showModal" id="favorite_unfavorite_address" title="Fevorite/Unfevorite Regions"></span>
                             </div>
                             <div class="cl"></div>
                         </div>
-                        <ul id="address_result">
-                            <li><i class="fa fa-thumbs-up"></i> Munshiganj, Dhaka-1216</li>
-                            <li><i class="fa fa-thumbs-down"></i> Munshiganj, Dhaka-1216</li>
+                        <ul id="ul_list">
+                            <li id="favorite_address"><!-- begin_favorite_address --><i class="fa fa-thumbs-up"></i> {favorite_address}<!-- end_favorite_address --></li>
+                            <li id="unfavorite_address"><!-- begin_unfavorite_address --><i class="fa fa-thumbs-down"></i> {unfavorite_address}<!-- end_unfavorite_address --></li>
                         </ul>
                     </div> 
+                    <!-- end_edit_me_or_my_candidate -->
                     <!-- over_my -->
 
 
