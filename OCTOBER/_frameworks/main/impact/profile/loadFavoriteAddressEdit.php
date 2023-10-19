@@ -3,7 +3,7 @@
     <input type="hidden" name="e_user_id" value="<?php echo $e_user_id; ?>" />
 
     <div class="formdiv">
-        <h3><i class="fa fa-thumbs-up"></i> Fevorite Address:</h3>
+        <h3><i class="fa fa-thumbs-up"></i> Favored Location:</h3>
 
         <div class="form-group-inline">
             <label>Country: </label>
@@ -53,7 +53,7 @@
 
 
 
-        <h3 style="margin-top: 20px"><i class="fa fa-thumbs-down"></i> Unfevorite Address:</h3>
+        <h3 style="margin-top: 20px"><i class="fa fa-thumbs-down"></i> Unfavored Location:</h3>
 
         <div class="form-group-inline">
             <label>Country: </label>

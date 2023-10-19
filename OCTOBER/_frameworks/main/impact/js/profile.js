@@ -1504,27 +1504,27 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         let city_id_unfavorite = $("#city_id_unfavorite").val()
 
         if(country_id_favorite == "") {
-            alertCustom('Please select favorite country!',true,'Information incomplete');
+            alertCustom('Please select Favored country!',true,'Information incomplete');
             return true
         }
         if(state_id_favorite == "") {
-            alertCustom('Please select favorite state!',true,'Information incomplete');
+            alertCustom('Please select Favored state!',true,'Information incomplete');
             return true
         }
         if(city_id_favorite == "") {
-            alertCustom('Please select favorite city!',true,'Information incomplete');
+            alertCustom('Please select Favored city!',true,'Information incomplete');
             return true
         }
         if(country_id_unfavorite == "") {
-            alertCustom('Please select unfavorite country!',true,'Information incomplete');
+            alertCustom('Please select Unfavored country!',true,'Information incomplete');
             return true
         }
         if(state_id_unfavorite == "") {
-            alertCustom('Please select unfavorite state!',true,'Information incomplete');
+            alertCustom('Please select Unfavored state!',true,'Information incomplete');
             return true
         }
         if(city_id_unfavorite == "") {
-            alertCustom('Please select unfavorite city!',true,'Information incomplete');
+            alertCustom('Please select Unfavored city!',true,'Information incomplete');
             return true
         }
 
