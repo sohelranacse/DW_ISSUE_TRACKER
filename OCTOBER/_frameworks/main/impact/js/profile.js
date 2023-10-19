@@ -1335,12 +1335,12 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         });
     }
 
-    this.get_state = function(info) {
+    this.get_state = function(info, label) {
 
-        if(info.id == "country_id_current")
-            $("#city_id_current").html(`<option value="">Select</option>`)
+        if(info.id == "country_id_"+label)
+            $("#city_id_"+label).html(`<option value="">Select</option>`)
         else
-            $("#city_id_permanent").html(`<option value="">Select</option>`)
+            $("#city_id_"+label).html(`<option value="">Select</option>`)
 
         if(info.value) {
             $.ajax({
@@ -1353,10 +1353,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
      
                 success:function(data){
                     // console.log(data)
-                    if(info.id == "country_id_current")
-                        $("#state_id_current").html(data)
+                    if(info.id == "country_id_"+label)
+                        $("#state_id_"+label).html(data)
                     else
-                        $("#state_id_permanent").html(data)
+                        $("#state_id_"+label).html(data)
 
                     $('.combo').select2();
                 },
@@ -1366,16 +1366,16 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
      
             });
         } else {
-            if(info.id == "country_id_current")
-                $("#state_id_current").html(`<option value="">Select</option>`)
+            if(info.id == "country_id_"+label)
+                $("#state_id_"+label).html(`<option value="">Select</option>`)
             else
-                $("#state_id_permanent").html(`<option value="">Select</option>`)
+                $("#state_id_"+label).html(`<option value="">Select</option>`)
         }
 
         
     }
 
-    this.get_city = function(info) {
+    this.get_city = function(info, label) {
 
         if(info.value) {
             $.ajax({
@@ -1388,10 +1388,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
      
                 success:function(data){
                     // console.log(data)
-                    if(info.id == "state_id_current")
-                        $("#city_id_current").html(data)
+                    if(info.id == "state_id_"+label)
+                        $("#city_id_"+label).html(data)
                     else
-                        $("#city_id_permanent").html(data)
+                        $("#city_id_"+label).html(data)
 
                     $('.combo').select2();
                 },
@@ -1401,10 +1401,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
      
             });
         } else {
-            if(info.id == "state_id_current")
-                $("#city_id_current").html(`<option value="">Select</option>`)
+            if(info.id == "state_id_"+label)
+                $("#city_id_"+label).html(`<option value="">Select</option>`)
             else
-                $("#city_id_permanent").html(`<option value="">Select</option>`)
+                $("#city_id_"+label).html(`<option value="">Select</option>`)
         }
     }
     this.submit_frm_profile_edit_address = function(event, info) {
@@ -1496,34 +1496,34 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         event.preventDefault()
         var formData = $(info).serialize();
 
-        let country_id_current = $("#country_id_current").val()
-        let state_id_current = $("#state_id_current").val()
-        let city_id_current = $("#city_id_current").val()
-        let country_id_permanent = $("#country_id_permanent").val()
-        let state_id_permanent = $("#state_id_permanent").val()
-        let city_id_permanent = $("#city_id_permanent").val()
+        let country_id_favorite = $("#country_id_favorite").val()
+        let state_id_favorite = $("#state_id_favorite").val()
+        let city_id_favorite = $("#city_id_favorite").val()
+        let country_id_unfavorite = $("#country_id_unfavorite").val()
+        let state_id_unfavorite = $("#state_id_unfavorite").val()
+        let city_id_unfavorite = $("#city_id_unfavorite").val()
 
-        if(country_id_current == "") {
+        if(country_id_favorite == "") {
             alertCustom('Please select favorite country!',true,'Information incomplete');
             return true
         }
-        if(state_id_current == "") {
+        if(state_id_favorite == "") {
             alertCustom('Please select favorite state!',true,'Information incomplete');
             return true
         }
-        if(city_id_current == "") {
+        if(city_id_favorite == "") {
             alertCustom('Please select favorite city!',true,'Information incomplete');
             return true
         }
-        if(country_id_permanent == "") {
+        if(country_id_unfavorite == "") {
             alertCustom('Please select unfavorite country!',true,'Information incomplete');
             return true
         }
-        if(state_id_permanent == "") {
+        if(state_id_unfavorite == "") {
             alertCustom('Please select unfavorite state!',true,'Information incomplete');
             return true
         }
-        if(city_id_permanent == "") {
+        if(city_id_unfavorite == "") {
             alertCustom('Please select unfavorite city!',true,'Information incomplete');
             return true
         }

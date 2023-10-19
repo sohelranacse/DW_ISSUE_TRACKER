@@ -11,7 +11,7 @@
         </div>
         <div class="form-group-inline">
             <label>Country: </label>
-            <select class="combo w-165" id="country_id_current" name="country_id_current" onchange="Profile.get_state(this)" required>
+            <select class="combo w-165" id="country_id_current" name="country_id_current" onchange="Profile.get_state(this, 'current')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($countryList))
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group-inline">
             <label>State: </label>
-            <select class="combo w-165" id="state_id_current" name="state_id_current" onchange="Profile.get_city(this)" required>
+            <select class="combo w-165" id="state_id_current" name="state_id_current" onchange="Profile.get_city(this, 'current')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($stateList))
@@ -66,7 +66,7 @@
 
         <div class="form-group-inline">
             <label>Country: </label>
-            <select class="combo w-165" id="country_id_permanent" name="country_id_permanent" onchange="Profile.get_state(this)" required>
+            <select class="combo w-165" id="country_id_permanent" name="country_id_permanent" onchange="Profile.get_state(this, 'permanent')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($countryList))
@@ -81,7 +81,7 @@
         </div>
         <div class="form-group-inline">
             <label>State: </label>
-            <select class="combo w-165" id="state_id_permanent" name="state_id_permanent" onchange="Profile.get_city(this)" required>
+            <select class="combo w-165" id="state_id_permanent" name="state_id_permanent" onchange="Profile.get_city(this, 'permanent')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($permanent_stateList))

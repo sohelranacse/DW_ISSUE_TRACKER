@@ -7,7 +7,7 @@
 
         <div class="form-group-inline">
             <label>Country: </label>
-            <select class="combo w-165" id="country_id_current" name="favorite_country_id" onchange="Profile.get_state(this)" required>
+            <select class="combo w-165" id="country_id_favorite" name="favorite_country_id" onchange="Profile.get_state(this, 'favorite')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($countryList))
@@ -22,7 +22,7 @@
         </div>
         <div class="form-group-inline">
             <label>State: </label>
-            <select class="combo w-165" id="state_id_current" name="favorite_state_id" onchange="Profile.get_city(this)" required>
+            <select class="combo w-165" id="state_id_favorite" name="favorite_state_id" onchange="Profile.get_city(this, 'favorite')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($stateList))
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group-inline">
             <label>City: </label>
-            <select class="combo w-165" id="city_id_current" name="favorite_city_id" required>
+            <select class="combo w-165" id="city_id_favorite" name="favorite_city_id" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($cityList))
@@ -57,7 +57,7 @@
 
         <div class="form-group-inline">
             <label>Country: </label>
-            <select class="combo w-165" id="country_id_permanent" name="unfavorite_country_id" onchange="Profile.get_state(this)" required>
+            <select class="combo w-165" id="country_id_unfavorite" name="unfavorite_country_id" onchange="Profile.get_state(this, 'unfavorite')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($countryList))
@@ -72,7 +72,7 @@
         </div>
         <div class="form-group-inline">
             <label>State: </label>
-            <select class="combo w-165" id="state_id_permanent" name="unfavorite_state_id" onchange="Profile.get_city(this)" required>
+            <select class="combo w-165" id="state_id_unfavorite" name="unfavorite_state_id" onchange="Profile.get_city(this, 'unfavorite')" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($permanent_stateList))
@@ -87,7 +87,7 @@
         </div>
         <div class="form-group-inline">
             <label>City: </label>
-            <select class="combo w-165" id="city_id_permanent" name="unfavorite_city_id" required>
+            <select class="combo w-165" id="city_id_unfavorite" name="unfavorite_city_id" required>
                 <option value="">Select</option>
                 <?php
                 if(sizeof($permanent_cityList))
