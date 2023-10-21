@@ -65,6 +65,12 @@ class ProfileAjax extends Controller {
 					if($g_user['permanent_state_id'])
 						$permanent_cityList = DB::all('SELECT city_id, city_title FROM geo_city WHERE hidden = 0 AND state_id = '.to_sql($g_user['permanent_state_id'], 'Number').' ORDER BY city_title');
 
+					$country = l('country');
+					$state = l('state');
+					$city = l('city');
+					$street = l('street');
+					$current_address = l('current_address');
+					$permanent_address = l('permanent_address');
 
 					ob_start();
 					include $g['tmpl']['dir_tmpl_main'].'profile/get_address_field.php';
@@ -163,7 +169,13 @@ class ProfileAjax extends Controller {
 
 					if($g_user['unfavorite_state_id'])
 						$permanent_cityList = DB::all('SELECT city_id, city_title FROM geo_city WHERE hidden = 0 AND state_id = '.to_sql($g_user['unfavorite_state_id'], 'Number').' ORDER BY city_title');
-					
+
+					$country = l('country');
+					$state = l('state');
+					$city = l('city');
+					$favored_location = l('favored_location');
+					$unfavored_location = l('unfavored_location');
+
 					ob_start();
 					include $g['tmpl']['dir_tmpl_main'].'profile/loadFavoriteAddressEdit.php';
 					$data = ob_get_clean();
@@ -205,9 +217,148 @@ class ProfileAjax extends Controller {
 				    	WHERE a.user_id = '.to_sql($g_user['user_id'])
 				    );
 				    $result['msg'] = "success";
-				    $result['favorite_address'] = $user_info['favorite_city'].', '.$user_info['favorite_state'].', '.$user_info['favorite_country'];
-				    $result['unfavorite_address'] = $user_info['unfavorite_city'].', '.$user_info['unfavorite_state'].', '.$user_info['unfavorite_country'];
+				    $favored = $unfavored = [];
+
+				    // favored
+				    if($user_info['favorite_city'])
+				    	$favored['favorite_city'] = $user_info['favorite_city'];
+				    if($user_info['favorite_state'])
+				    	$favored['favorite_state'] = $user_info['favorite_state'];
+				    if($user_info['favorite_country'])
+				    	$favored['favorite_country'] = $user_info['favorite_country'];
+
+				    // unfavored
+				    if($user_info['unfavorite_city'])
+				    	$unfavored['unfavorite_city'] = $user_info['unfavorite_city'];
+				    if($user_info['unfavorite_state'])
+				    	$unfavored['unfavorite_state'] = $user_info['unfavorite_state'];
+				    if($user_info['unfavorite_country'])
+				    	$unfavored['unfavorite_country'] = $user_info['unfavorite_country'];
+
+				    $result['favorite_address'] = implode(", ", $favored);
+				    $result['unfavorite_address'] = implode(", ", $unfavored);
 	                echo json_encode($result);
+					break;
+
+				case 'loadEducationEdit':
+
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $educationList = DB::all("SELECT * FROM `user_education` WHERE user_id = {$g_user['user_id']} ORDER BY added_on");
+
+					// $favored_location = l('favored_location');
+					// $unfavored_location = l('unfavored_location');
+
+					ob_start();
+					include $g['tmpl']['dir_tmpl_main'].'profile/loadEducationEdit.php';
+					$data = ob_get_clean();
+					echo $data;
+					break;
+
+				case 'update_education':
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $degree = $this->input->post('degree_title');
+				    $school_name = $this->input->post('school_name');
+				    $address = $this->input->post('address');
+				    $results = $this->input->post('results');
+				    $passing_year = $this->input->post('passing_year');
+
+				    $i = 0;
+				    if(sizeof($degree)) {
+				    	DB::delete('user_education', '`user_id` =' . to_sql($g_user['user_id']));
+					    foreach($degree as $degree_title) {
+
+					    	$data = [
+				    			'degree_title'	=>	$degree_title,
+				    			'school_name'	=>	$school_name[$i],
+				    			'address'		=>	$address[$i] ? $address[$i] : '',
+				    			'results'		=>	$results[$i] ? $results[$i] : '',
+				    			'passing_year'	=>	$passing_year[$i] ? $passing_year[$i] : '',
+				    			'added_on'		=>	date("Y-m-d H:i:s"),
+				    			'user_id'		=>	$g_user['user_id'],
+				    		];
+				    		DB::insert('user_education', $data);
+
+						    $i++;
+					    }	
+					}					    
+
+
+				    $educationList = DB::all("SELECT * FROM `user_education` WHERE user_id = {$g_user['user_id']} ORDER BY added_on");
+				    echo json_encode($educationList);
+					break;
+
+				case 'loadProfessionEdit':
+
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $professionType = DB::all("SELECT * FROM `var_preferred_profession` ORDER BY title");
+
+				    $professionList = DB::all("
+				    	SELECT a.*, b.title
+				    	FROM user_profession a
+				    	INNER JOIN var_preferred_profession b ON (a.profession_type = b.id)
+				    	WHERE a.user_id = {$g_user['user_id']}
+				    	ORDER BY a.added_on
+				    ");
+
+					// $favored_location = l('favored_location');
+					// $unfavored_location = l('unfavored_location');
+
+					ob_start();
+					include $g['tmpl']['dir_tmpl_main'].'profile/loadProfessionEdit.php';
+					$data = ob_get_clean();
+					echo $data;
+					break;
+
+				case 'update_profession':
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $profession = $this->input->post('profession_type');
+				    $position = $this->input->post('position');
+				    $address = $this->input->post('address');
+				    $company = $this->input->post('company');
+				    
+				    $i = 0;
+				    if(sizeof($profession)) {
+				    	DB::delete('user_profession', '`user_id` =' . to_sql($g_user['user_id']));
+					    foreach($profession as $profession_type) {
+
+					    	$data = [
+				    			'profession_type'	=>	$profession_type,
+				    			'position'		=>	$position[$i],
+				    			'company'		=>	$company[$i],
+				    			'address'		=>	$address[$i] ? $address[$i] : '',
+				    			'added_on'		=>	date("Y-m-d H:i:s"),
+				    			'user_id'		=>	$g_user['user_id'],
+				    		];
+				    		DB::insert('user_profession', $data);
+
+						    $i++;
+					    }	
+					}					    
+
+					$professionList = DB::all("
+				    	SELECT a.*, b.title
+				    	FROM user_profession a
+				    	INNER JOIN var_preferred_profession b ON (a.profession_type = b.id)
+				    	WHERE a.user_id = {$g_user['user_id']}
+				    	ORDER BY a.added_on
+				    ");
+				    echo json_encode($professionList);
 					break;
 
 				default:

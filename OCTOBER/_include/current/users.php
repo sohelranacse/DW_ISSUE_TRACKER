@@ -1043,12 +1043,33 @@ class CUsers extends CHtmlList {
                 FROM user a
                 WHERE a.user_id = '.to_sql(self::$guid)
             );
-            if($favorite_un_address_info['favorite_city']) {
-                $html->setvar('favorite_address', $favorite_un_address_info['favorite_city'].', '.$favorite_un_address_info['favorite_state'].', '.$favorite_un_address_info['favorite_country']);
+            $favored = $unfavored = [];
+                    
+            // favored
+            if($favorite_un_address_info['favorite_city'])
+                $favored['favorite_city'] = $favorite_un_address_info['favorite_city'];
+            if($favorite_un_address_info['favorite_state'])
+                $favored['favorite_state'] = $favorite_un_address_info['favorite_state'];
+            if($favorite_un_address_info['favorite_country'])
+                $favored['favorite_country'] = $favorite_un_address_info['favorite_country'];
+
+            // unfavored
+            if($favorite_un_address_info['unfavorite_city'])
+                $unfavored['unfavorite_city'] = $favorite_un_address_info['unfavorite_city'];
+            if($favorite_un_address_info['unfavorite_state'])
+                $unfavored['unfavorite_state'] = $favorite_un_address_info['unfavorite_state'];
+            if($favorite_un_address_info['unfavorite_country'])
+                $unfavored['unfavorite_country'] = $favorite_un_address_info['unfavorite_country'];
+
+            $favorite_address = implode(", ", $favored);
+            $unfavorite_address = implode(", ", $unfavored);
+
+            if($unfavorite_address) {
+                $html->setvar('favorite_address', $favorite_address);
                 $html->parse('favorite_address', false);
             }
-            if($favorite_un_address_info['unfavorite_city']) {
-                $html->setvar('unfavorite_address', $favorite_un_address_info['unfavorite_city'].', '.$favorite_un_address_info['unfavorite_state'].', '.$favorite_un_address_info['unfavorite_country']);
+            if($unfavorite_address) {
+                $html->setvar('unfavorite_address', $unfavorite_address);
                 $html->parse('unfavorite_address', false);
             }
 

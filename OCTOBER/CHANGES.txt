@@ -6,6 +6,27 @@ http://localhost/mymatch/administration/language.php
 	add_group_user = Add Candidate
 	group_users = My Candidate
 
+	nickname = Nickname
+	fname = First Name
+	lname = Last Name
+
+	address = Address
+	street = Street
+	current_address = Current Address
+	permanent_address = Permanent Address
+
+	location_preference = Location Preference
+	favored_location = Favored Location
+	unfavored_location = Unfavored Location
+
+	education = Education
+	profession = Profession
+	relatives = Relatives
+	additional_information  = Additional Information 
+
+	// update
+	Signup as = Signup as (Posted by)
+
 2. Countries
 http://localhost/mymatch/administration/users_fields_countries.php
 	Country order - Bangladesh, USA, UK, Saudi Arabia, UAE
@@ -17,3 +38,10 @@ ALTER TABLE `user` ADD `first_name` VARCHAR(100) NULL AFTER `name`, ADD `last_na
 ALTER TABLE `user` ADD `current_country_id` INT(5) NULL AFTER `nid_verify_approved_on`, ADD `current_state_id` INT(6) NULL AFTER `current_country_id`, ADD `current_city_id` INT(11) NULL AFTER `current_state_id`, ADD `current_street` VARCHAR(255) NULL AFTER `current_city_id`, ADD `permanent_country_id` INT(5) NULL AFTER `current_street`, ADD `permanent_state_id` INT(6) NULL AFTER `permanent_country_id`, ADD `permanent_city_id` INT(11) NULL AFTER `permanent_state_id`, ADD `permanent_street` VARCHAR(255) NULL AFTER `permanent_city_id`;
 
 ALTER TABLE `user` ADD `favorite_country_id` INT(5) NULL AFTER `permanent_street`, ADD `favorite_state_id` INT(6) NULL AFTER `favorite_country_id`, ADD `favorite_city_id` INT(11) NULL AFTER `favorite_state_id`, ADD `unfavorite_country_id` INT(5) NULL AFTER `favorite_city_id`, ADD `unfavorite_state_id` INT(6) NULL AFTER `unfavorite_country_id`, ADD `unfavorite_city_id` INT(11) NULL AFTER `unfavorite_state_id`;
+
+ALTER TABLE `user` ADD `spouse_name` VARCHAR(255) NOT NULL AFTER `unfavorite_city_id`, ADD `no_of_siblings` INT(1) NOT NULL AFTER `spouse_name`, ADD `siblings_name` VARCHAR(255) NOT NULL AFTER `no_of_siblings`;
+
+
+4. Add profile fields
+	i. Preferred Profession
+	ii. Marital status

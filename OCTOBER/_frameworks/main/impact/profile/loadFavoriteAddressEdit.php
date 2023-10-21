@@ -3,11 +3,11 @@
     <input type="hidden" name="e_user_id" value="<?php echo $e_user_id; ?>" />
 
     <div class="formdiv">
-        <h3><i class="fa fa-thumbs-up"></i> Favored Location:</h3>
+        <h3><i class="fa fa-thumbs-up"></i> <?php echo $favored_location; ?>:</h3>
 
         <div class="form-group-inline">
-            <label>Country: </label>
-            <select class="combo w-165" id="country_id_favorite" name="favorite_country_id" onchange="Profile.get_state(this, 'favorite')" required>
+            <label><?php echo $country; ?>: </label>
+            <select class="combo w-165" id="country_id_favorite" name="favorite_country_id" onchange="Profile.get_state(this, 'favorite')">
                 <option value="">Select</option>
                 <?php
                 if(sizeof($countryList))
@@ -21,8 +21,8 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>State: </label>
-            <select class="combo w-165" id="state_id_favorite" name="favorite_state_id" onchange="Profile.get_city(this, 'favorite')" required>
+            <label><?php echo $state; ?>: </label>
+            <select class="combo w-165" id="state_id_favorite" name="favorite_state_id" onchange="Profile.get_city(this, 'favorite')">
                 <option value="">Select</option>
                 <?php
                 if(sizeof($stateList))
@@ -36,8 +36,8 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>City: </label>
-            <select class="combo w-165" id="city_id_favorite" name="favorite_city_id" required>
+            <label><?php echo $city; ?>: </label>
+            <select class="combo w-165" id="city_id_favorite" name="favorite_city_id">
                 <option value="">Select</option>
                 <?php
                 if(sizeof($cityList))
@@ -53,11 +53,11 @@
 
 
 
-        <h3 style="margin-top: 20px"><i class="fa fa-thumbs-down"></i> Unfavored Location:</h3>
+        <h3 style="margin-top: 20px"><i class="fa fa-thumbs-down"></i> <?php echo $unfavored_location; ?>:</h3>
 
         <div class="form-group-inline">
-            <label>Country: </label>
-            <select class="combo w-165" id="country_id_unfavorite" name="unfavorite_country_id" onchange="Profile.get_state(this, 'unfavorite')" required>
+            <label><?php echo $country; ?>: </label>
+            <select class="combo w-165" id="country_id_unfavorite" name="unfavorite_country_id" onchange="Profile.get_state(this, 'unfavorite')">
                 <option value="">Select</option>
                 <?php
                 if(sizeof($countryList))
@@ -71,8 +71,8 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>State: </label>
-            <select class="combo w-165" id="state_id_unfavorite" name="unfavorite_state_id" onchange="Profile.get_city(this, 'unfavorite')" required>
+            <label><?php echo $state; ?>: </label>
+            <select class="combo w-165" id="state_id_unfavorite" name="unfavorite_state_id" onchange="Profile.get_city(this, 'unfavorite')">
                 <option value="">Select</option>
                 <?php
                 if(sizeof($permanent_stateList))
@@ -86,8 +86,8 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>City: </label>
-            <select class="combo w-165" id="city_id_unfavorite" name="unfavorite_city_id" required>
+            <label><?php echo $city; ?>: </label>
+            <select class="combo w-165" id="city_id_unfavorite" name="unfavorite_city_id">
                 <option value="">Select</option>
                 <?php
                 if(sizeof($permanent_cityList))

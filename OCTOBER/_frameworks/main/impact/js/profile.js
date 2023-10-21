@@ -1305,6 +1305,25 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
     })
 
 
+    const btnLoader = `
+        <div class="css_loader pp_profile_edit_main_loader">
+            <div class="spinner center">
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+            </div>
+        </div>`;
+
+
     /* Edit profile modal */
 
     this.loadAdressEdit = function(id) {
@@ -1455,6 +1474,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                     $("#current_address").html(`<i class="fa fa-map-marker"></i> ${data.current_address}`)
                     $("#permanent_address").html(`<i class="fa fa-home"></i> ${data.permanent_address}`)
                     $this.closePopupEditor("address");
+
+                    // done
+                    $(`#address .frm_editor_save`).attr('disabled', false)
+                    $(`#address .frm_editor_save`).html('Save')
                 }
             },
             error: function(xhr, status, error) {
@@ -1496,38 +1519,6 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         event.preventDefault()
         var formData = $(info).serialize();
 
-        let country_id_favorite = $("#country_id_favorite").val()
-        let state_id_favorite = $("#state_id_favorite").val()
-        let city_id_favorite = $("#city_id_favorite").val()
-        let country_id_unfavorite = $("#country_id_unfavorite").val()
-        let state_id_unfavorite = $("#state_id_unfavorite").val()
-        let city_id_unfavorite = $("#city_id_unfavorite").val()
-
-        if(country_id_favorite == "") {
-            alertCustom('Please select Favored country!',true,'Information incomplete');
-            return true
-        }
-        if(state_id_favorite == "") {
-            alertCustom('Please select Favored state!',true,'Information incomplete');
-            return true
-        }
-        if(city_id_favorite == "") {
-            alertCustom('Please select Favored city!',true,'Information incomplete');
-            return true
-        }
-        if(country_id_unfavorite == "") {
-            alertCustom('Please select Unfavored country!',true,'Information incomplete');
-            return true
-        }
-        if(state_id_unfavorite == "") {
-            alertCustom('Please select Unfavored state!',true,'Information incomplete');
-            return true
-        }
-        if(city_id_unfavorite == "") {
-            alertCustom('Please select Unfavored city!',true,'Information incomplete');
-            return true
-        }
-
         
         $.ajax({
             url: 'profile_ajax.php',
@@ -1537,10 +1528,269 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             success:function(data){
                 var data = JSON.parse(data);
                 if(data.msg == "success") {
-                    $("#favorite_address").html(`<i class="fa fa-thumbs-up"></i> ${data.favorite_address}`)
-                    $("#unfavorite_address").html(`<i class="fa fa-thumbs-down"></i> ${data.unfavorite_address}`)
+                    if(data.favorite_address)
+                        $("#favorite_address").html(`<i class="fa fa-thumbs-up"></i> ${data.favorite_address}`)
+                    if(data.unfavorite_address)
+                        $("#unfavorite_address").html(`<i class="fa fa-thumbs-down"></i> ${data.unfavorite_address}`)
                     $this.closePopupEditor("favorite_unfavorite_address");
+
+                    // done
+                    $(`#favorite_unfavorite_address .frm_editor_save`).attr('disabled', false)
+                    $(`#favorite_unfavorite_address .frm_editor_save`).html('Save')
                 }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+    // Education
+    this.loadEducationEdit = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "loadEducationEdit",
+                e_user_id
+            },
+ 
+            success:function(data){
+                // console.log(data)
+                $this.updatePopupEditor(id,data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    this.add_more_education_field = function(ind) {
+        var newInd = Number(ind)+1;
+        if(newInd > 5) {
+            alertCustom('Please input right information!',true,'Alert');
+            return true
+        }
+        $("#more_education"+ind).append(`
+            <div class="close_div">
+                <button type="button" onclick="Profile.close_multiple_div(${ind})"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="form-group-half">
+                <label><i class="fa fa-graduation-cap"></i> Exam/Degree Title: <span class="r">*</span></label>
+                <input type="text" id="degree_title" name="degree_title[]" placeholder="BSc in Computer Science" required />
+            </div>
+            <div class="form-group-half">
+                <label><i class="fa fa-university"></i> Institute Name: <span class="r">*</span></label>
+                <input type="text" id="school_name" name="school_name[]" placeholder="Dhaka University" />
+            </div>
+            <div class="form-group">
+                <label><i class="fa fa-map-marker"></i> Address: </label>
+                <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" style="width: 100%" />
+            </div>
+            <div class="form-group-half">
+                <label><i class="fa fa-calculator"></i> Results: </label>
+                <input type="text" name="results[]" placeholder="3.59" />
+            </div>
+            <div class="form-group-half">
+                <label><i class="fa fa-calendar"></i> Passing Year: </label>
+                <input type="text" name="passing_year[]" placeholder="2020" />
+            </div>
+        `);
+        $("#paginate").append(`<div class="add_more_div" id="more_education${newInd}"></div>`);
+        $("#ind").val(newInd)
+    }
+    this.close_multiple_div = function(ind) {
+        $("#more_education"+ind).empty()
+    }
+    this.submit_education = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+
+        var err = 0;
+        $('[name="degree_title[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                alertCustom('Please type Exam/Degree Title!',true,'Information incomplete');
+                return false
+            }
+        });
+        $('[name="school_name[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                alertCustom('Please type Institute Name!',true,'Information incomplete');
+                return false
+            }
+        });
+        $('[name="passing_year[]"]').each(function() {
+            if(!$.isNumeric($(this).val())) {
+                err++;
+                alertCustom('Please input right passing year!',true,'Information incomplete');
+                return false
+            } else {
+                if($(this).val() > currentYear || $(this).val() < 2000) {
+                    err++;
+                    alertCustom('Please input right passing year!',true,'Information incomplete');
+                    return false
+                }
+            }
+        });
+
+        if(err) return false;
+
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+
+                if(data.length) {
+                    var result = '';
+                    for(var i=0; i < data.length; i++) {
+                        result += `
+                            <li><i class="fa fa-graduation-cap"></i> ${data[i].degree_title}</li>
+                            <ul>
+                                <li><i class="fa fa-university"></i> ${data[i].school_name}</li>
+                                ${data[i].passing_year ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
+                                ${data[i].results ? `<li><i class="fa fa-calculator"></i> ${data[i].results}</li>` : ``}
+                                ${data[i].passing_year ? `<li><i class="fa fa-calendar"></i> ${data[i].passing_year}</li>` : ``}
+                            </ul>
+                        `;
+                    }
+
+                    $("#education_section #ul_list").html(result)
+
+                    // done
+                    $(`#education .frm_editor_save`).attr('disabled', false)
+                    $(`#education .frm_editor_save`).html('Save')
+                }
+                $this.closePopupEditor("education");
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+    // profession
+    this.loadProfessionEdit = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "loadProfessionEdit",
+                e_user_id
+            },
+ 
+            success:function(data){
+                $this.updatePopupEditor(id,data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    this.add_more_profession_field = function(ind, data) {
+        var newInd = Number(ind)+1;
+        if(newInd > 10) {
+            alertCustom('Please input right information!',true,'Alert');
+            return true
+        }
+        $("#more_profession"+ind).append(`
+            <div class="close_div">
+                <button type="button" onclick="Profile.close_multiple_profession_div(${ind})"><i class="fa fa-times"></i></button>
+            </div>
+            ${data}
+        `);
+        $("#paginate").append(`<div class="add_more_div" id="more_profession${newInd}"></div>`);
+        $("#ind").val(newInd)
+        $(".combo").select2()
+    }    
+    this.close_multiple_profession_div = function(ind) {
+        $("#more_profession"+ind).empty()
+    }
+    this.submit_profession = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        var err = 0;
+        $('[name="profession_type[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                alertCustom('Please type Profession Type!',true,'Information incomplete');
+                return false
+            }
+        });
+        $('[name="position[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                alertCustom('Please type Position/Title!',true,'Information incomplete');
+                return false
+            }
+        });
+        $('[name="company[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                alertCustom('Please type Company!',true,'Information incomplete');
+                return false
+            }
+        });
+
+        if(err) return false;
+
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+
+                if(data.length) {
+                    var result = '';
+                    for(var i=0; i < data.length; i++) {
+                        result += `
+                            <li><i class="fa fa-level-up"></i> ${data[i].position}</li>
+                            <ul>
+                                <li><i class="fa fa-industry"></i> ${data[i].company}</li>
+                                ${data[i].address ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
+                                <li><i class="fa fa-bullhorn"></i> ${data[i].title}</li>
+                            </ul>
+                        `;
+                    }
+
+                    $("#profession_section #ul_list").html(result)
+
+                    // done
+                    $(`#profession .frm_editor_save`).attr('disabled', false)
+                    $(`#profession .frm_editor_save`).html('Save')
+                }
+                $this.closePopupEditor("profession");
             },
             error: function(xhr, status, error) {
                 console.log("Error: " + error);
@@ -1563,6 +1813,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
 
             if(id == "address") {
                 $('#address .frm_editor_save').click(function (){
+                    $(this).attr('disabled', true)
+                    $(this).html(btnLoader)
                     $("#frm_profile_edit_address").submit()
                     return false;
                 })
@@ -1570,36 +1822,34 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             }
             else if(id == "favorite_unfavorite_address") {
                 $('#favorite_unfavorite_address .frm_editor_save').click(function (){
+                    $(this).attr('disabled', true)
+                    $(this).html(btnLoader)
                     $("#frm_profile_edit_favorite_unfavorite_address").submit()
                     return false;
                 })
                 $this.loadFavoriteAddressEdit(id)
             }
+            else if(id == "education") {
+                $('#education .frm_editor_save').click(function (){
+                    $(this).attr('disabled', true)
+                    $(this).html(btnLoader)
+                    $("#frm_update_education").submit()
+                    return false;
+                })
+                $this.loadEducationEdit(id)
+            }
+            else if(id == "profession") {
+                $('#profession .frm_editor_save').click(function (){
+                    $(this).attr('disabled', true)
+                    $(this).html(btnLoader)
+                    $("#frm_update_profession").submit()
+                    return false;
+                })
+                $this.loadProfessionEdit(id)
+            }
+
         })
     })
-
-    
-
-
-
-    /*this.showProfileModal = function(){
-        var id='pp_profile_personal_editor';
-
-        var e_user_id = 0
-        if($("#ua_user_id").val())
-            e_user_id = $("#ua_user_id").val()
-
-        if($this.openPopupEditor(id,$this.langParts.edit_personal_details,$this.hStub,$this.hStub,'wrapper_custom'))return;
-        // $.post(url_main+'ajax.php?cmd=pp_profile_edit_field_personal',{},function(res){
-        $.post(url_main+'ajax.php',{cmd:'pp_profile_edit_field_personal', e_user_id:e_user_id},function(res){
-            var data=checkDataAjax(res);
-            if(data!==false){
-                $this.updatePopupEditor(id,data);
-            }else{
-                alertServerError()
-            }
-        })
-    }*/
 
 
 

@@ -3,14 +3,14 @@
     <input type="hidden" name="e_user_id" value="<?php echo $e_user_id; ?>" />
 
     <div class="formdiv">
-        <h3><i class="fa fa-map-marker"></i> Current Address:</h3>
+        <h3><i class="fa fa-map-marker"></i> <?php echo $current_address; ?>:</h3>
 
         <div class="form-group">
-            <label>Street: </label>
+            <label><?php echo $street; ?>: </label>
             <input type="text" name="current_street" id="current_street" placeholder="1064/1, East Shewrapara" class="w-full" value="<?php echo $g_user['current_street'] ?>">
         </div>
         <div class="form-group-inline">
-            <label>Country: </label>
+            <label><?php echo $country; ?>: </label>
             <select class="combo w-165" id="country_id_current" name="country_id_current" onchange="Profile.get_state(this, 'current')" required>
                 <option value="">Select</option>
                 <?php
@@ -25,7 +25,7 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>State: </label>
+            <label><?php echo $state; ?>: </label>
             <select class="combo w-165" id="state_id_current" name="state_id_current" onchange="Profile.get_city(this, 'current')" required>
                 <option value="">Select</option>
                 <?php
@@ -40,7 +40,7 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>City: </label>
+            <label><?php echo $city; ?>: </label>
             <select class="combo w-165" id="city_id_current" name="city_id_current" required>
                 <option value="">Select</option>
                 <?php
@@ -57,15 +57,15 @@
 
 
 
-        <h3 style="margin-top: 20px"><i class="fa fa-home"></i> Permanent Address:</h3>
+        <h3 style="margin-top: 20px"><i class="fa fa-home"></i> <?php echo $permanent_address; ?>:</h3>
 
         <div class="form-group">
-            <label>Street: </label>
+            <label><?php echo $street; ?>: </label>
             <input type="text" name="permanent_street" id="permanent_street" placeholder="1064/1, East Shewrapara" class="w-full" value="<?php echo $g_user['permanent_street'] ?>">
         </div>
 
         <div class="form-group-inline">
-            <label>Country: </label>
+            <label><?php echo $country; ?>: </label>
             <select class="combo w-165" id="country_id_permanent" name="country_id_permanent" onchange="Profile.get_state(this, 'permanent')" required>
                 <option value="">Select</option>
                 <?php
@@ -80,7 +80,7 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>State: </label>
+            <label><?php echo $state; ?>: </label>
             <select class="combo w-165" id="state_id_permanent" name="state_id_permanent" onchange="Profile.get_city(this, 'permanent')" required>
                 <option value="">Select</option>
                 <?php
@@ -95,7 +95,7 @@
             </select>
         </div>
         <div class="form-group-inline">
-            <label>City: </label>
+            <label><?php echo $city; ?>: </label>
             <select class="combo w-165" id="city_id_permanent" name="city_id_permanent" required>
                 <option value="">Select</option>
                 <?php
