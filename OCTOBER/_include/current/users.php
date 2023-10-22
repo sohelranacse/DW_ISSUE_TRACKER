@@ -1012,7 +1012,7 @@ class CUsers extends CHtmlList {
             }
             
         }
-        include 'users2.php';
+        include 'user_profile_fields.php';
         // added by sohel => end
 
         

@@ -66,7 +66,7 @@ siteTitle = '{user_name}'; // added by sohel
     $(document).ready(function() {
         var progressBar = $('#profileProgress');
         var increaseButton = $('#increaseProgress');
-        var width = 20;
+        var width = {profile_completed};
 
         function updateProgressBar() {
             progressBar.width(width + '%');
@@ -83,9 +83,13 @@ siteTitle = '{user_name}'; // added by sohel
 </script>
 <!-- col_center -->
 <div class="col_center">
+
+    <!-- begin_profileProgress -->
     <div class="progress-container" title="Profile Completed">
         <div class="progress-bar" id="profileProgress">{l_profile_completed} 0%</div>
     </div>
+    <!-- end_profileProgress -->
+    
     <div class="cont bl_profile">
         <div class="bl_pic_info  <!-- begin_class_profile_my -->my_profile<!-- end_class_profile_my -->">
             <div class="bl_pic">
@@ -383,10 +387,12 @@ siteTitle = '{user_name}'; // added by sohel
 
                     <!-- start_my -->
                     <!-- begin_edit_me_or_my_candidate -->
+
+                    <!-- begin_address_block -->
                     <div class="bl">
                         <div class="title">
                             <div class="title_icon_edit">{l_address}                               
-                                <span class="showModal" id="address" title="{l_address}"></span>
+                                <!-- begin_address_edit --><span class="showModal" id="address" title="{l_address}"></span><!-- end_address_edit -->
                             </div>
                             <div class="cl"></div>
                         </div>
@@ -395,10 +401,13 @@ siteTitle = '{user_name}'; // added by sohel
                             <li id="permanent_address"><!-- begin_permanent_address --><i class="fa fa-home"></i> {permanent_address}<!-- end_permanent_address --></li>
                         </ul>
                     </div>
+                    <!-- end_address_block -->
+
+                    <!-- begin_location_preference_block -->
                     <div class="bl">
                         <div class="title">
                             <div class="title_icon_edit">{l_location_preference}
-                                <span class="showModal" id="favorite_unfavorite_address" title="{l_location_preference}"></span>
+                                <!-- begin_location_edit --><span class="showModal" id="favorite_unfavorite_address" title="{l_location_preference}"></span><!-- end_location_edit -->
                             </div>
                             <div class="cl"></div>
                         </div>
@@ -407,6 +416,88 @@ siteTitle = '{user_name}'; // added by sohel
                             <li id="unfavorite_address"><!-- begin_unfavorite_address --><i class="fa fa-thumbs-down"></i> {unfavorite_address}<!-- end_unfavorite_address --></li>
                         </ul>
                     </div>
+                    <!-- end_location_preference_block -->
+
+                    <!-- begin_education_block -->
+                    <div class="bl" id="education_section">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_education}                               
+                                <!-- begin_education_edit --><span class="showModal" id="education" title="{l_education}"></span><!-- end_education_edit -->
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list" class="ul_multiple">
+                            <!-- begin_educationData -->
+                            {educationData}
+                            <!-- end_educationData -->
+                        </ul>
+                    </div>
+                    <!-- end_education_block -->
+
+                    <!-- begin_profession_block -->
+                    <div class="bl" id="profession_section">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_profession}                               
+                                <!-- begin_profession_edit --><span class="showModal" id="profession" title="{l_profession}"></span><!-- end_profession_edit -->
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list" class="ul_multiple">
+                            <!-- begin_professionData -->
+                            {professionData}
+                            <!-- end_professionData -->
+                        </ul>
+                    </div>
+                    <!-- end_profession_block -->
+
+                    <!-- begin_relatives_block -->
+                    <div class="bl" id="relatives_section">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_relatives}                               
+                                <!-- begin_relative_edit --><span class="showModal" id="relatives" title="{l_relatives}"></span><!-- end_relative_edit -->
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list" class="ul_multiple">
+                            <!-- begin_relativeData -->
+                            {relativeData}
+                            <!-- end_relativeData -->
+                        </ul>
+                    </div>
+                    <!-- end_relatives_block -->
+
+                    <!-- begin_postedByData -->
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+                    <div class="bl" id="posted_by_section">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_posted_by}             
+                                <!-- begin_posted_by_edit --><span class="showModal" id="posted_by" title="{l_posted_by}"></span><!-- end_posted_by_edit -->
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list">
+                            {postedByData}
+                        </ul>
+                    </div>
+                    <!-- end_postedByData -->
+
+                    <!-- begin_additionalInfo_block -->
+                    <div class="bl" id="additional_section">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_additional_information}                               
+                                <!-- begin_additional_in_edit --><span class="showModal" id="additional_information" title="{l_additional_information}"></span><!-- end_additional_in_edit -->
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list">
+                            <!-- begin_additionInfoData -->
+                            {additionInfoData}
+                            <!-- end_additionInfoData -->
+                        </ul>
+                    </div>
+                    <!-- end_additionalInfo_block -->
+
                     <!-- end_edit_me_or_my_candidate -->
                     <!-- over_my -->
                 </div>

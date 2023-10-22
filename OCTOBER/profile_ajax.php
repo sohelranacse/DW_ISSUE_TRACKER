@@ -143,7 +143,7 @@ class ProfileAjax extends Controller {
 
 				    $result['msg'] = "success";
 				    $result['current_address'] = $result['permanent_address'] = '';
-				    
+
 				    $current_address = implode(', ', array_filter([$user_info['current_street'], $user_info['current_city'], $user_info['current_state'], $user_info['current_country']]));
 				    $permanent_address = implode(', ', array_filter([$user_info['permanent_street'], $user_info['permanent_city'], $user_info['permanent_state'], $user_info['permanent_country']]));
 
@@ -283,7 +283,7 @@ class ProfileAjax extends Controller {
 
 				    $i = 0;
 				    DB::delete('user_education', '`user_id` =' . to_sql($g_user['user_id']));
-				    if(sizeof($degree)) {
+				    if($this->input->post('degree_title') && sizeof($degree)) {
 					    foreach($degree as $degree_title) {
 
 					    	$data = [
@@ -340,7 +340,7 @@ class ProfileAjax extends Controller {
 				    
 				    $i = 0;
 				    DB::delete('user_profession', '`user_id` =' . to_sql($g_user['user_id']));
-				    if(sizeof($profession)) {
+				    if($this->input->post('profession_type') && sizeof($profession)) {
 					    foreach($profession as $profession_type) {
 
 					    	$data = [
@@ -410,7 +410,7 @@ class ProfileAjax extends Controller {
 
 				    $i = 0;
 				    DB::delete('user_relatives', '`user_id` =' . to_sql($g_user['user_id']));
-				    if(sizeof($relatives)) {
+				    if($this->input->post('relative_name') && sizeof($relatives)) {
 					    foreach($relatives as $relative_name) {
 
 					    	$data = [

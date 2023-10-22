@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 21, 2023 at 08:18 AM
+-- Generation Time: Oct 22, 2023 at 04:49 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.26
 
@@ -33,11 +33,12 @@ CREATE TABLE IF NOT EXISTS `user_relatives` (
   `user_id` int(11) NOT NULL,
   `relative_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `relation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `marital_status` int(11) NOT NULL COMMENT 'from var_marital_status',
-  `profession_type` int(11) NOT NULL COMMENT 'from var_preferred_profession',
-  `position` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `degree_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `marital_status` int(11) DEFAULT NULL COMMENT 'from var_marital_status',
+  `profession_type` int(11) DEFAULT NULL COMMENT 'from var_preferred_profession',
+  `position` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `company` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `degree_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `added_on` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)

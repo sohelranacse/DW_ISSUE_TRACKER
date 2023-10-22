@@ -1440,7 +1440,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                 if(data.msg == "success") {
                     if(data.current_address)
                         $("#current_address").html(`<i class="fa fa-map-marker"></i> ${data.current_address}`)
-                    
+
                     if(data.permanent_address)
                         $("#permanent_address").html(`<i class="fa fa-home"></i> ${data.permanent_address}`)
                     $this.closePopupEditor("address");
@@ -1546,10 +1546,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
     }
     this.add_more_education_field = function(ind, data) {
         var newInd = Number(ind)+1;
-        if(newInd > 5) {
+        /*if(newInd > 5) {
             alertCustom('Please input right information!',true,'Alert');
             return true
-        }
+        }*/
         $("#more_education"+ind).append(`
             <div class="close_div">
                 <button type="button" onclick="Profile.close_multiple_div(${ind})"><i class="fa fa-times"></i></button>
@@ -1591,7 +1591,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                 alertCustom('Please input right passing year!',true,'Information incomplete');
                 return false
             } else {
-                if($(this).val() > currentYear || $(this).val() < 2000) {
+                if($(this).val() > currentYear || $(this).val() < 1980) {
                     err++;
                     alertCustom('Please input right passing year!',true,'Information incomplete');
                     return false
@@ -1613,27 +1613,27 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
  
             success:function(data){
                 var data = JSON.parse(data);
-
-                if(data.length) {
-                    var result = '';
+                
+                var result = '';
+                if(data.length)
                     for(var i=0; i < data.length; i++) {
                         result += `
                             <li><i class="fa fa-graduation-cap"></i> ${data[i].degree_title}</li>
                             <ul>
                                 <li><i class="fa fa-university"></i> ${data[i].school_name}</li>
-                                ${data[i].passing_year ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
+                                ${data[i].address ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
                                 ${data[i].results ? `<li><i class="fa fa-calculator"></i> ${data[i].results}</li>` : ``}
                                 ${data[i].passing_year ? `<li><i class="fa fa-calendar"></i> ${data[i].passing_year}</li>` : ``}
                             </ul>
                         `;
                     }
 
-                    $("#education_section #ul_list").html(result)
+                $("#education_section #ul_list").html(result)
 
-                    // done
-                    $(`#education .frm_editor_save`).attr('disabled', false)
-                    $(`#education .frm_editor_save`).html('Save')
-                }
+                // done
+                $(`#education .frm_editor_save`).attr('disabled', false)
+                $(`#education .frm_editor_save`).html('Save')
+                
                 $this.closePopupEditor("education");
             },
             error: function(xhr, status, error) {
@@ -1672,10 +1672,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
     }
     this.add_more_profession_field = function(ind, data) {
         var newInd = Number(ind)+1;
-        if(newInd > 10) {
+        /*if(newInd > 10) {
             alertCustom('Please input right information!',true,'Alert');
             return true
-        }
+        }*/
         $("#more_profession"+ind).append(`
             <div class="close_div">
                 <button type="button" onclick="Profile.close_multiple_profession_div(${ind})"><i class="fa fa-times"></i></button>
@@ -1731,8 +1731,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             success:function(data){
                 var data = JSON.parse(data);
 
-                if(data.length) {
-                    var result = '';
+                var result = '';
+                if(data.length)
                     for(var i=0; i < data.length; i++) {
                         result += `
                             <li><i class="fa fa-level-up"></i> ${data[i].position}</li>
@@ -1744,12 +1744,11 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                         `;
                     }
 
-                    $("#profession_section #ul_list").html(result)
+                $("#profession_section #ul_list").html(result)
 
-                    // done
-                    $(`#profession .frm_editor_save`).attr('disabled', false)
-                    $(`#profession .frm_editor_save`).html('Save')
-                }
+                // done
+                $(`#profession .frm_editor_save`).attr('disabled', false)
+                $(`#profession .frm_editor_save`).html('Save')
                 $this.closePopupEditor("profession");
             },
             error: function(xhr, status, error) {
@@ -1837,8 +1836,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             success:function(data){
                 var data = JSON.parse(data);
 
-                if(data.length) {
-                    var result = '';
+                var result = '';
+                if(data.length)
                     for(var i=0; i < data.length; i++) {
                         result += `
                             <li><i class="fa fa-user"></i> ${data[i].relative_name}</li>
@@ -1854,12 +1853,12 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                         `;
                     }
 
-                    $("#relatives_section #ul_list").html(result)
+                $("#relatives_section #ul_list").html(result)
 
-                    // done
-                    $(`#relatives .frm_editor_save`).attr('disabled', false)
-                    $(`#relatives .frm_editor_save`).html('Save')
-                }
+                // done
+                $(`#relatives .frm_editor_save`).attr('disabled', false)
+                $(`#relatives .frm_editor_save`).html('Save')
+            
                 $this.closePopupEditor("relatives");
             },
             error: function(xhr, status, error) {
