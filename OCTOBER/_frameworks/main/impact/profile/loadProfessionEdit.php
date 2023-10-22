@@ -16,7 +16,7 @@
                         </div>
 
                         <div class="form-group-half">
-                            <label><i class="fa fa-bullhorn"></i> Profession Type: <span class="r">*</span></label>
+                            <label><i class="fa fa-bullhorn"></i> <?php echo $profession_type; ?>: <span class="r">*</span></label>
                             <select class="combo" name="profession_type[]">
                                 <option value="">Select</option>
                                 <?php
@@ -31,11 +31,11 @@
                             </select>
                         </div>
                         <div class="form-group-half">
-                            <label><i class="fa fa-level-up"></i> Position/Title: <span class="r">*</span></label>
+                            <label><i class="fa fa-level-up"></i> <?php echo $position; ?>: <span class="r">*</span></label>
                             <input type="text" id="position" name="position[]" placeholder="General Manager" value="<?php echo $value['position']; ?>" required />
                         </div>
                         <div class="form-group-half">
-                            <label><i class="fa fa-industry"></i> Company: <span class="r">*</span></label>
+                            <label><i class="fa fa-industry"></i> <?php echo $company; ?>: <span class="r">*</span></label>
                             <input type="text" id="company" name="company[]" placeholder="Microsoft Inc." value="<?php echo $value['company']; ?>" required />
                         </div>
                         <div class="form-group-half">
@@ -52,26 +52,23 @@
                     </div>
 
                     <div class="form-group-half">
-                        <label><i class="fa fa-bullhorn"></i> Profession Type: <span class="r">*</span></label>
+                        <label><i class="fa fa-bullhorn"></i> <?php echo $profession_type; ?>: <span class="r">*</span></label>
                         <select class="combo" name="profession_type[]">
                             <option value="">Select</option>
                             <?php
                             if(sizeof($professionType))
                                 foreach($professionType AS $row) {
-                                    $selected = '';
-                                    if($row['id'] == $value['profession_type'])
-                                        $selected = ' selected';
-                                    echo '<option value="'.$row['id'].'"'.$selected.'>'.$row['title'].'</option>';
+                                    echo '<option value="'.$row['id'].'">'.$row['title'].'</option>';
                                 }
                             ?>
                         </select>
                     </div>
                     <div class="form-group-half">
-                        <label><i class="fa fa-level-up"></i> Position/Title: <span class="r">*</span></label>
+                        <label><i class="fa fa-level-up"></i> <?php echo $position; ?>: <span class="r">*</span></label>
                         <input type="text" id="position" name="position[]" placeholder="General Manager" required />
                     </div>
                     <div class="form-group-half">
-                        <label><i class="fa fa-industry"></i> Company: <span class="r">*</span></label>
+                        <label><i class="fa fa-industry"></i> <?php echo $company; ?>: <span class="r">*</span></label>
                         <input type="text" id="company" name="company[]" placeholder="Microsoft Inc." required />
                     </div>
                     <div class="form-group-half">
@@ -88,7 +85,7 @@
         <script type="text/javascript">
             var myField = `
                 <div class="form-group-half">
-                    <label><i class="fa fa-bullhorn"></i> Profession Type: <span class="r">*</span></label>
+                    <label><i class="fa fa-bullhorn"></i> <?php echo $profession_type; ?>: <span class="r">*</span></label>
                     <select class="combo" name="profession_type[]">
                         <option value="">Select</option>
                         <?php
@@ -100,11 +97,11 @@
                     </select>
                 </div>
                 <div class="form-group-half">
-                    <label><i class="fa fa-level-up"></i> Position/Title: <span class="r">*</span></label>
+                    <label><i class="fa fa-level-up"></i> <?php echo $position; ?>: <span class="r">*</span></label>
                     <input type="text" id="position" name="position[]" placeholder="General Manager" required />
                 </div>
                 <div class="form-group-half">
-                    <label><i class="fa fa-industry"></i> Company: <span class="r">*</span></label>
+                    <label><i class="fa fa-industry"></i> <?php echo $company; ?>: <span class="r">*</span></label>
                     <input type="text" id="company" name="company[]" placeholder="Microsoft Inc." required />
                 </div>
                 <div class="form-group-half">

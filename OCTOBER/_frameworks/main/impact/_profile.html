@@ -59,8 +59,33 @@ $(function(){
 var positionTabWall='{position_tab_wall}';
 
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var progressBar = $('#profileProgress');
+        var increaseButton = $('#increaseProgress');
+        var width = 20;
+
+        function updateProgressBar() {
+            progressBar.width(width + '%');
+
+            if(width > 15)
+                progressBar.text('{l_profile_completed} ' + width + '%');
+            else
+                progressBar.text(width + '%');
+        }
+
+        // Initial update
+        updateProgressBar();
+    });
+</script>
 <!-- col_center -->
 <div class="col_center">
+
+    <div class="progress-container" title="Profile Completed">
+        <div class="progress-bar" id="profileProgress">{l_profile_completed} 0%</div>
+    </div>
+
     <div class="cont bl_profile">
         <div class="bl_pic_info  <!-- begin_class_profile_my -->my_profile<!-- end_class_profile_my -->">
             <div class="bl_pic">
@@ -431,7 +456,7 @@ var positionTabWall='{position_tab_wall}';
                             </ul>
                         </ul>
                     </div>
-                    <div class="bl">
+                    <div class="bl" id="relatives_section">
                         <div class="title">
                             <div class="title_icon_edit">{l_relatives}                               
                                 <span class="showModal" id="relatives" title="{l_relatives}"></span>
@@ -442,14 +467,32 @@ var positionTabWall='{position_tab_wall}';
                             <li><i class="fa fa-user"></i> Samiul Islam</li>
                             <ul>
                                 <li><i class="fa fa-link"></i> Cousin</li>
+                                <li><i class="fa fa-circle"></i> Married</li>
                                 <li><i class="fa fa-map-marker"></i> House # 57, Kemal Ataturk Avenue, Banani, Dhaka - 1213</li>
-                                <li><i class="fa fa-users"></i> Married</li>
-                                <li><i class="fa fa-sitemap"></i> Businessman</li>
-                                <li><i class="fa fa-graduation-cap"></i> MBA</li>
+                                <li><i class="fa fa-bullhorn"></i> Financial Analyst</li>
+                                <li><i class="fa fa-level-up"></i> AGM</li>
+                                <li><i class="fa fa-industry"></i> SQ Groups of Companies</li>
+                                <li><i class="fa fa-graduation-cap"></i> BSc</li>
                             </ul>
                         </ul>
                     </div>
-                    <div class="bl">
+
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+                    <div class="bl" id="posted_by_section">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_posted_by}             
+                                <span class="showModal" id="posted_by" title="{l_posted_by}"></span>
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list">
+                            <li><i class="fa fa-user"></i> Rabeya Rana</li>
+                            <li><i class="fa fa-phone"></i> +88012838838</li>
+                            <li><i class="fa fa-map-marker"></i> Banani, Dhaka</li>
+                        </ul>
+                    </div>
+                    <div class="bl" id="additional_section">
                         <div class="title">
                             <div class="title_icon_edit">{l_additional_information}                               
                                 <span class="showModal" id="additional_information" title="{l_additional_information}"></span>
@@ -457,8 +500,8 @@ var positionTabWall='{position_tab_wall}';
                             <div class="cl"></div>
                         </div>
                         <ul id="ul_list">
-                            <li><i class="fa fa-user"></i> Spouse: Rabeya Rana</li>
-                            <li><i class="fa fa-child"></i> Siblings (2): Afiya Ayat, Rashik Rana</li>
+                            <li><i class="fa fa-male"></i><i class="fa fa-female" style="margin-left: -6px;"></i> Spouse: Rabeya Rana</li>
+                            <li><i class="fa fa-child"></i><i class="fa fa-child" style="margin-left: -6px;"></i> Siblings (2): Afiya Ayat, Rashik Rana</li>
                         </ul>
                     </div>
 

@@ -1430,39 +1430,6 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         event.preventDefault()
         var formData = $(info).serialize();
 
-        let country_id_current = $("#country_id_current").val()
-        let state_id_current = $("#state_id_current").val()
-        let city_id_current = $("#city_id_current").val()
-        let country_id_permanent = $("#country_id_permanent").val()
-        let state_id_permanent = $("#state_id_permanent").val()
-        let city_id_permanent = $("#city_id_permanent").val()
-
-        if(country_id_current == "") {
-            alertCustom('Please select current country!',true,'Information incomplete');
-            return true
-        }
-        if(state_id_current == "") {
-            alertCustom('Please select current state!',true,'Information incomplete');
-            return true
-        }
-        if(city_id_current == "") {
-            alertCustom('Please select current city!',true,'Information incomplete');
-            return true
-        }
-        if(country_id_permanent == "") {
-            alertCustom('Please select permanent country!',true,'Information incomplete');
-            return true
-        }
-        if(state_id_permanent == "") {
-            alertCustom('Please select permanent state!',true,'Information incomplete');
-            return true
-        }
-        if(city_id_permanent == "") {
-            alertCustom('Please select permanent city!',true,'Information incomplete');
-            return true
-        }
-
-        
         $.ajax({
             url: 'profile_ajax.php',
             type: 'POST',
@@ -1471,8 +1438,11 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             success:function(data){
                 var data = JSON.parse(data);
                 if(data.msg == "success") {
-                    $("#current_address").html(`<i class="fa fa-map-marker"></i> ${data.current_address}`)
-                    $("#permanent_address").html(`<i class="fa fa-home"></i> ${data.permanent_address}`)
+                    if(data.current_address)
+                        $("#current_address").html(`<i class="fa fa-map-marker"></i> ${data.current_address}`)
+                    
+                    if(data.permanent_address)
+                        $("#permanent_address").html(`<i class="fa fa-home"></i> ${data.permanent_address}`)
                     $this.closePopupEditor("address");
 
                     // done
@@ -1574,7 +1544,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
  
         });
     }
-    this.add_more_education_field = function(ind) {
+    this.add_more_education_field = function(ind, data) {
         var newInd = Number(ind)+1;
         if(newInd > 5) {
             alertCustom('Please input right information!',true,'Alert');
@@ -1584,29 +1554,11 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             <div class="close_div">
                 <button type="button" onclick="Profile.close_multiple_div(${ind})"><i class="fa fa-times"></i></button>
             </div>
-            <div class="form-group-half">
-                <label><i class="fa fa-graduation-cap"></i> Exam/Degree Title: <span class="r">*</span></label>
-                <input type="text" id="degree_title" name="degree_title[]" placeholder="BSc in Computer Science" required />
-            </div>
-            <div class="form-group-half">
-                <label><i class="fa fa-university"></i> Institute Name: <span class="r">*</span></label>
-                <input type="text" id="school_name" name="school_name[]" placeholder="Dhaka University" />
-            </div>
-            <div class="form-group">
-                <label><i class="fa fa-map-marker"></i> Address: </label>
-                <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" style="width: 100%" />
-            </div>
-            <div class="form-group-half">
-                <label><i class="fa fa-calculator"></i> Results: </label>
-                <input type="text" name="results[]" placeholder="3.59" />
-            </div>
-            <div class="form-group-half">
-                <label><i class="fa fa-calendar"></i> Passing Year: </label>
-                <input type="text" name="passing_year[]" placeholder="2020" />
-            </div>
+            ${data}
         `);
         $("#paginate").append(`<div class="add_more_div" id="more_education${newInd}"></div>`);
         $("#ind").val(newInd)
+        $(".combo").select2()
     }
     this.close_multiple_div = function(ind) {
         $("#more_education"+ind).empty()
@@ -1647,7 +1599,11 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             }
         });
 
-        if(err) return false;
+        if(err) {
+            $(`#education .frm_editor_save`).attr('disabled', false)
+            $(`#education .frm_editor_save`).html('Save')
+            return false;
+        }
 
         
         $.ajax({
@@ -1760,7 +1716,11 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             }
         });
 
-        if(err) return false;
+        if(err) {
+            $(`#profession .frm_editor_save`).attr('disabled', false)
+            $(`#profession .frm_editor_save`).html('Save')
+            return false;
+        }
 
         
         $.ajax({
@@ -1799,18 +1759,253 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         });
     }
 
+    // relatives
+    this.loadRelativesEdit = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "loadRelativesEdit",
+                e_user_id
+            },
+ 
+            success:function(data){
+                $this.updatePopupEditor(id,data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+    this.add_more_relatives_field = function(ind, data) {
+        var newInd = Number(ind)+1;
+        $("#more_relatives"+ind).append(`
+            <div class="close_div">
+                <button type="button" onclick="Profile.close_multiple_relatives_div(${ind})"><i class="fa fa-times"></i></button>
+            </div>
+            ${data}
+        `);
+        $("#paginate").append(`<div class="add_more_div" id="more_relatives${newInd}"></div>`);
+        $("#ind").val(newInd)
+        $(".combo").select2()
+    }    
+    this.close_multiple_relatives_div = function(ind) {
+        $("#more_relatives"+ind).empty()
+    }
+    this.submit_relatives = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        var err = 0;
+        $('[name="relative_name[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                alertCustom('Please type Relative name!',true,'Information incomplete');
+                return false
+            }
+        });
+        $('[name="relation[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                alertCustom('Please add relationship!',true,'Information incomplete');
+                return false
+            }
+        });
+
+        if(err) {
+            $(`#relatives .frm_editor_save`).attr('disabled', false)
+            $(`#relatives .frm_editor_save`).html('Save')
+            return false;
+        }
+
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+
+                if(data.length) {
+                    var result = '';
+                    for(var i=0; i < data.length; i++) {
+                        result += `
+                            <li><i class="fa fa-user"></i> ${data[i].relative_name}</li>
+                            <ul>
+                                <li><i class="fa fa-link"></i> ${data[i].relation}</li>
+                                ${data[i].marital_status ? `<li><i class="fa fa-circle"></i> ${data[i].marital_title}</li>` : ``}
+                                ${data[i].address ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
+                                ${data[i].profession_type ? `<li><i class="fa fa-bullhorn"></i> ${data[i].title}</li>` : ``}
+                                ${data[i].position ? `<li><i class="fa fa-level-up"></i> ${data[i].position}</li>` : ``}
+                                ${data[i].company ? `<li><i class="fa fa-industry"></i> ${data[i].company}</li>` : ``}
+                                ${data[i].degree_title ? `<li><i class="fa fa-graduation-cap"></i> ${data[i].degree_title}</li>` : ``}
+                            </ul>
+                        `;
+                    }
+
+                    $("#relatives_section #ul_list").html(result)
+
+                    // done
+                    $(`#relatives .frm_editor_save`).attr('disabled', false)
+                    $(`#relatives .frm_editor_save`).html('Save')
+                }
+                $this.closePopupEditor("relatives");
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+
+    // relatives
+    this.loadAdditionalInformationEdit = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "loadAdditionalInformationEdit",
+                e_user_id
+            },
+ 
+            success:function(data){
+                $this.updatePopupEditor(id,data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+    this.submit_additional_information = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+
+                if(data.success == 'success') {
+                    var result = `
+                        ${data.no_of_spouse ? `<li><i class="fa fa-male"></i><i class="fa fa-female" style="margin-left: -6px;"></i> Spouse${data.no_of_spouse > 1 ? ` (${data.no_of_spouse})` : ``}: ${data.spouse_name}</li>` : ``}
+                        ${data.no_of_siblings ? `<li><i class="fa fa-child"></i><i class="fa fa-child" style="margin-left: -6px;"></i> Siblings${data.no_of_siblings > 1 ? ` (${data.no_of_siblings})` : ``}: ${data.siblings_name}</li>` : ``}
+                    `;
+
+                    $("#additional_section #ul_list").html(result)
+                }                
+
+                // done
+                $(`#additional_information .frm_editor_save`).attr('disabled', false)
+                $(`#additional_information .frm_editor_save`).html('Save')
+            
+                $this.closePopupEditor("additional_information");
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+    // posted by
+    this.loadPostedByEdit = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "loadPostedByEdit",
+                e_user_id
+            },
+ 
+            success:function(data){
+                $this.updatePopupEditor(id,data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    this.submit_posted_by = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+
+                var result = `
+                    ${data.poster_name ? `<li><i class="fa fa-user"></i> ${data.poster_name}</li>` : ``}
+                    ${data.poster_phone ? `<li><i class="fa fa-phone"></i> ${data.poster_phone}</li>` : ``}
+                    ${data.poster_address ? `<li><i class="fa fa-map-marker"></i> ${data.poster_address}</li>` : ``}
+                `;
+
+                $("#posted_by_section #ul_list").html(result)
+
+                // done
+                $(`#posted_by .frm_editor_save`).attr('disabled', false)
+                $(`#posted_by .frm_editor_save`).html('Save')
+            
+                $this.closePopupEditor("posted_by");
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
     $(function(){
         $('.showModal').click(function(){
             var id = this.id;
 
             if($this.openPopupEditor(id,this.title,$this.hStub,$this.hStub,'wrapper_custom'))return;
+
+            // close modal
             $('.icon_close, .frm_editor_cancel').click(function (){
                 $this.closePopupEditor(id);
                 return false;
             })
 
 
-
+            // open modal
             if(id == "address") {
                 $('#address .frm_editor_save').click(function (){
                     $(this).attr('disabled', true)
@@ -1846,6 +2041,33 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                     return false;
                 })
                 $this.loadProfessionEdit(id)
+            }
+            else if(id == "relatives") {
+                $('#relatives .frm_editor_save').click(function (){
+                    $(this).attr('disabled', true)
+                    $(this).html(btnLoader)
+                    $("#frm_update_relatives").submit()
+                    return false;
+                })
+                $this.loadRelativesEdit(id)
+            }
+            else if(id == "additional_information") {
+                $('#additional_information .frm_editor_save').click(function (){
+                    $(this).attr('disabled', true)
+                    $(this).html(btnLoader)
+                    $("#frm_update_additional_information").submit()
+                    return false;
+                })
+                $this.loadAdditionalInformationEdit(id)
+            }
+            else if(id == "posted_by") {
+                $('#posted_by .frm_editor_save').click(function (){
+                    $(this).attr('disabled', true)
+                    $(this).html(btnLoader)
+                    $("#frm_update_posted_by").submit()
+                    return false;
+                })
+                $this.loadPostedByEdit(id)
             }
 
         })

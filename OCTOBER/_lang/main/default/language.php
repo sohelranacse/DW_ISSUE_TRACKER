@@ -2188,7 +2188,7 @@ $l['all']['grab_attention_with_a_gift_free'] = "Grab attention with a gift! Free
 $l['all']['grab_attention_with_a_gift'] = "Grab attention with a gift! ({pay_credits} credits)";
 $l['all']['continue'] = "Continue";
 $l['all']['signup'] = "Signup";
-$l['all']['signup_as'] = "Signup as";
+$l['all']['signup_as'] = "Signup as (Posted by)";
 $l['all']['phone_number'] = "Phone number";
 $l['all']['show_your_gift_only_to_the_recipient'] = "Show your gift only to the recipient and yourself";
 $l['all']['your_gift_note'] = "Your gift note...";
@@ -3236,9 +3236,39 @@ $l['all']['upload_pdf'] = "Upload PDF";
 $l['all']['upload_pdf_file_into_your_profile'] = "Upload PDF File into your Profile!";
 $l['all']['playing'] = "Playing";
 $l['all']['cover_letter'] = "Cover Letter";
-$l['all']['group_admin'] = "Group Admin";
-$l['all']['add_group_user'] = "Add User";
-$l['all']['group_users'] = "Group Users";
+$l['all']['group_admin'] = "Matchmaker";
+$l['all']['add_group_user'] = "Add Candidate";
+$l['all']['group_users'] = "My Candidate";
+$l['all']['phone_email'] = "The Phone Number you entered already exists on our system.";
+$l['all']['created_success'] = "User added successfully.";
+$l['all']['create_user'] = "Create";
+$l['all']['enabled'] = "Enabled";
+$l['all']['link'] = "Link";
+$l['all']['link_social_login'] = "Link Social Login";
+$l['all']['age_ranges'] = "Age Ranges";
+$l['all']['a_group_user'] = "A Group User";
+$l['all']['nid_verify_title'] = "Verify National Identity Card";
+$l['all']['upload_nid'] = "Upload NID";
+$l['all']['re_upload_nid'] = "Re Upload NID";
+$l['all']['upload_cv'] = "Upload CV";
+$l['all']['upload_cv_file_into_your_profile'] = "Upload CV File into your Profile!";
+$l['all']['upload_nid_file_into_your_profile'] = "Upload NID File into your Profile!";
+$l['all']['verified'] = "Verified";
+$l['all']['verification_under_review'] = "Verification Under Review!";
+$l['all']['verification_pending'] = "Verification Pending!";
+$l['all']['verification_failed'] = "Verification Failed!";
+$l['all']['nickname'] = "Nickname";
+$l['all']['fname'] = "First Name";
+$l['all']['lname'] = "Last Name";
+$l['all']['address'] = "Address";
+$l['all']['street'] = "Street";
+$l['all']['current_address'] = "Current Address";
+$l['all']['permanent_address'] = "Permanent Address";
+$l['all']['location_preference'] = "Location Preference";
+$l['all']['favored_location'] = "Favored Location";
+$l['all']['unfavored_location'] = "Unfavored Location";
+$l['all']['relatives'] = "Relatives";
+$l['all']['additional_information'] = "Additional Information";
 
 $l['index.php']['uploaded_videos'] = "videos uploaded!";
 $l['index.php']['cool_videos'] = "Our new videos";
@@ -3400,6 +3430,7 @@ $l['search_results.php']['page_title_video_liked'] = "Who liked this";
 $l['search_results.php']['page_title_video_liked_comment'] = "Who liked this";
 $l['search_results.php']['page_title_blogs_post_liked'] = "Who liked this";
 $l['search_results.php']['page_title_blogs_post_liked_comment'] = "Who liked this";
+$l['search_results.php']['user'] = "User";
 
 $l['show_interest.php']['show_interest'] = "Send Wink";
 $l['show_interest.php']['thank_you'] = "Thank you.";
@@ -4991,31 +5022,24 @@ $l['songs_list.php']['edge_column_songs_list_order_most_plays_title'] = "Most pl
 $l['live_list_finished.php']['page_title'] = "Past streams";
 $l['live_list_finished.php']['go_to_profile'] = "Go to profile";
 
-
-// created by Sohel
-$l['all']['phone_email'] = "The Phone Number you entered already exists on our system.";
-$l['all']['created_success'] = "User added successfully.";
-$l['all']['create_user'] = "Create";
-$l['all']['processing'] = "Processing...";
-$l['search_results.php']['user'] = "User";
-$l['all']['enabled'] = "Enabled";
-
-$l['all']['link'] = "Link";
-$l['all']['link_social_login'] = "Link Social Login";
-$l['all']['age_ranges'] = "Age Ranges";
-$l['all']['a_group_user'] = "A Group User";
-
-$l['all']['nid_verify_title'] = "Verify National Identity Card";
-$l['all']['upload_nid'] = "Upload NID";
-$l['all']['re_upload_nid'] = "Re Upload NID";
-$l['all']['upload_cv'] = "Upload CV";
-$l['all']['upload_cv_file_into_your_profile'] = "Upload CV File into your Profile!";
-$l['all']['upload_nid_file_into_your_profile'] = "Upload NID File into your Profile!";
-
-$l['all']['verified'] = "Verified";
-$l['all']['verification_under_review'] = "Verification Under Review!";
-$l['all']['verification_pending'] = "Verification Pending!";
-$l['all']['verification_failed'] = "Verification Failed!";
-
 $l['visitors.php']['page_title'] = "Visitors of ";
+
+
+$l['all']['degree_title'] = "Exam/Degree Title";
+$l['all']['institute_name'] = "Institute Name";
+$l['all']['results'] = "Results";
+$l['all']['passing_year'] = "Passing Year";
+
+$l['all']['profession_type'] = "Profession Type";
+$l['all']['position'] = "Position/Title";
+$l['all']['company'] = "Company";
+
+$l['all']['highest_degree'] = "Highest Degree";
+$l['all']['marital_status'] = "Marital Status";
+
+$l['all']['spouse'] = "Spouse(s)";
+$l['all']['sibling'] = "Sibling(s)";
+
+$l['all']['posted_by'] = "Posted By";
+$l['all']['profile_completed'] = "Profile completed";
 ?>

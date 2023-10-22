@@ -5538,6 +5538,7 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
 }
 .w-full { width: 532px }
 .w-165 { width: 165px }
+.w-350 { width: 350px }
 .add_more_div {
     border-top: 2px dotted #ddd;
 }
@@ -5565,4 +5566,23 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
 }
 label .r {
     color: tomato;
+}
+
+/* progress bar */
+.progress-container {
+    width: 100%;
+    background-color: #ddd;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    font-size: 11px;
+}
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #4CAF50;
+    color: white;
 }
