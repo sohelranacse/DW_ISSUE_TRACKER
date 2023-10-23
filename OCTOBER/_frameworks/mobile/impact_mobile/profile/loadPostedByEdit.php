@@ -18,7 +18,7 @@
         <div class="bl">
             <label><i class="fa fa-phone"></i> <?php echo $phone_number; ?>:</label>
             <div class="field">
-            <input type="tel" id="join_phone_number" class="inp phone" value="<?php echo $g_user['poster_phone']; ?>" maxlength="10">
+            <input type="tel" id="join_phone_number" class="inp phone" value="<?php echo $g_user['poster_phone']; ?>" maxlength="11">
             <input type="hidden" name="poster_phone" id="full_phone_number" value="<?php echo $g_user['poster_phone']; ?>"/>
             </div>
         </div>

@@ -525,7 +525,7 @@ class ProfileAjax extends Controller {
 					$name = l('name');
 					$phone_number = l('phone_number');
 					$address = l('address');
-					$title = l('relatives');
+					$title = l('posted_by');
 
 					ob_start();
 					include $htmlPath.'profile/loadPostedByEdit.php';
