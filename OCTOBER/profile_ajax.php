@@ -3,6 +3,7 @@
 	created by Sohel Rana
 	Dated: 17 October, 2023
 */
+$g['mobile_redirect_off'] = true;
 include("./_include/core/main_start.php");
 
 checkByAuth();
@@ -36,7 +37,10 @@ class ProfileAjax extends Controller {
 
 		if(isset($_POST)) {
 			$cmd = $this->input->post('cmd');
-			// $action = $g['path']['url_main'].'profile_ajax.php';
+			$mobile = $this->input->post('mobile') ? $this->input->post('mobile') : '';
+			$htmlPath = $mobile ? $g['tmpl']['dir_tmpl_mobile'] : $g['tmpl']['dir_tmpl_main'];
+			$cancel = l('cancel');
+			$save = l('save');
 
 			switch ($cmd) {
 
@@ -71,11 +75,13 @@ class ProfileAjax extends Controller {
 					$street = l('street');
 					$current_address = l('current_address');
 					$permanent_address = l('permanent_address');
+					$title = l('address');
 
 					ob_start();
-					include $g['tmpl']['dir_tmpl_main'].'profile/get_address_field.php';
+					include $htmlPath.'profile/get_address_field.php';
 					$data = ob_get_clean();
-					echo $data;
+
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				case 'get_state':
@@ -183,11 +189,12 @@ class ProfileAjax extends Controller {
 					$city = l('city');
 					$favored_location = l('favored_location');
 					$unfavored_location = l('unfavored_location');
+					$title = l('location_preference');
 
 					ob_start();
-					include $g['tmpl']['dir_tmpl_main'].'profile/loadFavoriteAddressEdit.php';
+					include $htmlPath.'profile/loadFavoriteAddressEdit.php';
 					$data = ob_get_clean();
-					echo $data;
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				case 'update_fevorite_unfevorite_region':
@@ -262,11 +269,12 @@ class ProfileAjax extends Controller {
 					$results = l('results');
 					$passing_year = l('passing_year');
 					$address = l('address');
+					$title = l('education');
 
 					ob_start();
-					include $g['tmpl']['dir_tmpl_main'].'profile/loadEducationEdit.php';
+					include $htmlPath.'profile/loadEducationEdit.php';
 					$data = ob_get_clean();
-					echo $data;
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				case 'update_education':
@@ -320,11 +328,12 @@ class ProfileAjax extends Controller {
 					$position = l('position');
 					$address = l('address');
 					$company = l('company');
+					$title = l('profession');
 
 					ob_start();
-					include $g['tmpl']['dir_tmpl_main'].'profile/loadProfessionEdit.php';
+					include $htmlPath.'profile/loadProfessionEdit.php';
 					$data = ob_get_clean();
-					echo $data;
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				case 'update_profession':
@@ -386,11 +395,12 @@ class ProfileAjax extends Controller {
 					$profession_type = l('profession_type');
 					$position = l('position');
 					$company = l('company');
+					$title = l('relatives');
 
 					ob_start();
-					include $g['tmpl']['dir_tmpl_main'].'profile/loadRelativesEdit.php';
+					include $htmlPath.'profile/loadRelativesEdit.php';
 					$data = ob_get_clean();
-					echo $data;
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				case 'update_relatives':
@@ -462,11 +472,12 @@ class ProfileAjax extends Controller {
 
 					$spouse = l('spouse');
 					$sibling = l('sibling');
+				    $title = $this->input->post('additional_information');
 
 					ob_start();
-					include $g['tmpl']['dir_tmpl_main'].'profile/loadAdditionalInformationEdit.php';
+					include $htmlPath.'profile/loadAdditionalInformationEdit.php';
 					$data = ob_get_clean();
-					echo $data;
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				case 'update_additional_information':
@@ -514,11 +525,12 @@ class ProfileAjax extends Controller {
 					$name = l('name');
 					$phone_number = l('phone_number');
 					$address = l('address');
+					$title = l('relatives');
 
 					ob_start();
-					include $g['tmpl']['dir_tmpl_main'].'profile/loadPostedByEdit.php';
+					include $htmlPath.'profile/loadPostedByEdit.php';
 					$data = ob_get_clean();
-					echo $data;
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				case 'update_posted_by':
@@ -530,6 +542,7 @@ class ProfileAjax extends Controller {
 				    $poster_name = $this->input->post('poster_name');
 				    $poster_phone = $this->input->post('poster_phone');
 				    $poster_address = $this->input->post('poster_address');
+				    $title = $this->input->post('posted_by');
 
 				    $data = [
 				    	'poster_name' => $poster_name ? $poster_name : '',

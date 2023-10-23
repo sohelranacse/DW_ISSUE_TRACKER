@@ -176,6 +176,36 @@
             </div>
         </div>
         <!-- end_profile_status_visitor -->
+
+
+        <!-- begin_looking_for -->
+        <div class="bl">
+            <div class="title">
+                <div class="title_icon_edit">
+                    <span class="name">{l_i_am_looking_for}</span>
+                    <!-- begin_looking_for_edit -->
+                    <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs($(this),'pp_profile_edit_looking');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                        <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                    </div>
+                    <!-- end_looking_for_edit -->
+                </div>
+                <div class="cl"></div>
+            </div>
+            <ul class="list_interest">
+                <!-- begin_looking_for_orientation -->
+                <li><span class="basic_info">•</span><span id="info_looking_for_orientation">{looking_for_orientation}</span></li>
+                <!-- end_looking_for_orientation -->
+                <!-- begin_looking_for_ages -->
+                <li><span class="basic_info">•</span><span id="info_looking_for_ages">{looking_for_ages}</span></li>
+                <!-- end_looking_for_ages -->
+                <li><span class="basic_info">•</span><span id="info_looking_for_near_me">{looking_for_near_me}</span></li>
+                <!-- begin_looking_for_i_am_here_to -->
+                <li><span class="basic_info">•</span><span id="info_looking_for_i_am_here_to">{looking_for_i_am_here_to}</span></li>
+                <!-- end_looking_for_i_am_here_to -->
+            </ul>
+        </div>
+        <!-- end_looking_for -->
+
         <!-- begin_module_fields_urban -->
         <!-- begin_basic -->
         <div class="bl">
@@ -244,33 +274,146 @@
         </div>
         <!-- end_private_note -->
         <!-- end_module_fields_urban -->
-        <!-- begin_looking_for -->
-        <div class="bl">
-            <div class="title">
-                <div class="title_icon_edit">
-                    <span class="name">{l_i_am_looking_for}</span>
-                    <!-- begin_looking_for_edit -->
-                    <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs($(this),'pp_profile_edit_looking');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
-                        <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+
+        <!-- begin_edit_me_or_my_candidate -->
+
+            <!-- begin_address_block -->
+            <div class="bl">
+                <div class="title">
+                    <div class="title_icon_edit">{l_address}                               
+                        <!-- begin_address_edit -->
+                        <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs2($(this),'get_address_field');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_address_edit -->
                     </div>
-                    <!-- end_looking_for_edit -->
+                    <div class="cl"></div>
                 </div>
-                <div class="cl"></div>
+                <ul id="ul_list">
+                    <li id="current_address"><!-- begin_current_address --><i class="fa fa-map-marker"></i> {current_address}<!-- end_current_address --></li>
+                    <li id="permanent_address"><!-- begin_permanent_address --><i class="fa fa-home"></i> {permanent_address}<!-- end_permanent_address --></li>
+                </ul>
             </div>
-            <ul class="list_interest">
-                <!-- begin_looking_for_orientation -->
-                <li><span class="basic_info">•</span><span id="info_looking_for_orientation">{looking_for_orientation}</span></li>
-                <!-- end_looking_for_orientation -->
-                <!-- begin_looking_for_ages -->
-                <li><span class="basic_info">•</span><span id="info_looking_for_ages">{looking_for_ages}</span></li>
-                <!-- end_looking_for_ages -->
-                <li><span class="basic_info">•</span><span id="info_looking_for_near_me">{looking_for_near_me}</span></li>
-                <!-- begin_looking_for_i_am_here_to -->
-                <li><span class="basic_info">•</span><span id="info_looking_for_i_am_here_to">{looking_for_i_am_here_to}</span></li>
-                <!-- end_looking_for_i_am_here_to -->
-            </ul>
-        </div>
-        <!-- end_looking_for -->
+            <!-- end_address_block -->
+
+            <!-- begin_location_preference_block -->
+            <div class="bl">
+                <div class="title">
+                    <div class="title_icon_edit">{l_location_preference}
+                        <!-- begin_location_edit -->
+                        <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs2($(this),'loadFavoriteAddressEdit');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_location_edit -->
+                    </div>
+                    <div class="cl"></div>
+                </div>
+                <ul id="ul_list">
+                    <li id="favorite_address"><!-- begin_favorite_address --><i class="fa fa-thumbs-up"></i> {favorite_address}<!-- end_favorite_address --></li>
+                    <li id="unfavorite_address"><!-- begin_unfavorite_address --><i class="fa fa-thumbs-down"></i> {unfavorite_address}<!-- end_unfavorite_address --></li>
+                </ul>
+            </div>
+            <!-- end_location_preference_block -->
+
+            <!-- begin_education_block -->
+            <div class="bl" id="education_section">
+                <div class="title">
+                    <div class="title_icon_edit">{l_education}                               
+                        <!-- begin_education_edit -->
+                        <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs2($(this),'loadEducationEdit');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_education_edit -->
+                    </div>
+                    <div class="cl"></div>
+                </div>
+                <ul id="ul_list" class="ul_multiple">
+                    <!-- begin_educationData -->
+                    {educationData}
+                    <!-- end_educationData -->
+                </ul>
+            </div>
+            <!-- end_education_block -->
+
+            <!-- begin_profession_block -->
+            <div class="bl" id="profession_section">
+                <div class="title">
+                    <div class="title_icon_edit">{l_profession}                               
+                        <!-- begin_profession_edit -->                        
+                        <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs2($(this),'loadProfessionEdit');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_profession_edit -->
+                    </div>
+                    <div class="cl"></div>
+                </div>
+                <ul id="ul_list" class="ul_multiple">
+                    <!-- begin_professionData -->
+                    {professionData}
+                    <!-- end_professionData -->
+                </ul>
+            </div>
+            <!-- end_profession_block -->
+
+            <!-- begin_relatives_block -->
+            <div class="bl" id="relatives_section">
+                <div class="title">
+                    <div class="title_icon_edit">{l_relatives}                               
+                        <!-- begin_relative_edit -->                                                
+                        <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs2($(this),'loadRelativesEdit');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_relative_edit -->
+                    </div>
+                    <div class="cl"></div>
+                </div>
+                <ul id="ul_list" class="ul_multiple">
+                    <!-- begin_relativeData -->
+                    {relativeData}
+                    <!-- end_relativeData -->
+                </ul>
+            </div>
+            <!-- end_relatives_block -->
+
+            <!-- begin_postedByData -->
+            <div class="bl" id="posted_by_section">
+                <div class="title">
+                    <div class="title_icon_edit">{l_posted_by}             
+                        <!-- begin_posted_by_edit -->                                                
+                        <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs2($(this),'loadPostedByEdit');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_posted_by_edit -->
+                    </div>
+                    <div class="cl"></div>
+                </div>
+                <ul id="ul_list">
+                    {postedByData}
+                </ul>
+            </div>
+            <!-- end_postedByData -->
+
+            <!-- begin_additionalInfo_block -->
+            <div class="bl" id="additional_section">
+                <div class="title">
+                    <div class="title_icon_edit">{l_additional_information}                               
+                        <!-- begin_additional_in_edit -->                                                                        
+                        <div class="title_icon_edit_bl" onclick="clProfile.handlerLinkSetTabs2($(this),'loadAdditionalInformationEdit');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_additional_in_edit -->
+                    </div>
+                    <div class="cl"></div>
+                </div>
+                <ul id="ul_list">
+                    <!-- begin_additionInfoData -->
+                    {additionInfoData}
+                    <!-- end_additionInfoData -->
+                </ul>
+            </div>
+            <!-- end_additionalInfo_block -->
+
+        <!-- end_edit_me_or_my_candidate -->
 
         <!-- begin_upload_my_pdf -->
             <input type="file" id="UploadCV" accept=".pdf" style="display: none;">

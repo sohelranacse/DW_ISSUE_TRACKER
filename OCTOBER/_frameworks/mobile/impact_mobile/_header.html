@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html <!-- begin_header_member_html_cl -->class="html_member"<!-- end_header_member_html_cl -->>
+<script>
+var b=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+document.documentElement.classList.add(b?'mobile':'desktop');
+if(/Chrome/i.test(navigator.userAgent))document.documentElement.classList.add('chrome');
+</script>
+<head>
+	<title>{title}</title>
+    <meta name="description" content="{description}">
+    <meta name="keywords" content="{keywords}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="{meta_theme_color}">
+    {to_head_meta}
+    {header_favicon}
+
+    <style type="text/css">
+        body:after {
+            content: url('{url_tmpl_mobile}images/profile_info_figure_top.svg')
+                     url('{url_tmpl_mobile}images/profile_info_figure_bottom.svg')
+                     url('{url_files}tmpl/{tmpl_loaded}_footer_figure_{color_scheme_mobile_footer_color_number}.svg')
+                     url('{url_tmpl_mobile}images/icon_field_hint.svg') url('{url_tmpl_mobile}images/icon_field_vis.svg')
+                     url('{header_url_logo_mobile}');
+            display: none;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_mobile}css/font-awesome.min.css{cache_version_param}"/>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_mobile}css/style.css{cache_version_param}"/>
+    <!-- begin_header_style_rtl -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_mobile}css/style.rtl.css{cache_version_param}"/>
+    <!-- end_header_style_rtl -->
+
+    <link rel="stylesheet" type="text/css" href="{url_tmpl}common/js-select-option/select2.min.css{cache_version_param}"/>
+
+    <!-- begin_app_android_style -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_mobile}css/app_android.css{cache_version_param}"/>
+    <!-- begin_app_android_style_rtl -->
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_mobile}css/app_android.rtl.css{cache_version_param}"/>
+    <!-- end_app_android_style_rtl -->
+    <!-- end_app_android_style -->
+    <script type="text/javascript" src="../_server/jquery/jquery-1.11.2.min.js{cache_version_param}"></script>
+    <script type="text/javascript" src="../_server/jquery/jquery-ui-1.12.1.min.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="../_server/lib.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/script.js{cache_version_param}"></script>
+
+    <script id="set_language_mobile_var" data-cache="{cache_version}" data-lang="{lang_loaded}" type="text/javascript" src="{url_main}js.php{cache_version_param}&file=tmpl.js&set_template_mobile_runtime={tmpl_loaded}&set_language_mobile_runtime={lang_loaded}"></script>
+    <script id="set_language_mobile_all" data-cache="{cache_version}" data-lang="{lang_loaded}" type="text/javascript" src="{url_main}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_mobile_runtime={tmpl_loaded}&set_language_mobile_runtime={lang_loaded}"></script>
+    <script id="set_language_mobile_{current_page}" data-cache="{cache_version}" data-lang="{lang_loaded}" type="text/javascript" src="{url_main}js.php{cache_version_param}&get_lang=1&file=set_language.js&set_template_mobile_runtime={tmpl_loaded}&set_language_mobile_runtime={lang_loaded}&page={current_page}"></script>
+
+    <script type="text/javascript" src="../_server/jquery/jquery.form.js{cache_version_param}"></script>
+    <script type="text/javascript" src="../_server/jquery/jquery.popup.js{cache_version_param}"></script>
+    <script type="text/javascript" src="../_server/jquery/jquery.cookie.js{cache_version_param}"></script>
+    <link rel="stylesheet" type="text/css" href="{url_tmpl_mobile}css/cookiepopup.css{cache_version_param}" />
+    <script type="text/javascript" src="{url_tmpl_mobile}js/cookiepopup.js{cache_version_param}"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+
+    <!-- begin_header_visitor_script -->
+    <script type="text/javascript" src="{url_tmpl_mobile}js/index.js{cache_version_param}"></script>
+    <script id="script_replace_one" language="javascript" type="text/javascript">
+        var joinDefaultData={};
+    </script>
+    <!-- end_header_visitor_script -->
+    <!-- begin_header_member_script -->
+    <script type="text/javascript" src="../_server/server_mobile.js{cache_version_param}"></script>
+    <script type="text/javascript" src="../_server/jquery/jquery.winFocus.js{cache_version_param}"></script>
+    <script type="text/javascript" src="../_server/jquery/jquery.lazyload.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/profile.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/profile_photo.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/search_results.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/messages.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/chat.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/city_street_chat.js{cache_version_param}"></script>
+    <script type="text/javascript" src="../_server/jquery/jquery.touchSwipe.min.js{cache_version_param}"></script>
+    <script type="text/javascript" src="../_server/jquery/jquery.flowtype.js{cache_version_param}"></script>
+    <script type="text/javascript" src="{url_tmpl_mobile}js/common.js{cache_version_param}"></script>
+	<script type="text/javascript" src="../_server/js/device.min.js{cache_version_param}"></script>
+
+    <script type="text/javascript" src="../_server/js/imagesloaded.pkgd.min.js{cache_version_param}"></script>
+    <link rel="stylesheet" href="{url_tmpl}common/lightbox/jquery.lightbox-0.5.css{cache_version_param}" type="text/css" media="screen">
+    <script type="text/javascript" src="{url_tmpl}common/lightbox/jquery.lightbox-0.5.min.js{cache_version_param}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{url_tmpl_mobile}css/live_stream.css{cache_version_param}"/>
+    
+    <script type="text/javascript" src="{url_tmpl}/common/js-select-option/select2.min.js{cache_version_param}"></script>
+
+    <script id="script_replace_one" language="javascript" type="text/javascript">
+        var clProfile = new CProfile('{user_id}'*1, '{sending_messages_per_day}'*1);
+        var messages = new CMessages('{user_id}'*1);
+        messages.maxFileSize = '{max_filesize}'*1;
+        messages.langParts = {max_file_size : '{max_photo_file_size_limit}'}
+
+        var clCommon = new CCommon();
+        var cityStreetChat = new CCityStreetChat();
+        var videoChat = new CChat('video');
+        var audioChat = new CChat('audio');
+        var notInitMediaChat=true;
+		var _notInitLoadLiveStreaming=true;
+        var imMessagesCount = '{header_member_messages_counter}';
+        var urlFiles='{url_files}';
+        var url_tmpl='{url_tmpl}';
+    </script>
+    <!-- end_header_member_script -->
+    <script id="script_replace_header" language="javascript" type="text/javascript">
+        var ajax_login_status={xajax_login_status};
+        var url_page='{url_page}';
+        var activePage='{current_page}';
+        var currentPage='{current_page}';
+        var urlPageHistory='{current_page}';
+        var urlPageHistorySetHash=false;
+        var setAjaxLoad='{set_mobile_ajax_load}'*1;
+        var isCurUserSuperPowers='{is_super_powers}'*1;
+        var isFreeSite='{is_free_site}'*1;
+        var userAllowedFeature={user_allowed_feature};
+        var chatsPrice={video:'{video_chat_price}'*1,audio:'{audio_chat_price}'*1};
+		var isAppAndroid = '{is_app_android}'*1;
+
+        <!-- begin_watch_geo_position -->
+        setWatchPositionTimeOut('{watch_geo_position_time}');
+        watchPosition();
+        <!-- end_watch_geo_position -->
+        <!-- begin_admob_banner_status -->
+        isAdmobBannerVisible = {isAdmobBannerVisible};
+        <!-- end_admob_banner_status -->
+    </script>
+    <style id="style_calc" type="text/css"></style>
+    <script>initStyle();</script>
+
+    <!-- begin_color_scheme_styles -->
+    <style id="style_color_scheme" data-cache="{cache_version}" type="text/css">
+        html { background: {color_scheme_mobile_main_page_background_color_impact}; }
+        html.html_member { background-color: {color_scheme_mobile_background_color_impact}; }
+
+        <!-- begin_color_scheme_mobile_main_page_show_top_shadow_impact -->
+        .bg_fon_shadow { background: transparent; }
+        <!-- end_color_scheme_mobile_main_page_show_top_shadow_impact -->
+
+        html, body { color: {color_scheme_mobile_text_color_impact}; }
+
+        <!-- begin_color_scheme_styles_mobile_main_page -->
+        html, body, .info_txt a, .bl_term_txt a { color: {color_scheme_mobile_main_page_text_color_impact}; }
+
+        .info_txt.small, .info_txt.small a { color: rgba({color_scheme_mobile_join_page_text_color_impact_rgba}); }
+        .txt_shadow a.btn, .txt_shadow label, .txt_shadow .info_txt a { text-shadow: 1px 1px 0 rgba({color_scheme_mobile_main_page_text_shadow_color_impact_rgba}); }
+        a.btn { text-shadow: -1px -1px 0 {color_scheme_mobile_main_page_text_shadow_color_impact}; }
+        .bg_fon_full_shadow { background: rgba(0, 0, 0, 0.{color_scheme_mobile_main_page_overlay_opacity_impact}); }
+        <!-- end_color_scheme_styles_mobile_main_page -->
+
+        .body_member, .bl_profile, .bl_profile .cont_wrap .profile_info_content { background-color: {color_scheme_mobile_background_color_impact}; }
+        .header, .message_chat .message_field_chat, .bl_frm.color { background-color: {color_scheme_mobile_header_color_impact}; }
+        .header .bl_icon_nav .icon_nav .fa, .header .icons_info ul li .fa,
+        .cookie-popup-sub-headline a.more_link{ color: {color_scheme_mobile_header_icons_color_impact} }
+        .header .bl_icon_nav .icon_status_warning, .header .icons_info ul li span.count { background-color: {color_scheme_mobile_header_counter_color_impact}; color: {color_scheme_mobile_header_counter_text_color_impact}; }
+        .loader_filter  .spinner .spinner-blade { background-color: {color_scheme_mobile_header_icons_color_impact}!important; }
+
+        .content .head, .content .head span.title .fa { background-color: {color_scheme_mobile_subheader_color_impact}; color: {color_scheme_mobile_subheader_text_color_impact}; }
+
+        .bl_profile .cont_wrap .title, .bl_profile .cont_wrap .bl table tr th, .bl_frm.bl_frm_settings .bl.arrow .title { color: {color_scheme_mobile_label_text_color_impact}; }
+        .bl_profile .fa { color: {color_scheme_mobile_pencil_color_impact}; }
+        .loader_pen .spinner .spinner-blade, .loader_pen_small .spinner .spinner-blade { background-color: {color_scheme_mobile_pencil_color_impact}!important; }
+        .bl_upgrade ul li { color: {color_scheme_mobile_upgrade_page_text_color_impact}; }
+
+        .footer .top, .footer .bot { background-color: {color_scheme_mobile_footer_color_impact}; }
+        .footer .arrow-up .fa-arrow-up { color: {color_scheme_mobile_footer_color_impact}; }
+        .footer .bot .info, .footer .bot .info a { color: {color_scheme_mobile_footer_text_color_impact}; }
+        .footer .arrow-up { background-color: {color_scheme_mobile_footer_arrow_up_color_impact}; }
+        .footer .bl_options a, .footer .bl_options span { color: {color_scheme_mobile_footer_more_options_color_impact}; }
+        .footer .figure { background-image: url("{url_files}tmpl/{tmpl_loaded}_footer_figure_{color_scheme_mobile_footer_color_number}.svg"); }
+
+        .popup.main_menu { background-color: rgba({color_scheme_mobile_menu_background_color_impact_rgba}); }
+        .main_menu .menu_squares .square .fa { color: {color_scheme_mobile_menu_icon_color_impact}; }
+        .main_menu .menu_squares .square .name, .main_menu .menu_squares .square .count, .bl_profile .bl_profile_pic .bl_profile_bg_squares .square .count {
+            color: {color_scheme_mobile_menu_text_color_impact};
+            background-color: {color_scheme_mobile_menu_text_background_color_impact};
+        }
+
+        .bl_tinder { background: {color_scheme_mobile_header_icons_color_impact}; border-color: {color_scheme_mobile_header_color_impact}; }
+
+        button.btn.pink, button.btn.violet.disconnect { background-color: {color_scheme_mobile_main_button_color_impact}; color: {color_scheme_mobile_main_button_text_color_impact}; }
+        button.btn.pink:active, button.btn.violet.disconnect:active { background-color: {color_scheme_mobile_main_button_active_color_impact}; }
+
+        button.btn:disabled { background-color: {color_scheme_mobile_button_disabled_background_color_impact}!important; }
+
+        button.btn.white_frame, a.btn.white_frame { border-color: {color_scheme_mobile_button_transparent_border_color_impact};
+                                                    background-color:{color_scheme_mobile_button_transparent_background_color_impact};
+                                                    color: {color_scheme_mobile_button_transparent_text_color_impact}}
+        button.btn.white_frame:active, a.btn.white_frame:active { background-color: rgba({color_scheme_mobile_button_transparent_active_color_impact_rgba}); }
+
+
+
+        .popup .cont_pp { background-color: rgba({color_scheme_mobile_alert_background_color_impact_rgba}); }
+        .popup .cont_pp .txt .fa { color: {color_scheme_mobile_alert_icon_color_impact}; }
+        .popup .cont_pp .txt, .popup .cont_pp .txt a { color: {color_scheme_mobile_alert_text_color_impact}; }
+
+        button.btn.violet { background: {color_scheme_mobile_alert_button_ok_background_color_impact}; color: {color_scheme_mobile_alert_button_ok_text_color_impact}; }
+        button.btn.violet span { color: {color_scheme_mobile_alert_button_ok_text_color_impact}; }
+
+        .processing button.btn.violet:not([data-action='disabled']){ background: {color_scheme_mobile_alert_button_ok_background_color_impact}!important; color: {color_scheme_mobile_alert_button_ok_text_color_impact}!important; }
+
+        button.btn.navyblue  { background: {color_scheme_mobile_alert_button_cancel_background_color_impact}; color: {color_scheme_mobile_alert_button_cancel_text_color_impact}; }
+        .popup.question .cont_pp .dubl_btn .btn.l { border-right-color: {color_scheme_mobile_alert_button_cancel_border_right_color_impact}; }
+
+        .bl_profile .bl_profile_pic .pic { background-color: {color_scheme_mobile_background_color_impact}; }
+
+        button.btn, a.btn { color: {color_scheme_mobile_main_button_text_color_impact}; }
+        button.btn .fa, a.btn .fa{color: {color_scheme_mobile_main_button_text_color_impact};}
+        button.btn.lblue, a.btn.lblue, a.lblue { background: {color_scheme_mobile_main_page_button_terms_color_impact}; }
+        a.btn.lblue, a.lblue { color: {color_scheme_mobile_main_page_button_terms_text_color_impact}; }
+        a.btn.lblue .fa,  a.lblue .fa{ color: {color_scheme_mobile_main_page_button_terms_text_color_impact}!important; }
+
+        button.btn.lblue:active, a.btn.lblue:active, a.lblue:active { background: {color_scheme_mobile_main_page_button_terms_active_color_impact}; }
+
+        .bl_meet .gradient { background-image: linear-gradient(to bottom, rgba(37, 76, 142, 0), {color_scheme_mobile_background_color_impact} 95%); }
+
+        .bl_profile .bl_profile_pic .bl_profile_bg_squares .square { border-color: {color_scheme_mobile_background_color_impact}; }
+
+        .bl_one_photo .bl_private_photo .count, .bl_one_photo .bl_private_photo .fa, .bl_one_photo .bl_private_photo .txt, .banner_footer_mobile_user .link a { color: {color_scheme_mobile_footer_text_color_impact}; }
+        .bl_one_photo .bl_private_photo .bl { border-color: {color_scheme_mobile_footer_text_color_impact}; }
+
+        .profile_btn_messages{ background: {color_scheme_mobile_button_message_background_color_impact}!important; color:{color_scheme_mobile_button_message_text_color_impact}!important;}
+        .profile_btn_messages:active{background: {color_scheme_mobile_button_message_background_color_active_impact}!important; }
+        .profile_btn_messages .border_decor{border-bottom: 6px solid {color_scheme_mobile_button_message_reply_rate_background_color_impact}!important;}
+
+
+		.wrap_live .call_photo_default,
+		.wrap_live #video-container .their-video-container{ background-color: {color_scheme_mobile_background_color_impact}; }
+        .header .icons_info ul li { padding-right:5px }
+	</style>
+    <!-- end_color_scheme_styles -->
+
+</head>
+
+<body class="<!-- begin_header_visitor_body_cl -->body_visitor<!-- end_header_visitor_body_cl --><!-- begin_header_member_body_cl -->body_member<!-- end_header_member_body_cl -->">
+<div id="main_wrap" data-cache-version="{cache_version}" data-tmpl-active="{tmpl_active}" data-url-page="{url_page}{url_get_params}" class="main_wrap" style="height:100%">
+<!-- begin_header_visitor -->
+<div id="main" class="main shadow_bg">
+<!-- begin_color_scheme_styles_mobile_background_image -->
+<script>
+    (function(){
+        var $main=$('#main'),hBg={portrait:0,landscape:0};
+        function setBgH(orBg){
+            if(!hBg[orBg])hBg[orBg]=Math.max($main[0].offsetHeight,$main[0].clientHeight);//$main[0].scrollHeight,
+            //$('#bg_fon_img')[orBg=='landscape'?'addClass':'removeClass']('landscape');
+            $('#bg_fon').css({height:hBg[orBg],width:$win[0].innerWidth})
+        }
+        function bgReady() {
+            if(ready)$bg.fadeTo(1300,1);
+            else $bg.fadeTo(0,($.cookie('bgImpactMobileMain') == '{color_scheme_styles_mobile_background_image_pic}')*1);
+            var or=$win[0].innerWidth>$win[0].innerHeight?'landscape':'portrait';
+            setBgH(or);
+            $.cookie('bgImpactMobileMain','{color_scheme_styles_mobile_background_image_pic}');
+            ready=1
+        }
+        var $bg=$('#bg_fon'),ready;
+        if(!$bg[0]){
+            $bg=$('<div id="bg_fon" class="bg_fon"></div>'+
+                  '<div id="bg_fon_shadow" class="bg_fon_shadow"></div>'+
+                  '<div id="bg_fon_full_shadow" class="bg_fon_full_shadow"></div>').prependTo($('body'));
+            $('<img src="{color_scheme_styles_mobile_background_image}"/>').load(bgReady).appendTo($('#bg_fon'));
+        }
+        $(bgReady);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function(){setBgH(window.orientation==0?'portrait':'landscape')},150);
+        },false);
+    })()
+</script>
+<!-- end_color_scheme_styles_mobile_background_image -->
+
+<!-- wrapper -->
+<div class="wrapper">
+    <!-- content -->
+    <div id="content" class="content">
+        <div id="wrap_content" class="wrap_cont">
+            <div class="content_logo">
+                <div data-layer-loader="true" data-not-loader="true" data-url="{url_main}{url_page_index}" onclick="goToIndex(this)">
+                    <img <!-- begin_logo_params -->style="height:{logo_height}px;"<!-- end_logo_params --> id="img_logo" src="{header_url_logo_mobile}" alt="" />
+                </div>
+            </div>
+            <div id="page_content" class="page_content">
+<!-- end_header_visitor -->
+
+<!-- begin_header_member -->
+<!-- begin_user_menu -->
+<div id="header_menu" class="popup main_menu">
+        <div class="cont_overflow">
+        <div id="header_menu_cont" class="cont_pp">
+            <div class="menu_squares">
+            <!-- begin_user_menu_items -->
+                <div class="squares">
+                    <!-- begin_user_menu_item -->
+                    <a href="{url_main}{user_menu_url}" data-cl-loader="loader_menu_header" data-type-loader="fade_btn" data-cl-children=".name" data-action="{user_menu_name}" class="square bg_{user_menu_item_num} {user_menu_name} go_to_page <!-- begin_user_menu_item_no_load_ajax -->no_load_ajax<!-- end_user_menu_item_no_load_ajax -->">
+                        <div class="bl_tb">
+                            <div class="bl_td">
+                                <div class="icon">
+                                <!-- begin_icon_mutual_likes -->
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <i class="fa fa-user fa-user2" aria-hidden="true"></i>
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                <!-- end_icon_mutual_likes -->
+                                <!-- begin_icon_search_results -->
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                <!-- end_icon_search_results -->
+                                <!-- begin_icon_who_likes_you -->
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <!-- end_icon_who_likes_you -->
+                                <!-- begin_icon_profile_visitors -->
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <i class="fa fa-user fa-user2" aria-hidden="true"></i>
+                                <!-- end_icon_profile_visitors -->
+                                <!-- begin_icon_whom_you_like -->
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                <!-- end_icon_whom_you_like -->
+                                <!-- begin_icon_messages -->
+                                <i class="fa fa-comment fa-1x" aria-hidden="true"></i>
+                                <!-- end_icon_messages -->
+                                <!-- begin_icon_profile_view -->
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <!-- end_icon_profile_view -->
+                                <!-- begin_icon_settings -->
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                <!-- end_icon_settings -->
+                                <!-- begin_icon_hot_or_not -->
+                                <i class="fa fa-fire" aria-hidden="true"></i>
+                                <!-- end_icon_hot_or_not -->
+                                <!-- begin_icon_street_chat -->
+                                <i class="fa fa-street-view" aria-hidden="true"></i>
+                                <!-- end_icon_street_chat -->
+                                <!-- begin_icon_3d_city -->
+                                <i class="fa fa-cube" aria-hidden="true"></i>
+                                <!-- end_icon_3d_city -->
+                                <!-- begin_icon_game_choose -->
+                                <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                <!-- end_icon_game_choose -->
+                                <!-- begin_icon_can_see_your_private_photos -->
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                <!-- end_icon_can_see_your_private_photos -->
+                                <!-- begin_icon_logout -->
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                <!-- end_icon_logout -->
+                                <!-- begin_icon_upgrade -->
+                                <i class="fa fa-diamond" aria-hidden="true"></i>
+                                <!-- end_icon_upgrade -->
+                                <!-- begin_icon_boost -->
+                                <i class="fa fa-bolt" aria-hidden="true"></i>
+                                <!-- end_icon_boost -->
+                                <!-- begin_icon_verify_account -->
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                <!-- end_icon_verify_account -->
+								<!-- begin_icon_live -->
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                <!-- end_icon_live -->
+								<!-- begin_icon_live_list -->
+                                <i class="fa fa-television" aria-hidden="true"></i>
+                                <!-- end_icon_live_list -->
+								<!-- begin_icon_live_list_finished -->
+                                <i class="fa fa-video-camera" aria-hidden="true"></i>
+                                <!-- end_icon_live_list_finished -->
+                                </div>
+                                <!-- <div class="bl_name"> --><span class="name"><span class="fix">{user_menu_title}</span></span><!-- </div> -->
+                                <!-- begin_user_menu_item_counter -->
+                                <div class="count counter_{user_menu_name} <!-- begin_user_menu_item_counter_show -->to_show<!-- end_user_menu_item_counter_show -->">
+                                    <span>{user_menu_item_counter}</span>
+                                </div>
+                                <!-- end_user_menu_item_counter -->
+                            </div>
+                        </div>
+                    </a>
+                    <!-- end_user_menu_item -->
+                </div>
+            <!-- end_user_menu_items -->
+            </div>
+            <div class="cl"></div>
+        </div>
+        </div>
+</div>
+<!-- end_user_menu -->
+<!-- header -->
+<!-- begin_header_member_top_menu -->
+<div id="bl_header" class="header">
+        <div class="bl_icon_nav" onclick="clCommon.showHeaderMenu()">
+            <div class="icon_nav"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></div>
+            <div id="counter_events" class="icon_status_warning <!-- begin_counter_events_show -->to_show<!-- end_counter_events_show -->"></div>
+        </div>
+        <div class="bl_logo">
+            <a data-layer-loader="true" data-not-loader="true" data-url="{url_logo}" class="go_to_page" href="{url_logo}">
+                <img <!-- begin_logo_inner_params -->style="height:{logo_inner_height}px;"<!-- end_logo_inner_params --> src="{header_url_logo_mobile_inner}" alt="" />
+            </a>
+        </div>
+
+        <div id="bl_header_action" class="bl_icons_info">
+            <div class="icons_info">
+                <ul>
+                    <!-- begin_group_user -->
+                    <li class="icon_msg">
+                        <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter"  href="{url_main}group_users">
+                            <i class="fa fa-users fa-1x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- end_group_user -->
+
+                    <li class="icon_msg">
+                        <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter"  href="{url_main}{url_page_messages}">
+                            <i class="fa fa-comment fa-1x" aria-hidden="true"></i>
+                            <span class="count counter_messages <!-- begin_header_member_messages_counter_show -->to_show<!-- end_header_member_messages_counter_show -->"><span>{header_member_messages_counter}</span></span>
+                        </a>
+                    </li>
+                    <li class="icon_notification">
+                        <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter"  href="{url_main}{url_page_users_viewed_me}">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <i class="fa fa-user fa-user2" aria-hidden="true"></i>
+                            <span class="count counter_profile_visitors_header <!-- begin_header_member_visitors_counter_show -->to_show<!-- end_header_member_visitors_counter_show -->"><span>{header_member_visitors_counter}</span></span>
+                        </a>
+                    </li>
+                    <!-- begin_header_additional_menu_match -->
+                    <li class="icon_like">
+                        <a class="go_to_page" data-type-loader="fade_btn" data-cl-loader="loader_filter"  href="{url_main}{url_page_search_results}">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- end_header_additional_menu_match -->
+                    <!-- begin_header_additional_menu_filter -->
+                    <li class="icon_filter">
+                        <a id="btn_show_filter" data-type-loader="fade_btn" data-cl-loader="loader_filter" onclick="clSearch.showFilter(); return false;" href="">
+                            <i class="fa fa-filter" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- end_header_additional_menu_filter -->
+                </ul>
+            </div>
+        </div>
+</div>
+<!-- end_header_member_top_menu -->
+<!-- begin_header_member_top_logo -->
+<!-- end_header_member_top_logo -->
+<div id="main" class="main">
+<!-- wrapper -->
+<div id="wrapper" class="wrapper">
+    <!-- /header -->
+    <!-- content -->
+    <div id="content" class="content">
+<!-- end_header_member -->

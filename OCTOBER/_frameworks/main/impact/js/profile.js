@@ -1340,8 +1340,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             },
  
             success:function(data){
-                // console.log(data)
-                $this.updatePopupEditor(id,data);
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
                 $('.combo').select2();
 
 
@@ -1472,8 +1472,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             },
  
             success:function(data){
-                // console.log(data)
-                $this.updatePopupEditor(id,data);
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
                 $('.combo').select2();
 
 
@@ -1531,8 +1531,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             },
  
             success:function(data){
-                // console.log(data)
-                $this.updatePopupEditor(id,data);
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
                 $('.combo').select2();
 
 
@@ -1658,7 +1658,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             },
  
             success:function(data){
-                $this.updatePopupEditor(id,data);
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
                 $('.combo').select2();
 
 
@@ -1773,7 +1774,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             },
  
             success:function(data){
-                $this.updatePopupEditor(id,data);
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
                 $('.combo').select2();
 
 
@@ -1884,7 +1886,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             },
  
             success:function(data){
-                $this.updatePopupEditor(id,data);
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
                 $('.combo').select2();
 
 
@@ -1947,7 +1950,8 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             },
  
             success:function(data){
-                $this.updatePopupEditor(id,data);
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
                 $('.combo').select2();
 
 
