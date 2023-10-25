@@ -863,11 +863,6 @@ var CProfile = function(guid, sending_messages_per_day) {
                     hideLayerBlockPage();
                     serverError();
                 }
-
-                $("#pp_profile_looking_cancel").click(function (){
-                    clProfile.loadTabs('#tabs-1')
-                    return false;
-                })
                 $('.combo').select2();
             },
             error: function(xhr, status, error) {
@@ -1152,8 +1147,10 @@ var CProfile = function(guid, sending_messages_per_day) {
                 dataType: "json",    
                 success:function(data){                   
 
-                    if(data)
+                    if(data) {
+                        alert('Deleted Successfully')
                         goToPage($btn)
+                    }
                     else
                         alert('There is someting wrong, Please try again!');
                 }
@@ -1189,8 +1186,10 @@ var CProfile = function(guid, sending_messages_per_day) {
                     contentType: false,
          
                     success:function(data){
-                        if(data == 1)
+                        if(data == 1) {
+                            alert('Successfully Uploaded')
                             goToPage($btn)
+                        }
                         else
                             $("#cv_upload").html(`<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Upload CV`).prop("disabled", false).css("background-color", "#40c7db")
                         return false
@@ -1230,8 +1229,10 @@ var CProfile = function(guid, sending_messages_per_day) {
                     contentType: false,
          
                     success:function(data){
-                        if(data == 1)
+                        if(data == 1) {
+                            alert('Successfully Uploaded.')
                             goToPage($btn)
+                        }
                         else
                             $("#nid_upload").html(`<i class="fa fa-file-pdf-o" aria-hidden="true"></i> Upload NID`).prop("disabled", false).css("background-color", "#40c7db")
                         return false
@@ -1395,26 +1396,26 @@ var CProfile = function(guid, sending_messages_per_day) {
         $('[name="degree_title[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                alertCustom('Please type Exam/Degree Title!',true,'Information incomplete');
+                showAlert('Please type Exam/Degree Title!',true,'Information incomplete');
                 return false
             }
         });
         $('[name="school_name[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                alertCustom('Please type Institute Name!',true,'Information incomplete');
+                showAlert('Please type Institute Name!',true,'Information incomplete');
                 return false
             }
         });
         $('[name="passing_year[]"]').each(function() {
             if(!$.isNumeric($(this).val())) {
                 err++;
-                alertCustom('Please input right passing year!',true,'Information incomplete');
+                showAlert('Please input right passing year!',true,'Information incomplete');
                 return false
             } else {
                 if($(this).val() > currentYear || $(this).val() < 1980) {
                     err++;
-                    alertCustom('Please input right passing year!',true,'Information incomplete');
+                    showAlert('Please input right passing year!',true,'Information incomplete');
                     return false
                 }
             }
@@ -1464,7 +1465,7 @@ var CProfile = function(guid, sending_messages_per_day) {
     this.add_more_education_field = function(ind, data) {
         var newInd = Number(ind)+1;
         /*if(newInd > 5) {
-            alertCustom('Please input right information!',true,'Alert');
+            showAlert('Please input right information!',true,'Alert');
             return true
         }*/
         $("#more_education"+ind).append(`
@@ -1484,7 +1485,7 @@ var CProfile = function(guid, sending_messages_per_day) {
     this.add_more_profession_field = function(ind, data) {
         var newInd = Number(ind)+1;
         /*if(newInd > 10) {
-            alertCustom('Please input right information!',true,'Alert');
+            showAlert('Please input right information!',true,'Alert');
             return true
         }*/
         $("#more_profession"+ind).append(`
@@ -1510,21 +1511,21 @@ var CProfile = function(guid, sending_messages_per_day) {
         $('[name="profession_type[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                alertCustom('Please type Profession Type!',true,'Information incomplete');
+                showAlert('Please type Profession Type!',true,'Information incomplete');
                 return false
             }
         });
         $('[name="position[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                alertCustom('Please type Position/Title!',true,'Information incomplete');
+                showAlert('Please type Position/Title!',true,'Information incomplete');
                 return false
             }
         });
         $('[name="company[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                alertCustom('Please type Company!',true,'Information incomplete');
+                showAlert('Please type Company!',true,'Information incomplete');
                 return false
             }
         });
@@ -1597,14 +1598,14 @@ var CProfile = function(guid, sending_messages_per_day) {
         $('[name="relative_name[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                alertCustom('Please type Relative name!',true,'Information incomplete');
+                showAlert('Please type Relative name!',true,'Information incomplete');
                 return false
             }
         });
         $('[name="relation[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                alertCustom('Please add relationship!',true,'Information incomplete');
+                showAlert('Please add relationship!',true,'Information incomplete');
                 return false
             }
         });

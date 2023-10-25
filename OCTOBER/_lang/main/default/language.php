@@ -5042,4 +5042,6 @@ $l['all']['sibling'] = "Sibling(s)";
 
 $l['all']['posted_by'] = "Posted By";
 $l['all']['profile_completed'] = "Profile completed";
+$l['all']['relation'] = "Relation";
+$l['all']['uploaded_cv'] = "Uploaded CV";
 ?>

@@ -3777,50 +3777,13 @@ audio:not([controls]){display:none;height:0}[hidden]{display:none}
 .via_admin_link:hover{
     background: rgba(235, 96, 119, 0.5);
 }
-.pdf_user_div {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 5px 10px;
-    border-radius: 3px;
-}
-.pdf_user_div li button {
-    border: none;
-    color: tomato;
-    font-weight: bold;
+
+.view_pdf_menu > a { color: #fff }
+.profile_delete_pdf {
     background: transparent;
-    font-size: 15px;
-    line-height: 33px;
+    color: tomato;
 }
-
-.user_info_button {
-    padding: 20px 0 10px
-}
-.user_info_button div {
-    border-radius: 3px;
-}
-.user_info_button > div p {
-    font-weight: 600;
-    font-size: 13px;
-}
-.user_info_button > div button {
-    margin-bottom: 15px;
-    line-height: unset !important;
-}
-.nid_div {
-    font-size: 12px;
-    font-weight: 600;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    border-left: unset;border-right: unset;border-bottom: unset;
-    padding: 10px 0;
-}
-.nid_div a {
-    color: #fff;
-}
-.yes_profile_pdf a { color: #fff;line-height:33px }
-.user_info_button .txt { padding-bottom:10px }
-
-
+.profile_delete_pdf > i { color: tomato !important; }
 /*custom profile field*/
 #ul_list li {
     line-height: 22px;
@@ -3861,8 +3824,6 @@ audio:not([controls]){display:none;height:0}[hidden]{display:none}
 }
 .close_div {
     text-align: right;
-    padding-top: 8px;
-    padding-right: 8px;
 }
 .close_div button {
     border: 1px solid tomato;

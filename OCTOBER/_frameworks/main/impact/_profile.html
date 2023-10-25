@@ -501,6 +501,114 @@ var positionTabWall='{position_tab_wall}';
                     <!-- over_my -->
 
 
+                    <!-- begin_upload_my_pdf -->
+                    <div class="bl">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_upload_cv}</div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list">                
+                            <li style="margin-top: 14px;">
+                                <input type="file" id="UploadCV" accept=".pdf" style="display: none;">
+                                <button class="btn small turquoise user_profile_upload_pdf" style="line-height: unset;">
+                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    {l_upload_pdf}
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end_upload_my_pdf -->
+                    <!-- begin_view_pdf -->
+                    <div class="bl">
+                        <div class="title">
+                            <div class="title_icon_edit">{l_uploaded_cv}</div>
+                            <div class="cl"></div>
+                        </div>
+                        <ul id="ul_list">
+                            <li class="view_pdf view_pdf_menu">
+                                <a href="{url_files}pdf/{pdf_file_name}" target="_blank" style="line-height: unset;"> View CV</a>
+                            </li>
+                            <!-- begin_delete_my_pdf -->
+                            <li style="margin-top: 5px">
+                                <button class="profile_delete_pdf" id="profile_delete_pdf" value="{user_id}" style="padding-left: 3px;">
+                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    {l_delete} CV
+                                </button>
+                            </li>
+                            <!-- end_delete_my_pdf -->
+                        </ul>
+                    </div>
+                    <!-- end_view_pdf -->
+
+                    <!-- begin_footer_member -->
+                        <div class="bl">
+                            <div class="title">
+                                <div class="title_icon_edit">{l_nid_verify_title}</div>
+                                <div class="cl"></div>
+                            </div>
+                            <ul id="ul_list">
+                                <!-- begin_nid_upload_button -->
+                                <li style="margin-top: 14px;">
+                                    <button class="btn small turquoise user_profile_upload_nid">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        {l_upload_nid}
+                                    </button>
+                                </li>
+                                <!-- end_nid_upload_button -->
+
+                                <!-- begin_view_verified_nid -->
+                                <li>
+                                    <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                                </li>
+                                <li style="color: #8ccd00;margin-top: 5px;">
+                                    <i class="fa fa-circle" aria-hidden="true"></i> {nid_verify_text}
+                                </li>
+                                <!-- end_view_verified_nid -->
+
+                                <!-- begin_uploaded_nid -->
+                                <li>
+                                    <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                                </li>
+                                <li style="margin-top: 5px;">
+                                    <i class="fa fa-circle" aria-hidden="true"></i> {nid_verify_text}
+                                </li>
+                                <!-- end_uploaded_nid -->
+
+                                <!-- begin_rejected_nid -->
+                                <li style="margin: 14px 0;">
+                                    <button class="btn small pink user_profile_upload_nid" style="margin-bottom: 0;">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        {l_re_upload_nid}
+                                    </button>
+                                </li>
+                                <li>
+                                    <a href="{url_files}nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
+                                </li>
+                                <li style="color: tomato;margin-top: 5px;">
+                                    <i class="fa fa-circle" aria-hidden="true"></i> {nid_verify_text}
+                                </li>
+                                <!-- end_rejected_nid -->
+                            </ul>
+                        </div>
+
+                        <!-- begin_profile_verification_unverified_my -->
+                        <div class="bl">
+                            <div class="title">
+                                <div class="title_icon_edit">{l_link_social_login}</div>
+                                <div class="cl"></div>
+                            </div>
+                            <ul id="ul_list">
+                                <li style="margin-top: 14px;">
+                                    <button class="btn small turquoise {profile_verification_off_class} profile_verification_show">
+                                        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                        {l_link}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- end_profile_verification_unverified_my -->
+                    <!-- end_footer_member -->
+
                 </div>
 
                 <div class="col_right">
@@ -561,103 +669,6 @@ var positionTabWall='{position_tab_wall}';
                         <button data-type-loader="fade_btn" onclick="Profile.toOpenIm('{ua_user_id}', $(this));" class="btn large lblue btn_open_im_bottom"><span class="icon_message"></span><span>{l_send_a_message} {ua_name}</span></button>
                     </div>
                     <!-- end_profile_send_message_btn -->
-                    
-                    <!-- begin_upload_my_pdf -->
-                        <button class="btn small turquoise user_profile_upload_pdf" style="line-height: unset;{uploaded_btn_style}">
-                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            {l_upload_cv}
-                        </button>
-                    <!-- end_upload_my_pdf -->
-
-                    <!-- begin_view_pdf -->
-                    <ul class="pdf_user_div">
-                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
-                            <a href="{url_main}_files/pdf/{pdf_file_name}" target="_blank">View CV</a>
-                        </li>
-                        <!-- begin_delete_my_pdf -->
-                        <li class="view_pdf view_pdf_menu {view_pdf_class}">
-                            <button class="profile_delete_pdf" id="profile_delete_pdf" value="{user_id}">
-                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                Delete CV
-                            </button>
-                        </li>
-                        <!-- end_delete_my_pdf -->
-                    </ul>
-                    <!-- end_view_pdf -->
-
-                    <!-- begin_footer_member -->
-                    <div class="user_info_button">
-                        
-                        <div>
-                            <!-- begin_nid_upload_button -->
-                                <p class="txt">{l_nid_verify_title}</p>
-                                <button class="btn small turquoise user_profile_upload_nid">
-                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                    {l_upload_nid}
-                                </button>
-                            <!-- end_nid_upload_button -->
-
-                            <!-- begin_view_verified_nid -->
-                                <p class="txt">{l_nid_verify_title}</p>
-                                <ul class="pdf_user_div nid_div">
-                                    <li>
-                                        <a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
-                                    </li>
-                                    <li>
-                                        {nid_verify_text}
-                                    </li>
-                                </ul>
-                            <!-- end_view_verified_nid -->
-
-                            <!-- begin_uploaded_nid -->
-                                <p class="txt">{l_nid_verify_title}</p>
-
-                                <ul class="pdf_user_div nid_div">
-                                    <li>
-                                        <a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
-                                    </li>
-                                    <li>
-                                        {nid_verify_text}
-                                    </li>
-                                </ul>
-                            <!-- end_uploaded_nid -->
-
-                            <!-- begin_rejected_nid -->
-                                <p class="txt">{l_nid_verify_title}</p>
-                                <button class="btn small turquoise user_profile_upload_nid" style="margin-bottom: 0;">
-                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                    {l_re_upload_nid}
-                                </button>
-                                <ul class="pdf_user_div nid_div">
-                                    <li>
-                                        <a href="{url_main}_files/nid/{nid_data}" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> View NID</a>
-                                    </li>
-                                    <li>
-                                        {nid_verify_text}
-                                    </li>
-                                </ul>
-                            <!-- end_rejected_nid -->
-                        </div>
-
-                        <!-- begin_profile_verification_unverified_my -->
-                        <div>
-                            <p class="txt">{l_link_social_login}</p>
-                            <button class="btn small turquoise {profile_verification_off_class} profile_verification_show">
-                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                {l_link}
-                            </button>
-                        </div>
-                        <!-- end_profile_verification_unverified_my -->
-
-                        <!-- begin_footer_member_increase -->
-                        <div>
-                            <p class="txt">{l_increase_your_visibility}</p>
-                            <button class="btn small pink" onclick="upgrade.requestIncreasePopularity();">
-                            <i class="fa fa-flash" aria-hidden="true"></i> {l_boost_profile}</button>
-                        </div>
-                        <!-- end_footer_member_increase -->
-                    </div> 
-                    <!-- end_footer_member -->
 
                 </div>
             </div>

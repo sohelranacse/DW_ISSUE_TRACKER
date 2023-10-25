@@ -5442,50 +5442,17 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
 .via_admin_link:hover{
     background: rgba(235, 96, 119, 0.5);
 }
-.pdf_user_div {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    border-radius: 3px;
-}
-.pdf_user_div li button {
-    border: none;
+
+
+.profile_delete_pdf {
     color: tomato;
-    font-weight: 500;
+    border: none;
+    padding-left: 4px;
     background: transparent;
-    font-size: 15px;
-    line-height: 33px;
 }
-
-.user_info_button {
-    padding: 15px 0;
-}
-.user_info_button div {
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    border-radius: 3px;
-    margin: 15px 0;
-}
-.user_info_button > div p {
-    font-weight: 600;
-    font-size: 13px;
-}
-.user_info_button > div button {
-    margin-bottom: 15px;
-    line-height: unset !important;
-}
-.nid_div {
-    font-size: 12px;
-    font-weight: 600;
-    border-top: 1px solid #ddd;
-    border-left: unset;border-right: unset;border-bottom: unset;
-    padding: 10px 0;
-}
-.nid_div a {
-    color: blue;
-}
-
+.profile_delete_pdf > i { color: tomato !important; }
+#ul_list li button { padding: 0 15px }
+#ul_list li button > i { color:#fff }
 /*custom profile field*/
 #ul_list li {
     line-height: 22px;
