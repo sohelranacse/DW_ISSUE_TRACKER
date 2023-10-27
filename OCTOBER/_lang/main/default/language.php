@@ -5025,12 +5025,12 @@ $l['live_list_finished.php']['go_to_profile'] = "Go to profile";
 $l['visitors.php']['page_title'] = "Visitors of ";
 
 
-$l['all']['degree_title'] = "Exam/Degree Title";
-$l['all']['institute_name'] = "Institute Name";
-$l['all']['results'] = "Results";
+$l['all']['degree_title'] = "Degree Title";
+$l['all']['institute_name'] = "Institution Name";
+$l['all']['results'] = "Result";
 $l['all']['passing_year'] = "Passing Year";
 
-$l['all']['profession_type'] = "Profession Type";
+$l['all']['profession_type'] = "Profession";
 $l['all']['position'] = "Position/Title";
 $l['all']['company'] = "Company";
 
@@ -5042,6 +5042,6 @@ $l['all']['sibling'] = "Sibling(s)";
 
 $l['all']['posted_by'] = "Posted By";
 $l['all']['profile_completed'] = "Profile completed";
-$l['all']['relation'] = "Relation";
+$l['all']['relation'] = "Relationship";
 $l['all']['uploaded_cv'] = "Uploaded CV";
 ?>
