@@ -1,0 +1,242 @@
+<div id="pp_profile_edit_field_personal" class="pp_popup_editor visible">
+<div class="bl arrow">
+    <div class="title">{l_edit_personal_details}
+    <div class="cl"></div>
+    </div>
+</div>
+<!-- begin_personal_fields -->
+<form id="frm_profile_edit_personal" name="frm_profile_edit_field_personal" method="POST" action="../ajax.php?cmd=update_personal_field&view=mobile">
+<input type="hidden" name="e_user_id" value="{e_user_id}" />
+<input class="ajax" type="hidden" name="ajax" value="1" />
+<div class="bl_frm">
+    <!-- begin_field -->
+    <!-- begin_field_item -->
+
+    <!-- begin_field_item_group_decor_start -->
+    <div class="bl arrow"></div>
+    <!-- end_field_item_group_decor_start -->
+
+	<!-- begin_int -->
+    <div class="bl">
+        <label>{field}</label>
+        <div class="field">
+            <select id="pp_4_{name}" name="{name}">
+                    <option selected value="0">{l_please_select}</option>
+					{options}
+            </select>
+        </div>
+    </div>
+	<!-- end_int -->
+
+	<!-- begin_text -->
+	<div class="bl">
+        <label>{field}</label>
+        <div class="field">
+            <input id="pp_4_{name}" class="inp" maxlength="{maxlen}" type="text" name="{name}" value="{value_input}"/>
+        </div>
+    </div>
+    <!-- end_text -->
+
+    <!-- begin_checkbox -->
+    <div class="bl field_checkbox">
+        <label>{field_name}</label>
+        <div class="field">
+            <!-- begin_checkbox_item -->
+			<select id="pp_4_{name}_{num}" data-checkbox="{name}" name="{name}[]">
+                <option selected value="0">{l_please_select}</option>
+				{options}
+            </select>
+			<!-- end_checkbox_item -->
+			<div id="link_add_{name}" class="link_add" data-type-add="{name}" style="display:{display_add};" >
+                <div class="add_field"><span class="link_add_action">{l_add_value_field}</span></div>
+            </div>
+        </div>
+    </div>
+    <!-- end_checkbox -->
+
+    <!-- begin_field_item_group_decor_end -->
+    <div class="bl arrow"></div>
+    <!-- end_field_item_group_decor_end -->
+
+    <!-- end_field_item -->
+    <!-- end_field -->
+</div>
+</form>
+<div class="frm_btn frm_edit">
+    <div class="double">
+        <span class="l">
+            <button class="btn small white_frame frm_editor_cancel">{l_cancel}</button>
+        </span>
+        <span class="r">
+            <button class="btn small pink frm_editor_save" disabled>{l_save}</button>
+        </span>
+    </div>
+</div>
+<!-- end_personal_fields -->
+<script>
+    var pp_profile_personal_editor=$('#pp_profile_edit_field_personal'),
+        pp_profile_personal_editor_frm=$('#frm_profile_edit_personal',pp_profile_personal_editor),
+        pp_profile_personal_editor_btn_save=$('.frm_editor_save', pp_profile_personal_editor),
+        pp_profile_personal_editor_btn_cancel=$('.frm_editor_cancel', pp_profile_personal_editor);
+
+	$('.link_add_action', pp_profile_personal_editor_frm).click(function(){
+        var el=$(this).closest('.link_add'),
+            type = el.data('typeAdd'),
+            select = el.prev('select'),
+            countOption = select.find('option').length,
+            countSelect = $('select[data-checkbox='+type+']').length+1,
+            id='pp_4_'+type+'_'+(countSelect-1);
+        if (countOption <= (countSelect+1)){$(this).hide()}
+        if (countOption > countSelect) {
+            var cl=select.clone(false).attr({id:id}).insertAfter(el.prev('select'));
+            cl.find('option').removeAttr('selected').eq(0).attr({selected:'selected'});
+        }
+
+		pp_profile_personal_editor_frm_init_select();
+
+		setDisabledSavePersonal();
+        return false;
+    })
+	var lastValueCheckboxPersonal;
+
+	function pp_profile_personal_editor_frm_init_select() {
+
+		$('select[data-checkbox]', pp_profile_personal_editor_frm).on('change', function(e){
+			var el=$(this),
+			type=el.data('checkbox'),id=el.attr('id'),
+			val=el.val();
+			if (val != 0) {
+				$('[id != "'+id+'"][data-checkbox='+type+']').each(function(){
+					if ($(this).val()==val) {
+						showAlertAppear('{j_you_have_already_chosen_this_option}');
+						el.val(lastValueCheckboxPersonal);
+						return false;
+					}
+				})
+			}
+			setDisabledSavePersonal();
+		}).on('click', function(e){
+			lastValueCheckboxPersonal=$(this).val();
+		})
+
+	}
+
+	pp_profile_personal_editor_frm_init_select();
+
+    pp_profile_personal_editor_btn_cancel.click(function (){
+        if(!isModifiedPersonalInfo()){
+            clProfile.loadTabs('#tabs-1',resetPersonalInfo)
+		}else{
+			resetPersonalInfo();
+		}
+        return false;
+    })
+	var ppPersonalInfo={};
+	function isModifiedPersonalInfo(){
+        var is=0;
+        $('input:not(.ajax), select', pp_profile_personal_editor_frm).each(function(){
+            is|=(this.value!=ppPersonalInfo[this.id]);
+        })
+        return is;
+    }
+	function setPersonalInfo() {
+        $('input:not(.ajax), select', pp_profile_personal_editor_frm).each(function(){
+            ppPersonalInfo[this.id]=this.value;
+        })
+    }
+    setPersonalInfo();
+
+	function resetPersonalInfo() {
+        $('input:not(.ajax), select', pp_profile_personal_editor_frm).each(function(){
+            var $el=$(this);
+            if($el.is('select')){
+				var val=ppPersonalInfo[this.id];
+				if(!ppPersonalInfo[this.id]){
+					val=0;
+				}
+				$el.val(val);
+			}else{this.value=ppPersonalInfo[this.id]}
+        })
+        pp_profile_personal_editor_btn_cancel.text('{j_cancel}');
+        pp_profile_personal_editor_btn_save.prop('disabled', true);
+		setTimeout(function(){removeEmptyCheckbox()},10);
+    }
+
+	$('input:not(.ajax), select', pp_profile_personal_editor_frm).on('change propertychange input', setDisabledSavePersonal);
+
+	function setDisabledSavePersonal(){
+        if(isModifiedPersonalInfo()) {
+            pp_profile_personal_editor_btn_cancel.text('{j_reset}');
+            pp_profile_personal_editor_btn_save.prop('disabled', false);
+        } else{
+            pp_profile_personal_editor_btn_save.prop('disabled', true);
+            pp_profile_personal_editor_btn_cancel.text('{j_cancel}');
+        }
+    }
+
+    //pp_profile_personal_editor_btn_save.html(getLoader('btn_action_loader',false,true));
+	function disabledProfileEditPersonal(is){
+        if(is){
+            pp_profile_personal_editor_btn_save.prop('disabled',is).addLoader();
+        }else{
+            pp_profile_personal_editor_btn_save.prop('disabled', true).removeLoader();
+			pp_profile_personal_editor_btn_cancel.text('{j_cancel}');
+        }
+        $('input:not(.ajax), select', pp_profile_personal_editor_frm).prop('disabled',is);
+        pp_profile_personal_editor_btn_cancel.prop('disabled',is);
+    }
+
+	pp_profile_personal_editor_btn_save.click(function(){
+        pp_profile_personal_editor_frm.submit();
+    })
+
+    pp_profile_personal_editor_frm.submit(function(){
+        if (!isModifiedPersonalInfo()) return false;
+        $.fn.ajaxSubmit.textEmoji=true;
+        $(this).ajaxSubmit({success:profileEditPersonalResponse});
+        $.fn.ajaxSubmit.textEmoji=false;
+		disabledProfileEditPersonal(true);
+        return false;
+    })
+
+    function profileEditPersonalResponse(res){
+        var data=checkDataAjax(res);
+        if (data!== false){
+			$jq('#personal_items').html($(data).html());
+            if($('#pp_profile_edit_field_personal').is(':visible')){
+                showConfirm(l('changes_saved'), function(){
+                    clProfile.loadTabs('#tabs-1',function(){
+                        setPersonalInfo();
+                        removeEmptyCheckbox();
+                        disabledProfileEditPersonal(false);
+                    })
+                }, false, false, false, true, false, true, 'fa-thumbs-up')
+            }else{
+                setPersonalInfo();
+                removeEmptyCheckbox();
+                disabledProfileEditPersonal(false);
+            }
+        }else{
+            if($('#pp_profile_edit_field_personal').is(':visible')){
+                serverError();
+            }
+            resetPersonalInfo();
+            disabledProfileEditPersonal(false);
+		}
+    }
+
+	function removeEmptyCheckbox(){
+        var typeArr={};
+		$('select[data-checkbox]').each(function(){
+			var el=$(this), type=el.data('checkbox');
+			var countSelect = $('select[data-checkbox='+type+']').length;
+            if (countSelect > 1&&this.value==0&&typeArr[type]) {
+                el.remove();
+				delete ppPersonalInfo[this.id];
+            }
+            typeArr[type]=1;
+            $('#link_add_'+type).show();
+		})
+	}
+</script>
+</div>

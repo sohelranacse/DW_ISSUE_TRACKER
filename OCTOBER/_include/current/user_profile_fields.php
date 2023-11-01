@@ -10,8 +10,6 @@
 		$html->parse('posted_by_edit', false);
 		$html->parse('additional_in_edit', false);
 
-		$html->setvar('profile_completed', $row['profile_completed']);
-		$html->parse('profileProgress', false);
 		$visitor = 0;
 	} else 
 		$visitor = 1;
@@ -214,37 +212,16 @@
 
 
     ############ ADDITIONAL INFORMATION ##############
-    $spouse_name = $siblings_name = '';
+    if($row_user['additional_info']) {
 
-    $spouse_name = $row_user['spouse_name'];
-    if($spouse_name)
-    	$no_of_spouse = sizeof(explode(", ", $spouse_name));
+    	$additional_info = '<li>'.$row_user['additional_info'].'</li>';
 
-    $siblings_name = $row_user['siblings_name'];
-    if($siblings_name)
-    	$no_of_siblings = sizeof(explode(", ", $siblings_name));
+		$html->setvar('additionInfoData', $additional_info);
+	    $html->parse('additionInfoData', false);
 
-    $additionInfoData = '';
-
-	if ($spouse_name) {
-	    $additionInfoData .= '<li><i class="fa fa-male"></i><i class="fa fa-female" style="margin-left: -6px;"></i> Spouse';
-	    if ($no_of_spouse > 1) {
-	        $additionInfoData .= ' (' . $no_of_spouse . ')';
-	    }
-	    $additionInfoData .= ': ' . $spouse_name . '</li>';
+	    // if empty, visitor end not showing Additional Information section.
+	    (empty($additionInfoData) && $visitor) ? '' : $html->parse('additionalInfo_block', false);
 	}
-
-	if ($siblings_name) {
-	    $additionInfoData .= '<li><i class="fa fa-child"></i><i class="fa fa-child" style="margin-left: -6px;"></i> Siblings';
-	    if ($no_of_siblings > 1) {
-	        $additionInfoData .= ' (' . $no_of_siblings . ')';
-	    }
-	    $additionInfoData .= ': ' . $siblings_name . '</li>';
-	}	
-	$html->setvar('additionInfoData', $additionInfoData);
-    $html->parse('additionInfoData', false);
-
-    (empty($additionInfoData) && $visitor) ? '' : $html->parse('additionalInfo_block', false);
 
 
 

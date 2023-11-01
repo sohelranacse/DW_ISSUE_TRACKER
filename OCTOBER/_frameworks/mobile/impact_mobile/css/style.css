@@ -3842,22 +3842,3 @@ label .r {
     color: tomato;
 }
 .iti__country-name, .iti__selected-dial-code { color: #000 }
-
-/* progress bar */
-.progress-container {
-    width: 100%;
-    background-color: #ddd;
-    height: 25px;
-    text-align: center;
-    line-height: 25px;
-    border-radius: 2px;
-    margin-bottom: 15px;
-    font-size: 11px;
-}
-
-.progress-bar {
-    width: 0;
-    height: 100%;
-    background-color: #4CAF50;
-    color: white;
-}

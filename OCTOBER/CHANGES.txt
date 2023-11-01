@@ -1,31 +1,5 @@
 Admin Panel
 -----------
-1. Add Language - English
-http://localhost/mymatch/administration/language.php
-	group_admin = Matchmaker
-	add_group_user = Add Candidate
-	group_users = My Candidate
-
-	nickname = Nickname
-	fname = First Name
-	lname = Last Name
-
-	address = Address
-	street = Street
-	current_address = Current Address
-	permanent_address = Permanent Address
-
-	location_preference = Location Preference
-	favored_location = Favored Location
-	unfavored_location = Unfavored Location
-
-	education = Education
-	profession = Profession
-	relatives = Relatives
-	additional_information  = Additional Information 
-
-	// update
-	Signup as = Signup as (Posted by)
 
 2. Countries
 http://localhost/mymatch/administration/users_fields_countries.php
@@ -39,12 +13,9 @@ ALTER TABLE `user` ADD `current_country_id` INT(5) NULL AFTER `nid_verify_approv
 
 ALTER TABLE `user` ADD `favorite_country_id` INT(5) NULL AFTER `permanent_street`, ADD `favorite_state_id` INT(6) NULL AFTER `favorite_country_id`, ADD `favorite_city_id` INT(11) NULL AFTER `favorite_state_id`, ADD `unfavorite_country_id` INT(5) NULL AFTER `favorite_city_id`, ADD `unfavorite_state_id` INT(6) NULL AFTER `unfavorite_country_id`, ADD `unfavorite_city_id` INT(11) NULL AFTER `unfavorite_state_id`;
 
-ALTER TABLE `user` ADD `no_of_spouse` INT(1) NOT NULL AFTER `unfavorite_city_id`, ADD `spouse_name` VARCHAR(255) NOT NULL AFTER `no_of_spouse`, ADD `no_of_siblings` INT(1) NOT NULL AFTER `spouse_name`, ADD `siblings_name` VARCHAR(255) NOT NULL AFTER `no_of_siblings`;
+ALTER TABLE `user` ADD `poster_name` VARCHAR(100) NULL AFTER `unfavorite_city_id`, ADD `poster_address` VARCHAR(255) NULL AFTER `poster_name`, ADD `poster_phone` VARCHAR(15) NULL AFTER `poster_address`;
 
-ALTER TABLE `user` ADD `spouse_name` VARCHAR(255) NOT NULL AFTER `unfavorite_city_id`, ADD `siblings_name` VARCHAR(255) NOT NULL AFTER `spouse_name`;
-
-ALTER TABLE `user` ADD `poster_name` VARCHAR(100) NULL AFTER `siblings_name`, ADD `poster_address` VARCHAR(255) NULL AFTER `poster_name`, ADD `poster_phone` VARCHAR(15) NULL AFTER `poster_address`;
-ALTER TABLE `user` ADD `profile_completed` INT NOT NULL AFTER `poster_phone`;
+ALTER TABLE `user` ADD `additional_info` TEXT NOT NULL AFTER `poster_phone`;
 
 4. Add profile fields
 	i. Preferred Profession

@@ -8,65 +8,10 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-    	function add_more_spouse() {
-    		$("#spouse_div").append(`
-	    		<div class="bl">
-	                <input type="text" name="spouse_name[]" placeholder="Type spouse name" class="w-350" />
-	            </div>
-    		`)
-    	}
-    	function add_more_siblings() {
-    		$("#siblings_div").append(`
-	    		<div class="bl">
-	                <input type="text" name="siblings_name[]" placeholder="Type sibling name" class="w-350" />
-	            </div>
-    		`)
-    	}
-    </script>
     <div class="bl_frm">
-        <h3><i class="fa fa-user"></i> <?php echo $spouse; ?>:</h3>
-
-        <div id="spouse_div">
-        	<?php
-        		if(sizeof($spouseList)) {
-        			foreach($spouseList as $value) { ?>
-        				<div class="bl">
-			                <input type="text" name="spouse_name[]" placeholder="Type spouse name" value="<?php echo $value; ?>" class="w-350" />
-			            </div>
-        			<?php }
-        		} else {
-        	?>
-	        	<div class="bl">
-	                <input type="text" name="spouse_name[]" placeholder="Type spouse name" class="w-350" />
-	            </div>
-	        <?php } ?>
+        <div class="bl">
+            <textarea name="additional_info" id="additional_info" placeholder="Type additional information" rows="10" style=""><?php echo $additional_info; ?></textarea>
         </div>
-        <div style="margin: 10px 0 20px;">
-        <button class="btn small turquoise" style="width: 30px;" type="button" onclick="return add_more_spouse()"> <i class="fa fa-plus"></i></button>
-    	</div>
-
-
-        <h3 style="margin-top: 20px"><i class="fa fa-child"></i> <?php echo $sibling; ?>:</h3>
-
-        <div id="siblings_div">
-        	<?php
-        		if(sizeof($siblingsList)) {
-        			foreach($siblingsList as $value) { ?>
-			            <div class="bl">
-			                <input type="text" name="siblings_name[]" placeholder="Type sibling name" value="<?php echo $value; ?>" class="w-350" />
-			            </div>
-        			<?php }
-        		} else {
-        	?>
-	        	<div class="bl">
-	                <input type="text" name="siblings_name[]" placeholder="Type sibling name" class="w-350" />
-	            </div>
-	        <?php } ?>
-        </div>
-        <div style="margin: 10px 0 20px;">
-        <button class="btn small turquoise" style="width: 30px;" type="button" onclick="return add_more_siblings()"> <i class="fa fa-plus"></i></button>
-    	</div>
 
     </div>
     <div class="frm_btn frm_edit">

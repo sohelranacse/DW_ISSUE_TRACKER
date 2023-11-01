@@ -59,34 +59,8 @@ $(function(){
 var positionTabWall='{position_tab_wall}';
 
 </script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        var progressBar = $('#profileProgress');
-        var increaseButton = $('#increaseProgress');
-        var width = {profile_completed};
-
-        function updateProgressBar() {
-            progressBar.width(width + '%');
-
-            if(width > 15)
-                progressBar.text('{l_profile_completed} ' + width + '%');
-            else
-                progressBar.text(width + '%');
-        }
-
-        // Initial update
-        updateProgressBar();
-    });
-</script>
 <!-- col_center -->
 <div class="col_center">
-
-    <!-- begin_profileProgress -->
-    <div class="progress-container" title="Profile Completed">
-        <div class="progress-bar" id="profileProgress">{l_profile_completed} 0%</div>
-    </div>
-    <!-- end_profileProgress -->
 
     <div class="cont bl_profile">
         <div class="bl_pic_info  <!-- begin_class_profile_my -->my_profile<!-- end_class_profile_my -->">

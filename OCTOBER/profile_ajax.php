@@ -114,14 +114,14 @@ class ProfileAjax extends Controller {
 				    if($e_user_id)
 				        $g_user = User::getInfoFull($e_user_id);
 
-				    $current_street = $this->input->post('current_street');
-				    $current_country_id = $this->input->post('country_id_current');
-				    $current_state_id = $this->input->post('state_id_current');
-				    $current_city_id = $this->input->post('city_id_current');
-				    $permanent_street = $this->input->post('permanent_street');
-				    $permanent_country_id = $this->input->post('country_id_permanent');
-				    $permanent_state_id = $this->input->post('state_id_permanent');
-				    $permanent_city_id = $this->input->post('city_id_permanent');
+				    $current_street = trim(Common::filterProfileText($this->input->post('current_street')));
+				    $current_country_id = trim(Common::filterProfileText($this->input->post('country_id_current')));
+				    $current_state_id = trim(Common::filterProfileText($this->input->post('state_id_current')));
+				    $current_city_id = trim(Common::filterProfileText($this->input->post('city_id_current')));
+				    $permanent_street = trim(Common::filterProfileText($this->input->post('permanent_street')));
+				    $permanent_country_id = trim(Common::filterProfileText($this->input->post('country_id_permanent')));
+				    $permanent_state_id = trim(Common::filterProfileText($this->input->post('state_id_permanent')));
+				    $permanent_city_id = trim(Common::filterProfileText($this->input->post('city_id_permanent')));
 
 				    $data = [
 				    	'current_street'	=>	$current_street ? $current_street : '',
@@ -203,12 +203,12 @@ class ProfileAjax extends Controller {
 				    if($e_user_id)
 				        $g_user = User::getInfoFull($e_user_id);
 
-				    $favorite_country_id = $this->input->post('favorite_country_id');
-				    $favorite_state_id = $this->input->post('favorite_state_id');
-				    $favorite_city_id = $this->input->post('favorite_city_id');
-				    $unfavorite_country_id = $this->input->post('unfavorite_country_id');
-				    $unfavorite_state_id = $this->input->post('unfavorite_state_id');
-				    $unfavorite_city_id = $this->input->post('unfavorite_city_id');
+				    $favorite_country_id = trim(Common::filterProfileText($this->input->post('favorite_country_id')));
+				    $favorite_state_id = trim(Common::filterProfileText($this->input->post('favorite_state_id')));
+				    $favorite_city_id = trim(Common::filterProfileText($this->input->post('favorite_city_id')));
+				    $unfavorite_country_id = trim(Common::filterProfileText($this->input->post('unfavorite_country_id')));
+				    $unfavorite_state_id = trim(Common::filterProfileText($this->input->post('unfavorite_state_id')));
+				    $unfavorite_city_id = trim(Common::filterProfileText($this->input->post('unfavorite_city_id')));
 
 				    $data = [
 				    	'favorite_country_id'	=>	$favorite_country_id,
@@ -295,11 +295,11 @@ class ProfileAjax extends Controller {
 					    foreach($degree as $degree_title) {
 
 					    	$data = [
-				    			'degree_title'	=>	$degree_title,
-				    			'school_name'	=>	$school_name[$i],
-				    			'address'		=>	$address[$i] ? $address[$i] : '',
-				    			'results'		=>	$results[$i] ? $results[$i] : '',
-				    			'passing_year'	=>	$passing_year[$i] ? $passing_year[$i] : '',
+				    			'degree_title'	=>	trim(Common::filterProfileText($degree_title)),
+				    			'school_name'	=>	trim(Common::filterProfileText($school_name[$i])),
+				    			'address'		=>	trim(Common::filterProfileText($address[$i])) ? trim(Common::filterProfileText($address[$i])) : '',
+				    			'results'		=>	trim(Common::filterProfileText($results[$i])) ? trim(Common::filterProfileText($results[$i])) : '',
+				    			'passing_year'	=>	trim(Common::filterProfileText($passing_year[$i])) ? trim(Common::filterProfileText($passing_year[$i])) : '',
 				    			'added_on'		=>	date("Y-m-d H:i:s"),
 				    			'user_id'		=>	$g_user['user_id'],
 				    		];
@@ -353,10 +353,10 @@ class ProfileAjax extends Controller {
 					    foreach($profession as $profession_type) {
 
 					    	$data = [
-				    			'profession_type'	=>	$profession_type,
-				    			'position'		=>	$position[$i],
-				    			'company'		=>	$company[$i],
-				    			'address'		=>	$address[$i] ? $address[$i] : '',
+				    			'profession_type'	=>	trim(Common::filterProfileText($profession_type)),
+				    			'position'		=>	trim(Common::filterProfileText($position[$i])),
+				    			'company'		=>	trim(Common::filterProfileText($company[$i])),
+				    			'address'		=>	trim(Common::filterProfileText($address[$i])) ? trim(Common::filterProfileText($address[$i])) : '',
 				    			'added_on'		=>	date("Y-m-d H:i:s"),
 				    			'user_id'		=>	$g_user['user_id'],
 				    		];
@@ -424,19 +424,19 @@ class ProfileAjax extends Controller {
 					    foreach($relatives as $relative_name) {
 
 					    	$data = [
-				    			'relative_name'	=>	$relative_name,
-				    			'relation'		=>	$relation[$i],
+				    			'relative_name'	=>	trim(Common::filterProfileText($relative_name)),
+				    			'relation'		=>	trim(Common::filterProfileText($relation[$i])),
 				    			'added_on'		=>	date("Y-m-d H:i:s"),
 				    			'user_id'		=>	$g_user['user_id'],
 				    		];
 
 				    		// optional
-				    		if($marital_status[$i]) $data['marital_status'] = $marital_status[$i];
-				    		if($address[$i]) $data['address'] = $address[$i];
-				    		if($profession_type[$i]) $data['profession_type'] = $profession_type[$i];
-				    		if($position[$i]) $data['position'] = $position[$i];
-				    		if($company[$i]) $data['company'] = $company[$i];
-				    		if($degree_title[$i]) $data['degree_title'] = $degree_title[$i];
+				    		if($marital_status[$i]) $data['marital_status'] = trim(Common::filterProfileText($marital_status[$i]));
+				    		if($address[$i]) $data['address'] = trim(Common::filterProfileText($address[$i]));
+				    		if($profession_type[$i]) $data['profession_type'] = trim(Common::filterProfileText($profession_type[$i]));
+				    		if($position[$i]) $data['position'] = trim(Common::filterProfileText($position[$i]));
+				    		if($company[$i]) $data['company'] = trim(Common::filterProfileText($company[$i]));
+				    		if($degree_title[$i]) $data['degree_title'] = trim(Common::filterProfileText($degree_title[$i]));
 
 				    		DB::insert('user_relatives', $data);
 
@@ -453,69 +453,7 @@ class ProfileAjax extends Controller {
 				    	ORDER BY a.added_on
 				    ");
 				    echo json_encode($relativeList);
-					break;
-
-				case 'loadAdditionalInformationEdit':
-
-					// user information
-					$e_user_id = $this->input->post('e_user_id');
-				    if($e_user_id)
-				        $g_user = User::getInfoFull($e_user_id);
-
-
-				    $spouseList = $siblingsList = [];
-				    if($g_user['spouse_name'])
-				    	$spouseList = explode(', ', $g_user['spouse_name']);
-
-				    if($g_user['siblings_name'])
-				    	$siblingsList = explode(', ', $g_user['siblings_name']);
-
-					$spouse = l('spouse');
-					$sibling = l('sibling');
-				    $title = $this->input->post('additional_information');
-
-					ob_start();
-					include $htmlPath.'profile/loadAdditionalInformationEdit.php';
-					$data = ob_get_clean();
-					echo json_encode(['status' => true,'data' => $data]);
-					break;
-
-				case 'update_additional_information':
-					// user information
-					$e_user_id = $this->input->post('e_user_id');
-				    if($e_user_id)
-				        $g_user = User::getInfoFull($e_user_id);
-
-				    $spouseList = $this->input->post('spouse_name');
-				    $siblingsList = $this->input->post('siblings_name');
-
-				    $spouse_name = $siblings_name = '';
-
-				    $spouseListFilter = array_filter($spouseList);
-				    if($spouseListFilter)
-				    	$spouse_name = implode(", ", $spouseListFilter);
-
-				    $siblingsListFilter = array_filter($siblingsList);
-				    if($siblingsListFilter)			    
-				    	$siblings_name = implode(", ", $siblingsListFilter);
-
-				    $data = [
-				    	'spouse_name' => $spouse_name,
-				    	'siblings_name' => $siblings_name
-				    ];
-				    DB::update('user', $data, '`user_id` = ' . to_sql($g_user['user_id']));
-
-				    $result = [
-				    	'success'		=>	'success',
-				    	'no_of_spouse'	=>	sizeof($spouseListFilter),
-				    	'spouse_name'	=>	$spouse_name,
-				    	'no_of_siblings' =>	sizeof($siblingsListFilter),
-				    	'siblings_name'	=>	$siblings_name
-				    ];		
-				    echo json_encode($result);
-					break;
-
-				case 'loadPostedByEdit':
+					break;case 'loadPostedByEdit':
 
 					// user information
 					$e_user_id = $this->input->post('e_user_id');
@@ -539,9 +477,9 @@ class ProfileAjax extends Controller {
 				    if($e_user_id)
 				        $g_user = User::getInfoFull($e_user_id);
 
-				    $poster_name = $this->input->post('poster_name');
-				    $poster_phone = $this->input->post('poster_phone');
-				    $poster_address = $this->input->post('poster_address');
+				    $poster_name = trim(Common::filterProfileText($this->input->post('poster_name')));
+				    $poster_phone = trim(Common::filterProfileText($this->input->post('poster_phone')));
+				    $poster_address = trim(Common::filterProfileText($this->input->post('poster_address')));
 				    $title = $this->input->post('posted_by');
 
 				    $data = [
@@ -553,6 +491,45 @@ class ProfileAjax extends Controller {
 
 				    echo json_encode($data);
 					break;				
+
+				
+
+				case 'loadAdditionalInformationEdit':
+
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $title = $this->input->post('additional_information');
+
+				    $additional_info = $g_user['additional_info'];
+
+					ob_start();
+					include $htmlPath.'profile/loadAdditionalInformationEdit.php';
+					$data = ob_get_clean();
+					echo json_encode(['status' => true,'data' => $data]);
+					break;
+
+				case 'update_additional_information':
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $additional_info = trim(Common::filterProfileText($this->input->post('additional_info')));
+
+				    $data = [
+				    	'additional_info' => $additional_info
+				    ];
+				    DB::update('user', $data, '`user_id` = ' . to_sql($g_user['user_id']));
+
+				    $result = [
+				    	'success'			=>	'success',
+				    	'additional_info'	=>	$additional_info
+				    ];		
+				    echo json_encode($result);
+					break;
 
 				default:
         			echo "Wrong!";

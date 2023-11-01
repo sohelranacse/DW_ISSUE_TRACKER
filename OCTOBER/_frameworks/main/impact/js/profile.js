@@ -1914,10 +1914,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                 var data = JSON.parse(data);
 
                 if(data.success == 'success') {
-                    var result = `
-                        ${data.no_of_spouse ? `<li><i class="fa fa-male"></i><i class="fa fa-female" style="margin-left: -6px;"></i> Spouse${data.no_of_spouse > 1 ? ` (${data.no_of_spouse})` : ``}: ${data.spouse_name}</li>` : ``}
-                        ${data.no_of_siblings ? `<li><i class="fa fa-child"></i><i class="fa fa-child" style="margin-left: -6px;"></i> Siblings${data.no_of_siblings > 1 ? ` (${data.no_of_siblings})` : ``}: ${data.siblings_name}</li>` : ``}
-                    `;
+                    var result = '<li>'+data.additional_info+'</li>';
 
                     $("#additional_section #ul_list").html(result)
                 }                
