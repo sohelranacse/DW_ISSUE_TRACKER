@@ -39,8 +39,16 @@
                             <input type="text" id="company" name="company[]" placeholder="Microsoft Inc." value="<?php echo $value['company']; ?>" required />
                         </div>
                         <div class="form-group-half">
-                            <label><i class="fa fa-map-marker"></i> Address: </label>
+                            <label><i class="fa fa-map-marker"></i> <?php echo $address; ?>: </label>
                             <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" value="<?php echo $value['address']; ?>" />
+                        </div>
+                        <div class="form-group-half">
+                            <label><i class="fa fa-calendar"></i> <?php echo $from_date; ?>: </label>
+                            <input type="date" name="from_date[]" value="<?php echo $value['from_date']; ?>" />
+                        </div>
+                        <div class="form-group-half">
+                            <label><i class="fa fa-calendar"></i> <?php echo $to_date; ?>: </label>
+                            <input type="date" name="to_date[]" value="<?php echo $value['to_date']; ?>" />
                         </div>
                     </div>
                 <?php } ?>
@@ -72,8 +80,16 @@
                         <input type="text" id="company" name="company[]" placeholder="Microsoft Inc." required />
                     </div>
                     <div class="form-group-half">
-                        <label><i class="fa fa-map-marker"></i> Address: </label>
+                        <label><i class="fa fa-map-marker"></i> <?php echo $address; ?>: </label>
                         <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" />
+                    </div>
+                    <div class="form-group-half">
+                        <label><i class="fa fa-calendar"></i> <?php echo $from_date; ?>: </label>
+                        <input type="date" name="from_date[]" />
+                    </div>
+                    <div class="form-group-half">
+                        <label><i class="fa fa-calendar"></i> <?php echo $to_date; ?>: </label>
+                        <input type="date" name="to_date[]" />
                     </div>
 
                 </div>
@@ -105,15 +121,23 @@
                     <input type="text" id="company" name="company[]" placeholder="Microsoft Inc." required />
                 </div>
                 <div class="form-group-half">
-                    <label><i class="fa fa-map-marker"></i> Address: </label>
+                    <label><i class="fa fa-map-marker"></i> <?php echo $address; ?>: </label>
                     <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" />
+                </div>
+                <div class="form-group-half">
+                    <label><i class="fa fa-calendar"></i> <?php echo $from_date; ?>: </label>
+                    <input type="date" name="from_date[]" />
+                </div>
+                <div class="form-group-half">
+                    <label><i class="fa fa-calendar"></i> <?php echo $to_date; ?>: </label>
+                    <input type="date" name="to_date[]" />
                 </div>
             `;
         </script>
 
 
-        <div style="text-align: right;padding-right: 6px;padding-top: 10px;">
-            <button class="btn small pink" style="padding: 0 20px;" value="<?php if($n) echo $n+1; else echo 2; ?>" id="ind" type="button" onclick="return Profile.add_more_profession_field(this.value, myField)">Add more <i class="fa fa-plus"></i></button>
+        <div style="padding-left: 6px;padding-top: 10px;">
+            <button class="btn small pink" style="padding: 0 20px;" value="<?php if($n) echo $n+1; else echo 2; ?>" id="ind" type="button" onclick="return Profile.add_more_profession_field(this.value, myField)"> <i class="fa fa-plus"></i></button>
         </div>
 
     </div>

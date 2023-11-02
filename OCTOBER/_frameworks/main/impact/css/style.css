@@ -799,17 +799,6 @@ h4{ font-size: 12px; line-height: 18px; padding: 0; margin: 0 0 10px; color: #00
 .tabs_profile .menu_func ul.menu_list li.audio_chat.selected{ border-bottom: 3px solid #fb9aab; }
 .tabs_profile .menu_func ul.menu_list li.audio_chat.selected span{ color: #ee8799; cursor: default; }
 
-.view_pdf_menu a{
-    background: url(../images/icon_view_pdf.png) no-repeat;
-    padding-left: 20px;
-    background-size: 17px;
-    line-height: 33px;
-    color: #7d7d7d;
-}
-li.no_profile_pdf{
-    display:none;
-}
-
 #profile_menu_more_options_items{ height: 0; overflow: hidden; position: absolute;
     padding: 0 16px; right: -28px; top: 24px; }
 .tabs_profile .menu_func ul.menu_list li.more .pp_info_cont{ position: relative; top: -13px; }
@@ -992,8 +981,8 @@ width: 14px; height: 14px;	margin: -8px 0 0 -8px;
 	vertical-align: top;
  }
 .tabs_profile .col_right .btn_browse_invisibly:hover{ background: #bbe3fc url(../images/arrow_browse_invisibly.png) 95% 50% no-repeat; }
-.tabs_profile .col_right .btn{ width: 100%; line-height: 54px; }
-.tabs_profile .col_right .btn span.icon_message{ background-image: url(../images/icon_message.svg); background-repeat: no-repeat; background-position: 0 50%;
+.tabs_profile .col_right .btnMsg{ width: 100%; line-height: 54px; }
+.tabs_profile .col_right .btnMsg span.icon_message{ background-image: url(../images/icon_message.svg); background-repeat: no-repeat; background-position: 0 50%;
 background-size: 100% auto; display: inline-block; width: 24px; height: 53px; margin: 0 7px 0 0; vertical-align: top; }
 @-moz-document url-prefix() {
 	.tabs_profile .col_right .btn{ line-height: 51px; }
@@ -5450,6 +5439,7 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
     padding-left: 4px;
     background: transparent;
 }
+.view_nid { color: blue }
 .profile_delete_pdf > i { color: tomato !important; }
 #ul_list li button { padding: 0 15px }
 #ul_list li button > i { color:#fff }
@@ -5476,6 +5466,12 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
 .select2-selection--single {
     border-radius: unset !important;
 }
+.select2-selection--single {
+    border: 1px solid #ddd !important;
+    border-radius: 2px !important;
+    height: 31px !important;
+    padding-top: 2px;
+}
 
 .formdiv { padding: 0 10px }
 .formdiv h3 {
@@ -5500,7 +5496,7 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
     width: 265px;
     display: inline-block;
 }
-.formdiv .form-group-half input[type='text'], .formdiv .form-group-half select {
+.formdiv .form-group-half input, .formdiv .form-group-half select {
     width: 100%;
 }
 .w-full { width: 532px }

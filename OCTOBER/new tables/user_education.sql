@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 22, 2023 at 04:49 PM
+-- Generation Time: Nov 02, 2023 at 12:05 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.26
 
@@ -31,7 +31,10 @@ DROP TABLE IF EXISTS `user_education`;
 CREATE TABLE IF NOT EXISTS `user_education` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `degree_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `education_level_id` int(11) NOT NULL COMMENT 'from helper level_of_education',
+  `degree_id` int(11) NOT NULL COMMENT 'from user_education_degree',
+  `degree_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'other degree',
+  `subject_name` varchar(155) COLLATE utf8_unicode_ci NOT NULL,
   `school_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `results` varchar(55) COLLATE utf8_unicode_ci NOT NULL,

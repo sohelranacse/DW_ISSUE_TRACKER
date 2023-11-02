@@ -51,9 +51,21 @@
                             </div>
                         </div>
                         <div class="bl">
-                            <label><i class="fa fa-map-marker"></i> Address: </label>
+                            <label><i class="fa fa-map-marker"></i> <?php echo $address; ?>: </label>
                             <div class="field">
                             <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" value="<?php echo $value['address']; ?>" />
+                            </div>
+                        </div>
+                        <div class="bl">
+                            <label><i class="fa fa-calendar"></i> <?php echo $from_date; ?>: </label>
+                            <div class="field">
+                            <input type="date" name="from_date[]" value="<?php echo $value['from_date']; ?>" />
+                            </div>
+                        </div>
+                        <div class="bl">
+                            <label><i class="fa fa-calendar"></i> <?php echo $to_date; ?>: </label>
+                            <div class="field">
+                            <input type="date" name="to_date[]" value="<?php echo $value['to_date']; ?>" />
                             </div>
                         </div>
                     </div>
@@ -92,9 +104,21 @@
                         </div>
                     </div>
                     <div class="bl">
-                        <label><i class="fa fa-map-marker"></i> Address: </label>
+                        <label><i class="fa fa-map-marker"></i> <?php echo $address; ?>: </label>
                         <div class="field">
                         <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" />
+                        </div>
+                    </div>
+                    <div class="bl">
+                        <label><i class="fa fa-calendar"></i> <?php echo $from_date; ?>: </label>
+                        <div class="field">
+                        <input type="date" name="from_date[]" />
+                        </div>
+                    </div>
+                    <div class="bl">
+                        <label><i class="fa fa-calendar"></i> <?php echo $to_date; ?>: </label>
+                        <div class="field">
+                        <input type="date" name="to_date[]" />
                         </div>
                     </div>
 
@@ -133,10 +157,22 @@
                         </div>
                 </div>
                 <div class="bl">
-                    <label><i class="fa fa-map-marker"></i> Address: </label>
+                    <label><i class="fa fa-map-marker"></i> <?php echo $address; ?>: </label>
                     <div class="field">
                     <input type="text" name="address[]" placeholder="Dhaka, Bangladesh" />
                         </div>
+                </div>
+                <div class="bl">
+                    <label><i class="fa fa-calendar"></i> <?php echo $from_date; ?>: </label>
+                    <div class="field">
+                    <input type="date" name="from_date[]" />
+                    </div>
+                </div>
+                <div class="bl">
+                    <label><i class="fa fa-calendar"></i> <?php echo $to_date; ?>: </label>
+                    <div class="field">
+                    <input type="date" name="to_date[]" />
+                    </div>
                 </div>
             `;
         </script>

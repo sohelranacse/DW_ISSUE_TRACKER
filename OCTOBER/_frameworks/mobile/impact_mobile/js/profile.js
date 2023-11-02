@@ -1551,8 +1551,9 @@ var CProfile = function(guid, sending_messages_per_day) {
                             <li><i class="fa fa-level-up"></i> ${data[i].position}</li>
                             <ul>
                                 <li><i class="fa fa-industry"></i> ${data[i].company}</li>
-                                ${data[i].address ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
                                 <li><i class="fa fa-bullhorn"></i> ${data[i].title}</li>
+                                ${data[i].address ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
+                                ${data[i].from_date ? `<li><i class="fa fa-map-marker"></i> ${data[i].from_date} to ${data[i].to_date ? `${data[i].to_date}` : l('continuing')}</li>` : ``}
                             </ul>
                         `;
                     }

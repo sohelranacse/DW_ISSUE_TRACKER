@@ -3250,7 +3250,10 @@ $l['all']['a_group_user'] = "A Group User";
 $l['all']['nid_verify_title'] = "Verify National Identity Card";
 $l['all']['upload_nid'] = "Upload NID";
 $l['all']['re_upload_nid'] = "Re Upload NID";
+$l['all']['view_nid'] = "View NID";
 $l['all']['upload_cv'] = "Upload CV";
+$l['all']['view_cv'] = "View CV";
+$l['all']['delete_cv'] = "Delete CV";
 $l['all']['upload_cv_file_into_your_profile'] = "Upload CV File into your Profile!";
 $l['all']['upload_nid_file_into_your_profile'] = "Upload NID File into your Profile!";
 $l['all']['verified'] = "Verified";
@@ -5025,7 +5028,9 @@ $l['live_list_finished.php']['go_to_profile'] = "Go to profile";
 $l['visitors.php']['page_title'] = "Visitors of ";
 
 
-$l['all']['degree_title'] = "Degree Title";
+$l['all']['level_of_education'] = "Level Of Education";
+$l['all']['degree_title'] = "Degree";
+$l['all']['subject_title'] = "Subject/Group";
 $l['all']['institute_name'] = "Institution Name";
 $l['all']['results'] = "Result";
 $l['all']['passing_year'] = "Passing Year";
@@ -5033,6 +5038,9 @@ $l['all']['passing_year'] = "Passing Year";
 $l['all']['profession_type'] = "Profession";
 $l['all']['position'] = "Position/Title";
 $l['all']['company'] = "Company";
+$l['all']['from_date'] = "Start Date";
+$l['all']['to_date'] = "End Date";
+$l['all']['continuing'] = "Continuing";
 
 $l['all']['highest_degree'] = "Highest Degree";
 $l['all']['marital_status'] = "Marital Status";

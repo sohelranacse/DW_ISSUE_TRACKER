@@ -262,9 +262,19 @@ class ProfileAjax extends Controller {
 				    if($e_user_id)
 				        $g_user = User::getInfoFull($e_user_id);
 
-				    $educationList = DB::all("SELECT * FROM `user_education` WHERE user_id = {$g_user['user_id']} ORDER BY added_on");
 
+				    $level_of_edu_list = level_of_education();
+				    $educationList = DB::all("
+				    	SELECT a.*, b.degree_name
+				    	FROM user_education a
+				    	LEFT JOIN user_education_degree b ON (a.education_level_id = b.education_level_id)
+				    	WHERE a.user_id = {$g_user['user_id']}
+				    	ORDER BY a.added_on
+				    ");
+
+					$level_of_education = l('level_of_education');
 					$degree_title = l('degree_title');
+					$subject_title = l('subject_title');
 					$institute_name = l('institute_name');
 					$results = l('results');
 					$passing_year = l('passing_year');
@@ -274,6 +284,12 @@ class ProfileAjax extends Controller {
 					ob_start();
 					include $htmlPath.'profile/loadEducationEdit.php';
 					$data = ob_get_clean();
+					echo json_encode(['status' => true,'data' => $data]);
+					break;
+
+				case 'get_degree_como':
+					$education_level_id = $this->input->post('education_level_id');
+					$data = DB::all("SELECT degree_id, degree_name FROM user_education_degree WHERE education_level_id = $education_level_id");
 					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
@@ -328,6 +344,8 @@ class ProfileAjax extends Controller {
 					$position = l('position');
 					$address = l('address');
 					$company = l('company');
+					$from_date = l('from_date');
+					$to_date = l('to_date');
 					$title = l('profession');
 
 					ob_start();
@@ -346,6 +364,8 @@ class ProfileAjax extends Controller {
 				    $position = $this->input->post('position');
 				    $address = $this->input->post('address');
 				    $company = $this->input->post('company');
+				    $from_date = $this->input->post('from_date');
+				    $to_date = $this->input->post('to_date');
 				    
 				    $i = 0;
 				    DB::delete('user_profession', '`user_id` =' . to_sql($g_user['user_id']));
@@ -360,6 +380,11 @@ class ProfileAjax extends Controller {
 				    			'added_on'		=>	date("Y-m-d H:i:s"),
 				    			'user_id'		=>	$g_user['user_id'],
 				    		];
+				    		if(trim(Common::filterProfileText($from_date[$i])))
+				    			$data['from_date'] = trim(Common::filterProfileText($from_date[$i]));
+				    		if(trim(Common::filterProfileText($to_date[$i])))
+				    			$data['to_date'] = trim(Common::filterProfileText($to_date[$i]));
+				    		
 				    		DB::insert('user_profession', $data);
 
 						    $i++;
