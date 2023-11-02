@@ -1393,10 +1393,24 @@ var CProfile = function(guid, sending_messages_per_day) {
         var currentYear = currentDate.getFullYear();
 
         var err = 0;
-        $('[name="degree_title[]"]').each(function() {
+        $('[name="education_level_id[]"]').each(function() {
             if($(this).val() == "") {
                 err++;
-                showAlert('Please type Exam/Degree Title!',true,'Information incomplete');
+                showAlert('Please type Level of Education!',true,'Information incomplete');
+                return false
+            }
+        });
+        $('[name="degree_id[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                showAlert('Please type Degree!',true,'Information incomplete');
+                return false
+            }
+        });
+        $('[name="subject_title[]"]').each(function() {
+            if($(this).val() == "") {
+                err++;
+                showAlert('Please type Subject!',true,'Information incomplete');
                 return false
             }
         });
@@ -1439,8 +1453,9 @@ var CProfile = function(guid, sending_messages_per_day) {
                 if(data.length)
                     for(var i=0; i < data.length; i++) {
                         result += `
-                            <li><i class="fa fa-graduation-cap"></i> ${data[i].degree_title}</li>
+                            ${data[i].degree_id > 0 ? `<li><i class="fa fa-graduation-cap"></i> ${data[i].degree_name}</li>` : `<li><i class="fa fa-graduation-cap"></i> ${data[i].degree_title}</li>`}
                             <ul>
+                                <li><i class="fa fa-book"></i> ${data[i].subject_title}</li>
                                 <li><i class="fa fa-university"></i> ${data[i].school_name}</li>
                                 ${data[i].address ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
                                 ${data[i].results ? `<li><i class="fa fa-calculator"></i> ${data[i].results}</li>` : ``}

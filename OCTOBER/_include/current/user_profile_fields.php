@@ -89,13 +89,25 @@
 
 
     ############ EDUCATION ##############
-    $educationList = DB::all("SELECT * FROM `user_education` WHERE user_id = {$row['user_id']} ORDER BY added_on");
+    $educationList = DB::all("
+    	SELECT a.*, b.degree_name
+    	FROM user_education a
+    	LEFT JOIN user_education_degree b ON (a.degree_id = b.degree_id)
+    	WHERE a.user_id = {$row['user_id']}
+    	ORDER BY a.added_on
+    ");
     $educationData = '';
     if(sizeof($educationList)) {
     	foreach($educationList as $educationRow) {
 
-    		$educationData .= '<li><i class="fa fa-graduation-cap"></i> ' . $educationRow['degree_title'] . '</li>';
+    		if($educationRow['degree_id'] > 0)
+    			$educationData .= '<li><i class="fa fa-graduation-cap"></i> ' . $educationRow['degree_name'] . '</li>';
+    		else
+    			$educationData .= '<li><i class="fa fa-graduation-cap"></i> ' . $educationRow['degree_title'] . '</li>';
+
 		    $educationData .= '<ul>';
+
+		    $educationData .= '<li><i class="fa fa-book"></i> ' . $educationRow['subject_title'] . '</li>';
 		    $educationData .= '<li><i class="fa fa-university"></i> ' . $educationRow['school_name'] . '</li>';
 
 		    if (!empty($educationRow['address']))

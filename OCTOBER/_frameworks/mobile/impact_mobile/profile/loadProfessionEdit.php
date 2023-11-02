@@ -178,8 +178,8 @@
         </script>
 
 
-        <div style="margin-bottom: 30px;">
-            <button class="btn small turquoise" style="padding: 0 20px;" value="<?php if($n) echo $n+1; else echo 2; ?>" id="ind" type="button" onclick="return clProfile.add_more_profession_field(this.value, myField)">Add more <i class="fa fa-plus"></i></button>
+        <div style="margin-bottom: 30px;width: 50px;">
+            <button class="btn small turquoise" style="padding: 0 20px;" value="<?php if($n) echo $n+1; else echo 2; ?>" id="ind" type="button" onclick="return clProfile.add_more_profession_field(this.value, myField)"><i class="fa fa-plus"></i></button>
         </div>
 
     </div>

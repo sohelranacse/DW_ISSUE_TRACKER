@@ -267,7 +267,7 @@ class ProfileAjax extends Controller {
 				    $educationList = DB::all("
 				    	SELECT a.*, b.degree_name
 				    	FROM user_education a
-				    	LEFT JOIN user_education_degree b ON (a.education_level_id = b.education_level_id)
+				    	LEFT JOIN user_education_degree b ON (a.degree_id = b.degree_id)
 				    	WHERE a.user_id = {$g_user['user_id']}
 				    	ORDER BY a.added_on
 				    ");
@@ -299,7 +299,11 @@ class ProfileAjax extends Controller {
 				    if($e_user_id)
 				        $g_user = User::getInfoFull($e_user_id);
 
-				    $degree = $this->input->post('degree_title');
+				    $education_level = $this->input->post('education_level_id');
+				    $degree_id = $this->input->post('degree_id');
+				    $degree_title = $this->input->post('degree_title');
+				    $subject_title = $this->input->post('subject_title');
+
 				    $school_name = $this->input->post('school_name');
 				    $address = $this->input->post('address');
 				    $results = $this->input->post('results');
@@ -307,11 +311,15 @@ class ProfileAjax extends Controller {
 
 				    $i = 0;
 				    DB::delete('user_education', '`user_id` =' . to_sql($g_user['user_id']));
-				    if($this->input->post('degree_title') && sizeof($degree)) {
-					    foreach($degree as $degree_title) {
+				    if($this->input->post('degree_title') && sizeof($education_level)) {
+					    foreach($education_level as $education_level_id) {
 
 					    	$data = [
-				    			'degree_title'	=>	trim(Common::filterProfileText($degree_title)),
+				    			'education_level_id'	=>	trim(Common::filterProfileText($education_level_id)),
+				    			'degree_id'	=>	trim(Common::filterProfileText($degree_id[$i])),
+				    			'subject_title'	=>	trim(Common::filterProfileText($subject_title[$i])),
+				    			'degree_title'		=>	(trim(Common::filterProfileText($degree_title[$i])) && $degree_id[$i] == 0) ? trim(Common::filterProfileText($degree_title[$i])) : '',
+
 				    			'school_name'	=>	trim(Common::filterProfileText($school_name[$i])),
 				    			'address'		=>	trim(Common::filterProfileText($address[$i])) ? trim(Common::filterProfileText($address[$i])) : '',
 				    			'results'		=>	trim(Common::filterProfileText($results[$i])) ? trim(Common::filterProfileText($results[$i])) : '',
@@ -325,8 +333,13 @@ class ProfileAjax extends Controller {
 					    }	
 					}					    
 
-
-				    $educationList = DB::all("SELECT * FROM `user_education` WHERE user_id = {$g_user['user_id']} ORDER BY added_on");
+					$educationList = DB::all("
+				    	SELECT a.*, b.degree_name
+				    	FROM user_education a
+				    	LEFT JOIN user_education_degree b ON (a.degree_id = b.degree_id)
+				    	WHERE a.user_id = {$g_user['user_id']}
+				    	ORDER BY a.added_on
+				    ");
 				    echo json_encode($educationList);
 					break;
 

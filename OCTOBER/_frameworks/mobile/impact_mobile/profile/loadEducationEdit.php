@@ -1,4 +1,7 @@
 <div id="<?php echo $cmd; ?>" class="pp_popup_editor visible">
+<style type="text/css">
+.hide { display:none; }
+</style>
 <form id="frm_update_education" name="frm_update_education" method="POST" onsubmit="return clProfile.submit_education(event, this)">
     <input type="hidden" name="cmd" value="update_education" />
     <input type="hidden" name="e_user_id" value="<?php echo $e_user_id; ?>" />
@@ -15,17 +18,65 @@
             $n = sizeof($educationList);
 
             if($n) {
-                foreach($educationList as $key => $value) { ?>
+                foreach($educationList as $key => $value) {
+                    $degreeData = DB::all("SELECT degree_id, degree_name FROM user_education_degree WHERE education_level_id = {$value['education_level_id']}");
+            ?>
                     <div class="add_more_div" id="more_education<?php echo $key+1; ?>">
                         <div class="close_div">
                             <button type="button" onclick="clProfile.close_multiple_div(<?php echo $key+1; ?>)"><i class="fa fa-times"></i></button>
                         </div>
+
+                        <div class="bl">
+                            <label><i class="fa fa-bell"></i> <?php echo $level_of_education; ?>: </label>
+                            <div class="field">
+                            <select class="combo" name="education_level_id[]" onchange="return get_degree(this, this.value)">
+                                <option value="">Select</option>
+                                <?php
+                                    foreach($level_of_edu_list as $Ekey => $row) {
+                                        $selected = "";
+                                        if($Ekey == $value['education_level_id'])
+                                            $selected = "selected";
+
+                                        echo '<option value="' . $Ekey . '" '.$selected.'>' . $row . '</option>';
+                                    }
+                                ?>
+                            </select>
+                            </div>
+                        </div>
                         <div class="bl">
                             <label><i class="fa fa-graduation-cap"></i> <?php echo $degree_title; ?>: <span class="r">*</span></label>
                             <div class="field">
-                            <input type="text" id="degree_title" name="degree_title[]" placeholder="BSc in Computer Science" value="<?php echo $value['degree_title']; ?>" required />
+                            <span id="degree_div">
+                                <select class="combo" name="degree_id[]" onchange="return get_other_degree('more_education<?php echo $key+1; ?>', this.value)" required>
+                                    <?php
+                                    $d = 0;
+                                    if(sizeof($degreeData))
+                                        foreach($degreeData as $dRow) {
+                                            $selected = "";
+                                            if($dRow['degree_id'] == $value['degree_id']){
+                                                $selected = "selected";
+                                                $d++;
+                                            }
+
+                                            echo '<option value="' . $dRow['degree_id'] . '" '.$selected.'>' . $dRow['degree_name'] . '</option>';
+                                        }
+                                    ?>
+                                    <option value="0" <?php if(!$d) echo 'selected'; ?>><?php echo l('other'); ?></option>
+                                </select>
+                            </span>
+                            <span id="other_degree_div" class="<?php if(!$value['degree_title']) echo 'hide'; ?>">
+                                <input type="text" name="degree_title[]" value="<?php echo $value['degree_title']; ?>" />
+                            </span>
                             </div>
                         </div>
+
+                        <div class="bl">
+                            <label><i class="fa fa-book"></i> <?php echo $subject_title; ?>: <span class="r">*</span></label>
+                            <div class="field">
+                            <input type="text" name="subject_title[]" value="<?php echo $value['subject_title']; ?>" required />
+                            </div>
+                        </div>
+
                         <div class="bl">
                             <label><i class="fa fa-university"></i> <?php echo $institute_name; ?>: <span class="r">*</span></label>
                             <div class="field">
@@ -45,7 +96,7 @@
                             </div>
                         </div>
                         <div class="bl">
-                            <label><i class="fa fa-calendar"></i> Passing Year: </label>
+                            <label><i class="fa fa-calendar"></i> <?php echo l('passing_year') ?>: <span class="r">*</span></label>
                             <div class="field">
                             <select class="combo" name="passing_year[]">
                                 <option value="">Select</option>
@@ -70,12 +121,41 @@
                     <div class="close_div">
                         <button type="button" onclick="clProfile.close_multiple_div(1)"><i class="fa fa-times"></i></button>
                     </div>
+
+                    <div class="bl">
+                        <label><i class="fa fa-bell"></i> <?php echo $level_of_education; ?>: </label>
+                        <div class="field">
+                        <select class="combo" name="education_level_id[]" onchange="return get_degree(this, this.value)">
+                            <option value="">Select</option>
+                            <?php
+                                foreach($level_of_edu_list as $key => $row) {
+                                    echo '<option value="' . $key . '">' . $row . '</option>';
+                                }
+                            ?>
+                        </select>
+                        </div>
+                    </div>
                     <div class="bl">
                         <label><i class="fa fa-graduation-cap"></i> <?php echo $degree_title; ?>: <span class="r">*</span></label>
                         <div class="field">
-                        <input type="text" id="degree_title" name="degree_title[]" placeholder="BSc in Computer Science" required />
+                        <span id="degree_div">
+                            <select class="combo" name="degree_id[]" required>
+                                <option value="">Select</option>
+                            </select>
+                        </span>
+                        <span id="other_degree_div" class="hide">
+                            <input type="text" name="degree_title[]" />
+                        </span>
                         </div>
                     </div>
+
+                    <div class="bl">
+                        <label><i class="fa fa-book"></i> <?php echo $subject_title; ?>: <span class="r">*</span></label>
+                        <div class="field">
+                        <input type="text" name="subject_title[]" placeholder="Electrical Engineering" required />
+                        </div>
+                    </div>
+
                     <div class="bl">
                         <label><i class="fa fa-university"></i> <?php echo $institute_name; ?>: <span class="r">*</span></label>
                         <div class="field">
@@ -95,7 +175,7 @@
                         </div>
                     </div>
                     <div class="bl">
-                        <label><i class="fa fa-calendar"></i> Passing Year: </label>
+                        <label><i class="fa fa-calendar"></i> <?php echo l('passing_year') ?>: <span class="r">*</span></label>
                         <div class="field">
                         <select class="combo" name="passing_year[]">
                             <option value="">Select</option>
@@ -116,11 +196,90 @@
         </div>
 
         <script type="text/javascript">
+            const btnLoader = `
+            <div class="css_loader btn_action_loader"><div class="spinner center spinnerw"><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div><div class="spinner-blade"></div></div></div>`;
+
+            function get_degree(div, education_level_id) {
+                var parentDivId = div.closest(".add_more_div").id;
+                console.log(parentDivId, education_level_id);
+
+                if(education_level_id == 8)
+                    $(`#${parentDivId} #degree_div`).html(`<input type="text" name="degree_title[]" placeholder="Type degree" />`)
+                else if(education_level_id) {
+                    $(`#${parentDivId} #degree_div`).html(btnLoader)
+                    $.ajax({
+                        url: '../profile_ajax.php',
+                        type: 'POST',
+                        data: {
+                            "cmd": "get_degree_como",
+                            "education_level_id": education_level_id,
+                        },             
+                        success:function(data){
+                            var result = JSON.parse(data);
+                            var data = result.data;
+                            var result = `<select class="combo" name="degree_id[]" onchange="return get_other_degree('${parentDivId}', this.value)">`;
+                            if(data.length)
+                                for(var i=0; i < data.length; i++) {
+                                    result += `
+                                        <option value="${data[i].degree_id}">${data[i].degree_name}</option>
+                                    `;
+                                }
+                            result += '<option value="0">'+l('other')+'</option></select>'
+                            $(`#${parentDivId} #degree_div`).html(result)
+                            $(".combo").select2()
+                        },
+                        error: function(xhr, status, error) {
+                            console.log("Error: " + error);
+                        }
+             
+                    });
+                } else {
+                    $(`#${parentDivId} #degree_div`).html(`<select class="combo" name="degree_id[]">
+                                <option value="">Select</option>
+                            </select>`)
+                    $(".combo").select2()
+                }
+            }
+            function get_other_degree(parentDivId, degree_id) {
+                console.log(parentDivId, degree_id);
+                if(degree_id == 0)
+                    $(`#${parentDivId} #other_degree_div`).removeClass('hide')
+                else
+                    $(`#${parentDivId} #other_degree_div`).addClass('hide')
+            }
+
             var myField = `
+                <div class="bl">
+                    <label><i class="fa fa-bell"></i> <?php echo $level_of_education; ?>: </label>
+                    <div class="field">
+                    <select class="combo" name="education_level_id[]" onchange="return get_degree(this, this.value)">
+                        <option value="">Select</option>
+                        <?php
+                            foreach($level_of_edu_list as $key => $row) {
+                                echo '<option value="' . $key . '">' . $row . '</option>';
+                            }
+                        ?>
+                    </select>
+                    </div>
+                </div>
                 <div class="bl">
                     <label><i class="fa fa-graduation-cap"></i> <?php echo $degree_title; ?>: <span class="r">*</span></label>
                     <div class="field">
-                    <input type="text" id="degree_title" name="degree_title[]" placeholder="BSc in Computer Science" required />
+                    <span id="degree_div">
+                        <select class="combo" name="degree_id[]" required>
+                            <option value="">Select</option>
+                        </select>
+                    </span>
+                    <span id="other_degree_div" class="hide">
+                        <input type="text" name="degree_title[]" />
+                    </span>
+                    </div>
+                </div>
+
+                <div class="bl">
+                    <label><i class="fa fa-book"></i> <?php echo $subject_title; ?>: <span class="r">*</span></label>
+                    <div class="field">
+                    <input type="text" name="subject_title[]" placeholder="Electrical Engineering" required />
                     </div>
                 </div>
                 <div class="bl">
@@ -142,7 +301,7 @@
                     </div>
                 </div>
                 <div class="bl">
-                    <label><i class="fa fa-calendar"></i> Passing Year: </label>
+                    <label><i class="fa fa-calendar"></i> <?php echo l('passing_year') ?>: <span class="r">*</span></label>
                     <div class="field">
                     <select class="combo" name="passing_year[]">
                         <option value="">Select</option>
@@ -159,8 +318,8 @@
         </script>
 
 
-        <div style="margin-bottom: 30px;">
-            <button class="btn small turquoise" style="padding: 0 20px;" value="<?php if($n) echo $n+1; else echo 2; ?>" id="ind" type="button" onclick="return clProfile.add_more_education_field(this.value, myField)">Add more <i class="fa fa-plus"></i></button>
+        <div style="margin-bottom: 30px;width: 50px;">
+            <button class="btn small turquoise" style="padding: 0 20px;" value="<?php if($n) echo $n+1; else echo 2; ?>" id="ind" type="button" onclick="return clProfile.add_more_education_field(this.value, myField)"><i class="fa fa-plus"></i></button>
         </div>
 
     </div>
