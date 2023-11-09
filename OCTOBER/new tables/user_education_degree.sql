@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 02, 2023 at 10:02 AM
--- Server version: 5.7.31
--- PHP Version: 7.4.26
+-- Generation Time: Nov 09, 2023 at 04:57 PM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,23 +29,17 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `user_education_degree`;
 CREATE TABLE IF NOT EXISTS `user_education_degree` (
-  `degree_id` int(11) NOT NULL AUTO_INCREMENT,
-  `degree_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `education_level_id` int(11) NOT NULL,
+  `degree_id` int NOT NULL AUTO_INCREMENT,
+  `degree_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `education_level_id` int NOT NULL,
   PRIMARY KEY (`degree_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `user_education_degree`
 --
 
 INSERT INTO `user_education_degree` (`degree_id`, `degree_name`, `education_level_id`) VALUES
-(1, 'PSC', 1),
-(2, 'Ebtedayee (Madrasah)', 1),
-(3, '5 Pass', 1),
-(4, 'JSC', 2),
-(5, 'JDC (Madrasah)', 2),
-(6, '8 Pass', 2),
 (7, 'SSC', 3),
 (8, 'O Level', 3),
 (9, 'Dakhil (Madrasah)', 3),

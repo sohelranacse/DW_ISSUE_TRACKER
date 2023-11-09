@@ -677,8 +677,8 @@ if ($g_user['user_id']) {
     foreach($locations as $location) {
         $userSearchFilters[$location] = array(
             'field' => $location,
-            'value' => $searchCountry,
-            // 'value' => $searchCountry ? get_param($location) : 0, locaiton by sohel, will be change
+            // 'value' => $searchCountry,
+            'value' => $searchCountry ? get_param($location) : 0, // locaiton by sohel, will be change
         );
         $userSearchFiltersMobile[$location] = $userSearchFilters[$location];
     }

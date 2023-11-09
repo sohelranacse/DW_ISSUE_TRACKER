@@ -5030,7 +5030,7 @@ $l['visitors.php']['page_title'] = "Visitors of ";
 
 $l['all']['level_of_education'] = "Level Of Education";
 $l['all']['degree_title'] = "Degree";
-$l['all']['subject_title'] = "Subject/Group";
+$l['all']['subject_title'] = "Subject";
 $l['all']['institute_name'] = "Institution Name";
 $l['all']['results'] = "Result";
 $l['all']['passing_year'] = "Passing Year";
@@ -5053,4 +5053,6 @@ $l['all']['profile_completed'] = "Profile completed";
 $l['all']['relation'] = "Relationship";
 $l['all']['uploaded_cv'] = "Uploaded CV";
 $l['all']['please_select'] = "";
+
+$l['all']['additional_information_placeholder'] = "e.g.: Parenting and Family Planning, Cultural Compatibility, Friendship and Social Relationships, Time Management and Work-Life Balance, Travel Preferences and Goals";
 ?>

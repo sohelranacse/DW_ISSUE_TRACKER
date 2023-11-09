@@ -1,7 +1,7 @@
 Admin Panel
 -----------
 
-2. Countries
+2. Countries (UPDATED)
 http://localhost/mymatch/administration/users_fields_countries.php
 	Country order - Bangladesh, USA, UK, Saudi Arabia, UAE
 

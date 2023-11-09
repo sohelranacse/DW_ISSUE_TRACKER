@@ -8,8 +8,6 @@
 	if(!function_exists('level_of_education')) {
 		function level_of_education() {
 		    return [
-		    	'1' => 'PSC/5 pass',
-		    	'2' => 'JSC/JDC/8 pass',
 		    	'3' => 'Secondary',
 		    	'4' => 'Higher Secondary',
 		    	'5' => 'Diploma',

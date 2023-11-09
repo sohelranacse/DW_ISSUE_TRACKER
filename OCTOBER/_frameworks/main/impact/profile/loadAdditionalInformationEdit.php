@@ -4,7 +4,7 @@
 
     <div class="formdiv">
         <div class="form-group">
-            <textarea name="additional_info" id="additional_info" placeholder="Type additional information" rows="10" style="width: 100%;line-height: 26px"><?php echo $additional_info; ?></textarea>
+            <textarea name="additional_info" id="additional_info" placeholder="<?php echo l('additional_information_placeholder'); ?>" rows="10" style="width: 100%;line-height: 26px"><?php echo $additional_info; ?></textarea>
         </div>
 
     </div>

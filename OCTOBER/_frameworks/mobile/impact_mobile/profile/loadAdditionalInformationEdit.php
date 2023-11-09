@@ -10,7 +10,7 @@
 
     <div class="bl_frm">
         <div class="bl">
-            <textarea name="additional_info" id="additional_info" placeholder="Type additional information" rows="10" style=""><?php echo $additional_info; ?></textarea>
+            <textarea name="additional_info" id="additional_info" placeholder="<?php echo l('additional_information_placeholder'); ?>" rows="10" style=""><?php echo $additional_info; ?></textarea>
         </div>
 
     </div>
