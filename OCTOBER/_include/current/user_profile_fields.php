@@ -149,12 +149,6 @@
 		    
 		    if (!empty($professionRow['address']))
 		        $professionData .= '<li><i class="fa fa-map-marker"></i> ' . $professionRow['address'] . '</li>';
-
-		    if (!empty($professionRow['from_date'])) {
-		    	$and_end_date = $professionRow['to_date'] ? $professionRow['to_date'] : l('continuing');
-
-		        $professionData .= '<li><i class="fa fa-calendar"></i> ' . $professionRow['from_date'] . ' to '.$and_end_date.'</li>';
-		    }
 		    
 		    $professionData .= '</ul>';
 		}

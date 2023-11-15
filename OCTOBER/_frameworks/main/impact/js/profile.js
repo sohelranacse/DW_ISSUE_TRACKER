@@ -1752,7 +1752,6 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                                 <li><i class="fa fa-industry"></i> ${data[i].company}</li>
                                 <li><i class="fa fa-bullhorn"></i> ${data[i].title}</li>
                                 ${data[i].address ? `<li><i class="fa fa-map-marker"></i> ${data[i].address}</li>` : ``}
-                                ${data[i].from_date ? `<li><i class="fa fa-map-marker"></i> ${data[i].from_date} to ${data[i].to_date ? `${data[i].to_date}` : l('continuing')}</li>` : ``}
                             </ul>
                         `;
                     }

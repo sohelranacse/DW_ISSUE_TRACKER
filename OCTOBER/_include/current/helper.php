@@ -13,7 +13,8 @@
 		    	'5' => 'Diploma',
 		    	'6' => 'Bachelor/Honors',
 		    	'7' => 'Masters',
-		    	'8' => 'PhD (Doctor of Philosophy)'
+		    	'8' => 'PhD (Doctor of Philosophy)',
+		    	'9' => 'Other'
 		    ];
 		}
 	}

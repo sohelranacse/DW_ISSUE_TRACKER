@@ -182,7 +182,7 @@
                 var parentDivId = div.closest(".add_more_div").id;
                 console.log(parentDivId, education_level_id);
 
-                if(education_level_id == 8) {
+                if(education_level_id == 8 || education_level_id == 9) {
                     $(`#${parentDivId} #degree_div`).html(`<input type="text" name="degree_title[]" placeholder="Type degree" required />`)
                     $(`#${parentDivId} #other_degree_div`).addClass('hide')
                 }

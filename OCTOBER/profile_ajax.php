@@ -357,8 +357,6 @@ class ProfileAjax extends Controller {
 					$position = l('position');
 					$address = l('address');
 					$company = l('company');
-					$from_date = l('from_date');
-					$to_date = l('to_date');
 					$title = l('profession');
 
 					ob_start();
@@ -377,8 +375,6 @@ class ProfileAjax extends Controller {
 				    $position = $this->input->post('position');
 				    $address = $this->input->post('address');
 				    $company = $this->input->post('company');
-				    $from_date = $this->input->post('from_date');
-				    $to_date = $this->input->post('to_date');
 				    
 				    $i = 0;
 				    DB::delete('user_profession', '`user_id` =' . to_sql($g_user['user_id']));
@@ -393,10 +389,6 @@ class ProfileAjax extends Controller {
 				    			'added_on'		=>	date("Y-m-d H:i:s"),
 				    			'user_id'		=>	$g_user['user_id'],
 				    		];
-				    		if(trim(Common::filterProfileText($from_date[$i])))
-				    			$data['from_date'] = trim(Common::filterProfileText($from_date[$i]));
-				    		if(trim(Common::filterProfileText($to_date[$i])))
-				    			$data['to_date'] = trim(Common::filterProfileText($to_date[$i]));
 				    		
 				    		DB::insert('user_profession', $data);
 

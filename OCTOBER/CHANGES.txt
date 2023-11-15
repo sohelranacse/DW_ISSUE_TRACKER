@@ -17,6 +17,6 @@ ALTER TABLE `user` ADD `poster_name` VARCHAR(100) NULL AFTER `unfavorite_city_id
 
 ALTER TABLE `user` ADD `additional_info` TEXT NOT NULL AFTER `poster_phone`;
 
-4. Add profile fields
+4. Add profile fields (DONE)
 	i. Preferred Profession
-	ii. Marital status
+	ii. Marital Status
