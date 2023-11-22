@@ -966,7 +966,7 @@ width: 14px; height: 14px;	margin: -8px 0 0 -8px;
 
 .tabs_profile .col_right{ width: 290px; float: right; }
 .tabs_profile .col_right .bl{ margin: 0 0 30px; }
-.tabs_profile .col_right .bl .title{ font-size: 20px; line-height: 24px; margin: 0 0 18px; }
+.tabs_profile .col_right .bl .title{ font-size: 20px; line-height: 24px; margin-bottom: 10px; }
 .tabs_profile .col_right .list_interest{ padding: 5px 0 0 !important; border-top: 1px solid #dcdee2; }
 .tabs_profile .col_right .btn_browse_invisibly{position:relative; overflow:hidden; transition: 0.5s ease; display: block; text-align: center; background: #cbe8fb url(../images/arrow_browse_invisibly.png) 95% 50% no-repeat; color: #4c8fba; border-radius: 3px; line-height: 51px; font-weight: bold; }
 .tabs_profile .col_right .btn_browse_invisibly span.icon_browse_invisibly{
@@ -5529,4 +5529,17 @@ ul.pp_small_decor_r_show li:last-child a.selected:hover span{ background: url(..
 }
 label .r {
     color: tomato;
+}
+
+/*verify*/
+.verify_blue { color: blue; }
+.verify_pending { color: #333 }
+.verify_red { color: red }
+.verify_phone_number_form #vcode_submit { padding: 0 10px }
+.verify_phone_number_form #resendCode { 
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
 }

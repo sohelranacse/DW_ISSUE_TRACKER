@@ -1007,6 +1007,17 @@ class CUsers extends CHtmlList {
                     $html->parse('rejected_nid', false);
                 }
 
+                // verify phone number
+                $html->setvar('user_phone_number', $row_user['phone']);
+                if($row_user['is_verified'] == "Y")
+                    $html->setvar('phone_verification_status', "<span class='verify_blue'>".l('verified')."</span>");
+                else {
+                    if($row_user['verification_code'])
+                        $html->setvar('phone_verification_status', "<span class='verify_pending'>".l('verification_pending')."</span>");
+                    else
+                        $html->setvar('phone_verification_status', "<span class='verify_red'>".l('unverified')."</span>");
+                }
+
                     
                 $html->parse($blFooterMember, false);
             }

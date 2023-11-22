@@ -2003,6 +2003,37 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
  
         });
     }
+
+    // posted by
+    this.loadVerifyPhoneNumber = function(id) {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "loadVerifyPhoneNumber",
+                e_user_id
+            },
+ 
+            success:function(data){
+                var result = JSON.parse(data);
+                $this.updatePopupEditor(id,result.data);
+                $('.combo').select2();
+
+
+                $(`#${id} .frm_editor_save`).attr('disabled', false)
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+
+    // main function
     $(function(){
         $('.showModal').click(function(){
             var id = this.id;
@@ -2079,6 +2110,10 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
                     return false;
                 })
                 $this.loadPostedByEdit(id)
+            }
+            else if(id == "verify_phone_number") {
+                $('#verify_phone_number .foot').empty()
+                $this.loadVerifyPhoneNumber(id)
             }
 
         })

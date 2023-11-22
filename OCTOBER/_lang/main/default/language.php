@@ -5055,4 +5055,11 @@ $l['all']['uploaded_cv'] = "Uploaded CV";
 $l['all']['please_select'] = "";
 
 $l['all']['additional_information_placeholder'] = "e.g.: Parenting and Family Planning, Cultural Compatibility, Friendship and Social Relationships, Time Management and Work-Life Balance, Travel Preferences and Goals";
+
+$l['all']['please_select'] = "";
+$l['all']['verify_phone_number'] = "Verify Phone Number";
+$l['all']['confirm_your_phone_number'] = "Please confirm your phone number verification";
+$l['all']['verification_code'] = "Verification Code";
+$l['all']['resend_text'] = "Didn't receive the code?";
+$l['all']['resend_code'] = "Resend Code";
 ?>

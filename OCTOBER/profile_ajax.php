@@ -483,7 +483,9 @@ class ProfileAjax extends Controller {
 				    	ORDER BY a.added_on
 				    ");
 				    echo json_encode($relativeList);
-					break;case 'loadPostedByEdit':
+					break;
+
+				case 'loadPostedByEdit':
 
 					// user information
 					$e_user_id = $this->input->post('e_user_id');
@@ -559,6 +561,21 @@ class ProfileAjax extends Controller {
 				    	'additional_info'	=>	$additional_info
 				    ];		
 				    echo json_encode($result);
+					break;
+
+				case 'loadVerifyPhoneNumber':
+
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+				    
+					$title = l('verify_phone_number');
+
+					ob_start();
+					include $htmlPath.'profile/loadVerifyPhoneNumber.php';
+					$data = ob_get_clean();
+					echo json_encode(['status' => true,'data' => $data]);
 					break;
 
 				default:
