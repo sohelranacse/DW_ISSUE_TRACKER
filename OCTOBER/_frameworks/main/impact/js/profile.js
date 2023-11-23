@@ -2004,7 +2004,7 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
         });
     }
 
-    // posted by
+    // VERIFY PHONE NUMBER
     this.loadVerifyPhoneNumber = function(id) {
         var e_user_id = 0
         if($("#ua_user_id").val())
@@ -2031,6 +2031,98 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
             }
  
         });
+    }
+    this.submit_mobile_verification = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        let verification_code = $("#verification_code").val()
+        if(verification_code.length !== 6){
+            alertCustom('Please enter 6 digit verification code.',true,'Invalid Code!');
+            return false;
+        }
+
+        $("#vcode_submit").html(btnLoader)
+        
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+                if(data.msg == "success") {
+                    alertCustom('Verified Successfully',true,'Success');
+                    $("#verify_phone_number").remove();
+                    $this.closePopupEditor("verify_phone_number");
+                    $("#verify_status").html(data.status)
+                } else
+                    alertCustom('Verification code is not valid!',true,'Failed');
+
+                $("#vcode_submit").html(l('submit'))
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    this.resendVCode = function() {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $("#resendCode").html('Sending...')
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "resendVCode",
+                e_user_id
+            },
+ 
+            success:function(data){
+                var result = JSON.parse(data);
+                if(result.msg == 'success') {
+                    $("#resendCode").html(l('resend_code'))
+                    showTimer()
+                    alertCustom('Verification Code Sent Successfully!',true,'Success');
+                }
+                else {
+                    $("#resendCode").html(l('resend_code'))
+                    alertCustom(result.msg,true,'Failed');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    function showTimer() {
+        $("#resendCodeSpan").hide();
+        $("#timerContainer").show();
+
+        var timer = 5 * 60; // 5 minutes in seconds
+
+        // Update timer every second
+        var interval = setInterval(function() {
+        var minutes = Math.floor(timer / 60);
+        var seconds = timer % 60;
+
+        // Display the timer
+        $("#timer").text(minutes + "m " + seconds + "s");
+
+        if (timer <= 0) {
+            // When the timer reaches 0, show the resend code span
+            clearInterval(interval);
+            $("#timerContainer").hide();
+            $("#resendCodeSpan").show();
+        }
+
+        timer--; // Decrease the timer
+        }, 1000);
     }
 
     // main function

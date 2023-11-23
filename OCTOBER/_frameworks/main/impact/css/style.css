@@ -5535,7 +5535,9 @@ label .r {
 .verify_blue { color: blue; }
 .verify_pending { color: #333 }
 .verify_red { color: red }
-.verify_phone_number_form #vcode_submit { padding: 0 10px }
+
+.verify_phone_number_form { text-align:center; }
+.verify_phone_number_form #vcode_submit { padding: 0 15px }
 .verify_phone_number_form #resendCode { 
     background: none;
     border: none;

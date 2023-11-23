@@ -409,6 +409,27 @@ Class User {
         if (!$uid) {
             return $uid;
         }
+
+        // SEND VERIFICATION CODE & EMAIL
+        $verification_code = random_int(100000, 999999);
+        $verification_message = 'Hello '.$userName.',<br><br>
+        You registered an account on '.Common::getOption('title', 'main').', before being able to use your account you need to verify that this is your email address by clicking here: <br><br>
+        Your verification code is: <strong>'.$verification_code.'</strong><br><br>              
+        Kind Regards,<br>'.Common::getOption('title', 'main');
+
+        $phone_number = preg_replace('/[^0-9]/', '', $phone);
+        if (strlen($phone_number) == 10)
+            $phone_number = '880' . $phone_number;
+        $m_messege = "DeshiWedding.com: Your verification code is {$verification_code}. Use it to verify your mobile number. Do not share this code.";
+        
+        // sendemail($email, $verification_message);
+        sendsms($phone_number, $m_messege);
+
+        $sql = 'UPDATE user SET verification_code = '.$verification_code.' WHERE user_id = ' . $uid;
+        DB::execute($sql);
+        // SEND VERIFICATION CODE & EMAIL END
+
+
         $g_user['user_id'] = $uid;
         $g_user['name'] = $userName;
 
@@ -508,7 +529,7 @@ Class User {
             Wall::add('comment', 0, $uid, 'joined the website');
         }
 
-// GROUPS INVITE
+        // GROUPS INVITE
 
         $key = get_session("group_key");
         $gid = get_session("group_id");
@@ -558,30 +579,6 @@ Class User {
         }
 
         Common::sendMailByAdmin($uid, $g_user['name'], 'welcoming_message', true);
-
-        //send mobile verification email to user by deepak
-        set_session("is_verified", 0);
-        $verification_message = 'Hello '.$userName.',<br>
-        You registered an account on '.Common::getOption('title', 'main').', before being able to use your account you need to verify that this is your email address by clicking here: <br>
-
-        Kind Regards,<br>'.Common::getOption('title', 'main');
-
-        $ver_headers = "";
-        $ver_headers .= "From: " . Common::getOption('title', 'main') . "<" . Common::getOption('info_mail', 'main') . ">" . "\n";
-        $ver_headers .= "Reply-To: " . "<" . Common::getOption('info_mail', 'main') . ">" . "\n";
-        $ver_headers .= "Return-Path: " . "<" . Common::getOption('info_mail', 'main') . ">" . "\n";
-        $ver_headers .= "Message-ID: <" . time() . "-" . Common::getOption('info_mail', 'main') . ">" . "\n";
-        $ver_headers .= "X-Mailer: PHP v" . phpversion() . "\n";
-        $ver_headers .= 'Date: ' . date("r") . "\n";
-        $ver_headers .= 'MIME-Version: 1.0' . "\n";
-        $ver_headers .= "Content-Type: text/html; charset=utf-8" . "\n";
-        $ver_headers .= "Content-Transfer-Encoding: 8bit" . "\n";
-
-        mail($email, 'Please verify your email for'.Common::getOption('title', 'main'), $verification_message, $ver_headers);
-
-        $verification_code = random_int(100000, 999999);
-        $sql = 'UPDATE user SET verification_code = '.$verification_code.' WHERE user_id = ' . $uid;
-        DB::execute($sql);
 
         /*if (!$admin && Common::isEnabledAutoMail('welcoming_message')) {
             $vars = array('name' => $userName);

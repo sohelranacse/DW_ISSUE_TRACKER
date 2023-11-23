@@ -1012,10 +1012,9 @@ class CUsers extends CHtmlList {
                 if($row_user['is_verified'] == "Y")
                     $html->setvar('phone_verification_status', "<span class='verify_blue'>".l('verified')."</span>");
                 else {
-                    if($row_user['verification_code'])
-                        $html->setvar('phone_verification_status', "<span class='verify_pending'>".l('verification_pending')."</span>");
-                    else
-                        $html->setvar('phone_verification_status', "<span class='verify_red'>".l('unverified')."</span>");
+                    $html->setvar('phone_verification_status', "<span class='verify_red'>".l('unverified')."</span>");
+
+                    $html->parse('verify_phone', false);
                 }
 
                     

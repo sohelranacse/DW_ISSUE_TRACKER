@@ -576,12 +576,12 @@ var positionTabWall='{position_tab_wall}';
                         <div class="bl">
                             <div class="title">
                                 <div class="title_icon_edit">{l_verify_phone_number}
-                                    <span class="showModal" id="verify_phone_number" title="{l_confirm_your_phone_number}"></span>
+                                    <!-- begin_verify_phone --><span class="showModal" id="verify_phone_number" title="{l_confirm_your_phone_number}"></span><!-- end_verify_phone -->
                                 </div>
                                 <div class="cl"></div>
                             </div>
                             <ul id="ul_list">
-                                <li id="show_phone_number"><i class="fa fa-phone"></i> {user_phone_number} ({phone_verification_status})</li>
+                                <li><i class="fa fa-phone"></i> {user_phone_number} (<span id="verify_status">{phone_verification_status}</span>)</li>
                             </ul>
                         </div>
 

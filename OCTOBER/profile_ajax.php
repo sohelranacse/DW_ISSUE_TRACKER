@@ -7,8 +7,6 @@ $g['mobile_redirect_off'] = true;
 include("./_include/core/main_start.php");
 
 checkByAuth();
-if($g_user['role'] == "user")
-	redirect('search_results');
 
 class Input {
     private $data = [];
@@ -576,6 +574,83 @@ class ProfileAjax extends Controller {
 					include $htmlPath.'profile/loadVerifyPhoneNumber.php';
 					$data = ob_get_clean();
 					echo json_encode(['status' => true,'data' => $data]);
+					break;
+				case 'verify_phone_number':
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $verification_code = trim(Common::filterProfileText($this->input->post('verification_code')));
+				    if($verification_code == $g_user['verification_code']) {
+				    	$data = [
+					    	'is_verified' => 'Y',
+					    ];
+					    DB::update('user', $data, '`user_id` = ' . to_sql($g_user['user_id']));
+					    $result = [
+					    	'msg' => 'success'
+					    ];
+
+					    $g_user = User::getInfoFull($g_user['user_id']);
+					    $result['status'] = "<span class='verify_blue'>".l('verified')."</span>";
+				    }
+				    else {
+				    	$result = [
+					    	'msg' => 'error'
+					    ];
+				    }				    			    		    
+
+				    echo json_encode($result);
+					break;
+				case 'resendVCode':
+
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $vcode_resend_time = $g_user['vcode_resend_time'];
+				    $vcode_resend_datetime = new DateTime($vcode_resend_time);
+
+				    $current_datetime = new DateTime();
+				    $time_difference = $current_datetime->diff($vcode_resend_datetime);
+
+				    if ($time_difference->i > 5) {
+
+						$verification_code = random_int(100000, 999999);
+
+					    $verification_message = 'Hello '.$g_user['name'].',<br><br>
+						You registered an account on '.Common::getOption('title', 'main').', before being able to use your account you need to verify that this is your email address by clicking here: <br><br>
+						Your verification code is: <strong>'.$verification_code.'</strong><br><br>				
+						Kind Regards,<br>'.Common::getOption('title', 'main');						
+						
+						$phone_number = preg_replace('/[^0-9]/', '', $g_user['phone']);
+
+						if (strlen($phone_number) == 10)
+						    $phone_number = '880' . $phone_number;
+						
+						$m_messege = "DeshiWedding.com: Your verification code is {$verification_code}. Use it to verify your mobile number. Do not share this code.";
+
+						// SEND EMAIL AND MESSAGE
+						// sendemail($g_user['mail'], $verification_message);
+						// sendsms($phone_number, $m_messege);
+
+						$data = [
+					    	'verification_code' => $verification_code,
+					    	'vcode_resend_time' => date("Y-m-d H:i:s")
+					    ];
+					    DB::update('user', $data, '`user_id` = ' . to_sql($g_user['user_id']));
+
+					    $result = [
+					    	'msg' => 'success'
+					    ];
+					} else {
+						$result = [
+					    	'msg' => 'Please wait atleast 5 minutes!'
+					    ];
+					}
+
+					echo json_encode($result);
 					break;
 
 				default:
