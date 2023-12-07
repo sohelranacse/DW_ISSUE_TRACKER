@@ -19,6 +19,8 @@ ALTER TABLE `user` ADD `additional_info` TEXT NOT NULL AFTER `poster_phone`;
 
 ALTER TABLE `user` ADD `vcode_resend_time` DATETIME NULL AFTER `is_verified`;
 
+ALTER TABLE user DROP INDEX mail;
+
 4. Add profile fields (DONE)
 	i. Preferred Profession
 	ii. Marital Status

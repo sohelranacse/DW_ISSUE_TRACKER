@@ -602,6 +602,33 @@ class ProfileAjax extends Controller {
 
 				    echo json_encode($result);
 					break;
+				case 'changePhoneNumber':
+
+					// user information
+					$e_user_id = $this->input->post('e_user_id');
+				    if($e_user_id)
+				        $g_user = User::getInfoFull($e_user_id);
+
+				    $phone_number = $this->input->post('phone_number');
+
+				    if (strlen($phone_number) === 14) {
+
+						$data = [
+					    	'phone' => $phone_number
+					    ];
+					    DB::update('user', $data, '`user_id` = ' . to_sql($g_user['user_id']));
+
+					    $result = [
+					    	'msg' => 'success'
+					    ];
+					} else {
+						$result = [
+					    	'msg' => 'Phone number is not valid!'
+					    ];
+					}
+
+					echo json_encode($result);
+					break;
 				case 'resendVCode':
 
 					// user information
@@ -632,8 +659,8 @@ class ProfileAjax extends Controller {
 						$m_messege = "DeshiWedding.com: Your verification code is {$verification_code}. Use it to verify your mobile number. Do not share this code.";
 
 						// SEND EMAIL AND MESSAGE
-						// sendemail($g_user['mail'], $verification_message);
-						// sendsms($phone_number, $m_messege);
+						sendemail($g_user['mail'], $verification_message);
+						sendsms($phone_number, $m_messege);
 
 						$data = [
 					    	'verification_code' => $verification_code,

@@ -44,8 +44,8 @@ class CGroupUsersMobile extends CHtmlBlock
             $city    = get_param('city', '');
 
             // $this->message .= User::validateName($name);
-            $this->message .= Common::validateField('mail', $mail) ? l('exists_email') . '<br>' : '';
-            $this->message .= Common::validateField('phone', $phone) ? l('phone_email') . '<br>' : '';
+            // $this->message .= Common::validateField('mail', $mail) ? l('exists_email') . '<br>' : '';
+            // $this->message .= Common::validateField('phone', $phone) ? l('phone_email') . '<br>' : '';
 
             $fileTemp = $g['path']['dir_files'] . 'temp/admin_upload_user_profile_' . time();
             Common::uploadDataImageFromSetData($fileTemp, 'photo_file');
@@ -184,6 +184,10 @@ class CGroupUsersMobile extends CHtmlBlock
         if($html->varexists('country_options')) {
             Common::setPleaseChoose(l('choose_a_country'));
             $vars['country_options'] = Common::listCountries($defaultCountry, true, false, $isIos);
+        }
+
+        if($html->varexists('state_options')) {
+            $vars['state_options'] = Common::listStates(19, $defaultState, false, $isIos);
         }
 
         $vars['username_length'] = $g['options']['username_length'];

@@ -49,8 +49,8 @@ class CGroupUsersAdd extends CHtmlBlock
             $city    = get_param('city', '');
 
             // $this->message .= User::validateName($name);
-            $this->message .= Common::validateField('mail', $mail) ? l('exists_email') . '<br>' : '';
-            $this->message .= Common::validateField('phone', $phone) ? l('phone_email') . '<br>' : '';
+            // $this->message .= Common::validateField('mail', $mail) ? l('exists_email') . '<br>' : '';
+            // $this->message .= Common::validateField('phone', $phone) ? l('phone_email') . '<br>' : '';
 
             $fileTemp = $g['path']['dir_files'] . 'temp/admin_upload_user_profile_' . time();
             Common::uploadDataImageFromSetData($fileTemp, 'photo_file');
@@ -200,7 +200,8 @@ class CGroupUsersAdd extends CHtmlBlock
             $defaultCity = get_param('city', $selectedCity);
         }*/
 
-        /*$isSetDefaultJoin = false;
+        $isSetDefaultJoin = false;
+        /*
         if ($optionTmplName == 'impact_mobile' && $isUploadPageAjax) {//Set default locations retry join frm
             $selectedJoinCountry = get_cookie('impact_mobile_join_country_default', true);
             if ($selectedJoinCountry != '') {
@@ -222,14 +223,9 @@ class CGroupUsersAdd extends CHtmlBlock
             $vars['country_options'] = Common::listCountries($defaultCountry, true, false, $isIos);
         }
 
-        /*if($html->varexists('state_options')) {
-            if(($isIos && !$defaultCountry) || ($isSetDefaultJoin && !$defaultState && !$defaultCountry)){
-                $vars['state_options'] = "<option value=\"0\" selected=\"selected\">" . l('choose_a_state') . "</option>";
-            } else {
-                Common::setPleaseChoose(l('choose_a_state'));
-                $vars['state_options'] = Common::listStates($selectedCountry, $defaultState, false, $isIos);
-            }
-        }*/
+        if($html->varexists('state_options')) {
+            $vars['state_options'] = Common::listStates(19, $defaultState, false, $isIos);
+        }
 
         /*if($html->varexists('city_options')) {
             //$citySelected = get_param('city', $geoInfo['city_id']);

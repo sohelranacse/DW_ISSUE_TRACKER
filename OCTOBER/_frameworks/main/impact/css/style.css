@@ -5545,3 +5545,11 @@ label .r {
     font-weight: 600;
     text-decoration: underline;
 }
+.verify_phone_number_form #changeNumber {
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
+    color: blue;
+}

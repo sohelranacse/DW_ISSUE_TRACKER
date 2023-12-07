@@ -303,7 +303,7 @@ form .btn{
                 </div> 
 
                 <div class="bl">
-                    <label>{l_orientation}</label>
+                    <label>{l_orientation} <span class="r">*</span></label>
                     <div class="bl_select">
                         <select id="bl_join_done_orientation" name="orientation" class="i_am">
                             {orientation_options}
@@ -312,7 +312,7 @@ form .btn{
                 </div>      
 
                 <div class="bl">
-                    <label>{l_name}</label>
+                    <label>{l_name} <span class="r">*</span></label>
                     <div class="to_show">
                         <input id="username" class="inp name placeholder" name="username" maxlength="100" type="text" placeholder="{l_name}" />
                     </div>
@@ -321,7 +321,7 @@ form .btn{
                 <div class="bl">
                     <label>{l_phone_number}</label>
                     <div class="to_show">
-                        <input type="tel" id="join_phone_number" class="inp phone" maxlength="10">
+                        <input type="tel" id="join_phone_number" class="inp phone" maxlength="10" placeholder="1712345678">
                         <input type="hidden" name="phone" id="full_phone_number"/>
                     </div>
                 </div>
@@ -338,7 +338,7 @@ form .btn{
                 
 
                 <div class="bl">
-                    <label>{l_date_birth}</label>
+                    <label>{l_date_birth} <span class="r">*</span></label>
                     <div class="inp_birth dd">
                         <select name="day" id="day" class="birthday">
                             {day_options}
@@ -357,7 +357,7 @@ form .btn{
                 </div>
 
                 <div class="bl" style="margin-top: 15px;display: inline-block;">
-                    <label>{l_country}</label>
+                    <label>{l_country} <span class="r">*</span></label>
                     <div class="bl_location">
                         <select class="location" name="country"  id="country" data-type="geo_states">
                             <option value="0">- {l_country} -</option>
@@ -366,7 +366,7 @@ form .btn{
                     </div>
                 </div>
                 <div class="bl">
-                    <label>{l_state}</label>
+                    <label>{l_state} <span class="r">*</span></label>
                     <div class="bl_location">
                         <select class="location" name="state" id="state" data-type="geo_cities">
                             <option value="0">- {l_state} -</option>
@@ -375,7 +375,7 @@ form .btn{
                     </div>
                 </div>
                 <div class="bl">
-                    <label>{l_city}</label>
+                    <label>{l_city} <span class="r">*</span></label>
                     <div class="bl_location">
                         <select class="location" name="city" id="city">
                             <option value="0">- {l_city} -</option>
@@ -507,14 +507,8 @@ form .btn{
 
             var submitButton = $("#submit")
 
-            if(email == "" || username == "" || full_phone_number == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
+            if(username == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
                 var msg = `<span class="closebtn">&times;</span>`
-                if(email == "")
-                    msg += "Email Required!<br>"
-                if(username == "")
-                    msg += "Username Required!<br>"
-                if(full_phone_number == "")
-                    msg += "Phone Number Required!<br>"
                 if(country == 0 || state == 0 || city == 0)
                     msg += "Location Required!<br>"
                 if(photo_file == undefined)
@@ -570,7 +564,7 @@ form .btn{
                             $('#dpz-upload-single-icon').html(`<input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file"><div class="dz-default dz-message"><span>Drop here or click to upload</span></div>`)
                             
                             setTimeout(function() {
-                                alert("Successfylly Added");
+                                alert("Successfully Added");
                                 redirectUrl('group_users');
                             }, 2000)
                         } else {

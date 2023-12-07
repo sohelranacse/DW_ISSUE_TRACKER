@@ -2067,6 +2067,39 @@ var CProfile = function(guid,spotlightNumber,requestUri,isFreeSite) {
  
         });
     }
+    this.changePhoneNumber = function() {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $("#cNumber_submit").html('Changing...').prop('disabled',true)
+
+        let phone_number = $("#full_phone_number").val()
+
+        $.ajax({
+            url: 'profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "changePhoneNumber",
+                phone_number,
+                e_user_id
+            },
+ 
+            success:function(data){
+                var result = JSON.parse(data);
+                if(result.msg == 'success')
+                    alert('Phone Number Changed Successfully!');
+                else 
+                    alert(result.msg);
+                
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
     this.resendVCode = function() {
         var e_user_id = 0
         if($("#ua_user_id").val())

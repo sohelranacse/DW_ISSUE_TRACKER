@@ -190,7 +190,7 @@
                                 ${response[i].total_visitors > 0 ? `<a href="{url_main}visitors?name=${response[i].name_seo}" class="visitors" title="Visitors">${response[i].total_visitors}</a>` : ''}
                             </div>
                             <div class="card-content isDisabled${response[i].ban_global}">
-                                <p><i class="fa fa-phone"></i> ${response[i].phone}</p>
+                                ${response[i].phone ? `<p><i class="fa fa-phone"></i> ${response[i].phone}</p>` : '<p></p>'}
                                 <p><i class="fa fa-user"></i> ${response[i].gender}</p>
                                 <p><i class="fa fa-calendar"></i> ${response[i].register}</p>
                             </div>

@@ -32,7 +32,7 @@
             </div>
 
             <div class="bl">
-                <label>{l_orientation}</label>
+                <label>{l_orientation} <span class="r">*</span></label>
                 <div class="field">
                     <select id="bl_join_done_orientation" name="orientation">
                         {orientation_options}
@@ -41,7 +41,7 @@
             </div>
 
             <div class="bl">
-                <label>{l_name}</label>
+                <label>{l_name} <span class="r">*</span></label>
                 <div class="field">
                     <input id="username" class="inp nickname" name="username" type="text" placeholder="{l_name}">
                 </div>
@@ -50,7 +50,7 @@
             <div class="bl">
                 <label>{l_phone_number}</label>
                 <div class="field">
-                    <input type="tel" id="join_phone_number" class="inp phone" maxlength="10">
+                    <input type="tel" id="join_phone_number" class="inp phone" maxlength="10" placeholder="1712345678">
                     <input type="hidden" name="phone" id="full_phone_number"/>
                 </div>
             </div>
@@ -63,7 +63,7 @@
             </div>
 
             <div class="bl">
-                <label>Birthday</label>
+                <label>Birthday <span class="r">*</span></label>
                 <div id="profile_edit_main_birthday_error" class="field">
                     <select id="day" name="day" class="select_pad birthday">
                         {day_options}
@@ -78,7 +78,7 @@
             </div>
 
             <div class="bl">
-                <label>Location</label>
+                <label>Location <span class="r">*</span></label>
                 <div class="field">
                     <select name="country" id="country" class="geo select_pad">
                         <option value="0">- {l_country} -</option>
@@ -138,14 +138,10 @@
             let photo_file = $('#dpz-upload-single-icon')[0].dropzone.getAcceptedFiles()[0]
 
             var submitButton = $("#submit");  
-            if(email == "" || username == "" || full_phone_number == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
+            if(username == "" || country == 0 || state == 0 || city == 0 || photo_file == undefined) {
                 var msg = `<span class="closebtn">&times;</span>`
-                if(email == "")
-                    msg += "Email Required!<br>"
                 if(username == "")
                     msg += "Username Required!<br>"
-                if(full_phone_number == "")
-                    msg += "Phone Number Required!<br>"
                 if(country == 0 || state == 0 || city == 0)
                     msg += "Location Required!<br>"
                 if(photo_file == undefined)
@@ -201,7 +197,7 @@
                             $('#dpz-upload-single-icon').html(`<input form="photo_insert" id="dpz-file-upload-file" class="image-data-url" type="hidden" name="photo_file"><div class="dz-default dz-message"><span>Drop here or click to upload</span></div>`)
 
                             setTimeout(function() {
-                                alert("Successfylly Added");
+                                alert("Successfully Added");
                                 redirectUrl('group_users');
                             }, 2000)
                         } else {

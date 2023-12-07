@@ -422,11 +422,14 @@ Class User {
             $phone_number = '880' . $phone_number;
         $m_messege = "DeshiWedding.com: Your verification code is {$verification_code}. Use it to verify your mobile number. Do not share this code.";
         
-        // sendemail($email, $verification_message);
+        sendemail($email, $verification_message);
         sendsms($phone_number, $m_messege);
 
-        $sql = 'UPDATE user SET verification_code = '.$verification_code.' WHERE user_id = ' . $uid;
-        DB::execute($sql);
+        $data = [
+            'verification_code' => $verification_code,
+            'vcode_resend_time' => date("Y-m-d H:i:s")
+        ];
+        DB::update('user', $data, '`user_id` = ' . to_sql($uid));
         // SEND VERIFICATION CODE & EMAIL END
 
 

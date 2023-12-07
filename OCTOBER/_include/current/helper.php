@@ -40,13 +40,14 @@
 				$ver_headers .= "Content-Type: text/html; charset=utf-8" . "\n";
 				$ver_headers .= "Content-Transfer-Encoding: 8bit" . "\n";
 				
-				mail($email, 'Please verify your email for'.Common::getOption('title', 'main'), $message, $ver_headers);
+				// mail($email, 'Please verify your email for'.Common::getOption('title', 'main'), $message, $ver_headers);
 				return 'success';
 		    }
 		}
 	}
 	if(!function_exists('sendsms')) {
 		function sendsms($phone_number, $message) {
+			return;
 		    if(!empty($phone_number) && !empty($message) && strlen($phone_number) == 13) {
 		    	$url = "http://bulksmsbd.net/api/smsapi";
 
