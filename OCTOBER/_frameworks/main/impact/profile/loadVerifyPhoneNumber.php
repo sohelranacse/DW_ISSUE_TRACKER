@@ -49,7 +49,7 @@ function load_phone_number() {
             <label><?php echo l('phone_number'); ?>: <span style="font-weight: bold;"><?php echo $g_user['phone']; ?></span></label>
         </div>
         <div class="form-group-half">
-            <input type="tel" id="join_phone_number" class="inp phone" maxlength="10" placeholder="1712345678">
+            <input type="tel" id="join_phone_number" class="inp phone" maxlength="11" placeholder="1712345678">
             <input type="hidden" name="phone" id="full_phone_number"/>
         </div>
         <button type="button" id="cNumber_submit" onclick="return Profile.changePhoneNumber()" style="padding: 0 15px;text-transform: capitalize" class="btn small turquoise" disabled><?php echo l('change'); ?></button>
