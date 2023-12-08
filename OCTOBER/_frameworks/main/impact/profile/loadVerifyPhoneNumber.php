@@ -23,6 +23,7 @@
 
 <script>
 function backToverify() {
+    $("#verify_phone_number .head").html(`Please confirm your phone number verification`);
     $("#verifyPhone").html(`
         <div style="padding: 10px 0 0;">
             <label><?php echo l('phone_number'); ?>: <span style="font-weight: bold;"><?php echo $g_user['phone']; ?></span> (<button type="button" id="changeNumber" onclick="return load_phone_number()"><?php echo l('change'); ?></button>)</label>
@@ -42,6 +43,7 @@ function backToverify() {
     `)
 }
 function load_phone_number() {
+    $("#verify_phone_number .head").html(`Verification code will be sent to your changed phone number`);
     $("#verifyPhone").html(`
         <div style="padding: 10px 0 15px;">
             <label><?php echo l('phone_number'); ?>: <span style="font-weight: bold;"><?php echo $g_user['phone']; ?></span></label>

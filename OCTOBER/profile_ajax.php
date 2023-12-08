@@ -613,14 +613,40 @@ class ProfileAjax extends Controller {
 
 				    if (strlen($phone_number) === 14) {
 
-						$data = [
-					    	'phone' => $phone_number
-					    ];
-					    DB::update('user', $data, '`user_id` = ' . to_sql($g_user['user_id']));
+				    	$vcode_resend_time = $g_user['vcode_resend_time'];
+					    $vcode_resend_datetime = new DateTime($vcode_resend_time);
 
-					    $result = [
-					    	'msg' => 'success'
-					    ];
+					    $current_datetime = new DateTime();
+					    $time_difference = $current_datetime->diff($vcode_resend_datetime);
+
+					    if ($time_difference->i > 5) {
+
+							$verification_code = random_int(100000, 999999);
+
+							$phone_number = preg_replace('/[^0-9]/', '', $phone_number);
+
+							if (strlen($phone_number) == 10)
+							    $phone_number = '880' . $phone_number;
+							
+							$m_messege = "DeshiWedding.com: Your verification code is {$verification_code}. Use it to verify your mobile number. Do not share this code.";
+
+							sendsms($phone_number, $m_messege);
+
+							$data = [
+						    	'phone' 			=> $phone_number,
+						    	'verification_code' => $verification_code,
+						    	'vcode_resend_time' => date("Y-m-d H:i:s")
+						    ];
+						    DB::update('user', $data, '`user_id` = ' . to_sql($g_user['user_id']));
+
+						    $result = [
+						    	'msg' => 'success'
+						    ];
+						} else {
+							$result = [
+						    	'msg' => 'Please wait atleast 5 minutes!'
+						    ];
+						}
 					} else {
 						$result = [
 					    	'msg' => 'Phone number is not valid!'
