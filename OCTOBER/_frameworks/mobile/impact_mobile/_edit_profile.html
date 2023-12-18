@@ -457,6 +457,21 @@
         <!-- begin_footer_member -->
             <div class="bl">
                 <div class="title">
+                    <div class="title_icon_edit">{l_verify_phone_number}
+                        <!-- begin_verify_phone -->
+                        <div class="title_icon_edit_bl" id="verify_phoneNumber" onclick="clProfile.handlerLinkSetTabs2($(this),'loadVerifyPhoneNumber');"  data-type-loader="fade_btn" data-cl-loader="loader_pen">
+                            <i class="fa fa-pencil no_color_t" aria-hidden="true"></i>
+                        </div>
+                        <!-- end_verify_phone -->
+                    </div>
+                    <div class="cl"></div>
+                </div>
+                <ul id="ul_list">
+                    <li><i class="fa fa-phone"></i> {user_phone_number} (<span id="verify_status">{phone_verification_status}</span>)</li>
+                </ul>
+            </div>
+            <div class="bl">
+                <div class="title">
                     <div class="title_icon_edit">{l_nid_verify_title}</div>
                     <div class="cl"></div>
                 </div>

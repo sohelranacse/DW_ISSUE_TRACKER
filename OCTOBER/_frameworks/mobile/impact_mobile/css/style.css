@@ -3842,3 +3842,28 @@ label .r {
     color: tomato;
 }
 .iti__country-name, .iti__selected-dial-code { color: #000 }
+
+
+/*verify*/
+.verify_blue { color: #8ccd00; }
+.verify_pending { color: #333 }
+.verify_red { color: tomato; }
+
+.verify_phone_number_form { margin-bottom: 40px }
+.verify_phone_number_form #vcode_submit { padding: 0 15px }
+.verify_phone_number_form #resendCode { 
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
+    color: #8ccd00;
+}
+.verify_phone_number_form #changeNumber {
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
+    color: #8ccd00;
+}

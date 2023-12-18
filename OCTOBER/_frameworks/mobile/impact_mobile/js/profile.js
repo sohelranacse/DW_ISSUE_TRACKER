@@ -1735,5 +1735,134 @@ var CProfile = function(guid, sending_messages_per_day) {
         });
     }
 
+    // MOBILE VERIFICATION
+    this.submit_mobile_verification = function(event, info) {
+        event.preventDefault()
+        var formData = $(info).serialize();
+
+        let verification_code = $("#verification_code").val()
+        if(verification_code.length !== 6){
+            showAlert('Please enter 6 digit verification code.',true,'Invalid Code!');
+            return false;
+        }
+
+        $("#vcode_submit").prop('disabled',true).html(btnLoader)
+        
+        $.ajax({
+            url: '../profile_ajax.php',
+            type: 'POST',
+            data: formData,
+ 
+            success:function(data){
+                var data = JSON.parse(data);
+                if(data.msg == "success") {
+                    showAlert('Verified Successfully!',true,'Success');
+
+                    $("#verify_phoneNumber").remove();
+                    clProfile.loadTabs('#tabs-1')
+                    $("#verify_status").html(data.status)
+                } else
+                    showAlert('Verification code is not valid!',true,'Failed');
+
+                $("#vcode_submit").prop('disabled',false).html(l('submit'))
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    this.changePhoneNumber = function() {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $("#cNumber_submit").html('Changing...').prop('disabled',true)
+
+        let phone_number = $("#full_phone_number").val()
+
+        $.ajax({
+            url: '../profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "changePhoneNumber",
+                phone_number,
+                e_user_id
+            },
+ 
+            success:function(data){
+                var result = JSON.parse(data);
+                if(result.msg == 'success')
+                    alert('Phone Number Changed Successfully!');
+                else 
+                    alert(result.msg);
+                
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }
+    this.resendVCode = function() {
+        var e_user_id = 0
+        if($("#ua_user_id").val())
+            e_user_id = $("#ua_user_id").val()
+
+        $("#resendCode").html('Sending...')
+
+        $.ajax({
+            url: '../profile_ajax.php',
+            type: 'POST',
+            data: {
+                "cmd": "resendVCode",
+                e_user_id
+            },
+ 
+            success:function(data){
+                var result = JSON.parse(data);
+                if(result.msg == 'success') {
+                    $("#resendCode").html(l('resend_code'))
+                    showTimer()
+                    showAlert('Verification Code Sent Successfully!',true,'Success');
+                }
+                else {
+                    $("#resendCode").html(l('resend_code'))
+                    showAlert(result.msg,true,'Failed');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
+ 
+        });
+    }    
+    function showTimer() {
+        $("#resendCodeSpan").hide();
+        $("#timerContainer").show();
+
+        var timer = 5 * 60; // 5 minutes in seconds
+
+        // Update timer every second
+        var interval = setInterval(function() {
+        var minutes = Math.floor(timer / 60);
+        var seconds = timer % 60;
+
+        // Display the timer
+        $("#timer").text(minutes + "m " + seconds + "s");
+
+        if (timer <= 0) {
+            // When the timer reaches 0, show the resend code span
+            clearInterval(interval);
+            $("#timerContainer").hide();
+            $("#resendCodeSpan").show();
+        }
+
+        timer--; // Decrease the timer
+        }, 1000);
+    }
+
+    // GOLBAL
     return this;
 }
